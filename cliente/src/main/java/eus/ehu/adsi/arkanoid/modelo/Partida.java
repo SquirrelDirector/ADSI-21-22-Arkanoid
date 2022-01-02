@@ -10,13 +10,12 @@ public class Partida {
 	private Collection<Bloque> bloques;
 	private int tiempo;
 	private int puntuacion;
-	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
-	private Bola bola = new Bola(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT / 2);
+	private Paddle paddle= new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
+	private Bola bola= new Bola(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT / 2);
 	private static Partida miPartida;
 
 	public Partida() {
-		// TODO - implement Partida.Partida
-		throw new UnsupportedOperationException();
+
 	}
 
 	public void restarVidas() {

@@ -1,20 +1,47 @@
 package eus.ehu.adsi.arkanoid.vista;
 
+import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.swing.*;
 import java.awt.event.*;
 
 public class Personalizar extends JDialog {
     private JPanel contentPane;
     private JButton guardarButton;
+    private JButton volverButton;
+    private JLabel tituloPersonalizar;
+    private JTabbedPane personalizarPestañas;
+    private JPanel coloresPersonalizar;
+    private JPanel sonidoPersonalizar;
+    private JPanel dimensaionesPersonalizar;
+
+    private JSONArray colores;
+    private JSONArray sonidos;
+    private JSONObject personalizablesJugador;
 
     public Personalizar() {
+        
+        getPersonalizables();
+        
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(guardarButton);
 
+        ponerColores();
+        ponerSonidos();
+
         guardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 guardarPersonalizacion();
+            }
+        });
+
+        volverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
             }
         });
 
@@ -34,14 +61,28 @@ public class Personalizar extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
+    private void getPersonalizables() {
+        JSONObject personalizables = Arkanoid.getArkanoid().obtenerPersonalizables();
+        colores = personalizables.getJSONArray("colores");
+        sonidos = personalizables.getJSONArray("sonidos");
+        personalizablesJugador = Arkanoid.getArkanoid().obtenerPersonalizacionUsuario();
+    }
+
+    private void ponerColores() {
+
+    }
+
+    private void ponerSonidos() {
+
+    }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 
     private void guardarPersonalizacion(){
-
+        //Arkanoid.getArkanoid().actualizarPersonalizacionUsu();
+        //Arkanoid.getArkanoid().actualizarPersonalizacionDB();
     }
 
     public static void main(String[] args) {

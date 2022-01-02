@@ -1,5 +1,7 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import java.sql.ResultSet;
+
 public class GestorDB {
 
 	private static GestorDB miGestorDB;
@@ -13,12 +15,15 @@ public class GestorDB {
 		return miGestorDB;
 	}
 
-	public ResultadoSQL execSQL() {
-		// TODO - implement GestorDB.execSQL
-		throw new UnsupportedOperationException();
+	public ResultSet execSQL(String sentencia) {
+		return null;
 	}
 
 	public void ejecutarCambio(String sentencia) {
+
+	}
+
+	public void cerrarConexion() {
 
 	}
 }

@@ -12,8 +12,7 @@ public class Bola extends GameObject {
 	 * @param y
 	 */
 	public Bola(int x, int y) {
-		// TODO - implement Bola.Bola
-		throw new UnsupportedOperationException();
+
 	}
 
 	/**

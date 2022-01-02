@@ -1,7 +1,11 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
 import eus.ehu.adsi.arkanoid.modelo.*;
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Arkanoid{ //extends JFrame implements KeyListener {
 
@@ -16,8 +20,6 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	private Usuario usuario;
 
 	private Arkanoid() {
-		// TODO - implement Arkanoid.Arkanoid
-		throw new UnsupportedOperationException();
 	}
 
 	public static Arkanoid getArkanoid() {
@@ -30,6 +32,38 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	private void update() {
 		// TODO - implement Arkanoid.update
 		throw new UnsupportedOperationException();
+	}
+
+	public JSONObject obtenerPersonalizables() {
+		JSONObject resultado = new JSONObject();
+		resultado.put("colores", obtenerTodosPersonalizablesPorTabla("Color"));
+		resultado.put("sonidos", obtenerTodosPersonalizablesPorTabla("Audio"));
+		return resultado;
+	}
+
+	private JSONArray obtenerTodosPersonalizablesPorTabla(String tabla) {
+		JSONArray opciones = new JSONArray();
+		try {
+			ResultSet resconsulta = GestorDB.getGestorDB().execSQL("SELECT * FROM "+ tabla);
+			if (resconsulta != null) {
+				int columnas = resconsulta.getMetaData().getColumnCount();
+				int i = 1;
+				while (resconsulta.next()) {
+					JSONObject informacion = new JSONObject();
+					while (i <= columnas) {
+						if (i == 1) informacion.put("id", resconsulta.getString(i));
+						else if (i == 2) informacion.put("nombre", resconsulta.getString(i));
+						i++;
+					}
+					opciones.put(informacion);
+					i = 1;
+				}
+				resconsulta.close();
+			}
+		} catch (SQLException e){e.printStackTrace(); System.out.println("No se han podido obtener los personalizables");} finally {
+			GestorDB.getGestorDB().cerrarConexion();
+		}
+		return opciones;
 	}
 
 	public JSONObject obtenerPersonalizacionUsuario() {
