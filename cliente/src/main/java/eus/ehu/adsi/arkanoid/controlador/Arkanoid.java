@@ -3,6 +3,7 @@ package eus.ehu.adsi.arkanoid.controlador;
 import javax.swing.*;
 import java.awt.event.*;
 import eus.ehu.adsi.arkanoid.modelo.*;
+import org.json.JSONObject;
 
 public class Arkanoid{ //extends JFrame implements KeyListener {
 
@@ -31,18 +32,8 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param emailUsuario
-	 */
-	public JSON obtenerPersonalizacion(int emailUsuario) {
-		// TODO - implement Arkanoid.obtenerPersonalizacion
-		throw new UnsupportedOperationException();
-	}
-
-	public JSON obtenerPersonalizacionUsuario() {
-		// TODO - implement Arkanoid.obtenerPersonalizacionUsuario
-		throw new UnsupportedOperationException();
+	public JSONObject obtenerPersonalizacionUsuario() {
+		return usuario.obtenerPersonalizacionUsuario();
 	}
 
 	/**
@@ -76,7 +67,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param dificultad
 	 * @param isPersonal
 	 */
-	public JSON mostrarRanking(int dificultad, boolean isPersonal) {
+	public JSONObject mostrarRanking(int dificultad, boolean isPersonal) {
 		// TODO - implement Arkanoid.mostrarRanking
 		throw new UnsupportedOperationException();
 	}
@@ -94,12 +85,12 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param idNivel
 	 */
-	public JSON obtenerDatosNivel(int idNivel) {
+	public JSONObject obtenerDatosNivel(int idNivel) {
 		// TODO - implement Arkanoid.obtenerDatosNivel
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getLogros() {
+	public JSONObject getLogros() {
 		// TODO - implement Arkanoid.getLogros
 		throw new UnsupportedOperationException();
 	}
@@ -108,7 +99,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param nombre
 	 */
-	public JSON getInfoLogro(string nombre) {
+	public JSONObject getInfoLogro(String nombre) {
 		// TODO - implement Arkanoid.getInfoLogro
 		throw new UnsupportedOperationException();
 	}
@@ -118,7 +109,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param mail
 	 * @param pass
 	 */
-	public int iniciarSesion(string mail, string pass) {
+	public int iniciarSesion(String mail, String pass) {
 		// TODO - implement Arkanoid.iniciarSesion
 		throw new UnsupportedOperationException();
 	}
@@ -129,7 +120,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param mail
 	 * @param pass
 	 */
-	public int registrarse(string usr, string mail, string pass) {
+	public int registrarse(String usr, String mail, String pass) {
 		// TODO - implement Arkanoid.registrarse
 		throw new UnsupportedOperationException();
 	}
@@ -138,7 +129,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param mail
 	 */
-	public int recuperarContrasena(string mail) {
+	public int recuperarContrasena(String mail) {
 		// TODO - implement Arkanoid.recuperarContrasena
 		throw new UnsupportedOperationException();
 	}
@@ -148,12 +139,12 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param mail
 	 * @param pass
 	 */
-	public void cambiarContrasena(string mail, string pass) {
+	public void cambiarContrasena(String mail, String pass) {
 		// TODO - implement Arkanoid.cambiarContrasena
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getResultadosPartida() {
+	public JSONObject getResultadosPartida() {
 		// TODO - implement Arkanoid.getResultadosPartida
 		throw new UnsupportedOperationException();
 	}
@@ -163,7 +154,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param datosPartida
 	 * @param datosHistoricos
 	 */
-	private void agregarJSON(JSON datosPartida, JSON datosHistoricos) {
+	private void agregarJSON(JSONObject datosPartida, JSONObject datosHistoricos) {
 		// TODO - implement Arkanoid.agregarJSON
 		throw new UnsupportedOperationException();
 	}
@@ -172,7 +163,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param redSocial
 	 */
-	public void publicarResultados(string redSocial) {
+	public void publicarResultados(String redSocial) {
 		// TODO - implement Arkanoid.publicarResultados
 		throw new UnsupportedOperationException();
 	}
