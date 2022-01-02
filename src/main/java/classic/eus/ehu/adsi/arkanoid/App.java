@@ -1,4 +1,4 @@
-package eus.ehu.adsi.arkanoid;
+package classic.eus.ehu.adsi.arkanoid;
 
 public class App {
 	

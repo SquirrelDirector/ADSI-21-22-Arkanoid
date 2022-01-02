@@ -1,4 +1,4 @@
-package eus.ehu.adsi.arkanoid;
+package classic.eus.ehu.adsi.arkanoid;
 
 // Adapted from https://gist.github.com/Miretz/f10b18df01f9f9ebfad5
 
@@ -18,12 +18,12 @@ import javax.swing.JFrame;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import eus.ehu.adsi.arkanoid.view.Ball;
-import eus.ehu.adsi.arkanoid.view.Config;
-import eus.ehu.adsi.arkanoid.view.Paddle;
-import eus.ehu.adsi.arkanoid.view.ScoreBoard;
-import eus.ehu.adsi.arkanoid.view.Brick;
-import eus.ehu.adsi.arkanoid.core.Game;
+import classic.eus.ehu.adsi.arkanoid.view.Ball;
+import classic.eus.ehu.adsi.arkanoid.view.Config;
+import classic.eus.ehu.adsi.arkanoid.view.Paddle;
+import classic.eus.ehu.adsi.arkanoid.view.ScoreBoard;
+import classic.eus.ehu.adsi.arkanoid.view.Brick;
+import classic.eus.ehu.adsi.arkanoid.core.Game;
 
 public class Arkanoid extends JFrame implements KeyListener {
 

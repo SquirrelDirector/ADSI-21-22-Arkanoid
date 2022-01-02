@@ -1,4 +1,4 @@
-package eus.ehu.adsi.arkanoid.view;
+package classic.eus.ehu.adsi.arkanoid.view;
 
 
 public abstract class GameObject {

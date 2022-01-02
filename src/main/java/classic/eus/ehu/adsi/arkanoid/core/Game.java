@@ -1,13 +1,13 @@
-package eus.ehu.adsi.arkanoid.core;
+package classic.eus.ehu.adsi.arkanoid.core;
 
 import java.util.List;
 
-import eus.ehu.adsi.arkanoid.view.Ball;
-import eus.ehu.adsi.arkanoid.view.Brick;
-import eus.ehu.adsi.arkanoid.view.Config;
-import eus.ehu.adsi.arkanoid.view.GameObject;
-import eus.ehu.adsi.arkanoid.view.Paddle;
-import eus.ehu.adsi.arkanoid.view.ScoreBoard;
+import classic.eus.ehu.adsi.arkanoid.view.Ball;
+import classic.eus.ehu.adsi.arkanoid.view.Brick;
+import classic.eus.ehu.adsi.arkanoid.view.Config;
+import classic.eus.ehu.adsi.arkanoid.view.GameObject;
+import classic.eus.ehu.adsi.arkanoid.view.Paddle;
+import classic.eus.ehu.adsi.arkanoid.view.ScoreBoard;
 
 public class Game {
 	private boolean running;
