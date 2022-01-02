@@ -26,8 +26,7 @@ public class Usuario {
 	}
 
 	public String getEmail() {
-		// TODO - implement Usuario.getEmail
-		throw new UnsupportedOperationException();
+		return email;
 	}
 
 	public JSONObject obtenerPersonalizacionUsuario() {
@@ -75,9 +74,12 @@ public class Usuario {
 	 * @param colorPaddle
 	 * @param colorLadrillo
 	 */
-	public void actualizarPersonalizacionUsu(int pathMusica, int colorFondo, int colorBola, int colorPaddle, int colorLadrillo) {
-		// TODO - implement Usuario.actualizarPersonalizacionUsu
-		throw new UnsupportedOperationException();
+	public void actualizarPersonalizacionUsu(String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo) {
+		this.pathMusica = pathMusica;
+		this.codigoColorFondo = colorFondo;
+		this.codigoColorBola = colorBola;
+		this.codigoColorLadrillo = colorLadrillo;
+		this.codigoColorPaddle = colorPaddle;
 	}
 
 	public boolean isIdentificado() {

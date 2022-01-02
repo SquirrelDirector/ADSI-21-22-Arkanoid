@@ -45,8 +45,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param colorLadrillo
 	 */
 	public void actualizarPersonalizacionDB(int pathMusica, int colorFondo, int colorBola, int colorPaddle, int colorLadrillo) {
-		// TODO - implement Arkanoid.actualizarPersonalizacionDB
-		throw new UnsupportedOperationException();
+		String email = usuario.getEmail();
 	}
 
 	/**
@@ -57,9 +56,8 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param colorPaddle
 	 * @param colorLadrillo
 	 */
-	public void actualizarPersonalizacionUsu(int pathMusica, int colorFondo, int colorBola, int colorPaddle, int colorLadrillo) {
-		// TODO - implement Arkanoid.actualizarPersonalizacionUsu
-		throw new UnsupportedOperationException();
+	public void actualizarPersonalizacionUsu(String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo) {
+		usuario.actualizarPersonalizacionUsu(pathMusica, colorFondo, colorBola, colorPaddle, colorLadrillo);
 	}
 
 	/**
