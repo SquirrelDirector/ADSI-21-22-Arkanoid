@@ -1,5 +1,7 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import org.json.JSONObject;
+
 public class GestorPuntuaciones {
 
 	private static GestorPuntuaciones miGestorPuntuaciones;
@@ -18,7 +20,7 @@ public class GestorPuntuaciones {
 	 * 
 	 * @param dificultad
 	 */
-	public JSON obtenerRanking(int dificultad) {
+	public JSONObject obtenerRanking(int dificultad) {
 		// TODO - implement GestorPuntuaciones.obtenerRanking
 		throw new UnsupportedOperationException();
 	}

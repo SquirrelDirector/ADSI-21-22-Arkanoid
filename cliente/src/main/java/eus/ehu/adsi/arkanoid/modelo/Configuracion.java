@@ -13,7 +13,7 @@ public abstract class Configuracion {
 	public static final double FT_SLICE = 1.0;
 	public static final double FT_STEP = 1.0;
 	public static final String FONT = "Courier New";
-	public static final java.awt.Color FONT_COLOR = Color.lightGray;
+	//public static final java.awt.Color FONT_COLOR = Color.lightGray;
 
 	public Configuracion() {
 		// TODO - implement Configuracion.Configuracion

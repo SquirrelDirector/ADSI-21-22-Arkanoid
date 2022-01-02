@@ -1,5 +1,7 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import org.json.JSONObject;
+
 public class GestorNiveles {
 
 	private static GestorNiveles miGestorNiveles;
@@ -18,7 +20,7 @@ public class GestorNiveles {
 	 * 
 	 * @param idNivel
 	 */
-	public JSON obtenerDatosNivel(int idNivel) {
+	public JSONObject obtenerDatosNivel(int idNivel) {
 		// TODO - implement GestorNiveles.obtenerDatosNivel
 		throw new UnsupportedOperationException();
 	}

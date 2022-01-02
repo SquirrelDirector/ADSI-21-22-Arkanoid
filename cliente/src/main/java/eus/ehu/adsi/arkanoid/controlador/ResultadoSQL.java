@@ -1,5 +1,7 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import java.util.Date;
+
 public class ResultadoSQL {
 
 	public ResultadoSQL() {

@@ -1,5 +1,7 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import org.json.JSONObject;
+
 public class GestorPartida {
 
 	private static GestorPartida miGestorPartida;
@@ -14,7 +16,7 @@ public class GestorPartida {
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getDatosPartidaActual() {
+	public JSONObject getDatosPartidaActual() {
 		// TODO - implement GestorPartida.getDatosPartidaActual
 		throw new UnsupportedOperationException();
 	}

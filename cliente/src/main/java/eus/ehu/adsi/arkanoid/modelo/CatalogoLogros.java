@@ -1,8 +1,12 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import org.json.JSONObject;
+
+import java.util.Collection;
+
 public class CatalogoLogros {
 
-	private Coleccion<Logro> listaLogros;
+	private Collection<Logro> listaLogros;
 	private static CatalogoLogros miCatalogoLogros;
 
 	private CatalogoLogros() {
@@ -11,7 +15,7 @@ public class CatalogoLogros {
 	}
 
 	public static CatalogoLogros getMiCatalogoLogros() {
-		return this.miCatalogoLogros;
+		return miCatalogoLogros;
 	}
 
 	/**
@@ -27,7 +31,7 @@ public class CatalogoLogros {
 	 * 
 	 * @param nombre
 	 */
-	public JSON getInfoLogro(String nombre) {
+	public JSONObject getInfoLogro(String nombre) {
 		// TODO - implement CatalogoLogros.getInfoLogro
 		throw new UnsupportedOperationException();
 	}

@@ -1,8 +1,10 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.Collection;
+
 public class CatalogoPuntuaciones {
 
-	private Coleccion<Puntuacion> listadoPuntuaciones;
+	private Collection<Puntuacion> listadoPuntuaciones;
 	private static CatalogoPuntuaciones MiCatalogoPuntuaciones;
 
 	private CatalogoPuntuaciones() {

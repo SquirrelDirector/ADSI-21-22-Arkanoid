@@ -17,10 +17,10 @@ public abstract class Config {
 	public static final double FT_SLICE = 1.0;
 	public static final double FT_STEP = 1.0;
 	public static final String FONT = "Courier New";
-	public static final java.awt.Color FONT_COLOR = Color.lightGray;
+	/*public static final java.awt.Color FONT_COLOR = Color.lightGray;
 	public static final java.awt.Color BACKGROUND_COLOR = Color.black;
 	public static final java.awt.Color BALL_COLOR = Color.orange;
 	public static final java.awt.Color PADDLE_COLOR = Color.red;
-	public static final java.awt.Color BRICK_COLOR = Color.blue;
+	public static final java.awt.Color BRICK_COLOR = Color.blue;*/
 
 }
