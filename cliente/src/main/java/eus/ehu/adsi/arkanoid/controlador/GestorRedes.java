@@ -23,7 +23,7 @@ public class GestorRedes {
 	 * @param mejorTiempo
 	 * @param logro
 	 */
-	public void publicarResultados(string redSocial, int puntuacionPartida, int tiempoPartida, int mejorPuntuacion, int mejorTiempo, String logro) {
+	public void publicarResultados(String redSocial, int puntuacionPartida, int tiempoPartida, int mejorPuntuacion, int mejorTiempo, String logro) {
 		// TODO - implement GestorRedes.publicarResultados
 		throw new UnsupportedOperationException();
 	}

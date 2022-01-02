@@ -1,5 +1,7 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.Date;
+
 public class Puntuacion {
 
 	private Usuario usuario;
