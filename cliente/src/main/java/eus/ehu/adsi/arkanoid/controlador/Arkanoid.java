@@ -1,7 +1,5 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
-import javax.swing.*;
-import java.awt.event.*;
 import eus.ehu.adsi.arkanoid.modelo.*;
 import org.json.JSONObject;
 
@@ -23,8 +21,10 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	}
 
 	public static Arkanoid getArkanoid() {
-		// TODO - implement Arkanoid.getArkanoid
-		throw new UnsupportedOperationException();
+		if (miArkanoid == null) {
+			miArkanoid = new Arkanoid();
+		}
+		return miArkanoid;
 	}
 
 	private void update() {
@@ -44,8 +44,9 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param colorPaddle
 	 * @param colorLadrillo
 	 */
-	public void actualizarPersonalizacionDB(int pathMusica, int colorFondo, int colorBola, int colorPaddle, int colorLadrillo) {
+	public void actualizarPersonalizacionDB(String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo) {
 		String email = usuario.getEmail();
+		GestorUsuarios.getGestorUsuario().actualizarPersonalizacion(email, pathMusica, colorFondo, colorBola, colorPaddle, colorLadrillo);
 	}
 
 	/**

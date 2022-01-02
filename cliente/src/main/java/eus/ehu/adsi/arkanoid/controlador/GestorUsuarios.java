@@ -1,26 +1,18 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import org.json.JSONObject;
+
 public class GestorUsuarios {
 
 	private static GestorUsuarios miGestorUsuario;
 
-	private GestorUsuarios() {
-		// TODO - implement GestorUsuarios.GestorUsuarios
-		throw new UnsupportedOperationException();
-	}
+	private GestorUsuarios() {}
 
 	public static GestorUsuarios getGestorUsuario() {
-		// TODO - implement GestorUsuarios.getGestorUsuario
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param emailUsuario
-	 */
-	public JSON obtenerPersonalizacion(int emailUsuario) {
-		// TODO - implement GestorUsuarios.obtenerPersonalizacion
-		throw new UnsupportedOperationException();
+		if (miGestorUsuario == null) {
+			miGestorUsuario = new GestorUsuarios();
+		}
+		return miGestorUsuario;
 	}
 
 	/**
@@ -32,9 +24,8 @@ public class GestorUsuarios {
 	 * @param colorPaddle
 	 * @param colorLadrillo
 	 */
-	public void actualizarPersonalizacion(int emailUsuario, int pathMusica, int colorFondo, int colorBola, int colorPaddle, int colorLadrillo) {
-		// TODO - implement GestorUsuarios.actualizarPersonalizacion
-		throw new UnsupportedOperationException();
+	public void actualizarPersonalizacion(String emailUsuario, String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo) {
+		GestorDB.getGestorDB().ejecutarCambio("UPDATE Usuario SET PathMusica="+pathMusica+", CodigoColorFondo="+colorFondo+", CodigoColorBola="+colorBola+", CodigoColorPaddle="+colorPaddle+", CodigoColorLadrillo="+colorLadrillo+" WHERE email = "+emailUsuario+"");
 	}
 
 	/**
@@ -42,7 +33,7 @@ public class GestorUsuarios {
 	 * @param mail
 	 * @param pass
 	 */
-	public JSON importarUsuario(String mail, String pass) {
+	public JSONObject importarUsuario(String mail, String pass) {
 		// TODO - implement GestorUsuarios.importarUsuario
 		throw new UnsupportedOperationException();
 	}

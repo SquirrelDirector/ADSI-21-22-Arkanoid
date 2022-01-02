@@ -4,14 +4,13 @@ public class GestorDB {
 
 	private static GestorDB miGestorDB;
 
-	private GestorDB() {
-		// TODO - implement GestorDB.GestorDB
-		throw new UnsupportedOperationException();
-	}
+	private GestorDB() {}
 
-	public static GestoDB getGestorDB() {
-		// TODO - implement GestorDB.getGestorDB
-		throw new UnsupportedOperationException();
+	public static GestorDB getGestorDB() {
+		if (miGestorDB == null) {
+			miGestorDB = new GestorDB();
+		}
+		return miGestorDB;
 	}
 
 	public ResultadoSQL execSQL() {
@@ -19,4 +18,7 @@ public class GestorDB {
 		throw new UnsupportedOperationException();
 	}
 
+	public void ejecutarCambio(String sentencia) {
+
+	}
 }
