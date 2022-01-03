@@ -1,42 +1,48 @@
 package eus.ehu.adsi.arkanoid.vista;
 
-import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
 public class Personalizar extends JDialog {
     private JPanel contentPane;
-    private JButton guardarButton;
-    private JButton volverButton;
+    private JButton guardarButton, volverButton;
     private JLabel tituloPersonalizar;
     private JTabbedPane personalizarPestañas;
-    private JPanel coloresPersonalizar;
+    private JPanel coloresPersonalizar, colorFondo, colorBola, colorLadrillos, colorPaddle;
     private JPanel sonidoPersonalizar;
     private JPanel dimensaionesPersonalizar;
-    private JScrollPane jspColores;
-    private JScrollPane jspSonido;
-    private JScrollPane jspDimenciones;
+    private JLabel fondoLabel, bolaLabel, ladrilloLabel, paddleLabel;
+    private JLabel cf1;
+    private JLabel cf2;
+    private JLabel cf3;
+    private JLabel cf4;
+    private JPanel cfButtons;
+    private JScrollPane jspFondo;
+    private JScrollPane jspC1;
+    private JScrollPane jspC2;
+    private JPanel cbLabels;
+    private JPanel cbButtons;
 
-    private JSONArray colores;
-    private JSONArray sonidos;
+    private JSONArray colores, sonidos;
     private JSONObject personalizablesJugador;
 
     public Personalizar() {
 
-        this.setPreferredSize(new Dimension(500, 500));
+        this.setPreferredSize(new Dimension(600, 600));
         
         getPersonalizables();
-        
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(guardarButton);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        ponerColores(colores, coloresPersonalizar, jspColores);
+        ponerColores();
         ponerSonidos();
 
         inciadoSesion();
@@ -81,32 +87,113 @@ public class Personalizar extends JDialog {
         personalizablesJugador = Arkanoid.getArkanoid().obtenerPersonalizacionUsuario();*/
         //Para pruebas
         JSONObject colorO = new JSONObject();
-        colorO.put("#FF0000", "rojo");
+        colorO.put("Codigo", "255,0,0");
+        colorO.put("Nombre", "Rojo");
         JSONObject color1 = new JSONObject();
-        color1.put("#FF9200", "naranja");
+        color1.put("Codigo", "255,181,0");
+        color1.put("Nombre", "Naranja");
         JSONObject color2 = new JSONObject();
-        color2.put("#FCFF00", "amarillo");
+        color2.put("Codigo", "244,255,0");
+        color2.put("Nombre", "Amarillo");
         JSONObject color3 = new JSONObject();
-        color3.put("#5EFF00", "verde");
+        color3.put("Codigo", "78,255,0");
+        color3.put("Nombre", "Verde");
         colores = new JSONArray();
         colores.put(colorO);
         colores.put(color1);
         colores.put(color2);
         colores.put(color3);
+        personalizablesJugador = new JSONObject();
+        personalizablesJugador.put("CodigoFondo", "255,0,0");
+        personalizablesJugador.put("CodigoBola", "255,181,0");
+        personalizablesJugador.put("CodigoLadrillo", "244,255,0");
+        personalizablesJugador.put("CodigoPaddle", "78,255,0");
     }
 
-    private void ponerColores(JSONArray coloresA, JPanel panelColores, JScrollPane coloresJsp) {
+    private void ponerColores() {
+        cbButtons = new JPanel();
+        cbLabels = new JPanel();
         JSONObject colorObjeto;
-        panelColores = new JPanel();
-        for (int i = 0; i < coloresA.length(); i++) {
-            //colorObjeto = (JSONObject) coloresA.get(i);
-            //String codigo = colorObjeto.getString("Codigo");
-            //String nombre = colorObjeto.getString("nombre");
-            Button color = new Button();
-            color.setBackground(Color.red);
-            panelColores.add(color);
+        ButtonGroup bg = new ButtonGroup();
+        Box hori1 = Box.createHorizontalBox();
+        Box hori2 = Box.createHorizontalBox();
+        for (int i = 0; i < colores.length(); i++) {
+            colorObjeto = (JSONObject) colores.get(i);
+            //Nombre colores - buttongroup
+            String nombre = colorObjeto.getString("Nombre");
+            JRadioButton jrb = new JRadioButton(nombre);
+            bg.add(jrb);
+            hori1.add(jrb);
+            //Colores - Labels
+            String codigo = colorObjeto.getString("Codigo");
+            JLabel color = new JLabel();
+            color.setPreferredSize(new Dimension(50, 50));
+            int[] rgb = obtenerRGB(codigo);
+            color.setBackground(new Color(rgb[0],rgb[1],rgb[2]));
+            color.setOpaque(true);
+            hori2.add(color);
         }
-        coloresJsp.setViewportView(panelColores);
+        cbButtons.add(hori1);
+        cbLabels.add(hori2);
+        jspC1.setViewportView(cbLabels);
+        jspC2.setViewportView(cbButtons);
+    }
+
+    /*private void ponerColores() {
+        JSONObject colorObjeto;
+        coloresPersonalizar = new JPanel();
+        for (int j = 0; j < 4; j++){
+            if (j==0) colorFondo = new JPanel();
+            else if (j==1) colorBola = new JPanel();
+            else if (j==2) colorLadrillos = new JPanel();
+            else colorPaddle = new JPanel();
+            for (int i = 0; i < colores.length(); i++) {
+                colorObjeto = (JSONObject) colores.get(i);
+                String codigo = colorObjeto.getString("Codigo");
+
+                JLabel color = new JLabel();
+                color.setPreferredSize(new Dimension(50, 50));
+                int[] rgb = obtenerRGB(codigo);
+                color.setBackground(new Color(rgb[0],rgb[1],rgb[2]));
+                color.setOpaque(true);
+
+                if (j==0) {
+                    colorFondo.add(color);
+                }
+                else if (j==1) {
+                    colorBola.add(color);
+                }
+                else if (j==2) {
+                    colorLadrillos.add(color);
+                }
+                else {
+                    colorPaddle.add(color);
+                }
+            }
+            if (j==0) coloresPersonalizar.add(colorFondo);
+            else if (j==1) coloresPersonalizar.add(colorBola);
+            else if (j==2) coloresPersonalizar.add(colorLadrillos);
+            else coloresPersonalizar.add(colorPaddle);
+        }
+
+        //personalizarPestañas.add(coloresPersonalizar);
+    }*/
+
+    private int[] obtenerRGB(String codigo) {
+        String[] codS = codigo.split(",");
+        int r = Integer.parseInt(codS[0]);
+        int g = Integer.parseInt(codS[1]);
+        int b = Integer.parseInt(codS[2]);
+        int[] rgb = new int[3];
+        rgb[0] = r;
+        rgb[1] = g;
+        rgb[2] = b;
+        return rgb;
+    }
+
+    private void addBorde(MouseEvent e){
+        JButton btn = (JButton)e.getSource();
+        btn.setBorder(new LineBorder(Color.WHITE));
     }
 
     private void ponerSonidos() {
