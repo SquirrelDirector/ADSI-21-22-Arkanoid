@@ -1,6 +1,9 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
 import javax.swing.*;
+
+import org.json.JSONArray;
+
 import java.awt.event.*;
 import eus.ehu.adsi.arkanoid.modelo.*;
 
@@ -76,9 +79,14 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param dificultad
 	 * @param isPersonal
 	 */
-	public JSON mostrarRanking(int dificultad, boolean isPersonal) {
-		// TODO - implement Arkanoid.mostrarRanking
-		throw new UnsupportedOperationException();
+	public JSONArray mostrarRanking(int dificultad, boolean isPersonal) {
+		
+		if (isPersonal){
+			return usuario.obtenerRankingPersonal(dificultad);
+		}
+		else{
+			return GestorPuntuaciones.getGestorPuntuaciones().obtenerRanking(dificultad);
+		}
 	}
 
 	/**

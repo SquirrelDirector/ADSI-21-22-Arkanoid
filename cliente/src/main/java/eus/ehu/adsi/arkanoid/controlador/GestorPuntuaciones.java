@@ -18,7 +18,7 @@ public class GestorPuntuaciones {
 	 * 
 	 * @param dificultad
 	 */
-	public JSON obtenerRanking(int dificultad) {
+	public JSONArray obtenerRanking(int dificultad) {
 		// TODO - implement GestorPuntuaciones.obtenerRanking
 		throw new UnsupportedOperationException();
 	}

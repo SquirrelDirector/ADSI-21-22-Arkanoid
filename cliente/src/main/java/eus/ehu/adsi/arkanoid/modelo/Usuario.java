@@ -1,6 +1,11 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Usuario {
 
@@ -15,7 +20,7 @@ public class Usuario {
 	private String codigoColorPaddle;
 	private int nivelDefault;
 	private Coleccion<LogroObtenido> susLogros;
-	private Coleccion<Puntuacion> susPuntuaciones;
+	private ArrayList<Puntuacion> susPuntuaciones;
 
 	public Usuario() {
 		// TODO - implement Usuario.Usuario
@@ -36,9 +41,21 @@ public class Usuario {
 	 * 
 	 * @param dificultad
 	 */
-	public JSON obtenerRankingPersonal(int dificultad) {
-		// TODO - implement Usuario.obtenerRankingPersonal
-		throw new UnsupportedOperationException();
+	public <susPuntuaciones> JSONArray obtenerRankingPersonal(int dificultad) {
+		JSONArray json = new JSONArray();
+		JSONObject puntuacion = new JSONObject();
+		Iterator<Puntuacion> it = susPuntuaciones.iterator();
+		while(it.hasNext()){
+			Puntuacion p = it.next();
+			if (dificultad==0 || dificultad==p.getNivel()){
+				puntuacion.put("usuario", p.getUsuario());
+				puntuacion.put("nivel", p.getNivel());
+				puntuacion.put("puntuacion", p.getPuntuacion());
+				puntuacion.put("fecha", p.getFecha());
+				puntuacion.put("tiempo", p.getTiempo());
+				json.put(puntuacion);
+			}
+		}
 	}
 
 	/**
