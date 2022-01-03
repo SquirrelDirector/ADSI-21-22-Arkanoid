@@ -34,6 +34,10 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		throw new UnsupportedOperationException();
 	}
 
+	public boolean isIdentificado() {
+		return usuario.isIdentificado();
+	}
+
 	public JSONObject obtenerPersonalizables() {
 		JSONObject resultado = new JSONObject();
 		resultado.put("colores", obtenerTodosPersonalizablesPorTabla("Color"));
@@ -44,23 +48,23 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	private JSONArray obtenerTodosPersonalizablesPorTabla(String tabla) {
 		JSONArray opciones = new JSONArray();
 		try {
-			ResultSet resconsulta = GestorDB.getGestorDB().execSQL("SELECT * FROM "+ tabla);
+			ResultadoSQL resconsulta = GestorDB.getGestorDB().execSQL("SELECT * FROM "+ tabla);
 			if (resconsulta != null) {
-				int columnas = resconsulta.getMetaData().getColumnCount();
-				int i = 1;
-				while (resconsulta.next()) {
+				while (resconsulta.hasNext()) {
 					JSONObject informacion = new JSONObject();
-					while (i <= columnas) {
-						if (i == 1) informacion.put("id", resconsulta.getString(i));
-						else if (i == 2) informacion.put("nombre", resconsulta.getString(i));
-						i++;
+					String val = "";
+					if (tabla.equals("Color")) {
+						val = "Codigo";
+					} else {
+						val = "Path";
 					}
+					informacion.put("id", resconsulta.get(val));
+					informacion.put("nombre", resconsulta.get("Nombre"));
 					opciones.put(informacion);
-					i = 1;
 				}
 				resconsulta.close();
 			}
-		} catch (SQLException e){e.printStackTrace(); System.out.println("No se han podido obtener los personalizables");} finally {
+		} finally {
 			GestorDB.getGestorDB().cerrarConexion();
 		}
 		return opciones;

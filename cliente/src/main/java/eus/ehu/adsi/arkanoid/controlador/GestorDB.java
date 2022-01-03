@@ -15,7 +15,7 @@ public class GestorDB {
 		return miGestorDB;
 	}
 
-	public ResultSet execSQL(String sentencia) {
+	public ResultadoSQL execSQL(String sentencia) {
 		return null;
 	}
 
