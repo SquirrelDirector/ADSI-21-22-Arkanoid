@@ -28,10 +28,10 @@ public class GestorPuntuaciones {
 		try {
 			ResultadoSQL resultado = null;
 			if(dificultad==0){
-				ResultadoSQL resultado = GestorDB.getGestorDB().execSQL("SELECT NombreUsuario, Tiempo, Numero FROM Puntuacion ORDER BY Numero ASC");
+				resultado = GestorDB.getGestorDB().execSQL("SELECT NombreUsuario, Tiempo, Numero FROM Puntuacion ORDER BY Numero ASC");
 			}
 			else{
-				ResultadoSQL resultado = GestorDB.getGestorDB().execSQL("SELECT nombreUsuario, Tiempo, Numero FROM Puntuacion WHERE idNivel =="+ dificultad +" ORDER BY Numero ASC");
+				resultado = GestorDB.getGestorDB().execSQL("SELECT nombreUsuario, Tiempo, Numero FROM Puntuacion WHERE idNivel =="+ dificultad +" ORDER BY Numero ASC");
 			}
 			if (resultado != null){
 				while (resultado.hasNext()){
