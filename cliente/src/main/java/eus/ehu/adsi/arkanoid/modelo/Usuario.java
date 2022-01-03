@@ -42,20 +42,19 @@ public class Usuario {
 	 * @param dificultad
 	 */
 	public <susPuntuaciones> JSONArray obtenerRankingPersonal(int dificultad) {
-		JSONArray json = new JSONArray();
+		JSONArray ranking = new JSONArray();
 		JSONObject puntuacion = new JSONObject();
 		Iterator<Puntuacion> it = susPuntuaciones.iterator();
 		while(it.hasNext()){
 			Puntuacion p = it.next();
 			if (dificultad==0 || dificultad==p.getNivel()){
 				puntuacion.put("usuario", p.getUsuario());
-				puntuacion.put("nivel", p.getNivel());
-				puntuacion.put("puntuacion", p.getPuntuacion());
-				puntuacion.put("fecha", p.getFecha());
 				puntuacion.put("tiempo", p.getTiempo());
-				json.put(puntuacion);
+				puntuacion.put("puntuacion", p.getPuntuacion());
+				ranking.put(puntuacion);
 			}
 		}
+		return ranking;
 	}
 
 	/**

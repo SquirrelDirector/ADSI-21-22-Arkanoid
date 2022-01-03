@@ -1,22 +1,29 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import java.sql.ResultSet;
+
 public class GestorDB {
 
 	private static GestorDB miGestorDB;
 
-	private GestorDB() {
-		// TODO - implement GestorDB.GestorDB
-		throw new UnsupportedOperationException();
+	private GestorDB() {}
+
+	public static GestorDB getGestorDB() {
+		if (miGestorDB == null) {
+			miGestorDB = new GestorDB();
+		}
+		return miGestorDB;
 	}
 
-	public static GestoDB getGestorDB() {
-		// TODO - implement GestorDB.getGestorDB
-		throw new UnsupportedOperationException();
+	public ResultSet execSQL(String sentencia) {
+		return null;
 	}
 
-	public ResultadoSQL execSQL() {
-		// TODO - implement GestorDB.execSQL
-		throw new UnsupportedOperationException();
+	public void ejecutarCambio(String sentencia) {
+
 	}
 
+	public void cerrarConexion() {
+
+	}
 }
