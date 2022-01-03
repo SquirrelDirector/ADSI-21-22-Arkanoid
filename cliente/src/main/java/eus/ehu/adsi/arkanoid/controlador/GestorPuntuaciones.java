@@ -1,6 +1,5 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.json.JSONArray;
@@ -11,13 +10,13 @@ public class GestorPuntuaciones {
 	private static GestorPuntuaciones miGestorPuntuaciones;
 
 	private GestorPuntuaciones() {
-		// TODO - implement GestorPuntuaciones.GestorPuntuaciones
-		throw new UnsupportedOperationException();
 	}
 
 	public static GestorPuntuaciones getGestorPuntuaciones() {
-		// TODO - implement GestorPuntuaciones.getGestorPuntuaciones
-		throw new UnsupportedOperationException();
+		if (miGestorPuntuaciones==null){
+			miGestorPuntuaciones = new GestorPuntuaciones();
+		}
+		return miGestorPuntuaciones;
 	}
 
 	/**
@@ -27,43 +26,22 @@ public class GestorPuntuaciones {
 	public JSONArray obtenerRanking(int dificultad) {
 		JSONArray ranking = new JSONArray();
 		try {
+			ResultadoSQL resultado = null;
 			if(dificultad==0){
-				ResultSet resultado = GestorDB.getGestorDB().execSQL("SELECT nombreUsuario, Tiempo, Numero FROM Puntuacion ORDER BY Numero ASC");
-				if (resultado != null){
-					int columnas = resultado.getMetaData().getColumnCount();
-					int i = 1;
-					while (resultado.next()){
-						JSONObject puntuacion = new JSONObject();
-						while (i <= columnas){
-							if (i == 1) puntuacion.put("usuario", resultado.getString(i));
-							else if (i == 2) puntuacion.put("tiempo", resultado.getInt(i));
-							else if (i == 3) puntuacion.put("puntuacion", resultado.getInt(i));
-							i++;
-						}
-						ranking.put(puntuacion);
-						i = 1;
-					}
-					resultado.close();
-				}
+				ResultadoSQL resultado = GestorDB.getGestorDB().execSQL("SELECT NombreUsuario, Tiempo, Numero FROM Puntuacion ORDER BY Numero ASC");
 			}
 			else{
-				ResultSet resultado = GestorDB.getGestorDB().execSQL("SELECT nombreUsuario, Tiempo, Numero FROM Puntuacion WHERE idNivel =="+ dificultad +" ORDER BY Numero ASC");
-				if (resultado != null){
-					int columnas = resultado.getMetaData().getColumnCount();
-					int i = 1;
-					while (resultado.next()){
-						JSONObject puntuacion = new JSONObject();
-						while (i <= columnas){
-							if (i == 1) puntuacion.put("usuario", resultado.getString(i));
-							else if (i == 2) puntuacion.put("tiempo", resultado.getInt(i));
-							else if (i == 3) puntuacion.put("puntuacion", resultado.getInt(i));
-							i++;
-						}
-						ranking.put(puntuacion);
-						i = 1;
-					}
-					resultado.close();
+				ResultadoSQL resultado = GestorDB.getGestorDB().execSQL("SELECT nombreUsuario, Tiempo, Numero FROM Puntuacion WHERE idNivel =="+ dificultad +" ORDER BY Numero ASC");
+			}
+			if (resultado != null){
+				while (resultado.hasNext()){
+					JSONObject puntuacion = new JSONObject();
+					puntuacion.put("usuario", (String)resultado.get("NombreUsuario"));
+					puntuacion.put("tiempo", (String)resultado.get("Tiempo"));
+					puntuacion.put("puntuacion", (Integer)resultado.get("Numero"));
+					ranking.put(puntuacion);
 				}
+				resultado.close();
 			}
 			
 		} catch (SQLException e){e.printStackTrace(); System.out.println("No se han podido obtener las puntuaciones.");} finally {
@@ -71,5 +49,4 @@ public class GestorPuntuaciones {
 		}
 		return ranking;
 	}
-
 }

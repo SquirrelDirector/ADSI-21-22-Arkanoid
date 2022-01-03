@@ -43,11 +43,11 @@ public class Usuario {
 	 */
 	public <susPuntuaciones> JSONArray obtenerRankingPersonal(int dificultad) {
 		JSONArray ranking = new JSONArray();
-		JSONObject puntuacion = new JSONObject();
 		Iterator<Puntuacion> it = susPuntuaciones.iterator();
 		while(it.hasNext()){
 			Puntuacion p = it.next();
 			if (dificultad==0 || dificultad==p.getNivel()){
+				JSONObject puntuacion = new JSONObject();
 				puntuacion.put("usuario", p.getUsuario());
 				puntuacion.put("tiempo", p.getTiempo());
 				puntuacion.put("puntuacion", p.getPuntuacion());
