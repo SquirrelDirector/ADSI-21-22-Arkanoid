@@ -1,12 +1,13 @@
 package eus.ehu.adsi.arkanoid.vista;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
-import javafx.scene.layout.Border;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -17,16 +18,22 @@ public class Personalizar extends JDialog {
     private JButton guardarButton, volverButton;
     private JLabel tituloPersonalizar;
     private JTabbedPane personalizarPestañas;
-    private JPanel coloresPersonalizar, colorFondo, colorBola, colorLadrillos, colorPaddle;
-    private JPanel sonidoPersonalizar;
+    private JPanel coloresPersonalizar, colorFondo, colorBola, colorLadrillos, colorPaddle, cbButtons,
+            cbpLabels, cfButtons, cfpLabels, clButtons, clpLabels, cppLabels, cpButtons;
+    private JPanel sonidoPersonalizar, sonidosButtons;
     private JPanel dimensaionesPersonalizar;
     private JLabel fondoLabel, bolaLabel, ladrilloLabel, paddleLabel;
-    private JScrollPane jspC1, jspC2, jspF1, jspF2, jspL1, jspL2, jspP1, jspP2;
-    private JPanel cbButtons, cbpLabels, cfButtons, cfpLabels, clButtons, clpLabels, cppLabels, cpButtons;
+    private JScrollPane jspC1, jspC2, jspF1, jspF2, jspL1, jspL2, jspP1, jspP2, jspSonidos;
+    private JPanel cfLabels;
+    private JPanel cbLabels;
+    private JPanel clLabels;
+    private JPanel cpLabels;
 
     private JSONArray colores, sonidos;
     private JSONObject personalizablesJugador;
-    private ButtonGroup bg1, bg2, bg3, bg4;
+    private ButtonGroup bg1, bg2, bg3, bg4, bgS;
+    private String path;
+    private Clip clip;
 
     public Personalizar() {
 
@@ -100,10 +107,32 @@ public class Personalizar extends JDialog {
         colores.put(color2);
         colores.put(color3);
         personalizablesJugador = new JSONObject();
+        personalizablesJugador.put("PathMusica", "/sonidoPersonalizar/background5.wav");
         personalizablesJugador.put("CodigoFondo", "255,0,0");
         personalizablesJugador.put("CodigoBola", "255,181,0");
         personalizablesJugador.put("CodigoLadrillo", "244,255,0");
         personalizablesJugador.put("CodigoPaddle", "78,255,0");
+        JSONObject sonidoO = new JSONObject();
+        sonidoO.put("Path", "/sonidoPersonalizar/background1.wav");
+        sonidoO.put("Nombre", "Sonido 1");
+        JSONObject sonido1 = new JSONObject();
+        sonido1.put("Path", "/sonidoPersonalizar/background2.wav");
+        sonido1.put("Nombre", "Sonido 2");
+        JSONObject sonido2 = new JSONObject();
+        sonido2.put("Path", "/sonidoPersonalizar/background3.wav");
+        sonido2.put("Nombre", "Sonido 3");
+        JSONObject sonido3 = new JSONObject();
+        sonido3.put("Path", "/sonidoPersonalizar/background4.wav");
+        sonido3.put("Nombre", "Sonido 4");
+        JSONObject sonido4 = new JSONObject();
+        sonido4.put("Path", "/sonidoPersonalizar/background5.wav");
+        sonido4.put("Nombre", "Sonido 5");
+        sonidos = new JSONArray();
+        sonidos.put(sonidoO);
+        sonidos.put(sonido1);
+        sonidos.put(sonido2);
+        sonidos.put(sonido3);
+        sonidos.put(sonido4);
     }
 
     private void ponerColores() {
@@ -158,6 +187,7 @@ public class Personalizar extends JDialog {
                 else if (j==1) cbpLabels.add(color);
                 else if (j==2) clpLabels.add(color);
                 else cppLabels.add(color);
+
             }
             if (j==0) {
                 cfButtons.add(hori1);
@@ -183,7 +213,6 @@ public class Personalizar extends JDialog {
     }
 
     private JRadioButton addUserPreference(JRadioButton jrb, String name, String codUsu) {
-        //Colores
         String codigo = personalizablesJugador.getString(codUsu);
         if (name.equals(codigo)) jrb.setSelected(true);
         return jrb;
@@ -202,7 +231,56 @@ public class Personalizar extends JDialog {
     }
 
     private void ponerSonidos() {
+        sonidosButtons = new JPanel();
+        bgS = new ButtonGroup();
+        Box ver = Box.createVerticalBox();
+        JSONObject sonidoObjeto;
+        for (int i = 0; i < sonidos.length(); i++) {
+            Box hor = Box.createHorizontalBox();
+            sonidoObjeto = (JSONObject) sonidos.get(i);
+            String nombre = sonidoObjeto.getString("Nombre");
+            path = sonidoObjeto.getString("Path");
+            JRadioButton jrb = new JRadioButton(nombre);
+            jrb.setToolTipText(path);
+            jrb.setMargin(new Insets(15, 15, 15, 15));
+            jrb = addUserPreference(jrb, path, "PathMusica");
+            bgS.add(jrb);
+            hor.add(jrb);
+            JButton play = new JButton();
+            play.setBorder(null);
+            play.setContentAreaFilled(false);
+            play.setIcon(new ImageIcon(getClass().getResource("/sonidoPersonalizar/play.png")));
+            JButton pause = new JButton();
+            pause.setBorder(null);
+            pause.setContentAreaFilled(false);
+            pause.setIcon(new ImageIcon(getClass().getResource("/sonidoPersonalizar/pausa.png")));
 
+            play.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource(path));
+                        clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+                    } catch (Exception ex) {
+                        System.out.println("Error with playing sound.");
+                        ex.printStackTrace();
+                    }
+                }
+            });
+            pause.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    clip.stop();
+                }
+            });
+
+            hor.add(play);
+            hor.add(Box.createRigidArea(new Dimension(10, 0))); //Para añadir espacio entre botones
+            hor.add(pause);
+            ver.add(hor);
+        }
+        sonidosButtons.add(ver);
+        jspSonidos.setViewportView(sonidosButtons);
     }
 
     private void onCancel() {
@@ -215,6 +293,7 @@ public class Personalizar extends JDialog {
         String color2 = "";
         String color3 = "";
         String color4 = "";
+        String sonido = "";
         for (Enumeration<AbstractButton> buttons = bg1.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
             if (button.isSelected()) {
@@ -240,8 +319,15 @@ public class Personalizar extends JDialog {
             }
         }
 
-        //Arkanoid.getArkanoid().actualizarPersonalizacionDB(color1, color2, color3, color4);
-        //Arkanoid.getArkanoid().actualizarPersonalizacionUsu(color1, color2, color3, color4);
+        for (Enumeration<AbstractButton> buttons = bgS.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                sonido = button.getToolTipText();
+            }
+        }
+
+        //Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4);
+        //Arkanoid.getArkanoid().actualizarPersonalizacionUsu(sonido, color1, color2, color3, color4);
     }
 
     private void inciadoSesion(){
