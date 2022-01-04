@@ -4,9 +4,6 @@ import eus.ehu.adsi.arkanoid.modelo.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class Arkanoid{ //extends JFrame implements KeyListener {
 
 	private static Arkanoid miArkanoid;
