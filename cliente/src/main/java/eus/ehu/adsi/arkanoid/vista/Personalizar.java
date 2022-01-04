@@ -24,15 +24,10 @@ public class Personalizar extends JDialog {
     private JPanel dimensaionesPersonalizar;
     private JLabel fondoLabel, bolaLabel, ladrilloLabel, paddleLabel;
     private JScrollPane jspC1, jspC2, jspF1, jspF2, jspL1, jspL2, jspP1, jspP2, jspSonidos;
-    private JPanel cfLabels;
-    private JPanel cbLabels;
-    private JPanel clLabels;
-    private JPanel cpLabels;
 
     private JSONArray colores, sonidos;
     private JSONObject personalizablesJugador;
     private ButtonGroup bg1, bg2, bg3, bg4, bgS;
-    private String path;
     private Clip clip;
 
     public Personalizar() {
@@ -56,6 +51,9 @@ public class Personalizar extends JDialog {
                 guardarPersonalizacion();
             }
         });
+
+        volverButton.setBorder(null);
+        volverButton.setContentAreaFilled(false);
 
         volverButton.addActionListener(new ActionListener() {
             @Override
@@ -239,7 +237,7 @@ public class Personalizar extends JDialog {
             Box hor = Box.createHorizontalBox();
             sonidoObjeto = (JSONObject) sonidos.get(i);
             String nombre = sonidoObjeto.getString("Nombre");
-            path = sonidoObjeto.getString("Path");
+            final String path = sonidoObjeto.getString("Path");
             JRadioButton jrb = new JRadioButton(nombre);
             jrb.setToolTipText(path);
             jrb.setMargin(new Insets(15, 15, 15, 15));
