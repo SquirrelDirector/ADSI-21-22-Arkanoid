@@ -1,6 +1,10 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Usuario {
 
@@ -14,7 +18,7 @@ public class Usuario {
 	private String codigoColorLadrillo;
 	private String codigoColorPaddle;
 	private int nivelDefault;
-	private Coleccion<LogroObtenido> susLogros;
+	private ArrayList<LogroObtenido> susLogros;
 	private Coleccion<Puntuacion> susPuntuaciones;
 
 	public Usuario() {
@@ -45,18 +49,37 @@ public class Usuario {
 	 * 
 	 * @param nombre
 	 */
-	public boolean tieneLogro(string nombre) {
-		// TODO - implement Usuario.tieneLogro
-		throw new UnsupportedOperationException();
+	public boolean tieneLogro(String nombre) {
+		for (LogroObtenido i : susLogros) {
+			if (i.esLogro(nombre)) return true;				
+		}
+		return false;
 	}
 
 	/**
 	 * 
 	 * @param nombre
 	 */
-	public JSON getInfoLogro(String nombre) {
-		// TODO - implement Usuario.getInfoLogro
-		throw new UnsupportedOperationException();
+	public JSONObject getInfoLogro(String nombre) {
+		JSONObject infoLogro = new JSONObject();
+		Iterator<LogroObtenido> itr = this.getIterador();
+		boolean enc = false;
+		if (tieneLogro(nombre)) {
+			while (itr.hasNext() && !enc) {
+				LogroObtenido unLogro = itr.next();
+				if (unLogro.getNombre().equals(nombre)) {
+					enc = true;
+					infoLogro.put("nombre", unLogro.getNombre());
+					infoLogro.put("descripcion", unLogro.getDescripcion());
+					infoLogro.put("fechaObtencion", unLogro.getFechaObtencion());
+					infoLogro.put("progreso", unLogro.getProgreso());
+				}
+			}
+		}else{
+			LogroObtenido unLogro = buscarLogro(nombre);
+			infoLogro.put("descripcion", unLogro.getDescripcion());
+		}
+		return infoLogro;
 	}
 
 	/**
@@ -67,7 +90,8 @@ public class Usuario {
 	 * @param colorPaddle
 	 * @param colorLadrillo
 	 */
-	public void actualizarPersonalizacionUsu(int pathMusica, int colorFondo, int colorBola, int colorPaddle, int colorLadrillo) {
+	public void actualizarPersonalizacionUsu(int pathMusica, int colorFondo, int colorBola, int colorPaddle,
+			int colorLadrillo) {
 		// TODO - implement Usuario.actualizarPersonalizacionUsu
 		throw new UnsupportedOperationException();
 	}
@@ -82,23 +106,33 @@ public class Usuario {
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getLogros() {
-		// TODO - implement Usuario.getLogros
-		throw new UnsupportedOperationException();
+	public JSONArray getLogros() {
+		JSONArray logros = new JSONArray();
+		for (LogroObtenido logro : susLogros){
+			JSONObject infoLogro = new JSONObject();
+			infoLogro.put("nombre", logro.getNombre());
+			infoLogro.put("descripcion", logro.getDescripcion());
+			infoLogro.put("fechaObtencion", logro.getFechaObtencion());
+			infoLogro.put("progreso", logro.getProgreso());
+			logros.put(infoLogro);
+		}
+		return logros;
 	}
 
 	/**
 	 * 
 	 * @param logro
 	 */
-	public LogroObtenido buscarLogro(string logro) {
-		// TODO - implement Usuario.buscarLogro
-		throw new UnsupportedOperationException();
+	public LogroObtenido buscarLogro(String logro) {
+		for (LogroObtenido i : susLogros) {
+			if (i.esLogro(logro))
+				return i;
+		}
+		return null;
 	}
 
 	public Iterator<LogroObtenido> getIterador() {
-		// TODO - implement Usuario.getIterador
-		throw new UnsupportedOperationException();
+		return this.susLogros.iterator();
 	}
 
 }

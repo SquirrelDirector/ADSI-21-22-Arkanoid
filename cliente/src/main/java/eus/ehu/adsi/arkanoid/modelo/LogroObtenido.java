@@ -1,24 +1,25 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.Date;
+
 public class LogroObtenido {
 
 	private Date fecha;
 	private Logro logro;
 	private float progreso;
 
-	public LogroObtenido() {
-		// TODO - implement LogroObtenido.LogroObtenido
-		throw new UnsupportedOperationException();
+	public LogroObtenido(Date pFecha, Logro pLogro, float pProgreso) {
+		this.fecha = pFecha;
+		this.logro = pLogro;
+		this.progreso = pProgreso;
 	}
 
 	public Date getFechaObtencion() {
-		// TODO - implement LogroObtenido.getFechaObtencion
-		throw new UnsupportedOperationException();
+		return this.fecha;
 	}
 
 	public String getDescripcion() {
-		// TODO - implement LogroObtenido.getDescripcion
-		throw new UnsupportedOperationException();
+		return this.logro.getDescripcion();
 	}
 
 	public float getProgreso() {
@@ -26,8 +27,7 @@ public class LogroObtenido {
 	}
 
 	public String getNombre() {
-		// TODO - implement LogroObtenido.getNombre
-		throw new UnsupportedOperationException();
+		return this.logro.getNombre();
 	}
 
 	/**
@@ -35,8 +35,7 @@ public class LogroObtenido {
 	 * @param nombreLogro
 	 */
 	public boolean esLogro(String nombreLogro) {
-		// TODO - implement LogroObtenido.esLogro
-		throw new UnsupportedOperationException();
+		return this.getNombre().equals(nombreLogro);
 	}
 
 }

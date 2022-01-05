@@ -1,17 +1,24 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.json.JSONObject;
+
 public class CatalogoLogros {
 
-	private Coleccion<Logro> listaLogros;
-	private static CatalogoLogros miCatalogoLogros;
+	private ArrayList<Logro> listaLogros;
+	private static CatalogoLogros miCatalogoLogros = null;
 
 	private CatalogoLogros() {
-		// TODO - implement CatalogoLogros.CatalogoLogros
-		throw new UnsupportedOperationException();
+		this.listaLogros = new ArrayList<Logro>();
 	}
 
 	public static CatalogoLogros getMiCatalogoLogros() {
-		return this.miCatalogoLogros;
+		if (miCatalogoLogros == null) {
+			miCatalogoLogros = new CatalogoLogros();
+		}
+		return miCatalogoLogros;
 	}
 
 	/**
@@ -19,17 +26,33 @@ public class CatalogoLogros {
 	 * @param nombre
 	 */
 	public boolean buscarLogro(String nombre) {
-		// TODO - implement CatalogoLogros.buscarLogro
-		throw new UnsupportedOperationException();
+		boolean encontrado = false;
+		for (Logro unLogro : listaLogros) {
+			if (unLogro.getNombre().equals(nombre))
+				encontrado = true;
+		}
+		return encontrado;
 	}
 
 	/**
 	 * 
 	 * @param nombre
 	 */
-	public JSON getInfoLogro(String nombre) {
-		// TODO - implement CatalogoLogros.getInfoLogro
-		throw new UnsupportedOperationException();
+	public JSONObject getInfoLogro(String nombre) { 
+		/* Este metodo creo que se me colo en el diagrama de clases por la primera version del diagrama de secuencia
+			y al cambiarlo a la segunda version se me olvido borrarlo, pero lo dejo implementado por si acaso pero no le veo utilidad xd */
+		Iterator<Logro> itr = listaLogros.iterator();
+		boolean encontrado = false;
+		JSONObject infoLogro = new JSONObject();
+		while (itr.hasNext() && !encontrado) {
+			Logro unLogro = itr.next();
+			if (unLogro.getNombre().equals(nombre)) {
+				infoLogro.put("nombre", unLogro.getNombre());
+				infoLogro.put("descripcion", unLogro.getDescripcion());
+				encontrado = true;
+			}
+		}
+		return infoLogro;
 	}
 
 }

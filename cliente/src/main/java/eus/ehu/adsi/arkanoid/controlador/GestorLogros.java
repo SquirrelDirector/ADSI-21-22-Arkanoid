@@ -1,17 +1,22 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import org.json.JSONObject;
+
+import eus.ehu.adsi.arkanoid.modelo.CatalogoLogros;
+
 public class GestorLogros {
 
-	private static GestorLogros miGestorLogros;
-
+	private static GestorLogros miGestorLogros = null;
+	CatalogoLogros unCatalogoLogros;
 	private GestorLogros() {
-		// TODO - implement GestorLogros.GestorLogros
-		throw new UnsupportedOperationException();
+		unCatalogoLogros = CatalogoLogros.getMiCatalogoLogros();
 	}
 
 	public static GestorLogros getGestorLogros() {
-		// TODO - implement GestorLogros.getGestorLogros
-		throw new UnsupportedOperationException();
+		if (miGestorLogros == null) {
+			miGestorLogros = new GestorLogros();
+		}
+		return miGestorLogros;
 	}
 
 	/**
@@ -19,17 +24,16 @@ public class GestorLogros {
 	 * @param nombre
 	 */
 	public boolean buscarLogro(String nombre) {
-		// TODO - implement GestorLogros.buscarLogro
-		throw new UnsupportedOperationException();
+		
+		return unCatalogoLogros.buscarLogro(nombre);
 	}
 
 	/**
 	 * 
 	 * @param nombre
 	 */
-	public JSON getInfoLogro(String nombre) {
-		// TODO - implement GestorLogros.getInfoLogro
-		throw new UnsupportedOperationException();
+	public JSONObject getInfoLogro(String nombre) {
+		return unCatalogoLogros.getInfoLogro(nombre);
 	}
 
 }
