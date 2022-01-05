@@ -26,8 +26,7 @@ public class Partida {
 	}
 
 	public void incrementarPuntuacion() {
-		// TODO - implement Partida.incrementarPuntuacion
-		throw new UnsupportedOperationException();
+		this.puntuacion += 10;
 	}
 
 	/**
@@ -35,8 +34,7 @@ public class Partida {
 	 * @param n
 	 */
 	public void romperBloque(int n) {
-		// TODO - implement Partida.romperBloque
-		throw new UnsupportedOperationException();
+		//bloques[n].romper();
 	}
 
 	/**
@@ -44,8 +42,7 @@ public class Partida {
 	 * @param n
 	 */
 	public void modificarPaddle(double n) {
-		// TODO - implement Partida.modificarPaddle
-		throw new UnsupportedOperationException();
+		this.paddle.modificarPaddle(n);
 	}
 
 	/**
@@ -53,8 +50,7 @@ public class Partida {
 	 * @param n
 	 */
 	public void modificarBola(double n) {
-		// TODO - implement Partida.modificarBola
-		throw new UnsupportedOperationException();
+		this.bola.modificarBola(n);
 	}
 
 	public static Partida getMiPartida() {

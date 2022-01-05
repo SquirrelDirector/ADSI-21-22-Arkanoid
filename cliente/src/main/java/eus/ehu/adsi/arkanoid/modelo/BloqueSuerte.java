@@ -11,13 +11,31 @@ public class BloqueSuerte extends Bloque {
 	 */
 	public BloqueSuerte(double x, double y) {
 		super(x, y);
-		// TODO - implement BloqueSuerte.BloqueSuerte
-		throw new UnsupportedOperationException();
+		
+		int num = (int) Math.floor((Math.random()*3)+1);
+
+        switch (num) 
+        {
+            case 1:
+                comportamiento = new ModificacionBola();
+                break;
+            case 2:
+                comportamiento = new ModificacionPaddle();
+                break;
+            case 3:
+                comportamiento = new DestruccionBloque();
+                break;
+            default:
+                comportamiento = new DestruccionBloque();
+                break;
+        }
 	}
 
 	public void romper() {
-		// TODO - implement BloqueSuerte.romper
-		throw new UnsupportedOperationException();
+		if (this.destroyed == false) {
+			this.comportamiento.romper();
+		}
+		super.romper();
 	}
 
 }

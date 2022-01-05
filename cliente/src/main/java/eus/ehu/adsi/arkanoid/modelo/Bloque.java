@@ -15,8 +15,11 @@ public class Bloque extends Rectangle {
 	}
 
 	public void romper() {
-		// TODO - implement Bloque.romper
-		throw new UnsupportedOperationException();
+		if (this.destroyed == false) {
+			Partida miPartida = Partida.getMiPartida();
+			miPartida.incrementarPuntuacion();
+		}
+		this.destroyed = true;
 	}
 
 }
