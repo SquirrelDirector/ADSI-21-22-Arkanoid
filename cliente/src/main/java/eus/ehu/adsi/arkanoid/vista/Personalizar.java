@@ -29,10 +29,11 @@ public class Personalizar extends JDialog {
     private JSONObject personalizablesJugador;
     private ButtonGroup bg1, bg2, bg3, bg4, bgS;
     private Clip clip;
+    private Font font;
 
     public Personalizar() {
 
-        this.setPreferredSize(new Dimension(500, 600));
+        this.setPreferredSize(new Dimension(535, 600));
         
         getPersonalizables();
 
@@ -41,10 +42,15 @@ public class Personalizar extends JDialog {
         getRootPane().setDefaultButton(guardarButton);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        font = new Font("Serif", Font.PLAIN, 14);
         ponerColores();
         ponerSonidos();
 
         inciadoSesion();
+
+        if (!personalizarPestañas.isEnabledAt(2)){
+            personalizarPestañas.setToolTipTextAt(2, "Tienes que iniciar sesión!");
+        }
 
         guardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -155,6 +161,7 @@ public class Personalizar extends JDialog {
                 String codigo = colorObjeto.getString("Codigo");
                 //Nombre colores - buttongroup
                 JRadioButton jrb = new JRadioButton(nombre);
+                jrb.setFont(font);
                 jrb.setToolTipText(codigo);
                 jrb.setMargin(new Insets(0, 10, 0, 10));
                 if (j==0) {
@@ -181,10 +188,24 @@ public class Personalizar extends JDialog {
                 int[] rgb = obtenerRGB(codigo);
                 color.setBackground(new Color(rgb[0], rgb[1], rgb[2]));
                 color.setOpaque(true);
-                if (j==0) cfpLabels.add(color);
-                else if (j==1) cbpLabels.add(color);
-                else if (j==2) clpLabels.add(color);
-                else cppLabels.add(color);
+                JLabel espacio = new JLabel();
+                espacio.setPreferredSize(new Dimension(20, 0));
+                if (j==0) {
+                    cfpLabels.add(color);
+                    cfpLabels.add(espacio);
+                }
+                else if (j==1) {
+                    cbpLabels.add(color);
+                    cbpLabels.add(espacio);
+                }
+                else if (j==2) {
+                    clpLabels.add(color);
+                    clpLabels.add(espacio);
+                }
+                else {
+                    cppLabels.add(color);
+                    cppLabels.add(espacio);
+                }
 
             }
             if (j==0) {
@@ -239,6 +260,7 @@ public class Personalizar extends JDialog {
             String nombre = sonidoObjeto.getString("Nombre");
             final String path = sonidoObjeto.getString("Path");
             JRadioButton jrb = new JRadioButton(nombre);
+            jrb.setFont(font);
             jrb.setToolTipText(path);
             jrb.setMargin(new Insets(15, 15, 15, 15));
             jrb = addUserPreference(jrb, path, "PathMusica");
@@ -330,7 +352,7 @@ public class Personalizar extends JDialog {
 
     private void inciadoSesion(){
         //boolean identificado = Arkanoid.getArkanoid().isIdentificado();
-        boolean identificado = true;
+        boolean identificado = false;
         if (identificado) {
             personalizarPestañas.setEnabledAt(2, true);
         } else {
