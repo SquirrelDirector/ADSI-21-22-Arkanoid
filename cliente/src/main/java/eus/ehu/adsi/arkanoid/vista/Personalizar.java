@@ -24,12 +24,13 @@ public class Personalizar extends JDialog {
     private JPanel dimensaionesPersonalizar;
     private JLabel fondoLabel, bolaLabel, ladrilloLabel, paddleLabel;
     private JScrollPane jspC1, jspC2, jspF1, jspF2, jspL1, jspL2, jspP1, jspP2, jspSonidos;
+    private JSlider jsBloques, jsPaddle, jsBola;
 
     private JSONArray colores, sonidos;
     private JSONObject personalizablesJugador;
     private ButtonGroup bg1, bg2, bg3, bg4, bgS;
     private Clip clip;
-    private Font font;
+    private final Font font;
 
     public Personalizar() {
 
@@ -43,10 +44,11 @@ public class Personalizar extends JDialog {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         font = new Font("Serif", Font.PLAIN, 14);
+
         ponerColores();
         ponerSonidos();
-
         inciadoSesion();
+        ponerNivelPersonalizado();
 
         if (!personalizarPestañas.isEnabledAt(2)){
             personalizarPestañas.setToolTipTextAt(2, "Tienes que iniciar sesión!");
@@ -116,6 +118,7 @@ public class Personalizar extends JDialog {
         personalizablesJugador.put("CodigoBola", "255,181,0");
         personalizablesJugador.put("CodigoLadrillo", "244,255,0");
         personalizablesJugador.put("CodigoPaddle", "78,255,0");
+        personalizablesJugador.put("atributosPersonalizado", "44,60,4");
         JSONObject sonidoO = new JSONObject();
         sonidoO.put("Path", "/sonidoPersonalizar/background1.wav");
         sonidoO.put("Nombre", "Sonido 1");
@@ -307,6 +310,24 @@ public class Personalizar extends JDialog {
         dispose();
     }
 
+    private void inciadoSesion(){
+        //boolean identificado = Arkanoid.getArkanoid().isIdentificado();
+        boolean identificado = true;
+        if (identificado) {
+            personalizarPestañas.setEnabledAt(2, true);
+        } else {
+            personalizarPestañas.setEnabledAt(2, false);
+        }
+    }
+
+    private void ponerNivelPersonalizado(){
+        String atributos = personalizablesJugador.getString("atributosPersonalizado");
+        String[] valores = atributos.split(",");
+        jsBloques.setValue(Integer.parseInt(valores[0]));
+        jsPaddle.setValue(Integer.parseInt(valores[1]));
+        jsBola.setValue(Integer.parseInt(valores[2]));
+    }
+
     private void guardarPersonalizacion(){
         //Colores
         String color1 = "";
@@ -338,7 +359,7 @@ public class Personalizar extends JDialog {
                 color4 = button.getToolTipText();
             }
         }
-
+        //Sonido
         for (Enumeration<AbstractButton> buttons = bgS.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
             if (button.isSelected()) {
@@ -346,18 +367,14 @@ public class Personalizar extends JDialog {
             }
         }
 
-        //Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4);
-        //Arkanoid.getArkanoid().actualizarPersonalizacionUsu(sonido, color1, color2, color3, color4);
-    }
+        //Atributos nivel personalizado
+        int bloques = jsBloques.getValue();
+        int paddle = jsPaddle.getValue();
+        int bola = jsBola.getValue();
+        String atributos = ""+bloques+","+paddle+","+bola+"";
 
-    private void inciadoSesion(){
-        //boolean identificado = Arkanoid.getArkanoid().isIdentificado();
-        boolean identificado = false;
-        if (identificado) {
-            personalizarPestañas.setEnabledAt(2, true);
-        } else {
-            personalizarPestañas.setEnabledAt(2, false);
-        }
+        //Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4, atributos);
+        //Arkanoid.getArkanoid().actualizarPersonalizacionUsu(sonido, color1, color2, color3, color4, atributos);
     }
 
     public static void main(String[] args) {

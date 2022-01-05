@@ -9,7 +9,7 @@ public class Usuario {
 
 	private String email;
 	private String contrasena;
-	private Collection<Object> atributosPersonalizado;
+	private String atributosPersonalizado;
 	private String pathPerfil;
 	private String pathMusica;
 	private String codigoColorFondo;
@@ -36,6 +36,7 @@ public class Usuario {
 		personalizado.put("codColorBola", codigoColorBola);
 		personalizado.put("codColorPaddle", codigoColorPaddle);
 		personalizado.put("codColorLadrillo", codigoColorLadrillo);
+		personalizado.put("atributosPersonalizado", atributosPersonalizado);
 		return personalizado;
 	}
 
@@ -74,12 +75,13 @@ public class Usuario {
 	 * @param colorPaddle
 	 * @param colorLadrillo
 	 */
-	public void actualizarPersonalizacionUsu(String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo) {
+	public void actualizarPersonalizacionUsu(String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo, String atributosPersonalizacion) {
 		this.pathMusica = pathMusica;
 		this.codigoColorFondo = colorFondo;
 		this.codigoColorBola = colorBola;
 		this.codigoColorLadrillo = colorLadrillo;
 		this.codigoColorPaddle = colorPaddle;
+		this.atributosPersonalizado = atributosPersonalizacion;
 	}
 
 	public boolean isIdentificado() {

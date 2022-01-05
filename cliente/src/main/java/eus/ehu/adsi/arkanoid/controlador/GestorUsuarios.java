@@ -24,8 +24,8 @@ public class GestorUsuarios {
 	 * @param colorPaddle
 	 * @param colorLadrillo
 	 */
-	public void actualizarPersonalizacion(String emailUsuario, String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo) {
-		GestorDB.getGestorDB().ejecutarCambio("UPDATE Usuario SET PathMusica="+pathMusica+", CodigoColorFondo="+colorFondo+", CodigoColorBola="+colorBola+", CodigoColorPaddle="+colorPaddle+", CodigoColorLadrillo="+colorLadrillo+" WHERE email = "+emailUsuario+"");
+	public void actualizarPersonalizacion(String emailUsuario, String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo, String atributosPersonalizacion) {
+		GestorDB.getGestorDB().ejecutarCambio("UPDATE Usuario SET PathMusica="+pathMusica+", CodigoColorFondo="+colorFondo+", CodigoColorBola="+colorBola+", CodigoColorPaddle="+colorPaddle+", CodigoColorLadrillo="+colorLadrillo+", Atributo_Personalizado="+atributosPersonalizacion+" WHERE email = "+emailUsuario+"");
 	}
 
 	/**
