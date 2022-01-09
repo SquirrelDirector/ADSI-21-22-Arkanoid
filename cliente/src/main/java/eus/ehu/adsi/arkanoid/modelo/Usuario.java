@@ -8,6 +8,7 @@ import java.util.Iterator;
 public class Usuario {
 
 	private String email;
+	private String nombreUsuario;
 	private String contrasena;
 	private String atributosPersonalizado;
 	private String pathPerfil;
@@ -28,14 +29,22 @@ public class Usuario {
 	public String getEmail() {
 		return email;
 	}
+	
+	public JSONObject getDatosUsuario() {
+		JSONObject datos = new JSONObject();
+		datos.put("PathPerfil", pathPerfil);
+		datos.put("NombreUsuario", nombreUsuario);
+		datos.put("Email", email);
+		return datos;
+	}
 
 	public JSONObject obtenerPersonalizacionUsuario() {
 		JSONObject personalizado = new JSONObject();
-		personalizado.put("pathMusica", pathMusica);
-		personalizado.put("codColorFondo", codigoColorFondo);
-		personalizado.put("codColorBola", codigoColorBola);
-		personalizado.put("codColorPaddle", codigoColorPaddle);
-		personalizado.put("codColorLadrillo", codigoColorLadrillo);
+		personalizado.put("PathMusica", pathMusica);
+		personalizado.put("CodigoFondo", codigoColorFondo);
+		personalizado.put("CodigoBola", codigoColorBola);
+		personalizado.put("CodigoPaddle", codigoColorPaddle);
+		personalizado.put("CodigoLadrillo", codigoColorLadrillo);
 		personalizado.put("atributosPersonalizado", atributosPersonalizado);
 		return personalizado;
 	}
@@ -82,6 +91,16 @@ public class Usuario {
 		this.codigoColorLadrillo = colorLadrillo;
 		this.codigoColorPaddle = colorPaddle;
 		this.atributosPersonalizado = atributosPersonalizacion;
+	}
+	
+	/**
+	 * 
+	 * @param pathAvatar
+	 * @param nombreUsu
+	 */
+	public void actualizarDatosUsu(String pathAvatar, String nombreUsu) {
+		this.pathPerfil = pathAvatar;
+		this.nombreUsuario = nombreUsu;
 	}
 
 	public boolean isIdentificado() {

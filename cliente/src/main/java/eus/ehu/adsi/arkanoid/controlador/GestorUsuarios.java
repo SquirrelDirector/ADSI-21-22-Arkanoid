@@ -25,7 +25,17 @@ public class GestorUsuarios {
 	 * @param colorLadrillo
 	 */
 	public void actualizarPersonalizacion(String emailUsuario, String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo, String atributosPersonalizacion) {
-		GestorDB.getGestorDB().ejecutarCambio("UPDATE Usuario SET PathMusica="+pathMusica+", CodigoColorFondo="+colorFondo+", CodigoColorBola="+colorBola+", CodigoColorPaddle="+colorPaddle+", CodigoColorLadrillo="+colorLadrillo+", Atributo_Personalizado="+atributosPersonalizacion+" WHERE email = "+emailUsuario+"");
+		GestorDB.getGestorDB().execSQL("UPDATE Usuario SET PathMusica="+pathMusica+", CodigoColorFondo="+colorFondo+", CodigoColorBola="+colorBola+", CodigoColorPaddle="+colorPaddle+", CodigoColorLadrillo="+colorLadrillo+", Atributo_Personalizado="+atributosPersonalizacion+" WHERE email = "+emailUsuario+"");
+	}
+	
+	/**
+	 * 
+	 * @param emailUsuario
+	 * @param pathAvatar
+	 * @param nombreUsu
+	 */
+	public void actualizarDatosUsuDB(String email, String pathAvatar, String nombreUsu) {
+		GestorDB.getGestorDB().execSQL("UPDATE Usuario SET PathPerfil="+pathAvatar+", NombreUsuario="+nombreUsu+" WHERE email = "+email+"");
 	}
 
 	/**
@@ -68,4 +78,14 @@ public class GestorUsuarios {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * 
+	 * @param nombreUsu
+	 */
+	public boolean comprobarNombre(String nombreUsu) {
+		boolean existe = false;
+		ResultadoSQL resultado = GestorDB.getGestorDB().execSQL("SELECT NombreUsuario FROM Usuario WHERE NombreUsuario="+nombreUsu+"");
+		if (resultado == null) existe = true;
+		return existe;
+	}
 }

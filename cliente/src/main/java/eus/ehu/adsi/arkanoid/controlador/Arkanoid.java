@@ -41,34 +41,40 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		resultado.put("sonidos", obtenerTodosPersonalizablesPorTabla("Audio"));
 		return resultado;
 	}
+	
+	public JSONObject obtenerAvatares() {
+		JSONObject resultado = new JSONObject();
+		resultado.put("avatares", obtenerTodosPersonalizablesPorTabla("Imagen"));
+		return resultado;
+	}
 
 	private JSONArray obtenerTodosPersonalizablesPorTabla(String tabla) {
 		JSONArray opciones = new JSONArray();
-		try {
-			ResultadoSQL resconsulta = GestorDB.getGestorDB().execSQL("SELECT * FROM "+ tabla);
-			if (resconsulta != null) {
-				while (resconsulta.hasNext()) {
-					JSONObject informacion = new JSONObject();
-					String val = "";
-					if (tabla.equals("Color")) {
-						val = "Codigo";
-					} else {
-						val = "Path";
-					}
-					informacion.put("id", resconsulta.get(val));
-					informacion.put("nombre", resconsulta.get("Nombre"));
-					opciones.put(informacion);
+		ResultadoSQL resconsulta = GestorDB.getGestorDB().execSQL("SELECT * FROM "+ tabla);
+		if (resconsulta != null) {
+			while (resconsulta.hasNext()) {
+				JSONObject informacion = new JSONObject();
+				String val = "";
+				if (tabla.equals("Color")) {
+					val = "Codigo";
+				} else {
+					val = "Path";
 				}
-				resconsulta.close();
+				informacion.put("id", resconsulta.get(val));
+				informacion.put("nombre", resconsulta.get("Nombre"));
+				opciones.put(informacion);
 			}
-		} finally {
-			GestorDB.getGestorDB().cerrarConexion();
+			resconsulta.close();
 		}
 		return opciones;
 	}
 
 	public JSONObject obtenerPersonalizacionUsuario() {
 		return usuario.obtenerPersonalizacionUsuario();
+	}
+	
+	public JSONObject obtenerDatosUsuario() {
+		return usuario.getDatosUsuario();
 	}
 
 	/**
@@ -83,6 +89,16 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		String email = usuario.getEmail();
 		GestorUsuarios.getGestorUsuario().actualizarPersonalizacion(email, pathMusica, colorFondo, colorBola, colorPaddle, colorLadrillo, atributosPersonalizacion);
 	}
+	
+	/**
+	 * 
+	 * @param pathAvatar
+	 * @param nombreUsu
+	 */
+	public void actualizarDatosUsuDB(String pathAvatar, String nombreUsu) {
+		String email = usuario.getEmail();
+		GestorUsuarios.getGestorUsuario().actualizarDatosUsuDB(email, pathAvatar, nombreUsu);
+	}
 
 	/**
 	 * 
@@ -94,6 +110,15 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 */
 	public void actualizarPersonalizacionUsu(String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo, String atributosPersonalizacion) {
 		usuario.actualizarPersonalizacionUsu(pathMusica, colorFondo, colorBola, colorPaddle, colorLadrillo, atributosPersonalizacion);
+	}
+	
+	/**
+	 * 
+	 * @param pathAvatar
+	 * @param nombreUsu
+	 */
+	public void actualizarDatosUsu(String pathAvatar, String nombreUsu) {
+		usuario.actualizarDatosUsu(pathAvatar, nombreUsu);
 	}
 
 	/**
@@ -202,4 +227,11 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * 
+	 * @param nombreUsu
+	 */
+	public boolean comprobarNombre(String nombreUsu) {
+		return GestorUsuarios.getGestorUsuario().comprobarNombre(nombreUsu);
+	}
 }

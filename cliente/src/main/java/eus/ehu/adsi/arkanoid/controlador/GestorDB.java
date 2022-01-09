@@ -18,12 +18,4 @@ public class GestorDB {
 	public ResultadoSQL execSQL(String sentencia) {
 		return null;
 	}
-
-	public void ejecutarCambio(String sentencia) {
-
-	}
-
-	public void cerrarConexion() {
-
-	}
 }

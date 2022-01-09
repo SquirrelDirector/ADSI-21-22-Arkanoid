@@ -292,7 +292,7 @@ public class Personalizacion extends JDialog {
 						scrollPane.setViewportView(panel);
 						panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 						{
-							JLabel lblNewLabel_4 = new JLabel("Escoge la mÃºsica que quieras escuchar:");
+							JLabel lblNewLabel_4 = new JLabel("Escoge la música que quieras escuchar:");
 							lblNewLabel_4.setAlignmentX(Component.CENTER_ALIGNMENT);
 							panel.add(lblNewLabel_4);
 						}
@@ -336,7 +336,7 @@ public class Personalizacion extends JDialog {
 									panel_2.add(panel_3);
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										JLabel lblNewLabel_6 = new JLabel("N\u00FAmero bloques");
+										JLabel lblNewLabel_6 = new JLabel("Número bloques");
 										lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 										panel_3.add(lblNewLabel_6);
 									}
@@ -367,7 +367,7 @@ public class Personalizacion extends JDialog {
 									panel_2.add(panel_3);
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										JLabel lblNewLabel_7 = new JLabel("Tama\u00F1o paddle");
+										JLabel lblNewLabel_7 = new JLabel("Tamaño paddle");
 										lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 										panel_3.add(lblNewLabel_7);
 									}
@@ -460,7 +460,7 @@ public class Personalizacion extends JDialog {
         ponerNivelPersonalizado();
         
         if (!personalizarPestanas.isEnabledAt(2)){
-            personalizarPestanas.setToolTipTextAt(2, "Tienes que iniciar sesiï¿½n!");
+            personalizarPestanas.setToolTipTextAt(2, "Tienes que iniciar sesión!");
         }
         
         guardarButton.addActionListener(new ActionListener() {
@@ -509,26 +509,26 @@ public class Personalizacion extends JDialog {
         colores.put(color2);
         colores.put(color3);
         personalizablesJugador = new JSONObject();
-        personalizablesJugador.put("PathMusica", "/sonidoPersonalizar/background5.wav");
+        personalizablesJugador.put("PathMusica", "/sonidoPersonalizar/Sonido5.wav");
         personalizablesJugador.put("CodigoFondo", "255,0,0");
         personalizablesJugador.put("CodigoBola", "255,181,0");
         personalizablesJugador.put("CodigoLadrillo", "244,255,0");
         personalizablesJugador.put("CodigoPaddle", "78,255,0");
         personalizablesJugador.put("atributosPersonalizado", "44,60,4");
         JSONObject sonidoO = new JSONObject();
-        sonidoO.put("Path", "/sonidoPersonalizar/background1.wav");
+        sonidoO.put("Path", "/sonidoPersonalizar/Sonido1.wav");
         sonidoO.put("Nombre", "Sonido 1");
         JSONObject sonido1 = new JSONObject();
-        sonido1.put("Path", "/sonidoPersonalizar/background2.wav");
+        sonido1.put("Path", "/sonidoPersonalizar/Sonido2.wav");
         sonido1.put("Nombre", "Sonido 2");
         JSONObject sonido2 = new JSONObject();
-        sonido2.put("Path", "/sonidoPersonalizar/background3.wav");
+        sonido2.put("Path", "/sonidoPersonalizar/Sonido3.wav");
         sonido2.put("Nombre", "Sonido 3");
         JSONObject sonido3 = new JSONObject();
-        sonido3.put("Path", "/sonidoPersonalizar/background4.wav");
+        sonido3.put("Path", "/sonidoPersonalizar/Sonido4.wav");
         sonido3.put("Nombre", "Sonido 4");
         JSONObject sonido4 = new JSONObject();
-        sonido4.put("Path", "/sonidoPersonalizar/background5.wav");
+        sonido4.put("Path", "/sonidoPersonalizar/Sonido5.wav");
         sonido4.put("Nombre", "Sonido 5");
         sonidos = new JSONArray();
         sonidos.put(sonidoO);
@@ -546,14 +546,12 @@ public class Personalizacion extends JDialog {
             else if (j==2) bg3 = new ButtonGroup();
             else bg4 = new ButtonGroup();
             Box hori1 = Box.createHorizontalBox();
-            Box hori2 = Box.createHorizontalBox();
             for (int i = 0; i < colores.length(); i++) {
                 colorObjeto = (JSONObject) colores.get(i);
                 String nombre = colorObjeto.getString("Nombre");
                 String codigo = colorObjeto.getString("Codigo");
                 //Nombre colores - buttongroup
                 JRadioButton jrb = new JRadioButton(nombre);
-                //jrb.setFont(font);
                 jrb.setToolTipText(codigo);
                 jrb.setMargin(new Insets(0, 20, 0, 10));
                 if (j==0) {
@@ -581,8 +579,6 @@ public class Personalizacion extends JDialog {
                 color.setBackground(new Color(rgb[0], rgb[1], rgb[2]));
                 color.setOpaque(true);
                 JLabel espacio = new JLabel();
-                //espacio.setPreferredSize(new Dimension(0, 0));
-                hori2.add(color);
                 if (j==0) {
                     cfpLabels.add(color);
                     cfpLabels.add(espacio);
@@ -599,24 +595,11 @@ public class Personalizacion extends JDialog {
                     cppLabels.add(color);
                     cppLabels.add(espacio);
                 }
-
             }
-            if (j==0) {
-                cfButtons.add(hori1);
-                jspF.setViewportView(cfpLabels);
-            }
-            else if (j==1) {
-                cbButtons.add(hori1);
-                jspB.setViewportView(cbpLabels);
-            }
-            else if (j==2) {
-                clButtons.add(hori1);
-                jspL.setViewportView(clpLabels);
-            }
-            else {
-                cpButtons.add(hori1);
-                jspP.setViewportView(cppLabels);
-            }
+            if (j==0) cfButtons.add(hori1);
+            else if (j==1) cbButtons.add(hori1);
+            else if (j==2) clButtons.add(hori1);
+            else cpButtons.add(hori1);
         }
     }
 	
@@ -648,8 +631,6 @@ public class Personalizacion extends JDialog {
             String nombre = sonidoObjeto.getString("Nombre");
             final String path = sonidoObjeto.getString("Path");
             JRadioButton jrb = new JRadioButton(nombre);
-            //jrb.setFont(font);
-            jrb.setToolTipText(path);
             jrb.setMargin(new Insets(15, 15, 15, 15));
             jrb = addUserPreference(jrb, path, "PathMusica");
             bgS.add(jrb);
@@ -683,7 +664,7 @@ public class Personalizacion extends JDialog {
             });
 
             hor.add(play);
-            hor.add(Box.createRigidArea(new Dimension(10, 0))); //Para aï¿½adir espacio entre botones
+            hor.add(Box.createRigidArea(new Dimension(10, 0))); //Para añadir espacio entre botones
             hor.add(pause);
             ver.add(hor);
         }
@@ -743,7 +724,9 @@ public class Personalizacion extends JDialog {
         for (Enumeration<AbstractButton> buttons = bgS.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
             if (button.isSelected()) {
-                sonido = button.getToolTipText();
+            	String path = button.getText();
+            	path = path.replace(" ", "");
+                sonido = "/sonidoPersonalizar/"+path+".wav";
             }
         }
 
