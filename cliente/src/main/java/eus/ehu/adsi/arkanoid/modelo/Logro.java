@@ -6,6 +6,10 @@ public class Logro {
 	private String nombre;
 	private String descripcion;
 
+	public Logro(String nombre, String descripcion) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
 	public Logro() {
 		// TODO - implement Logro.Logro
 		throw new UnsupportedOperationException();

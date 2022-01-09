@@ -1,5 +1,10 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import org.json.JSONArray;
+
+import eus.ehu.adsi.arkanoid.modelo.EnvioRRSS;
+import eus.ehu.adsi.arkanoid.modelo.EnvioRRSSFactory;
+
 public class GestorRedes {
 
 	private static GestorRedes miGestorRedes;
@@ -23,9 +28,10 @@ public class GestorRedes {
 	 * @param mejorTiempo
 	 * @param logro
 	 */
-	public void publicarResultados(string redSocial, int puntuacionPartida, int tiempoPartida, int mejorPuntuacion, int mejorTiempo, String logro) {
-		// TODO - implement GestorRedes.publicarResultados
-		throw new UnsupportedOperationException();
+	public void publicarResultados(String redSocial, int puntuacionPartida, int tiempoPartida, int mejorPuntuacion, int mejorTiempo, JSONArray logro) {
+		String mensaje="He aquí cosas";
+		EnvioRRSS envio = new EnvioRRSSFactory().getEnvioRRSS(redSocial);
+		envio.enviar(mensaje);
 	}
 
 	/**

@@ -1,22 +1,27 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import org.json.JSONObject;
+
+import eus.ehu.adsi.arkanoid.modelo.Partida;
+
 public class GestorPartida {
 
 	private static GestorPartida miGestorPartida;
+	private Partida partida;
 
 	private GestorPartida() {
-		// TODO - implement GestorPartida.GestorPartida
-		throw new UnsupportedOperationException();
+		partida = new Partida();//TEST
 	}
 
 	public static GestorPartida getGestorPartida() {
-		// TODO - implement GestorPartida.getGestorPartida
-		throw new UnsupportedOperationException();
+		if(miGestorPartida==null) {
+			miGestorPartida=new GestorPartida();
+		}
+		return miGestorPartida;
 	}
 
-	public JSON getDatosPartidaActual() {
-		// TODO - implement GestorPartida.getDatosPartidaActual
-		throw new UnsupportedOperationException();
+	public JSONObject getDatosPartidaActual() {
+		return partida.getDatosPartidaActual();
 	}
 
 }

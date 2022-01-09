@@ -1,12 +1,15 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+
+import org.json.JSONObject;
 
 public class Usuario {
 
 	private String email;
 	private String contrasena;
-	private Coleccion<T> atributosPersonalizado;
+	private ArrayList atributosPersonalizado;
 	private String pathPerfil;
 	private String pathMusica;
 	private String codigoColorFondo;
@@ -14,12 +17,18 @@ public class Usuario {
 	private String codigoColorLadrillo;
 	private String codigoColorPaddle;
 	private int nivelDefault;
-	private Coleccion<LogroObtenido> susLogros;
-	private Coleccion<Puntuacion> susPuntuaciones;
+	private ArrayList<LogroObtenido> susLogros;
+	private ArrayList<Puntuacion> susPuntuaciones;
+	
+	//NUEVO!
+	private int mejorTiempo;
+	private int mejorPuntuacion;
+	
 
 	public Usuario() {
-		// TODO - implement Usuario.Usuario
-		throw new UnsupportedOperationException();
+		email ="A";
+		mejorTiempo = 2;
+		mejorPuntuacion = 4;
 	}
 
 	public String getEmail() {
@@ -73,13 +82,14 @@ public class Usuario {
 	}
 
 	public boolean isIdentificado() {
-		// TODO - implement Usuario.isIdentificado
-		throw new UnsupportedOperationException();
+		return email!=null;
 	}
 
-	public JSON getDatosHistoricosJugador() {
-		// TODO - implement Usuario.getDatosHistoricosJugador
-		throw new UnsupportedOperationException();
+	public JSONObject getDatosHistoricosJugador() {
+		JSONObject json = new JSONObject();
+		json.put("mejorTiempo", mejorTiempo);
+		json.put("mejorPuntuacion", mejorPuntuacion);
+		return json;
 	}
 
 	public JSON getLogros() {
@@ -91,7 +101,7 @@ public class Usuario {
 	 * 
 	 * @param logro
 	 */
-	public LogroObtenido buscarLogro(string logro) {
+	public LogroObtenido buscarLogro(String logro) {
 		// TODO - implement Usuario.buscarLogro
 		throw new UnsupportedOperationException();
 	}

@@ -14,8 +14,15 @@ public class EnvioRRSSFactory {
 	 * @param redSocial
 	 */
 	public EnvioRRSS getEnvioRRSS(String redSocial) {
-		// TODO - implement EnvioRRSSFactory.getEnvioRRSS
-		throw new UnsupportedOperationException();
+		if(redSocial.equals("twitter")) {
+			return new RRSSTwitter();
+		}else if (redSocial.equals("facebook")) {
+			return new RRSSFacebook();
+		}else if(redSocial.equals("email")) {
+			return new RRSSMail();
+		}else {
+			throw new UnsupportedOperationException("No se puede compartir con la red social "+redSocial);
+		}
 	}
 
 }

@@ -1,6 +1,9 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
 import javax.swing.*;
+
+import org.json.JSONObject;
+
 import java.awt.event.*;
 import eus.ehu.adsi.arkanoid.modelo.*;
 
@@ -17,13 +20,15 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	private Usuario usuario;
 
 	private Arkanoid() {
-		// TODO - implement Arkanoid.Arkanoid
-		throw new UnsupportedOperationException();
+		//TEST
+		usuario = new Usuario();
 	}
 
 	public static Arkanoid getArkanoid() {
-		// TODO - implement Arkanoid.getArkanoid
-		throw new UnsupportedOperationException();
+		if(miArkanoid==null) {
+			miArkanoid = new Arkanoid();
+		}
+		return miArkanoid;
 	}
 
 	private void update() {
@@ -153,9 +158,14 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getResultadosPartida() {
-		// TODO - implement Arkanoid.getResultadosPartida
-		throw new UnsupportedOperationException();
+	public JSONObject getResultadosPartida() {
+		JSONObject datosPartida = GestorPartida.getGestorPartida().getDatosPartidaActual();
+		if(usuario.isIdentificado()) {
+			JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
+			datosPartida.put("mejorTiempo",datosHistoricos.get("mejorTiempo"));
+			datosPartida.put("mejorPuntuacion", datosHistoricos.get("mejorPuntuacion"));
+		}
+		return datosPartida;
 	}
 
 	/**
@@ -172,9 +182,15 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param redSocial
 	 */
-	public void publicarResultados(string redSocial) {
-		// TODO - implement Arkanoid.publicarResultados
-		throw new UnsupportedOperationException();
+	public void publicarResultados(String redSocial) {
+		JSONObject datosPartida = GestorPartida.getGestorPartida().getDatosPartidaActual();
+		JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
+		GestorRedes.getGestorRedes().publicarResultados(redSocial, 
+														datosPartida.get("puntuacionConseguida"), 
+														datosPartida.get("tiempoPartida"), 
+														datosHistoricos.get("mejorPuntuacion"), 
+														datosHistoricos.get("mejorTiempo"), 
+														datosPartida.get("logrosConseguidos"));
 	}
 
 }
