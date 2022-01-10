@@ -648,9 +648,13 @@ public class Personalizacion extends JDialog {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource(path));
+                        if (clip != null && clip.isActive()) {
+                        	clip.stop();
+                        }
                         clip = AudioSystem.getClip();
                         clip.open(audioInputStream);
                         clip.start();
+                        
                     } catch (Exception ex) {
                         System.out.println("Error with playing sound.");
                         ex.printStackTrace();

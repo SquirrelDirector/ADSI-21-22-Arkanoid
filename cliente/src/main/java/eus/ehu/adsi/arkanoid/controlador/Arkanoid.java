@@ -37,14 +37,14 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 
 	public JSONObject obtenerPersonalizables() {
 		JSONObject resultado = new JSONObject();
-		resultado.put("colores", obtenerTodosPersonalizablesPorTabla("Color"));
-		resultado.put("sonidos", obtenerTodosPersonalizablesPorTabla("Audio"));
+		resultado.put("colores", obtenerTodosPersonalizablesPorTabla("color"));
+		resultado.put("sonidos", obtenerTodosPersonalizablesPorTabla("audio"));
 		return resultado;
 	}
 	
 	public JSONObject obtenerAvatares() {
 		JSONObject resultado = new JSONObject();
-		resultado.put("avatares", obtenerTodosPersonalizablesPorTabla("Imagen"));
+		resultado.put("avatares", obtenerTodosPersonalizablesPorTabla("imagen"));
 		return resultado;
 	}
 
@@ -55,7 +55,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 			while (resconsulta.hasNext()) {
 				JSONObject informacion = new JSONObject();
 				String val = "";
-				if (tabla.equals("Color")) {
+				if (tabla.equals("color")) {
 					val = "Codigo";
 				} else {
 					val = "Path";
