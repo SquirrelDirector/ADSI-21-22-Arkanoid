@@ -60,9 +60,9 @@ public class Game {
 		double minOverlapY = ballFromTop ? overlapTop : overlapBottom;
 
 		if (minOverlapX < minOverlapY) {
-			//mBall.velocityX = ballFromLeft ? -Config.BALL_VELOCITY : Config.BALL_VELOCITY;
+			mBall.velocityX = ballFromLeft ? -Config.BALL_VELOCITY : Config.BALL_VELOCITY;
 		} else {
-			//mBall.velocityY = ballFromTop ? -Config.BALL_VELOCITY : Config.BALL_VELOCITY;
+			mBall.velocityY = ballFromTop ? -Config.BALL_VELOCITY : Config.BALL_VELOCITY;
 		}
 	}
 

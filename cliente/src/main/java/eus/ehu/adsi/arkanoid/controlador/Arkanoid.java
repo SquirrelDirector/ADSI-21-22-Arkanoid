@@ -27,8 +27,15 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	}
 
 	private void update() {
-		// TODO - implement Arkanoid.update
-		throw new UnsupportedOperationException();
+		currentSlice += lastFt;
+
+		for (; currentSlice >= Config.FT_SLICE; currentSlice -= Config.FT_SLICE) {
+			Partida miPartida = Partida.getMiPartida();
+			miPartida.testPaddle();
+			miPartida.testBola();
+			
+			//TODO: comprobar si la partida a finalizado
+		}
 	}
 
 	/**

@@ -1,9 +1,12 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Partida {
 
 	private int vidasRestantes;
-	private Coleccion<Bloque> bloques;
+	private ArrayList<Bloque> bloques;
 	private int tiempo;
 	private int puntuacion;
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
@@ -34,7 +37,7 @@ public class Partida {
 	 * @param n
 	 */
 	public void romperBloque(int n) {
-		//bloques[n].romper();
+		bloques.get(n).romper();
 	}
 
 	/**
@@ -55,6 +58,21 @@ public class Partida {
 
 	public static Partida getMiPartida() {
 		return Partida.miPartida;
+	}
+	
+	public void testBola() {
+		Iterator<Bloque> it = bloques.iterator();
+		while (it.hasNext()) {
+			Bloque bloque = it.next();
+			Game.testCollision(bloque, bola, this);
+			if (bloque.destroyed) {
+				it.remove();
+			}
+		}
+	}
+	
+	public void testPaddle() {
+		Game.testCollision(paddle, bola);
 	}
 
 }

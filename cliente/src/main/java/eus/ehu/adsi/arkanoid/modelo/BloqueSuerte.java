@@ -38,4 +38,7 @@ public class BloqueSuerte extends Bloque {
 		super.romper();
 	}
 
+	public void setComportamiento(ComportamientoBloque pCom) {
+		comportamiento = pCom;
+	}
 }
