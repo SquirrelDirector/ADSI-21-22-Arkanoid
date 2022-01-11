@@ -40,6 +40,7 @@ public class GestorPuntuaciones {
 					puntuacion.put("tiempo", (String)resultado.get("Tiempo"));
 					puntuacion.put("puntuacion", (Integer)resultado.get("Numero"));
 					ranking.put(puntuacion);
+					resultado.next();
 				}
 				resultado.close();
 			}

@@ -36,6 +36,9 @@ import javax.swing.BoxLayout;
 public class Ranking {
 
 	private JFrame frame;
+	private JSONArray ranking = new JSONArray();
+	private JPanel panel = new JPanel();
+	private boolean personal = false;
 
 	/**
 	 * Launch the application.
@@ -77,7 +80,6 @@ public class Ranking {
 		puntuacion2.put("tiempo", "12345678");
 		puntuacion2.put("puntuacion", 10000);
 		
-		JSONArray ranking = new JSONArray();
 		ranking.put(puntuacion1);
 		ranking.put(puntuacion2);
 		
@@ -97,35 +99,189 @@ public class Ranking {
 		Ranking.setFont(new Font("Lucida Grande", Font.PLAIN, 47));
 		panelGeneral.add(Ranking);
 		
-		JSplitPane textoRanking = new JSplitPane();
+		JPanel textoRanking = new JPanel();
 		textoRanking.setBounds(0, 91, 668, 48);
-		textoRanking.setResizeWeight(0.5);
-		textoRanking.setContinuousLayout(true);
 		panelGeneral.add(textoRanking);
 
 		JButton botonGlobal = new JButton("Global");
-		textoRanking.setLeftComponent(botonGlobal);
+		botonGlobal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
+				personal = false;
+				//ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
+				for(int i = 0; i<ranking.length(); i++) {
+					JSONObject puntuacion = ranking.getJSONObject(i);
+					String nombreUsuario = puntuacion.getString("usuario");
+					String tiempo = puntuacion.getString("tiempo");
+					int puntos = puntuacion.getInt("puntuacion");
+					
+					JLabel labelNombre = new JLabel(nombreUsuario);
+					panel.add(labelNombre);
+					JLabel labelTiempo = new JLabel(tiempo);
+					panel.add(labelTiempo);
+					JLabel labelPuntos = new JLabel(""+puntos);
+					panel.add(labelPuntos);
+				}
+			}
+		});
+		textoRanking.setLayout(new GridLayout(0, 2, 0, 0));
+		textoRanking.add(botonGlobal);
 		
 		JButton botonPersonal = new JButton("Personal");
-		textoRanking.setRightComponent(botonPersonal);
+		botonPersonal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
+				personal = true;
+				//ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
+				for(int i = 0; i<ranking.length(); i++) {
+					JSONObject puntuacion = ranking.getJSONObject(i);
+					String nombreUsuario = puntuacion.getString("usuario");
+					String tiempo = puntuacion.getString("tiempo");
+					int puntos = puntuacion.getInt("puntuacion");
+					
+					JLabel labelNombre = new JLabel(nombreUsuario);
+					panel.add(labelNombre);
+					JLabel labelTiempo = new JLabel(tiempo);
+					panel.add(labelTiempo);
+					JLabel labelPuntos = new JLabel(""+puntos);
+					panel.add(labelPuntos);
+				}
+			}
+		});
+		textoRanking.add(botonPersonal);
 		
 		JPanel panelBotonesNiveles = new JPanel();
 		panelBotonesNiveles.setBounds(0, 144, 668, 39);
 		panelGeneral.add(panelBotonesNiveles);
 		
 		JButton botonAbsolute = new JButton("Absolute");
+		botonAbsolute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
+				personal = true;
+				//ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
+				for(int i = 0; i<ranking.length(); i++) {
+					JSONObject puntuacion = ranking.getJSONObject(i);
+					String nombreUsuario = puntuacion.getString("usuario");
+					String tiempo = puntuacion.getString("tiempo");
+					int puntos = puntuacion.getInt("puntuacion");
+					
+					JLabel labelNombre = new JLabel(nombreUsuario);
+					panel.add(labelNombre);
+					JLabel labelTiempo = new JLabel(tiempo);
+					panel.add(labelTiempo);
+					JLabel labelPuntos = new JLabel(""+puntos);
+					panel.add(labelPuntos);
+				}
+				
+			}
+		});
 		panelBotonesNiveles.add(botonAbsolute);
 		
 		JButton botonRookie = new JButton("Rookie");
+		botonRookie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
+				personal = true;
+				//ranking = Arkanoid.getArkanoid().mostrarRanking(1, personal);
+				for(int i = 0; i<ranking.length(); i++) {
+					JSONObject puntuacion = ranking.getJSONObject(i);
+					String nombreUsuario = puntuacion.getString("usuario");
+					String tiempo = puntuacion.getString("tiempo");
+					int puntos = puntuacion.getInt("puntuacion");
+					
+					JLabel labelNombre = new JLabel(nombreUsuario);
+					panel.add(labelNombre);
+					JLabel labelTiempo = new JLabel(tiempo);
+					panel.add(labelTiempo);
+					JLabel labelPuntos = new JLabel(""+puntos);
+					panel.add(labelPuntos);
+				}
+			}
+		});
 		panelBotonesNiveles.add(botonRookie);
 		
 		JButton botonStandard = new JButton("Standard");
+		botonStandard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
+				personal = true;
+				//ranking = Arkanoid.getArkanoid().mostrarRanking(2, personal);
+				for(int i = 0; i<ranking.length(); i++) {
+					JSONObject puntuacion = ranking.getJSONObject(i);
+					String nombreUsuario = puntuacion.getString("usuario");
+					String tiempo = puntuacion.getString("tiempo");
+					int puntos = puntuacion.getInt("puntuacion");
+					
+					JLabel labelNombre = new JLabel(nombreUsuario);
+					panel.add(labelNombre);
+					JLabel labelTiempo = new JLabel(tiempo);
+					panel.add(labelTiempo);
+					JLabel labelPuntos = new JLabel(""+puntos);
+					panel.add(labelPuntos);
+				}
+			}
+		});
 		panelBotonesNiveles.add(botonStandard);
 		
 		JButton botonExpert = new JButton("Expert");
+		botonExpert.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
+				personal = true;
+				//ranking = Arkanoid.getArkanoid().mostrarRanking(3, personal);
+				for(int i = 0; i<ranking.length(); i++) {
+					JSONObject puntuacion = ranking.getJSONObject(i);
+					String nombreUsuario = puntuacion.getString("usuario");
+					String tiempo = puntuacion.getString("tiempo");
+					int puntos = puntuacion.getInt("puntuacion");
+					
+					JLabel labelNombre = new JLabel(nombreUsuario);
+					panel.add(labelNombre);
+					JLabel labelTiempo = new JLabel(tiempo);
+					panel.add(labelTiempo);
+					JLabel labelPuntos = new JLabel(""+puntos);
+					panel.add(labelPuntos);
+				}
+			}
+		});
 		panelBotonesNiveles.add(botonExpert);
 		
 		JButton botonImposible = new JButton("Impossible");
+		botonImposible.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
+				personal = true;
+				//ranking = Arkanoid.getArkanoid().mostrarRanking(4, personal);
+				for(int i = 0; i<ranking.length(); i++) {
+					JSONObject puntuacion = ranking.getJSONObject(i);
+					String nombreUsuario = puntuacion.getString("usuario");
+					String tiempo = puntuacion.getString("tiempo");
+					int puntos = puntuacion.getInt("puntuacion");
+					
+					JLabel labelNombre = new JLabel(nombreUsuario);
+					panel.add(labelNombre);
+					JLabel labelTiempo = new JLabel(tiempo);
+					panel.add(labelTiempo);
+					JLabel labelPuntos = new JLabel(""+puntos);
+					panel.add(labelPuntos);
+				}
+			}
+		});
 		panelBotonesNiveles.add(botonImposible);
 		
 		JPanel panelPuntuaciones = new JPanel();
@@ -139,25 +295,24 @@ public class Ranking {
 		JScrollPane scrollPane = new JScrollPane();
 		panelPuntuaciones.add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel = new JPanel();
+		
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		panel.setLayout(new GridLayout(0, 3, 0, 0));
 		
-		//JLabel lblNewLabel_2 = new JLabel("New label");
-		//panel.add(lblNewLabel_2);
 		
-		//ranking = Arkanoid.getArkanoid().mostrarRanking(0, false);
+		//ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
 		for(int i = 0; i<ranking.length(); i++) {
 			JSONObject puntuacion = ranking.getJSONObject(i);
-			//String nombreUsuario = puntuacion.getString("usuario");
-			String nombreUsuario = "Angela";
+			String nombreUsuario = puntuacion.getString("usuario");
 			String tiempo = puntuacion.getString("tiempo");
-			String puntos = puntuacion.getString("puntuacion");
+			int puntos = puntuacion.getInt("puntuacion");
 			
-			JLabel labelPuntuacion = new JLabel(nombreUsuario);
-			panel.add(labelPuntuacion);
-			
-			//
+			JLabel labelNombre = new JLabel(nombreUsuario);
+			panel.add(labelNombre);
+			JLabel labelTiempo = new JLabel(tiempo);
+			panel.add(labelTiempo);
+			JLabel labelPuntos = new JLabel(""+puntos);
+			panel.add(labelPuntos);
 			
 		}
 	}
