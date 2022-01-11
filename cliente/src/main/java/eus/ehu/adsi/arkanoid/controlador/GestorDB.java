@@ -1,6 +1,7 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class GestorDB {
 
@@ -15,7 +16,7 @@ public class GestorDB {
 		return miGestorDB;
 	}
 
-	public ResultadoSQL execSQL(String sentencia) {
+	public ResultadoSQL execSQL(String sentencia) throws SQLException {
 		return null;
 	}
 
