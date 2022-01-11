@@ -5,11 +5,12 @@ public class Logro {
 	private int idLogro;
 	private String nombre;
 	private String descripcion;
-
-	public Logro(int pIdLogro, String pNombre, String pDescripcion) {
+	private int objetivo;
+	public Logro(int pIdLogro, String pNombre, String pDescripcion, int pObjetivo) {
 		this.idLogro = pIdLogro;
 		this.nombre = pNombre;
 		this.descripcion = pDescripcion;
+		this.objetivo = pObjetivo;
 	}
 
 	public String getDescripcion() {
@@ -18,6 +19,10 @@ public class Logro {
 
 	public String getNombre() {
 		return this.nombre;
+	}
+	
+	public int getObjetivo() {
+		return this.objetivo;
 	}
 
 }

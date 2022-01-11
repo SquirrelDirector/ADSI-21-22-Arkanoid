@@ -6,7 +6,7 @@ public class LogroObtenido {
 
 	private Date fecha;
 	private Logro logro;
-	private float progreso;
+	private double progreso;
 
 	public LogroObtenido(Date pFecha, Logro pLogro, float pProgreso) {
 		this.fecha = pFecha;
@@ -22,8 +22,12 @@ public class LogroObtenido {
 		return this.logro.getDescripcion();
 	}
 
-	public float getProgreso() {
+	public double getProgreso() {
 		return this.progreso;
+	}
+	
+	public int getObjetivo() {
+		return logro.getObjetivo();
 	}
 
 	public String getNombre() {
@@ -37,5 +41,7 @@ public class LogroObtenido {
 	public boolean esLogro(String nombreLogro) {
 		return this.getNombre().equals(nombreLogro);
 	}
-
+	public void actualizarProgreso(int num) {
+		this.progreso = this.progreso + (num/this.getObjetivo());
+	}
 }

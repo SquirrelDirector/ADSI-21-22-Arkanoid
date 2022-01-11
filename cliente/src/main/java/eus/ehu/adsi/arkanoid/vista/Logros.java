@@ -61,25 +61,25 @@ public class Logros extends JDialog {
 		logro1.put("nombre", "Rey de los Principiantes");
 		logro1.put("descripcion", "este es el logro del rey de los principiantes");
 		logro1.put("fechaObtencion", fecha);
-		logro1.put("progreso", 100);
+		logro1.put("progreso", 1);
 
 		JSONObject logro2 = new JSONObject();
 		logro2.put("nombre", "Ranking Master");
 		logro2.put("descripcion", "este es el logro del ranking master");
 		logro2.put("fechaObtencion", fecha);
-		logro2.put("progreso", 100);
+		logro2.put("progreso", 1);
 
 		JSONObject logro3 = new JSONObject();
 		logro3.put("nombre", "Novato Total");
 		logro3.put("descripcion", "este es el logro del novato total");
 		logro3.put("fechaObtencion", fecha);
-		logro3.put("progreso", 100);
+		logro3.put("progreso", 1);
 
 		JSONObject logro4 = new JSONObject();
 		logro4.put("nombre", "Vigilante del abismo");
 		logro4.put("descripcion", "este es el logro del vigilante del abismo");
 		logro4.put("fechaObtencion", fecha);
-		logro4.put("progreso", 100);
+		logro4.put("progreso", 1);
 
 		JSONObject logro5 = new JSONObject();
 		logro5.put("nombre", "Sol de Mexico");

@@ -1,5 +1,7 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.Date;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -51,7 +53,8 @@ public class Usuario {
 	 */
 	public boolean tieneLogro(String nombre) {
 		for (LogroObtenido i : susLogros) {
-			if (i.esLogro(nombre)) return true;				
+			if (i.esLogro(nombre))
+				return true;
 		}
 		return false;
 	}
@@ -75,8 +78,9 @@ public class Usuario {
 					infoLogro.put("progreso", (double) unLogro.getProgreso());
 				}
 			}
-		}else{
+		} else {
 			LogroObtenido unLogro = buscarLogro(nombre);
+			infoLogro.put("nombre", nombre);
 			infoLogro.put("descripcion", unLogro.getDescripcion());
 		}
 		return infoLogro;
@@ -108,7 +112,7 @@ public class Usuario {
 
 	public JSONArray getLogros() {
 		JSONArray logros = new JSONArray();
-		for (LogroObtenido logro : susLogros){
+		for (LogroObtenido logro : susLogros) {
 			JSONObject infoLogro = new JSONObject();
 			infoLogro.put("nombre", logro.getNombre());
 			infoLogro.put("descripcion", logro.getDescripcion());
@@ -134,19 +138,40 @@ public class Usuario {
 	public Iterator<LogroObtenido> getIterador() {
 		return this.susLogros.iterator();
 	}
-	
+
 	public JSONArray cotejarLogros(JSONArray logros) {
-		JSONArray diferencia = new JSONArray();
-		//TODO comparar los logros y actualizar progresos de logros
-		for(int i=0; i< logros.length(); i++) {
-			JSONObject unLogro = logros.getJSONObject(i);
-			double progreso = unLogro.getDouble("progreso");
+		JSONArray nuevosLogros = new JSONArray();
+		// TODO comparar los logros y actualizar progresos de logros
+		for (int i = 0; i < logros.length(); i++) {
+			JSONObject unLogro = logros.getJSONObject(i);					
 			String nombreLogro = unLogro.getString("nombre");
+			
 			JSONObject logroUsuario = this.getInfoLogro(nombreLogro);
 			double progresoUsuario = logroUsuario.getDouble("progreso");
+			
+			if (logroUsuario.getString("fechaObtencion")==null) {// esto quiere decir que el usuario no tiene este logro obtenido
+				nuevosLogros.put(unLogro);
+				//Anadimos el nuevo logro obtenido en partida a la lista de logros del usuario
+				Logro nuevoLogro = CatalogoLogros.getMiCatalogoLogros().getLogro(nombreLogro);
+				LogroObtenido nuevoLogroObtenido = new LogroObtenido(new Date(),nuevoLogro,1);
+				susLogros.add(nuevoLogroObtenido);
+			} else if (progresoUsuario < 1) {
+				this.actualizarProgreso(1, nombreLogro);
+			}
 		}
-		return diferencia;
-		
-	}
+		return nuevosLogros;
 
+	}
+	public void actualizarProgreso(int num, String logro) {
+		Iterator<LogroObtenido> itr = susLogros.iterator();
+		boolean enc = false;
+		while(itr.hasNext() && !enc) {
+			LogroObtenido unLogroObtenido = itr.next();
+			if(unLogroObtenido.esLogro(logro)) {
+				enc = true;
+				unLogroObtenido.actualizarProgreso(num);
+			}
+			
+		}
+	}
 }

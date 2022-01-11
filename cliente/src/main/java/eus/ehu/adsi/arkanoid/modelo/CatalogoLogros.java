@@ -33,6 +33,13 @@ public class CatalogoLogros {
 		}
 		return encontrado;
 	}
+	public Logro getLogro(String nombre) {		
+		for (Logro unLogro : listaLogros) {
+			if (unLogro.getNombre().equals(nombre))
+				return unLogro;
+		}
+		return null;
+	}
 
 	/**
 	 * 
