@@ -72,7 +72,7 @@ public class Usuario {
 					infoLogro.put("nombre", unLogro.getNombre());
 					infoLogro.put("descripcion", unLogro.getDescripcion());
 					infoLogro.put("fechaObtencion", unLogro.getFechaObtencion());
-					infoLogro.put("progreso", unLogro.getProgreso());
+					infoLogro.put("progreso", (double) unLogro.getProgreso());
 				}
 			}
 		}else{
@@ -113,7 +113,7 @@ public class Usuario {
 			infoLogro.put("nombre", logro.getNombre());
 			infoLogro.put("descripcion", logro.getDescripcion());
 			infoLogro.put("fechaObtencion", logro.getFechaObtencion());
-			infoLogro.put("progreso", logro.getProgreso());
+			infoLogro.put("progreso", (double) logro.getProgreso());
 			logros.put(infoLogro);
 		}
 		return logros;
@@ -133,6 +133,20 @@ public class Usuario {
 
 	public Iterator<LogroObtenido> getIterador() {
 		return this.susLogros.iterator();
+	}
+	
+	public JSONArray cotejarLogros(JSONArray logros) {
+		JSONArray diferencia = new JSONArray();
+		//TODO comparar los logros y actualizar progresos de logros
+		for(int i=0; i< logros.length(); i++) {
+			JSONObject unLogro = logros.getJSONObject(i);
+			double progreso = unLogro.getDouble("progreso");
+			String nombreLogro = unLogro.getString("nombre");
+			JSONObject logroUsuario = this.getInfoLogro(nombreLogro);
+			double progresoUsuario = logroUsuario.getDouble("progreso");
+		}
+		return diferencia;
+		
 	}
 
 }
