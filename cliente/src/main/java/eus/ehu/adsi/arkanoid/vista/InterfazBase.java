@@ -21,6 +21,6 @@ public class InterfazBase extends JPanel {
 	  protected void paintComponent(Graphics g) {
 
 	    super.paintComponent(g);
-        g.drawImage(icon, 0, 0, null);
+        g.drawImage(icon, 0, 0, this.getWidth(), this.getWidth(), null);
 	}
 }
