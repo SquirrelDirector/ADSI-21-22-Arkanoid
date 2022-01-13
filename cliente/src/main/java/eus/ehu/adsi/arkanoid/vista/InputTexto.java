@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class InputTexto extends JTextField{
@@ -19,6 +20,7 @@ public class InputTexto extends JTextField{
 		this.setBackground(new Color(0x000000));
 		this.setForeground(new Color(0xFFFFFF));
 		this.setColumns(20);
+		this.setBorder(new EmptyBorder(5,10,5,10));
 	}
 	
 	public InputTexto() {

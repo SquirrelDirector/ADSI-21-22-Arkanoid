@@ -5,8 +5,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPasswordField;
+import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class PasswordInput extends JPasswordField {
@@ -19,7 +23,10 @@ public class PasswordInput extends JPasswordField {
 		this.setBackground(new Color(0x000000));
 		this.setForeground(new Color(0xFFFFFF));
 		this.setColumns(20);
+		this.setEchoChar('*');
+		this.setBorder(new EmptyBorder(5,10,5,10));
 	}
+	
 	
 	public PasswordInput() {
 		this.ph = null;
