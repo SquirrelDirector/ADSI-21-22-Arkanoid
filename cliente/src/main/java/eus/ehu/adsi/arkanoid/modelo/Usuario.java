@@ -105,6 +105,11 @@ public class Usuario {
 		return nivelDefault;
 	}
 	
-	public JSON ObtenerDatosNivelPersonalizado() {
+	public JSONArray ObtenerDatosNivelPersonalizado() {
+		JSONArray Personalizado= new JSONArray();
+		Personalizado.put("Velocidad", this.atributosPersonalizado.Velocidad);
+		Personalizado.put("Anchura", this.atributosPersonalizado.Anchura);
+		Personalizado.put("NumLadrillos", this.atributosPersonalizado.NumLadrillos);
+
 	}
 }
