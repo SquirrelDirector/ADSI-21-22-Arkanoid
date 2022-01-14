@@ -86,8 +86,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param idNivel
 	 */
 	public void actualizarUltimaPartida(int idNivel) {
-		// TODO - implement Arkanoid.actualizarUltimaPartida
-		throw new UnsupportedOperationException();
+		Usuario.actualizarUltimaPartida(idNivel);
 	}
 
 	/**
@@ -95,10 +94,13 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param idNivel
 	 */
 	public JSON obtenerDatosNivel(int idNivel) {
-		// TODO - implement Arkanoid.obtenerDatosNivel
-		throw new UnsupportedOperationException();
+		if (idNivel==6) {
+			return Usuario.obtenerDatosNivelPersonalizado();
+		}
+		return GestorNiveles.obtenerDatosNivel(idNivel);
 	}
 
+	
 	public JSON getLogros() {
 		// TODO - implement Arkanoid.getLogros
 		throw new UnsupportedOperationException();
@@ -176,5 +178,11 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		// TODO - implement Arkanoid.publicarResultados
 		throw new UnsupportedOperationException();
 	}
+	
+	public int getUltimaPartida() {
+		return usuario.getNivelDefault();
+	}
+	
+	
 
 }

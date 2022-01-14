@@ -101,4 +101,10 @@ public class Usuario {
 		throw new UnsupportedOperationException();
 	}
 
+	public int getNivelDefault() {
+		return nivelDefault;
+	}
+	
+	public JSON ObtenerDatosNivelPersonalizado() {
+	}
 }

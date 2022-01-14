@@ -9,7 +9,7 @@ public class GestorDB {
 		throw new UnsupportedOperationException();
 	}
 
-	public static GestoDB getGestorDB() {
+	public static GestorDB getGestorDB() {
 		// TODO - implement GestorDB.getGestorDB
 		throw new UnsupportedOperationException();
 	}
