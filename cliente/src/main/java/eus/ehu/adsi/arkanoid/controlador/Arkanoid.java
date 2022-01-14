@@ -86,18 +86,20 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param idNivel
 	 */
 	public void actualizarUltimaPartida(int idNivel) {
-		Usuario.actualizarUltimaPartida(idNivel);
+		usuario.actualizarUltimaPartida(idNivel);
 	}
 
 	/**
 	 * 
 	 * @param idNivel
 	 */
-	public JSON obtenerDatosNivel(int idNivel) {
+	public String[] obtenerDatosNivel(int idNivel) {
 		if (idNivel==6) {
-			return Usuario.obtenerDatosNivelPersonalizado();
+			return usuario.obtenerDatosNivelPersonalizado();
 		}
-		return GestorNiveles.obtenerDatosNivel(idNivel);
+		else {
+			return GestorNiveles.getGestorNiveles().obtenerDatosNivel(idNivel);
+		}
 	}
 
 	
@@ -183,6 +185,21 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		return usuario.getNivelDefault();
 	}
 	
+	public void updateConfig(double Velocidad, double Anchura, int Num_Ladrillos) {
+		Config.BALL_VELOCITY=Velocidad/10;
+		Config.PADDLE_WIDTH=Anchura;
+		Config.COUNT_BLOCKS_Y=Num_Ladrillos/Config.COUNT_BLOCKS_X;
+	}
 	
+	public void updateColores(String Fondo, String Bola, String Ladrillo, String Paddle) {
+		Config.BACKGROUND_COLOR = Color.Fondo;
+		Config.BALL_COLOR = Color.Bola;
+		Config.BRICK_COLOR = Color.Ladrillo;
+		Config.PADDLE_COLOR = Color.Paddle;
+	}
+	
+	public void updateMusica(String path) {
+		Config.PATH_MUSICA = path;
+	}
 
 }

@@ -6,7 +6,7 @@ public class Usuario {
 
 	private String email;
 	private String contrasena;
-	private Coleccion<T> atributosPersonalizado;
+	private String atributosPersonalizado;
 	private String pathPerfil;
 	private String pathMusica;
 	private String codigoColorFondo;
@@ -27,9 +27,13 @@ public class Usuario {
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON obtenerPersonalizacionUsuario() {
-		// TODO - implement Usuario.obtenerPersonalizacionUsuario
-		throw new UnsupportedOperationException();
+	public String[] obtenerPersonalizacionUsuario() {
+		String[] Datos = new String[4];
+		Datos[1]=this.codigoColorFondo;
+		Datos[2]=this.codigoColorBola;
+		Datos[3]=this.codigoColorLadrillo;
+		Datos[4]=this.codigoColorPaddle;
+		return Datos;
 	}
 
 	/**
@@ -105,11 +109,7 @@ public class Usuario {
 		return nivelDefault;
 	}
 	
-	public JSONArray ObtenerDatosNivelPersonalizado() {
-		JSONArray Personalizado= new JSONArray();
-		Personalizado.put("Velocidad", this.atributosPersonalizado.Velocidad);
-		Personalizado.put("Anchura", this.atributosPersonalizado.Anchura);
-		Personalizado.put("NumLadrillos", this.atributosPersonalizado.NumLadrillos);
-
-	}
+	public String[] obtenerDatosNivelPersonalizado() {
+		return atributosPersonalizado.split(",");
+		}
 }

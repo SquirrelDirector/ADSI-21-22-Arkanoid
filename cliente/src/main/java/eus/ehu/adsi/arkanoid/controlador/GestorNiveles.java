@@ -20,9 +20,16 @@ public class GestorNiveles {
 	 * 
 	 * @param idNivel
 	 */
-	public JSONArray obtenerDatosNivel(int idNivel) {
-		JSONARRAY Nivel = GestorDB.getGestorDB().execSQL2("SELECT Velocidad, Anchura, Aceleración, Num_Ladrillos FROM Nivel WHERE idNivel=%int%");
-		return Nivel;
+	public String[] obtenerDatosNivel(int idNivel) {
+		JSONObject Nivel = GestorDB.getGestorDB().execSQL("SELECT Velocidad, Anchura, Num_Ladrillos FROM Nivel WHERE idNivel=%int%");
+		String[] DatosNivel=new String[3];
+		int i;
+		for (i=1;i>3;i++) {
+			Nivel.get("Velocidad")=DatosNivel[1];
+			Nivel.get("Anchura")=DatosNivel[2];
+			Nivel.get("Num_Ladrillos")=DatosNivel[3];
+		}
+		return DatosNivel;
 	}
 	
 
