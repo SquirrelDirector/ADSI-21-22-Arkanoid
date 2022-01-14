@@ -139,7 +139,7 @@ public class Personalizacion extends JDialog {
 									cfButtons = new JPanel();
 									cfButtons.setBorder(new EmptyBorder(0, 5, 0, 0));
 									fondo.add(cfButtons);
-									cfButtons.setLayout(new GridLayout(1, 0, 0, 0));
+									cfButtons.setLayout(new BoxLayout(cfButtons, BoxLayout.X_AXIS));
 								}
 							}
 						}
@@ -184,7 +184,7 @@ public class Personalizacion extends JDialog {
 									cbButtons = new JPanel();
 									cbButtons.setBorder(new EmptyBorder(0, 5, 0, 0));
 									bola.add(cbButtons);
-									cbButtons.setLayout(new GridLayout(1, 0, 0, 0));
+									cbButtons.setLayout(new BoxLayout(cbButtons, BoxLayout.X_AXIS));
 								}
 							}
 						}
@@ -225,7 +225,7 @@ public class Personalizacion extends JDialog {
 									clButtons = new JPanel();
 									clButtons.setBorder(new EmptyBorder(0, 0, 0, 0));
 									ladrillos.add(clButtons);
-									clButtons.setLayout(new GridLayout(1, 0, 0, 0));
+									clButtons.setLayout(new BoxLayout(clButtons, BoxLayout.X_AXIS));
 								}
 							}
 						}
@@ -270,7 +270,7 @@ public class Personalizacion extends JDialog {
 									cpButtons = new JPanel();
 									cpButtons.setBorder(new EmptyBorder(0, 5, 0, 0));
 									paddle.add(cpButtons);
-									cpButtons.setLayout(new GridLayout(1, 0, 0, 0));
+									cpButtons.setLayout(new BoxLayout(cpButtons, BoxLayout.X_AXIS));
 								}
 							}
 						}
@@ -540,20 +540,19 @@ public class Personalizacion extends JDialog {
 	
 	private void ponerColores() {
         JSONObject colorObjeto;
+        bg1 = new ButtonGroup();
+        bg2 = new ButtonGroup();
+        bg3 = new ButtonGroup();
+        bg4 = new ButtonGroup();
         for (int j = 0; j < 4; j++) {
-            if (j==0) bg1 = new ButtonGroup();
-            else if (j==1) bg2 = new ButtonGroup();
-            else if (j==2) bg3 = new ButtonGroup();
-            else bg4 = new ButtonGroup();
-            Box hori1 = Box.createHorizontalBox();
             for (int i = 0; i < colores.length(); i++) {
                 colorObjeto = (JSONObject) colores.get(i);
                 String nombre = colorObjeto.getString("Nombre");
                 String codigo = colorObjeto.getString("Codigo");
                 //Nombre colores - buttongroup
                 JRadioButton jrb = new JRadioButton(nombre);
+                jrb.setMargin(new Insets(0, 25, 0, 0));
                 jrb.setToolTipText(codigo);
-                jrb.setMargin(new Insets(0, 20, 0, 10));
                 if (j==0) {
                     jrb = addUserPreference(jrb, codigo,"CodigoFondo");
                     bg1.add(jrb);
@@ -570,10 +569,9 @@ public class Personalizacion extends JDialog {
                     jrb = addUserPreference(jrb, codigo, "CodigoLadrillo");
                     bg4.add(jrb);
                 }
-                hori1.add(jrb);
                 //Colores - Labels
                 JLabel color = new JLabel();
-                color.setBorder(new LineBorder(Color.black, 2, true));
+                color.setBorder(new LineBorder(Color.black, 2, true)); //Cambiar a blanco al juntar las ramas
                 color.setPreferredSize(new Dimension(40, 40));
                 int[] rgb = obtenerRGB(codigo);
                 color.setBackground(new Color(rgb[0], rgb[1], rgb[2]));
@@ -582,24 +580,24 @@ public class Personalizacion extends JDialog {
                 if (j==0) {
                     cfpLabels.add(color);
                     cfpLabels.add(espacio);
+                    cfButtons.add(jrb);
                 }
                 else if (j==1) {
                     cbpLabels.add(color);
                     cbpLabels.add(espacio);
+                    cbButtons.add(jrb);
                 }
                 else if (j==2) {
                     clpLabels.add(color);
                     clpLabels.add(espacio);
+                    clButtons.add(jrb);
                 }
                 else {
                     cppLabels.add(color);
                     cppLabels.add(espacio);
+                    cpButtons.add(jrb);
                 }
             }
-            if (j==0) cfButtons.add(hori1);
-            else if (j==1) cbButtons.add(hori1);
-            else if (j==2) clButtons.add(hori1);
-            else cpButtons.add(hori1);
         }
     }
 	

@@ -73,7 +73,8 @@ public class ModificarDatos extends JDialog {
 	 * Create the dialog.
 	 */
 	public ModificarDatos() {
-		setBounds(100, 100, 465, 400);
+		//setBounds(100, 100, 465, 400);
+		setBounds(100, 100, 550, 400);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -224,7 +225,7 @@ public class ModificarDatos extends JDialog {
 		//JSONObject avataresJ = Arkanoid.getArkanoid().obtenerAvatares();
 		//avatares = avataresJ.getJSONArray("avatares");
 		JSONObject avatar0 = new JSONObject();
-		avatar0.put("Path", "/imagenesAvatar/Avatar1.png");
+		avatar0.put("Path", "/imagenesAvatar/user.png");
 		avatar0.put("Nombre", "Avatar 1");
 		JSONObject avatar1 = new JSONObject();
 		avatar1.put("Path", "/imagenesAvatar/Avatar2.png");
@@ -249,7 +250,6 @@ public class ModificarDatos extends JDialog {
 	private void ponerAvatares() {
 		JSONObject avatarObjeto;
 		bgA = new ButtonGroup();
-		Box hori = Box.createHorizontalBox();
 		for (int i = 0; i < avatares.length(); i++) {
 			avatarObjeto = (JSONObject) avatares.get(i);
             String nombre = avatarObjeto.getString("Nombre");
@@ -257,8 +257,8 @@ public class ModificarDatos extends JDialog {
 			//Labels - Imagen
             JLabel label = new JLabel();
             label.setIcon(new ImageIcon(getClass().getResource("/imagenesAvatar/Avatar"+(i+1)+".png")));
-            label.setPreferredSize(new Dimension(35, 32));
-            label.setOpaque(true);
+            label.setPreferredSize(new Dimension(25, 48));
+            
 			avatarLabels.add(label);
 			if (i != avatares.length()-1) {
 				JLabel espacio = new JLabel();
@@ -268,11 +268,10 @@ public class ModificarDatos extends JDialog {
 			//RadioButtons - Nombre
 			JRadioButton jrb = new JRadioButton(nombre);
 			jrb = addUserPreference(jrb, path);
-			jrb.setMargin(new Insets(0, 10, 0, 0));
+			jrb.setMargin(new Insets(0, 26, 0, 0));
 			bgA.add(jrb);
-			hori.add(jrb);
+			avataresButton.add(jrb);
 		}
-		avataresButton.add(hori);
 	}
 	
 	private JRadioButton addUserPreference(JRadioButton jrb, String pathPerfil) {
