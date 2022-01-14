@@ -1,12 +1,8 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
 public class EnvioRRSSFactory {
-
-	private static EnvioRRSSFactory miEnvioRRSS;
-
 	public EnvioRRSSFactory() {
-		// TODO - implement EnvioRRSSFactory.EnvioRRSSFactory
-		throw new UnsupportedOperationException();
+		
 	}
 
 	/**

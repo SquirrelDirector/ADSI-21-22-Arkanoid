@@ -10,13 +10,14 @@ public class GestorRedes {
 	private static GestorRedes miGestorRedes;
 
 	private GestorRedes() {
-		// TODO - implement GestorRedes.GestorRedes
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public static GestorRedes getGestorRedes() {
-		// TODO - implement GestorRedes.getGestorRedes
-		throw new UnsupportedOperationException();
+		if (miGestorRedes==null) {
+			miGestorRedes = new GestorRedes();
+		}
+		return miGestorRedes;
 	}
 
 	/**

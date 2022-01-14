@@ -186,11 +186,11 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		JSONObject datosPartida = GestorPartida.getGestorPartida().getDatosPartidaActual();
 		JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
 		GestorRedes.getGestorRedes().publicarResultados(redSocial, 
-														datosPartida.get("puntuacionConseguida"), 
-														datosPartida.get("tiempoPartida"), 
-														datosHistoricos.get("mejorPuntuacion"), 
-														datosHistoricos.get("mejorTiempo"), 
-														datosPartida.get("logrosConseguidos"));
+														Integer.parseInt(datosPartida.get("puntuacionConseguida").toString()), 
+														Integer.parseInt(datosPartida.get("tiempoPartida").toString()), 
+														Integer.parseInt(datosHistoricos.get("mejorPuntuacion").toString()), 
+														Integer.parseInt(datosHistoricos.get("mejorTiempo").toString()), 
+														datosPartida.getJSONArray("logrosConseguidos"));
 	}
 
 }
