@@ -31,7 +31,7 @@ public class Game {
 	 * @param mPaddle
 	 * @param mBall
 	 */
-	public static void testCollision(Paddle1 mPaddle, Bola mBall) {
+	public static void testCollision(Paddle mPaddle, Bola mBall) {
 		// TODO - implement Game.testCollision
 		throw new UnsupportedOperationException();
 	}

@@ -1,9 +1,15 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
-public class Partida {
+import java.util.Collection;
+import java.util.Observable;
+
+import org.json.JSONObject;
+
+@SuppressWarnings("deprecation")
+public class Partida extends Observable {
 
 	private int vidasRestantes;
-	private Coleccion<Bloque> bloques;
+	private Collection<Bloque> bloques;
 	private int tiempo;
 	private int puntuacion;
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
@@ -20,7 +26,7 @@ public class Partida {
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getDatosPartidaActual() {
+	public JSONObject getDatosPartidaActual() {
 		// TODO - implement Partida.getDatosPartidaActual
 		throw new UnsupportedOperationException();
 	}
