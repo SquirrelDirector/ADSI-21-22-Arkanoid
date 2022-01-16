@@ -18,6 +18,8 @@ import eus.ehu.adsi.arkanoid.modelo.Partida;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -34,9 +36,10 @@ import java.awt.CardLayout;
 
 
 @SuppressWarnings({ "serial", "deprecation" })
-public class Tablero extends JFrame implements Observer {
+public class Tablero extends JFrame implements Observer, KeyListener {
 
-	private JPanel contentPane, tableroPanel;
+	private JPanel contentPane;
+	private PanelTablero tableroPanel;
 	
 	private Clip clip;
 	private JLabel cronometro;
@@ -70,6 +73,8 @@ public class Tablero extends JFrame implements Observer {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(Config.BACKGROUND_COLOR);
+		super.addKeyListener(this);
+		//this.addKeyListener(this);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
@@ -192,4 +197,17 @@ public class Tablero extends JFrame implements Observer {
         }
     }
 
+    public void keyPressed(KeyEvent event) {
+		System.out.println("Hola");
+		tableroPanel.moverPaddle(event);
+	}
+  
+    public void keyReleased(KeyEvent event) {
+    	System.out.println("Hola2");
+		tableroPanel.pararPaddle(event);
+	}
+  
+    public void keyTyped(KeyEvent arg0) {
+    	System.out.println("Hola3");
+    }
 }

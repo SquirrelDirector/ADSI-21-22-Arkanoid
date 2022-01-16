@@ -22,7 +22,7 @@ import eus.ehu.adsi.arkanoid.modelo.Paddle;
  */
 // Extends JPanel, so as to override the paintComponent() for custom rendering codes. 
 @SuppressWarnings("serial")
-public class PanelTablero extends JPanel implements KeyListener {
+public class PanelTablero extends JPanel {
    // Container box's width and height
    private static final int BOX_WIDTH = Config.SCREEN_WIDTH - 20;
    private static final int BOX_HEIGHT = Config.SCREEN_HEIGHT - 115;
@@ -49,7 +49,7 @@ public class PanelTablero extends JPanel implements KeyListener {
    /** Constructor to create the UI components and init game objects. */
    public PanelTablero() {
       this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));
-      this.addKeyListener(this);
+      
       
       // Lista de bloques
       for (int iX = 0; iX < Config.COUNT_BLOCKS_X; ++iX) {
@@ -170,8 +170,8 @@ public class PanelTablero extends JPanel implements KeyListener {
 		}
 	}
    
-   public void keyPressed(KeyEvent event) {
-		switch (event.getKeyCode()) {
+   public void moverPaddle(KeyEvent event) {
+	   switch (event.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
 			if ((paddle.x - sizeXPaddle / 2.0) > 0.0) {
 				paddle.velocity = -Config.PADDLE_VELOCITY;
@@ -189,10 +189,10 @@ public class PanelTablero extends JPanel implements KeyListener {
 		default:
 			break;
 		}
-	}
-  
-  public void keyReleased(KeyEvent event) {
-		switch (event.getKeyCode()) {
+   }
+   
+   public void pararPaddle(KeyEvent event) {
+	   switch (event.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_RIGHT:
 			paddle.velocity = 0.0;
@@ -200,7 +200,5 @@ public class PanelTablero extends JPanel implements KeyListener {
 		default:
 			break;
 		}
-	}
-  
-  public void keyTyped(KeyEvent arg0) {}
+   }
 }
