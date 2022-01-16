@@ -1,29 +1,36 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
 import javax.swing.*;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.awt.event.*;
+import java.util.Observable;
+
 import eus.ehu.adsi.arkanoid.modelo.*;
 
-public class Arkanoid{ //extends JFrame implements KeyListener {
+public class Arkanoid extends Observable {
 
 	private static Arkanoid miArkanoid;
 	/**
 	 * Game variables
 	 */
-	private Game game;
+	/*private Game game;
 	private Partida partida = new Partida();
 	private double lastFt;
-	private double currentSlice;
+	private double currentSlice;*/
 	private Usuario usuario;
 
 	private Arkanoid() {
-		// TODO - implement Arkanoid.Arkanoid
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public static Arkanoid getArkanoid() {
-		// TODO - implement Arkanoid.getArkanoid
-		throw new UnsupportedOperationException();
+		if (miArkanoid==null)
+			miArkanoid=new Arkanoid();
+		return miArkanoid;
 	}
 
 	private void update() {
@@ -35,12 +42,12 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param emailUsuario
 	 */
-	public JSON obtenerPersonalizacion(int emailUsuario) {
+	public JSONObject obtenerPersonalizacion(int emailUsuario) {
 		// TODO - implement Arkanoid.obtenerPersonalizacion
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON obtenerPersonalizacionUsuario() {
+	public JSONObject obtenerPersonalizacionUsuario() {
 		// TODO - implement Arkanoid.obtenerPersonalizacionUsuario
 		throw new UnsupportedOperationException();
 	}
@@ -76,7 +83,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param dificultad
 	 * @param isPersonal
 	 */
-	public JSON mostrarRanking(int dificultad, boolean isPersonal) {
+	public JSONArray mostrarRanking(int dificultad, boolean isPersonal) {
 		// TODO - implement Arkanoid.mostrarRanking
 		throw new UnsupportedOperationException();
 	}
@@ -94,12 +101,12 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param idNivel
 	 */
-	public JSON obtenerDatosNivel(int idNivel) {
+	public JSONObject obtenerDatosNivel(int idNivel) {
 		// TODO - implement Arkanoid.obtenerDatosNivel
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getLogros() {
+	public JSONArray getLogros() {
 		// TODO - implement Arkanoid.getLogros
 		throw new UnsupportedOperationException();
 	}
@@ -108,7 +115,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param nombre
 	 */
-	public JSON getInfoLogro(string nombre) {
+	public JSONObject getInfoLogro(String nombre) {
 		// TODO - implement Arkanoid.getInfoLogro
 		throw new UnsupportedOperationException();
 	}
@@ -118,9 +125,32 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param mail
 	 * @param pass
 	 */
-	public int iniciarSesion(string mail, string pass) {
-		// TODO - implement Arkanoid.iniciarSesion
-		throw new UnsupportedOperationException();
+	public int iniciarSesion(String mail, String pass) {
+		if (mail.equals(""))//TODO - filtrar por expresiones regulares
+			return 1;
+		if (pass.equals(""))
+			return 2;
+		
+		pass=cifrar(pass); //se hace en una función separada para facilitar la posibilidad de cambiar el algoritmo de resumen
+		
+		JSONObject datos=GestorUsuarios.getGestorUsuario().importarUsuario(mail, pass);
+		if (datos==null)
+			return 3;
+		
+		usuario=new Usuario(datos);
+		notifyObservers(usuario.getPerfil());
+		return 0;
+	}
+	
+	private String cifrar(String pass) {
+		String hash=pass.hashCode()+"";
+		return hash;
+	}
+
+	public void cerrarSesion(){
+		if (!usuario.isIdentificado()) //caso a priori imposible de suceder
+			notifyObservers(usuario.getPerfil());
+		usuario=new Usuario();
 	}
 
 	/**
@@ -129,7 +159,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param mail
 	 * @param pass
 	 */
-	public int registrarse(string usr, string mail, string pass) {
+	public int registrarse(String usr, String mail, String pass) {
 		// TODO - implement Arkanoid.registrarse
 		throw new UnsupportedOperationException();
 	}
@@ -138,7 +168,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param mail
 	 */
-	public int recuperarContrasena(string mail) {
+	public int recuperarContrasena(String mail) {
 		// TODO - implement Arkanoid.recuperarContrasena
 		throw new UnsupportedOperationException();
 	}
@@ -148,12 +178,12 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param mail
 	 * @param pass
 	 */
-	public void cambiarContrasena(string mail, string pass) {
+	public void cambiarContrasena(String mail, String pass) {
 		// TODO - implement Arkanoid.cambiarContrasena
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getResultadosPartida() {
+	public JSONObject getResultadosPartida() {
 		// TODO - implement Arkanoid.getResultadosPartida
 		throw new UnsupportedOperationException();
 	}
@@ -163,7 +193,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param datosPartida
 	 * @param datosHistoricos
 	 */
-	private void agregarJSON(JSON datosPartida, JSON datosHistoricos) {
+	private void agregarJSON(JSONObject datosPartida, JSONObject datosHistoricos) {
 		// TODO - implement Arkanoid.agregarJSON
 		throw new UnsupportedOperationException();
 	}
@@ -172,7 +202,7 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * 
 	 * @param redSocial
 	 */
-	public void publicarResultados(string redSocial) {
+	public void publicarResultados(String redSocial) {
 		// TODO - implement Arkanoid.publicarResultados
 		throw new UnsupportedOperationException();
 	}

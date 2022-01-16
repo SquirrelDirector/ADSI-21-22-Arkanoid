@@ -7,9 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.json.JSONObject;
+
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.JTextField;
@@ -17,6 +20,7 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import javax.swing.BoxLayout;
@@ -40,6 +44,7 @@ public class IUIdentificarse extends JFrame {
 	private JButton btnForgotPassword;
 	private JLabel lblSignUp;
 	private JPasswordField password;
+	private Arkanoid ark;
 
 	/**
 	 * Launch the application.
@@ -74,6 +79,7 @@ public class IUIdentificarse extends JFrame {
 	 */
 	private IUIdentificarse() {
 		initialize();
+		ark=Arkanoid.getArkanoid();
 	}
 	private void initialize() {
 		setResizable(false);
@@ -121,19 +127,19 @@ public class IUIdentificarse extends JFrame {
 			btnAcceder.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					int cod=Arkanoid.getArkanoid().iniciarSesion(email.getText(), password.getText());
+					int cod=ark.iniciarSesion(email.getText(), password.getText());
 					switch (cod){
 					case 0: //todo bien
-						
+						((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
 						break;
 					case 1: //correo no válido
-						
+						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
 						break;
 					case 2: //contraseña no válida
-						
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida");
 						break;
 					case 3: //credenciales no coincidentes
-						
+						JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos");
 						break;
 					}
 				}
@@ -151,8 +157,12 @@ public class IUIdentificarse extends JFrame {
 			btnSignup.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					IURegistrarse.getMiIURegistrarse().mostrarVentana();
-					setVisible(false);
+					//IURegistrarse.getMiIURegistrarse().mostrarVentana();
+					//setVisible(false);
+					Date hoy=new Date();
+					JSONObject json=new JSONObject();
+					json.put("hoy", hoy);
+					System.out.println(json.get("hoy"));
 				}
 			});
 		}

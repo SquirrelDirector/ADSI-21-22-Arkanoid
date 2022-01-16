@@ -1,40 +1,41 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ResultadoSQL {
-
-	public ResultadoSQL() {
-		// TODO - implement ResultadoSQL.ResultadoSQL
-		throw new UnsupportedOperationException();
+	HashMap <String, ArrayList<Object>> map;
+	int indice=0;
+	int longitud=0;
+	public ResultadoSQL(int pLongitud) {
+		map = new HashMap<>();
+		longitud=pLongitud;
 	}
 
+	
 	public void next() {
-		// TODO - implement ResultadoSQL.next
-		throw new UnsupportedOperationException();
+			indice++;
 	}
-
-	public void close() {
-		// TODO - implement ResultadoSQL.close
-		throw new UnsupportedOperationException();
+	
+	public boolean hasNext() {
+		return indice<longitud;
 	}
-
-	public String getString() {
-		// TODO - implement ResultadoSQL.getString
-		throw new UnsupportedOperationException();
+	
+	public Object get(String clave) {
+		ArrayList<Object> lista= map.get(clave); 
+		return lista.get(indice);
 	}
-
-	public int getInt() {
-		// TODO - implement ResultadoSQL.getInt
-		throw new UnsupportedOperationException();
-	}
-
-	public float getFloat() {
-		// TODO - implement ResultadoSQL.getFloat
-		throw new UnsupportedOperationException();
-	}
-
-	public Date getDate() {
-		// TODO - implement ResultadoSQL.getDate
-		throw new UnsupportedOperationException();
+	
+	public void asignar(String clave, Object valor) {
+		ArrayList<Object> lista = map.get(clave);
+		if(lista!=null) {
+			lista.add(valor);
+		}else {
+			lista=new ArrayList<>();
+			lista.add(valor);
+		}
+		map.put(clave, lista);
+		
 	}
 
 }

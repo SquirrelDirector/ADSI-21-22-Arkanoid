@@ -1,12 +1,17 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Usuario {
 
+	private String nombreUsuario;
 	private String email;
-	private String contrasena;
-	private Coleccion<T> atributosPersonalizado;
+	private String atributosPersonalizado;
 	private String pathPerfil;
 	private String pathMusica;
 	private String codigoColorFondo;
@@ -14,12 +19,75 @@ public class Usuario {
 	private String codigoColorLadrillo;
 	private String codigoColorPaddle;
 	private int nivelDefault;
-	private Coleccion<LogroObtenido> susLogros;
-	private Coleccion<Puntuacion> susPuntuaciones;
+	private ArrayList<LogroObtenido> susLogros;
+	private ArrayList<Puntuacion> susPuntuaciones;
 
 	public Usuario() {
-		// TODO - implement Usuario.Usuario
-		throw new UnsupportedOperationException();
+		
+	}
+	
+	public Usuario(JSONObject datos) {
+		//informacion de la cuenta
+		nombreUsuario=datos.getString("nombreUsuario");
+		email=datos.getString("email");
+		pathPerfil=datos.getString("pathPerfil");
+		
+		//configuracion del juego
+		pathMusica=datos.getString("pathMusica");
+		codigoColorFondo=datos.getString("codigoColorFondo");
+		codigoColorBola=datos.getString("codigoColorBola");
+		codigoColorLadrillo=datos.getString("codigoColorLadrillo");
+		codigoColorPaddle=datos.getString("codigoColorPaddle");
+		nivelDefault=datos.getInt("nivelDefault");
+		atributosPersonalizado=datos.getString("atributosPersonalizado");
+		
+		//puntuaciones del jugador
+		JSONArray ranking=datos.getJSONArray("ranking");
+		JSONObject partida;
+		int lvl;
+		Date fecha;
+		int tiempo;
+		int num;
+		
+		for (int i=0;i<ranking.length();i++){
+			partida=ranking.getJSONObject(i);
+			
+			lvl=(int) partida.get("idNivel");
+			fecha=(Date) partida.get("valorFechaHora");
+			tiempo=(int) partida.get("tiempo");
+			num=(int) partida.get("numero");
+			
+			susPuntuaciones.add(new Puntuacion(this, lvl, num, fecha, tiempo));
+		}
+		
+		//datos de los logros
+		JSONArray logros=datos.getJSONArray("logros");
+		JSONObject logro;
+		String nom;
+		int id;
+		String desc;
+		float prog;
+		int obj;
+		Logro l;
+		LogroObtenido lo;
+		
+		for (int i=0;i<logros.length();i++){
+			logro=logros.getJSONObject(i);
+			
+			nom=(String) logro.get("nombre");
+			id=(int) logro.get("IdLogro");
+			desc=(String) logro.get("descripcion");
+			obj=(int) logro.get("Objetivo");
+			
+			l=new Logro(id, nom, desc, obj);
+			
+			fecha=(Date) logro.get("fechaObtencion");
+			prog=(float) logro.get("Progreso");
+			
+			lo=new LogroObtenido(fecha, l, prog);
+			susLogros.add(lo);
+			
+		}
 	}
 
 	public String getEmail() {
@@ -27,7 +95,7 @@ public class Usuario {
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON obtenerPersonalizacionUsuario() {
+	public JSONObject obtenerPersonalizacionUsuario() {
 		// TODO - implement Usuario.obtenerPersonalizacionUsuario
 		throw new UnsupportedOperationException();
 	}
@@ -36,7 +104,7 @@ public class Usuario {
 	 * 
 	 * @param dificultad
 	 */
-	public JSON obtenerRankingPersonal(int dificultad) {
+	public JSONArray obtenerRankingPersonal(int dificultad) {
 		// TODO - implement Usuario.obtenerRankingPersonal
 		throw new UnsupportedOperationException();
 	}
@@ -45,7 +113,7 @@ public class Usuario {
 	 * 
 	 * @param nombre
 	 */
-	public boolean tieneLogro(string nombre) {
+	public boolean tieneLogro(String nombre) {
 		// TODO - implement Usuario.tieneLogro
 		throw new UnsupportedOperationException();
 	}
@@ -54,7 +122,7 @@ public class Usuario {
 	 * 
 	 * @param nombre
 	 */
-	public JSON getInfoLogro(String nombre) {
+	public JSONObject getInfoLogro(String nombre) {
 		// TODO - implement Usuario.getInfoLogro
 		throw new UnsupportedOperationException();
 	}
@@ -77,12 +145,12 @@ public class Usuario {
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getDatosHistoricosJugador() {
+	public JSONObject getDatosHistoricosJugador() {
 		// TODO - implement Usuario.getDatosHistoricosJugador
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getLogros() {
+	public JSONArray getLogros() {
 		// TODO - implement Usuario.getLogros
 		throw new UnsupportedOperationException();
 	}
@@ -91,7 +159,7 @@ public class Usuario {
 	 * 
 	 * @param logro
 	 */
-	public LogroObtenido buscarLogro(string logro) {
+	public LogroObtenido buscarLogro(String logro) {
 		// TODO - implement Usuario.buscarLogro
 		throw new UnsupportedOperationException();
 	}
@@ -99,6 +167,13 @@ public class Usuario {
 	public Iterator<LogroObtenido> getIterador() {
 		// TODO - implement Usuario.getIterador
 		throw new UnsupportedOperationException();
+	}
+
+	public JSONObject getPerfil() {
+		JSONObject perfil = new JSONObject();
+		perfil.put("nombre", nombreUsuario);
+		perfil.put("foto", pathPerfil);
+		return perfil;
 	}
 
 }
