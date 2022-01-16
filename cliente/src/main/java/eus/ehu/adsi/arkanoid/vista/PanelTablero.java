@@ -28,7 +28,7 @@ public class PanelTablero extends JPanel {
    private static final int BOX_HEIGHT = Config.SCREEN_HEIGHT - 115;
    
    //Bricks
-   private ArrayList<Bloque> bricks = new ArrayList();
+   private ArrayList<Bloque> bricks = new ArrayList<Bloque>();
    private static final double sizeX = Config.BLOCK_WIDTH;
    private static final double sizeY = Config.BLOCK_HEIGHT;
    private int ladrilloSuerte;
@@ -178,13 +178,15 @@ public class PanelTablero extends JPanel {
 			} else {
 				paddle.velocity = 0.0;
 			}
+			paddle.x += paddle.velocity * Config.FT_STEP * 10;
 			break;
 		case KeyEvent.VK_RIGHT:
-			if (paddle.x + sizeXPaddle / 2.0 < Config.SCREEN_WIDTH) {
+			if (paddle.x + sizeXPaddle / 2.0 < this.getWidth()) {
 				paddle.velocity = Config.PADDLE_VELOCITY;
 			} else {
 				paddle.velocity = 0.0;
 			}
+			paddle.x += paddle.velocity * Config.FT_STEP * 10;
 			break;
 		default:
 			break;

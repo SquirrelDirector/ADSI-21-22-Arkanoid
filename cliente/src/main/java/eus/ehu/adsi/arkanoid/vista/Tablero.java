@@ -32,8 +32,6 @@ import javax.sound.sampled.Clip;
 import javax.swing.Box;
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
-import java.awt.CardLayout;
-
 
 @SuppressWarnings({ "serial", "deprecation" })
 public class Tablero extends JFrame implements Observer, KeyListener {
@@ -73,8 +71,10 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(Config.BACKGROUND_COLOR);
-		super.addKeyListener(this);
-		//this.addKeyListener(this);
+		
+		addKeyListener(this);
+		
+		setFocusable(true);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
@@ -198,16 +198,13 @@ public class Tablero extends JFrame implements Observer, KeyListener {
     }
 
     public void keyPressed(KeyEvent event) {
-		System.out.println("Hola");
 		tableroPanel.moverPaddle(event);
 	}
   
     public void keyReleased(KeyEvent event) {
-    	System.out.println("Hola2");
 		tableroPanel.pararPaddle(event);
 	}
   
     public void keyTyped(KeyEvent arg0) {
-    	System.out.println("Hola3");
     }
 }
