@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.awt.event.*;
 import java.util.Observable;
+import java.util.regex.Pattern;
 
 import eus.ehu.adsi.arkanoid.modelo.*;
 
@@ -126,12 +127,17 @@ public class Arkanoid extends Observable {
 	 * @param pass
 	 */
 	public int iniciarSesion(String mail, String pass) {
-		if (mail.equals(""))//TODO - filtrar por expresiones regulares
-			return 1;
-		if (pass.equals(""))
-			return 2;
+		String regPass[] = new String[] { 
+		"^.{6,}$", "^.*\\p{javaLowerCase}.*$", "^.*\\p{javaUpperCase}.*$", "^.*\\d.*$", "^.*\\p{Punct}.*$"};
 		
-		pass=cifrar(pass); //se hace en una función separada para facilitar la posibilidad de cambiar el algoritmo de resumen
+		if (!Pattern.matches("^\\p{Graph}+@\\p{Graph}+\u002e\\p{Graph}+$", mail)) //cadena de caracteres + @ + cadena de caracteres + . + cadena de caracteres
+			return 1;
+		for (String regex : regPass) {
+			if (!Pattern.matches(regex, pass)) //minimo de 6 caracteres con mayusculas, minusculas, numeros y simbolos.
+				return 2;
+		}
+		
+		pass=resumir(pass); //se hace en una funcion separada para facilitar la posibilidad de cambiar el algoritmo de resumen
 		
 		JSONObject datos=GestorUsuarios.getGestorUsuario().importarUsuario(mail, pass);
 		if (datos==null)
@@ -142,7 +148,7 @@ public class Arkanoid extends Observable {
 		return 0;
 	}
 	
-	private String cifrar(String pass) {
+	private String resumir(String pass) {
 		String hash=pass.hashCode()+"";
 		return hash;
 	}
