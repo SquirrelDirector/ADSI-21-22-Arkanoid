@@ -1,6 +1,5 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
-import java.beans.PropertyChangeEvent;
 import java.util.Date;
 
 public class Puntuacion {
