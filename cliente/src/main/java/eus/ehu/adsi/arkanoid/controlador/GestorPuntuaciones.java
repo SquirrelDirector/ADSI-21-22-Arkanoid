@@ -37,7 +37,7 @@ public class GestorPuntuaciones {
 				while (resultado.hasNext()){
 					JSONObject puntuacion = new JSONObject();
 					puntuacion.put("usuario", (String)resultado.get("NombreUsuario"));
-					puntuacion.put("tiempo", (String)resultado.get("Tiempo"));
+					puntuacion.put("tiempo", (Integer)resultado.get("Tiempo"));
 					puntuacion.put("puntuacion", (Integer)resultado.get("Numero"));
 					ranking.put(puntuacion);
 					resultado.next();

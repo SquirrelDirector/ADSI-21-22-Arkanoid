@@ -1,9 +1,16 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Partida {
 
 	private int vidasRestantes;
 	private Coleccion<Bloque> bloques;
+	private ArrayList<Logro> listaLogros;
 	private int tiempo;
 	private int puntuacion;
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
@@ -16,18 +23,27 @@ public class Partida {
 	}
 
 	public void restarVidas() {
-		// TODO - implement Partida.restarVidas
-		throw new UnsupportedOperationException();
+		vidasRestantes--;
 	}
 
-	public JSON getDatosPartidaActual() {
-		// TODO - implement Partida.getDatosPartidaActual
-		throw new UnsupportedOperationException();
+	public JSONObject getDatosPartidaActual() {
+		JSONObject datos = new JSONObject();
+		datos.put("tiempoPartida", tiempo);
+		datos.put("puntuacionConseguida", puntuacion);
+		JSONArray logros = new JSONArray();
+		Iterator<Logro> itr = listaLogros.iterator();
+		while(itr.hasNext()) {
+			Logro l = itr.next();
+			JSONObject logro = new JSONObject();
+			logro.put("nombreLogro", l.getNombre());
+			logros.put(logro);
+		}
+		datos.put("logros", logros);
+		return datos;
 	}
 
 	public void incrementarPuntuacion() {
-		// TODO - implement Partida.incrementarPuntuacion
-		throw new UnsupportedOperationException();
+		this.puntuacion++;
 	}
 
 	/**

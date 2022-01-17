@@ -20,7 +20,7 @@ public class Usuario {
 	private String codigoColorPaddle;
 	private int nivelDefault;
 	private Coleccion<LogroObtenido> susLogros;
-	private ArrayList<Puntuacion> susPuntuaciones;
+	private ArrayList<Puntuacion> susPuntuaciones; //Al cargar las puntuaciones, de mayor a menor!
 
 	public Usuario() {
 		// TODO - implement Usuario.Usuario
@@ -41,7 +41,7 @@ public class Usuario {
 	 * 
 	 * @param dificultad
 	 */
-	public <susPuntuaciones> JSONArray obtenerRankingPersonal(int dificultad) {
+	public JSONArray obtenerRankingPersonal(int dificultad) {
 		JSONArray ranking = new JSONArray();
 		Iterator<Puntuacion> it = susPuntuaciones.iterator();
 		while(it.hasNext()){
@@ -89,13 +89,17 @@ public class Usuario {
 	}
 
 	public boolean isIdentificado() {
-		// TODO - implement Usuario.isIdentificado
-		throw new UnsupportedOperationException();
+		return email==null;
 	}
 
-	public JSON getDatosHistoricosJugador() {
-		// TODO - implement Usuario.getDatosHistoricosJugador
-		throw new UnsupportedOperationException();
+	public JSONObject getDatosHistoricosJugador() {
+		JSONObject datos = new JSONObject();
+		Puntuacion p = susPuntuaciones.get(0);
+		int mejorTiempo = p.getTiempo();
+		int mejorPuntuacion = p.getPuntuacion();
+		datos.put("mejorTiempo", mejorTiempo);
+		datos.put("mejorPuntuacion", mejorPuntuacion);
+		return datos;
 	}
 
 	public JSON getLogros() {

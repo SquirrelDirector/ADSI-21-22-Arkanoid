@@ -68,7 +68,7 @@ public class Ranking {
 	 */
 	private void initialize() {
 		
-		// puntuaciones de prueba
+		/*// puntuaciones de prueba
 		
 		JSONObject puntuacion1 = new JSONObject();
 		puntuacion1.put("usuario", "Angela");
@@ -83,7 +83,7 @@ public class Ranking {
 		ranking.put(puntuacion1);
 		ranking.put(puntuacion2);
 		
-		// fin de las puntuaciones de prueba
+		// fin de las puntuaciones de prueba */
 		
 		
 		frame = new JFrame();
@@ -136,7 +136,7 @@ public class Ranking {
 				panel.revalidate();
 				panel.repaint();
 				personal = true;
-				//ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
+				ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
@@ -165,7 +165,7 @@ public class Ranking {
 				panel.revalidate();
 				panel.repaint();
 				personal = true;
-				//ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
+				ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
@@ -191,7 +191,7 @@ public class Ranking {
 				panel.revalidate();
 				panel.repaint();
 				personal = true;
-				//ranking = Arkanoid.getArkanoid().mostrarRanking(1, personal);
+				ranking = Arkanoid.getArkanoid().mostrarRanking(1, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
@@ -216,7 +216,7 @@ public class Ranking {
 				panel.revalidate();
 				panel.repaint();
 				personal = true;
-				//ranking = Arkanoid.getArkanoid().mostrarRanking(2, personal);
+				ranking = Arkanoid.getArkanoid().mostrarRanking(2, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
@@ -241,7 +241,7 @@ public class Ranking {
 				panel.revalidate();
 				panel.repaint();
 				personal = true;
-				//ranking = Arkanoid.getArkanoid().mostrarRanking(3, personal);
+				ranking = Arkanoid.getArkanoid().mostrarRanking(3, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
@@ -266,7 +266,7 @@ public class Ranking {
 				panel.revalidate();
 				panel.repaint();
 				personal = true;
-				//ranking = Arkanoid.getArkanoid().mostrarRanking(4, personal);
+				ranking = Arkanoid.getArkanoid().mostrarRanking(4, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
@@ -300,7 +300,7 @@ public class Ranking {
 		panel.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		
-		//ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
+		ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
 		for(int i = 0; i<ranking.length(); i++) {
 			JSONObject puntuacion = ranking.getJSONObject(i);
 			String nombreUsuario = puntuacion.getString("usuario");

@@ -3,6 +3,7 @@ package eus.ehu.adsi.arkanoid.controlador;
 import javax.swing.*;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.awt.event.*;
 import eus.ehu.adsi.arkanoid.modelo.*;
@@ -161,9 +162,13 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getResultadosPartida() {
-		// TODO - implement Arkanoid.getResultadosPartida
-		throw new UnsupportedOperationException();
+	public JSONObject getResultadosPartida() {
+		JSONObject datosPartida = partida.getDatosPartidaActual();
+		if(usuario.isIdentificado()){
+			JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
+			agregarJSON(datosPartida, datosHistoricos);
+		}
+		return datosPartida;
 	}
 
 	/**
@@ -171,8 +176,8 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param datosPartida
 	 * @param datosHistoricos
 	 */
-	private void agregarJSON(JSON datosPartida, JSON datosHistoricos) {
-		// TODO - implement Arkanoid.agregarJSON
+	private void agregarJSON(JSONObject datosPartida, JSONObject datosHistoricos) {
+		// TODO - implement Arkanoid.publicarResultados
 		throw new UnsupportedOperationException();
 	}
 
