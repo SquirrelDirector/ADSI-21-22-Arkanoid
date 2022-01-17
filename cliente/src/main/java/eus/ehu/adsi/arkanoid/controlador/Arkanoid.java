@@ -2,6 +2,8 @@ package eus.ehu.adsi.arkanoid.controlador;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.image.BufferStrategy;
+
 import eus.ehu.adsi.arkanoid.modelo.*;
 
 public class Arkanoid{ //extends JFrame implements KeyListener {
@@ -26,6 +28,44 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		throw new UnsupportedOperationException();
 	}
 
+	public void jugar() {
+		
+		game.setRunning(true);
+
+		while (game.isRunning()) {
+
+			long time1 = System.currentTimeMillis();
+
+			if (!partida.gameOver && !partida.ganar) {
+				game.setTryAgain(false);
+				update();
+
+				// to simulate low FPS
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {}
+
+			} else {
+				if (game.isTryAgain()) {
+					game.setTryAgain(false);
+					partida.generarPartida();
+				}
+			}
+
+			long time2 = System.currentTimeMillis();
+			double elapsedTime = time2 - time1;
+
+			lastFt = elapsedTime;
+
+			double seconds = elapsedTime / 1000.0;
+			if (seconds > 0.0) {
+				double fps = 1.0 / seconds;
+			}
+
+		}
+
+	}
+	
 	private void update() {
 		currentSlice += lastFt;
 
@@ -34,7 +74,8 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 			miPartida.testPaddle();
 			miPartida.testBola();
 			
-			//TODO: comprobar si la partida a finalizado
+			//comprobar si se han roto todos los bloques
+			partida.ganar();
 		}
 	}
 
