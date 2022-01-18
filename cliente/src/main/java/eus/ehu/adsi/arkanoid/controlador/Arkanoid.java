@@ -21,13 +21,12 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	private Usuario usuario;
 
 	private Arkanoid() {
-		// TODO - implement Arkanoid.Arkanoid
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public static Arkanoid getArkanoid() {
-		// TODO - implement Arkanoid.getArkanoid
-		throw new UnsupportedOperationException();
+		if (miArkanoid == null) miArkanoid = new Arkanoid();
+        return miArkanoid;
 	}
 
 	private void update() {
@@ -183,6 +182,10 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	
 	public void addObserver(Tablero tablero){
         GestorPartida.getGestorPartida().addObserver(tablero);
+    }
+	
+	public void addObserverCrono(Tablero tablero){
+		GestorPartida.getGestorPartida().addObserverCrono(tablero);
     }
 
 }

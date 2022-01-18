@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 import eus.ehu.adsi.arkanoid.modelo.Config;
 import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.modelo.Partida;
@@ -40,7 +41,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	private PanelTablero tableroPanel;
 	
 	private Clip clip;
-	private JLabel cronometro;
+	private JLabel cronometro, score, lives;
 
 	/**
 	 * Launch the application.
@@ -102,7 +103,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		panel_3.setBackground(Config.BACKGROUND_COLOR);
 		panel_1.add(panel_3);
 		
-		JLabel score = new JLabel("Score:  0");
+		score = new JLabel("Score:  0");
 		score.setForeground(Color.WHITE);
 		score.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_3.add(score);
@@ -110,7 +111,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		Component horizontalStrut = Box.createHorizontalStrut(50);
 		panel_3.add(horizontalStrut);
 		
-		JLabel lives = new JLabel("Lives:  5");
+		lives = new JLabel("Lives:  "+Config.PLAYER_LIVES);
 		lives.setForeground(Color.WHITE);
 		lives.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_3.add(lives);
@@ -129,6 +130,14 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		reiniciarButton.setBorder(null);
 		reiniciarButton.setFocusPainted(false);
 		reiniciarButton.setBorder(new EmptyBorder(5,10,5,10));
+		reiniciarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Partida.getMiPartida().getCrono().reset();
+				dispose();
+				Tablero newframe = new Tablero();
+				newframe.setVisible(true);	
+			}
+		});
 		panel_4.add(reiniciarButton);
 		
 		JPanel panel_5 = new JPanel();
@@ -174,6 +183,9 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	private void jugar() {
 		//Arkanoid.getArkanoid().jugar();
 		//Arkanoid.getArkanoid().addObserver(this);
+		Partida.getMiPartida().iniciarCrono();
+		Arkanoid.getArkanoid().addObserverCrono(this);
+		reproducirSonido();
 	}
 
 	@Override

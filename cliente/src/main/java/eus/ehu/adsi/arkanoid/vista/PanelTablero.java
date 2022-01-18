@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -178,7 +177,7 @@ public class PanelTablero extends JPanel {
 			} else {
 				paddle.velocity = 0.0;
 			}
-			paddle.x += paddle.velocity * Config.FT_STEP * 10;
+			paddle.x += paddle.velocity * Config.FT_STEP;
 			break;
 		case KeyEvent.VK_RIGHT:
 			if (paddle.x + sizeXPaddle / 2.0 < this.getWidth()) {
@@ -186,7 +185,7 @@ public class PanelTablero extends JPanel {
 			} else {
 				paddle.velocity = 0.0;
 			}
-			paddle.x += paddle.velocity * Config.FT_STEP * 10;
+			paddle.x += paddle.velocity * Config.FT_STEP;
 			break;
 		default:
 			break;

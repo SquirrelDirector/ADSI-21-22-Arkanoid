@@ -15,11 +15,19 @@ public class Partida extends Observable {
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
 	private Bola bola = new Bola(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT / 2);
 	private static Partida miPartida;
+	private Cronometro crono;
 
 	public Partida() {
-		// TODO - implement Partida.Partida
-		throw new UnsupportedOperationException();
+		
 	}
+	
+	public Cronometro getCrono() {
+		return crono;
+	}
+	
+	public void iniciarCrono(){
+        if (this.crono == null || crono.estaParado()) this.crono = new Cronometro();
+    }
 
 	public void restarVidas() {
 		// TODO - implement Partida.restarVidas
@@ -64,7 +72,10 @@ public class Partida extends Observable {
 	}
 
 	public static Partida getMiPartida() {
-		return Partida.miPartida;
+		if (miPartida == null) miPartida = new Partida();
+        return miPartida;
 	}
+	
+	
 
 }

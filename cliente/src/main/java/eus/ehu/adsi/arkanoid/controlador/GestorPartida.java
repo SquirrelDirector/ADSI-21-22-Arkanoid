@@ -10,13 +10,12 @@ public class GestorPartida {
 	private static GestorPartida miGestorPartida;
 
 	private GestorPartida() {
-		// TODO - implement GestorPartida.GestorPartida
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public static GestorPartida getGestorPartida() {
-		// TODO - implement GestorPartida.getGestorPartida
-		throw new UnsupportedOperationException();
+		if (miGestorPartida == null) miGestorPartida = new GestorPartida();
+        return miGestorPartida;
 	}
 
 	public JSONObject getDatosPartidaActual() {
@@ -28,6 +27,11 @@ public class GestorPartida {
 	public void addObserver(Tablero tablero){
         Partida.getMiPartida().deleteObservers();
         Partida.getMiPartida().addObserver(tablero);
+    }
+	
+	@SuppressWarnings("deprecation")
+	public void addObserverCrono(Tablero tablero){
+        Partida.getMiPartida().getCrono().addObserver(tablero);
     }
 
 }
