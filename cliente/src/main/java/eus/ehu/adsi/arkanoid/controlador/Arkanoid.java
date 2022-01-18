@@ -166,8 +166,25 @@ public class Arkanoid extends Observable {
 	 * @param pass
 	 */
 	public int registrarse(String usr, String mail, String pass) {
-		// TODO - implement Arkanoid.registrarse
-		throw new UnsupportedOperationException();
+		String regPass[] = new String[] { 
+				"^.{6,}$", "^.*\\p{javaLowerCase}.*$", "^.*\\p{javaUpperCase}.*$", "^.*\\d.*$", "^.*\\p{Punct}.*$"};
+		
+		if (GestorUsuarios.getGestorUsuario().existeNombre(usr))
+			return 1;
+		if (!Pattern.matches("^\\p{Graph}+@\\p{Graph}+\u002e\\p{Graph}+$", mail)) //cadena de caracteres + @ + cadena de caracteres + . + cadena de caracteres
+			return 2;
+		for (String regex : regPass) {
+			if (!Pattern.matches(regex, pass)) //minimo de 6 caracteres con mayusculas, minusculas, numeros y simbolos.
+				return 3;
+		}
+		if(GestorUsuarios.getGestorUsuario().existeUsuario(mail))
+			return 4;
+		
+		GestorUsuarios.getGestorUsuario().crearUsuario(usr, mail, pass);
+		JSONObject datos=GestorUsuarios.getGestorUsuario().importarUsuario(mail, pass);
+		usuario=new Usuario(datos);
+		return 0;
+		
 	}
 
 	/**

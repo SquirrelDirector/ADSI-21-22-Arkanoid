@@ -5,7 +5,6 @@ import org.json.*;
 public class GestorUsuarios {
 
 	private static GestorUsuarios miGestorUsuario;
-	private GestorDB gestorDB=GestorDB.getGestorDB();
 
 	private GestorUsuarios() {
 	}
@@ -117,8 +116,9 @@ public class GestorUsuarios {
 	 * @param mail
 	 */
 	public boolean existeUsuario(String mail) {
-		// TODO - implement GestorUsuarios.existeUsuario
-		throw new UnsupportedOperationException();
+		String preg="SELECT NombreUsuario FROM Usuario WHERE Email = "+mail;
+		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
+		return (res.get("NombreUsuario")!=null);
 	}
 
 	/**
@@ -128,8 +128,19 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void crearUsuario(String usr, String mail, String pass) {
-		// TODO - implement GestorUsuarios.crearUsuario
-		throw new UnsupportedOperationException();
+		//TODO - establecer valores predeterminados de personalizacion, sea por el propio SQL o por una nueva clase de modelo que los almacene
+		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contrasena) VALUES ("+mail+", "+usr+", "+pass+");";
+		GestorDB.getGestorDB().execSQL(preg);
+		
+		preg="SELECT idLogro FROM Logro;";
+		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
+		String id;
+		
+		for (int i=0;i<res.longitud;i++){
+			id=(String) res.get("idLogro");
+			preg="INSERT INTO TieneLogro (Usuario, idLogro) VALUES ("+mail+", "+id+");";
+			res.next();
+		}
 	}
 
 	/**
@@ -140,6 +151,12 @@ public class GestorUsuarios {
 	public void cambiarContrasena(String mail, String pass) {
 		// TODO - implement GestorUsuarios.cambiarContrasena
 		throw new UnsupportedOperationException();
+	}
+
+	public boolean existeNombre(String usr) {
+		String preg="SELECT Email FROM Usuario WHERE NombreUsuario = "+usr;
+		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
+		return (res.get("Email")!=null);
 	}
 
 }

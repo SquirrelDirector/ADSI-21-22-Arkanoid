@@ -157,12 +157,8 @@ public class IUIdentificarse extends JFrame {
 			btnSignup.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					//IURegistrarse.getMiIURegistrarse().mostrarVentana();
-					//setVisible(false);
-					Date hoy=new Date();
-					JSONObject json=new JSONObject();
-					json.put("hoy", hoy);
-					System.out.println(json.get("hoy"));
+					IURegistrarse.getMiIURegistrarse().mostrarVentana();
+					setVisible(false);
 				}
 			});
 		}
