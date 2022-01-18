@@ -60,20 +60,22 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 				} else {
 					val = "Path";
 				}
-				informacion.put("id", resconsulta.get(val));
-				informacion.put("nombre", resconsulta.get("Nombre"));
+				informacion.put(val, resconsulta.get(val));
+				informacion.put("Nombre", resconsulta.get("Nombre"));
 				opciones.put(informacion);
+				resconsulta.next();
 			}
-			resconsulta.close();
 		}
 		return opciones;
 	}
 
 	public JSONObject obtenerPersonalizacionUsuario() {
+		usuario = new Usuario("naiara@gmail.com","Naiara07","44,60,4","/imagenesAvatar/Avatar1.png","/sonidoPersonalizar/Sonido1.wav","255,0,0","255,181,0","244,255,0","78,255,0");
 		return usuario.obtenerPersonalizacionUsuario();
 	}
 	
 	public JSONObject obtenerDatosUsuario() {
+		usuario = new Usuario("naiara@gmail.com","Naiara07","44,60,4","/imagenesAvatar/Avatar1.png","/sonidoPersonalizar/Sonido1.wav","255,0,0","255,181,0","244,255,0","78,255,0");
 		return usuario.getDatosUsuario();
 	}
 

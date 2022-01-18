@@ -15,6 +15,8 @@ import javax.swing.border.LineBorder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -431,7 +433,7 @@ public class Personalizacion extends JDialog {
 			getContentPane().add(topPane, BorderLayout.NORTH);
 			{
 				volverButton = new JButton("");
-				volverButton.setIcon(new ImageIcon("D:\\Uni\\ADSI-21-22-Arkanoid\\cliente\\src\\main\\resources\\general\\back.png"));
+				volverButton.setIcon(new ImageIcon("/general/back.png"));
 				volverButton.setBorder(null);
 				volverButton.setContentAreaFilled(false);
 				topPane.add(volverButton);
@@ -448,7 +450,6 @@ public class Personalizacion extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				guardarButton = new JButton("GUARDAR");
-				guardarButton.setActionCommand("");
 				buttonPane.add(guardarButton);
 			}
 		}
@@ -486,56 +487,10 @@ public class Personalizacion extends JDialog {
 	}
 	
 	private void getPersonalizables() {
-        /*JSONObject personalizables = Arkanoid.getArkanoid().obtenerPersonalizables();
+        JSONObject personalizables = Arkanoid.getArkanoid().obtenerPersonalizables();
         colores = personalizables.getJSONArray("colores");
         sonidos = personalizables.getJSONArray("sonidos");
-        personalizablesJugador = Arkanoid.getArkanoid().obtenerPersonalizacionUsuario();*/
-        //Para pruebas
-        JSONObject colorO = new JSONObject();
-        colorO.put("Codigo", "255,0,0");
-        colorO.put("Nombre", "Rojo");
-        JSONObject color1 = new JSONObject();
-        color1.put("Codigo", "255,181,0");
-        color1.put("Nombre", "Naranja");
-        JSONObject color2 = new JSONObject();
-        color2.put("Codigo", "244,255,0");
-        color2.put("Nombre", "Amarillo");
-        JSONObject color3 = new JSONObject();
-        color3.put("Codigo", "78,255,0");
-        color3.put("Nombre", "Verde");
-        colores = new JSONArray();
-        colores.put(colorO);
-        colores.put(color1);
-        colores.put(color2);
-        colores.put(color3);
-        personalizablesJugador = new JSONObject();
-        personalizablesJugador.put("PathMusica", "/sonidoPersonalizar/Sonido5.wav");
-        personalizablesJugador.put("CodigoFondo", "255,0,0");
-        personalizablesJugador.put("CodigoBola", "255,181,0");
-        personalizablesJugador.put("CodigoLadrillo", "244,255,0");
-        personalizablesJugador.put("CodigoPaddle", "78,255,0");
-        personalizablesJugador.put("atributosPersonalizado", "44,60,4");
-        JSONObject sonidoO = new JSONObject();
-        sonidoO.put("Path", "/sonidoPersonalizar/Sonido1.wav");
-        sonidoO.put("Nombre", "Sonido 1");
-        JSONObject sonido1 = new JSONObject();
-        sonido1.put("Path", "/sonidoPersonalizar/Sonido2.wav");
-        sonido1.put("Nombre", "Sonido 2");
-        JSONObject sonido2 = new JSONObject();
-        sonido2.put("Path", "/sonidoPersonalizar/Sonido3.wav");
-        sonido2.put("Nombre", "Sonido 3");
-        JSONObject sonido3 = new JSONObject();
-        sonido3.put("Path", "/sonidoPersonalizar/Sonido4.wav");
-        sonido3.put("Nombre", "Sonido 4");
-        JSONObject sonido4 = new JSONObject();
-        sonido4.put("Path", "/sonidoPersonalizar/Sonido5.wav");
-        sonido4.put("Nombre", "Sonido 5");
-        sonidos = new JSONArray();
-        sonidos.put(sonidoO);
-        sonidos.put(sonido1);
-        sonidos.put(sonido2);
-        sonidos.put(sonido3);
-        sonidos.put(sonido4);
+        personalizablesJugador = Arkanoid.getArkanoid().obtenerPersonalizacionUsuario();
     }
 	
 	private void ponerColores() {
@@ -728,7 +683,11 @@ public class Personalizacion extends JDialog {
             if (button.isSelected()) {
             	String path = button.getText();
             	path = path.replace(" ", "");
-                sonido = "/sonidoPersonalizar/"+path+".wav";
+            	if (path.contains("6")) {
+            		sonido = "/sonidoPersonalizar/"+path+".mp3";
+            	} else {
+            		sonido = "/sonidoPersonalizar/"+path+".wav";
+            	}
             }
         }
 
@@ -738,7 +697,7 @@ public class Personalizacion extends JDialog {
         int bola = jsBola.getValue();
         String atributos = ""+bloques+","+paddle+","+bola+"";
 
-        //Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4, atributos);
+        Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4, atributos);
         //Arkanoid.getArkanoid().actualizarPersonalizacionUsu(sonido, color1, color2, color3, color4, atributos);
     }
     

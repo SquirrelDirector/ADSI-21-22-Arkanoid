@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
+import java.util.regex.Pattern;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -33,13 +34,10 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
-import javax.swing.DropMode;
-import javax.swing.Icon;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 
 import java.awt.Component;
-import javax.swing.Box;
 
 public class ModificarDatos extends JDialog {
 
@@ -73,7 +71,6 @@ public class ModificarDatos extends JDialog {
 	 * Create the dialog.
 	 */
 	public ModificarDatos() {
-		//setBounds(100, 100, 465, 400);
 		setBounds(100, 100, 550, 400);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -222,29 +219,8 @@ public class ModificarDatos extends JDialog {
 	}
     
 	private void getAvatares() {
-		//JSONObject avataresJ = Arkanoid.getArkanoid().obtenerAvatares();
-		//avatares = avataresJ.getJSONArray("avatares");
-		JSONObject avatar0 = new JSONObject();
-		avatar0.put("Path", "/imagenesAvatar/user.png");
-		avatar0.put("Nombre", "Avatar 1");
-		JSONObject avatar1 = new JSONObject();
-		avatar1.put("Path", "/imagenesAvatar/Avatar2.png");
-		avatar1.put("Nombre", "Avatar 2");
-		JSONObject avatar2 = new JSONObject();
-		avatar2.put("Path", "/imagenesAvatar/Avatar3.png");
-		avatar2.put("Nombre", "Avatar 3");
-		JSONObject avatar3 = new JSONObject();
-		avatar3.put("Path", "/imagenesAvatar/Avatar4.png");
-		avatar3.put("Nombre", "Avatar 4");
-		JSONObject avatar4 = new JSONObject();
-		avatar4.put("Path", "/imagenesAvatar/Avatar5.png");
-		avatar4.put("Nombre", "Avatar 5");
-	    avatares = new JSONArray();
-	    avatares.put(avatar0);
-	    avatares.put(avatar1);
-	    avatares.put(avatar2);
-	    avatares.put(avatar3);
-	    avatares.put(avatar4);
+		JSONObject avataresJ = Arkanoid.getArkanoid().obtenerAvatares();
+		avatares = avataresJ.getJSONArray("avatares");
 	}
 	
 	private void ponerAvatares() {
@@ -280,14 +256,11 @@ public class ModificarDatos extends JDialog {
     }
 	
 	private void setInfoUsuario() {
-		/*JSONObject datos = Arkanoid.getArkanoid().obtenerDatosUsuario();
+		JSONObject datos = Arkanoid.getArkanoid().obtenerDatosUsuario();
 		nombre = datos.getString("NombreUsuario");
-		pathPerfilUsu = datos.getString("PathPerfil");
-		email = datos.getString("Email")*/
-		nombre = "Prueba";
-		pathPerfilUsu = "/imagenesAvatar/Avatar1.png";
 		nombreUsuario.setText(nombre);
-		email = "prueba@gmail.com";
+		pathPerfilUsu = datos.getString("PathPerfil");
+		email = datos.getString("Email");
 	}
 	
     private void guardarPersonalizacion() {
@@ -305,9 +278,15 @@ public class ModificarDatos extends JDialog {
     	String nombreUsu = nombreUsuario.getText();
     	
     	if (!nombreUsu.equals(" ")) {
-    		//boolean existeNombre = Arkanoid.getArkanoid().comprobarNombre(nombreUsu);
-        	boolean existeNombre = true;
-        	if (!existeNombre) Arkanoid.getArkanoid().actualizarDatosUsu(pathAvatar, nombreUsu);
+    		boolean existeNombre = false;
+    		if (!nombreUsu.equals(nombre)) {
+    			existeNombre = Arkanoid.getArkanoid().comprobarNombre(nombreUsu);
+    		}
+    		
+        	if (!existeNombre) {
+        		Arkanoid.getArkanoid().actualizarDatosUsu(pathAvatar, nombreUsu);
+        		Arkanoid.getArkanoid().actualizarDatosUsuDB(pathAvatar, nombreUsu);
+        	}
         	else {
         		nombreUsuario.setText(nombre); 
         		JOptionPane.showMessageDialog (null, "Ese nombre existe, pruebe con otro!", "Nombre existente", JOptionPane.ERROR_MESSAGE);
@@ -316,7 +295,17 @@ public class ModificarDatos extends JDialog {
 
     	
     	char[] pass = passwordField.getPassword();
-    	if (pass.length != 0) Arkanoid.getArkanoid().cambiarContrasena(email, String.valueOf(pass));
-
+    	
+    	if (pass.length!=0) {
+    		String regPass[] = new String[] {  "^.{6,}$", "^.*\\p{javaLowerCase}.*$", "^.*\\p{javaUpperCase}.*$", "^.*\\d.*$", "^.*\\p{Punct}.*$"}; 
+        	boolean buena = true;
+        	for (String regex : regPass) { 
+    			if (!Pattern.matches(regex, String.valueOf(pass))) //minimo de 6 caracteres con mayusculas, minusculas, numeros y simbolos. 
+    				buena = false;
+    		} 		
+        				 
+        	if (buena) Arkanoid.getArkanoid().cambiarContrasena(email, String.valueOf(pass));
+        	else JOptionPane.showMessageDialog (null, "La contraseña tiene que contener mínimo 6 caracteres con mayúsculas, minúsculas, números y símbolos. ", "Mala contraseña", JOptionPane.ERROR_MESSAGE);
+    	}
     }
 }

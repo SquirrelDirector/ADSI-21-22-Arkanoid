@@ -21,9 +21,17 @@ public class Usuario {
 	private Collection<LogroObtenido> susLogros;
 	private Collection<Puntuacion> susPuntuaciones;
 
-	public Usuario() {
-		// TODO - implement Usuario.Usuario
-		throw new UnsupportedOperationException();
+	public Usuario(String email1,String nombreUsuario1, String atributosPersonalizado1,String pathPerfil1,String pathMusica1,String codigoColorFondo1,String codigoColorBola1,
+			String codigoColorLadrillo1,String codigoColorPaddle1) {
+		this.email = email1;
+		this.nombreUsuario = nombreUsuario1;
+		this.atributosPersonalizado = atributosPersonalizado1;
+		this.pathPerfil = pathPerfil1;
+		this.pathMusica = pathMusica1;
+		this.codigoColorFondo = codigoColorFondo1;
+		this.codigoColorBola = codigoColorBola1;
+		this.codigoColorLadrillo = codigoColorLadrillo1;
+		this.codigoColorPaddle = codigoColorPaddle1;
 	}
 
 	public String getEmail() {
