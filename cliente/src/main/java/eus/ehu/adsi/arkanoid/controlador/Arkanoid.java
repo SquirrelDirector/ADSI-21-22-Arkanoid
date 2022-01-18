@@ -1,6 +1,7 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
 import eus.ehu.adsi.arkanoid.modelo.*;
+import java.awt.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -236,4 +237,21 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	public boolean comprobarNombre(String nombreUsu) {
 		return GestorUsuarios.getGestorUsuario().comprobarNombre(nombreUsu);
 	}
+	
+	public void updateConfig(double Velocidad, double Anchura, int Num_Ladrillos) { 
+		Config.BALL_VELOCITY=Velocidad/2; 
+		Config.PADDLE_WIDTH=Anchura; 
+		Config.COUNT_BLOCKS_Y=Num_Ladrillos/Config.COUNT_BLOCKS_X; 
+	} 
+	 
+	public void updateColores(String Fondo, String Bola, String Ladrillo, String Paddle) { 
+		Config.BACKGROUND_COLOR = new Color(Integer.parseInt(Fondo)); 
+		Config.BALL_COLOR = new Color(Integer.parseInt(Bola));
+		Config.BRICK_COLOR = new Color(Integer.parseInt(Ladrillo));
+		Config.PADDLE_COLOR = new Color(Integer.parseInt(Paddle));
+	} 
+	 
+	public void updateMusica(String path) { 
+		Config.PATH_MUSICA = path; 
+	} 
 }

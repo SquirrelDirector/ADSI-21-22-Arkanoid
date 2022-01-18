@@ -690,15 +690,23 @@ public class Personalizacion extends JDialog {
             	}
             }
         }
+        
+      //boolean identificado = Arkanoid.getArkanoid().isIdentificado();
+        boolean identificado = true;
+        if (identificado) {
+        	//Atributos nivel personalizado
+            int bloques = jsBloques.getValue();
+            int paddle = jsPaddle.getValue();
+            int bola = jsBola.getValue();
+            String atributos = ""+bloques+","+paddle+","+bola+"";
 
-        //Atributos nivel personalizado
-        int bloques = jsBloques.getValue();
-        int paddle = jsPaddle.getValue();
-        int bola = jsBola.getValue();
-        String atributos = ""+bloques+","+paddle+","+bola+"";
-
-        Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4, atributos);
-        //Arkanoid.getArkanoid().actualizarPersonalizacionUsu(sonido, color1, color2, color3, color4, atributos);
+            Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4, atributos);
+            Arkanoid.getArkanoid().actualizarPersonalizacionUsu(sonido, color1, color2, color3, color4, atributos);
+            Arkanoid.getArkanoid().updateConfig((double)bola, (double)paddle, bloques);
+        } 
+        
+        Arkanoid.getArkanoid().updateColores(color1, color2, color3, color4);
+    	Arkanoid.getArkanoid().updateMusica(sonido);        
     }
     
     private void onCancel() {
