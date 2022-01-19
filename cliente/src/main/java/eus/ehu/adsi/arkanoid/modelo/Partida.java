@@ -1,8 +1,10 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 @SuppressWarnings("deprecation")
@@ -37,14 +39,14 @@ public class Partida extends Observable {
 		vidasRestantes--;
 		if (vidasRestantes == 0) {
 			gameOver = true;
-			tiempo.parar();
+			crono.parar();
 			//TODO: llamar a la funcionalidad de la vista de perder
 		}
 	}
 
 	public JSONObject getDatosPartidaActual() {
 		JSONObject datos = new JSONObject();
-		datos.put("tiempoPartida", tiempo);
+		datos.put("tiempoPartida", crono);
 		datos.put("puntuacionConseguida", puntuacion);
 		JSONArray logros = new JSONArray();
 		Iterator<Logro> itr = listaLogros.iterator();
@@ -112,7 +114,7 @@ public class Partida extends Observable {
 	public void ganar() {
 		if (puntuacion == (Config.COUNT_BLOCKS_X * Config.COUNT_BLOCKS_Y)) {
 			ganar = true;
-			tiempo.parar();
+			crono.parar();
 			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
 		}
 	}
@@ -122,7 +124,7 @@ public class Partida extends Observable {
 	}
 	
 	public int getNumBloques() {
-		this.bloques.size();
+		return this.bloques.size();
 	}
 
 }

@@ -304,7 +304,7 @@ public class ModificarDatos extends JDialog {
     				buena = false;
     		} 		
         				 
-        	if (buena) Arkanoid.getArkanoid().cambiarContrasena(email, String.valueOf(pass));
+        	if (buena) Arkanoid.getArkanoid().cambiarContrasena(email, String.valueOf(pass),String.valueOf(pass));
         	else JOptionPane.showMessageDialog (null, "La contraseña tiene que contener mínimo 6 caracteres con mayúsculas, minúsculas, números y símbolos. ", "Mala contraseña", JOptionPane.ERROR_MESSAGE);
     	}
     }

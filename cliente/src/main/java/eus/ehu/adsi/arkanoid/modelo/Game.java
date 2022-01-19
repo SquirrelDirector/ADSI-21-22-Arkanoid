@@ -22,8 +22,7 @@ public class Game {
 	}
 
 	public Game() {
-		// TODO - implement Game.Game
-		throw new UnsupportedOperationException();
+		
 	}
 
 	/**
@@ -80,7 +79,7 @@ public class Game {
 	 * 
 	 * @param bricks
 	 */
-	public static java.util.List<Brick> initializeBricks(java.util.List<Brick> bricks) {
+	public static java.util.List<Bloque> initializeBricks(java.util.List<Bloque> bricks) {
 		// TODO - implement Game.initializeBricks
 		throw new UnsupportedOperationException();
 	}

@@ -24,7 +24,7 @@ public class Arkanoid extends Observable {
 	/**
 	 * Game variables
 	 */
-	/*private Game game;*/
+	private Game game;
 	private double lastFt;
 	private double currentSlice;
 	private Partida partida = new Partida();
@@ -210,14 +210,19 @@ public class Arkanoid extends Observable {
 	 * 
 	 * @param idNivel
 	 */
-	public String[] obtenerDatosNivel(int idNivel) {
-		if (idNivel==6) {
-			return usuario.obtenerDatosNivelPersonalizado();
-		}
-		else {
-			return GestorNiveles.getGestorNiveles().obtenerDatosNivel(idNivel);
-		}
-	}
+	public Double[] obtenerDatosNivel(int idNivel) {
+        if (idNivel==6) {
+            String[] Datos = usuario.obtenerDatosNivelPersonalizado();
+            Double[] DatosFinal = new Double[3];
+            DatosFinal[1]= Double.parseDouble(Datos[1]);
+            DatosFinal[2]= Double.parseDouble(Datos[2]);
+            DatosFinal[3]= Double.parseDouble(Datos[3]);
+            return DatosFinal;
+        }
+        else {
+            return GestorNiveles.getGestorNiveles().obtenerDatosNivel(idNivel);
+        }
+    }
 
 	public JSONArray getLogros() {
 		return usuario.getLogros();
@@ -363,14 +368,14 @@ public class Arkanoid extends Observable {
 	 * @param redSocial
 	 */
 	public void publicarResultados(String redSocial) {
-		JSONObject datosPartida = GestorPartida.getGestorPartida().getDatosPartidaActual();
+		/*JSONObject datosPartida = GestorPartida.getGestorPartida().getDatosPartidaActual();
 		JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
 		GestorRedes.getGestorRedes().publicarResultados(redSocial, 
 														Integer.parseInt(datosPartida.get("puntuacionConseguida").toString()), 
 														Integer.parseInt(datosPartida.get("tiempoPartida").toString()), 
 														Integer.parseInt(datosHistoricos.get("mejorPuntuacion").toString()), 
 														Integer.parseInt(datosHistoricos.get("mejorTiempo").toString()), 
-														datosPartida.getJSONArray("logrosConseguidos"));
+														datosPartida.getJSONArray("logrosConseguidos"));*/
 	}
 
 	public int getUltimaPartida() {
@@ -409,4 +414,7 @@ public class Arkanoid extends Observable {
 		return 0;
 	}
 
+	public void addObserverCrono(Tablero tablero){ 
+		GestorPartida.getGestorPartida().addObserverCrono(tablero); 
+    } 
 }

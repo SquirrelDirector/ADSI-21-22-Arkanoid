@@ -1,5 +1,6 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class GestorUsuarios {

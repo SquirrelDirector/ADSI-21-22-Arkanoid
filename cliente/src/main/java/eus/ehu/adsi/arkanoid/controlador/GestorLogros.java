@@ -2,7 +2,6 @@ package eus.ehu.adsi.arkanoid.controlador;
 
 import org.json.JSONObject;
 
-<<<<<<< HEAD
 import eus.ehu.adsi.arkanoid.modelo.CatalogoLogros;
 
 public class GestorLogros {

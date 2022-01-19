@@ -2,18 +2,18 @@ package eus.ehu.adsi.arkanoid.controlador;
 
 import java.util.Properties;
 
-import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
-import javax.mail.SendFailedException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+
+import org.json.JSONArray;
+
+import eus.ehu.adsi.arkanoid.modelo.EnvioRRSS;
+import eus.ehu.adsi.arkanoid.modelo.EnvioRRSSFactory;
 
 public class GestorRedes {
 
@@ -37,7 +37,7 @@ public class GestorRedes {
 	 * @param mejorTiempo
 	 * @param logro
 	 */
-	public void publicarResultados(String redSocial, int puntuacionPartida, int tiempoPartida, int mejorPuntuacion, int mejorTiempo, String logro) {
+	public void publicarResultados(String redSocial, int puntuacionPartida, int tiempoPartida, int mejorPuntuacion, int mejorTiempo, JSONArray logro) {
 		//FIXME Definir mensaje
 		String mensaje=null;
 		EnvioRRSS envio = new EnvioRRSSFactory().getEnvioRRSS(redSocial);
