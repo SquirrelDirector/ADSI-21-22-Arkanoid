@@ -1,5 +1,6 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import javax.mail.MessagingException;
 import javax.swing.*;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -8,12 +9,14 @@ import org.json.JSONObject;
 
 import java.awt.event.*;
 import java.util.Observable;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import eus.ehu.adsi.arkanoid.modelo.*;
 
 public class Arkanoid extends Observable {
 
+	private String usrCod;
 	private static Arkanoid miArkanoid;
 	/**
 	 * Game variables
@@ -192,8 +195,17 @@ public class Arkanoid extends Observable {
 	 * @param mail
 	 */
 	public int recuperarContrasena(String mail) {
-		// TODO - implement Arkanoid.recuperarContrasena
-		throw new UnsupportedOperationException();
+		if (!Pattern.matches("^\\p{Graph}+@\\p{Graph}+\u002e\\p{Graph}+$", mail)) //cadena de caracteres + @ + cadena de caracteres + . + cadena de caracteres
+			return 1;
+		if (!GestorUsuarios.getGestorUsuario().existeUsuario(mail))
+			return 2;
+		try{
+			usrCod= (new Random().nextInt((999999 - 100000) + 1) + 100000)+"";
+			GestorRedes.getGestorRedes().enviarRecuperacion(mail,usrCod);
+			return 0;
+		}catch (MessagingException e){
+			return 3;
+		}
 	}
 
 	/**
@@ -201,9 +213,18 @@ public class Arkanoid extends Observable {
 	 * @param mail
 	 * @param pass
 	 */
-	public void cambiarContrasena(String mail, String pass) {
-		// TODO - implement Arkanoid.cambiarContrasena
-		throw new UnsupportedOperationException();
+	public int cambiarContrasena(String mail, String pass, String rePass) {
+		if (!pass.equals(rePass))
+			return 1;
+		String regPass[] = new String[] { 
+				"^.{6,}$", "^.*\\p{javaLowerCase}.*$", "^.*\\p{javaUpperCase}.*$", "^.*\\d.*$", "^.*\\p{Punct}.*$"};
+		for (String regex : regPass) {
+			if (!Pattern.matches(regex, pass)) //minimo de 6 caracteres con mayusculas, minusculas, numeros y simbolos.
+				return 2;
+		}
+		
+		GestorUsuarios.getGestorUsuario().cambiarContrasena(mail, pass);
+		return 0;
 	}
 
 	public JSONObject getResultadosPartida() {
@@ -228,6 +249,14 @@ public class Arkanoid extends Observable {
 	public void publicarResultados(String redSocial) {
 		// TODO - implement Arkanoid.publicarResultados
 		throw new UnsupportedOperationException();
+	}
+
+	public int comprobarCodigo(String cod) {
+		if (!Pattern.matches("\\d{6,6}", cod))
+			return 1;
+		if (!usrCod.equals(cod))
+			return 2;
+		return 0;
 	}
 
 }

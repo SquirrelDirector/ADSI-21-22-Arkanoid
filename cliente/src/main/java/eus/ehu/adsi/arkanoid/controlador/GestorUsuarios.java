@@ -149,8 +149,8 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void cambiarContrasena(String mail, String pass) {
-		// TODO - implement GestorUsuarios.cambiarContrasena
-		throw new UnsupportedOperationException();
+		String preg="UPDATE Usuario SET Contrasena="+pass+" WHERE Mail="+mail;
+		GestorDB.getGestorDB().execSQL(preg);
 	}
 
 	public boolean existeNombre(String usr) {

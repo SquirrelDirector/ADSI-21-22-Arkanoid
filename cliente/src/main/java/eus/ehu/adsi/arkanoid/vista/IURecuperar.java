@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
@@ -40,6 +41,7 @@ public class IURecuperar extends JFrame {
 	private JTextField txtKey;
 	private JPanel panel_2;
 	private JButton btnReturn;
+	private boolean primera=true;
 
 	/**
 	 * Launch the application.
@@ -52,6 +54,7 @@ public class IURecuperar extends JFrame {
 					frame.setVisible(true);
 					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
+					primera=true;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -107,8 +110,20 @@ public class IURecuperar extends JFrame {
 			btnValidar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					IURenovar.getMiIURenovar().mostrarVentana(txtEmail.getText());
-					((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
+					int cod=Arkanoid.getArkanoid().comprobarCodigo(getTxtKey().getText());
+					switch (cod) {
+					case 0: //todo bien
+						IURenovar.getMiIURenovar().mostrarVentana(txtEmail.getText());
+						((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
+						break;
+					case 1: //formato de clave incorrecto
+						JOptionPane.showMessageDialog(null, "El código de validación tiene un formato incorrecto.");
+						break;
+					case 2: //codigo incorrecto
+						JOptionPane.showMessageDialog(null, "El código de validación es incorrecto.");
+						break;
+					}
+					
 				}
 			});
 		}
@@ -118,28 +133,32 @@ public class IURecuperar extends JFrame {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
 			panel_1.setLayout(new GridLayout(0, 1, 0, 5));
-			panel_1.add(getLblReenviar());
-			panel_1.add(getBtnReenviar());
+			panel_1.add(getLblSend());
+			panel_1.add(getBtnSend());
 			panel_1.add(getBtnValidar());
 		}
 		return panel_1;
 	}
-	private JButton getBtnReenviar() {
+	private JButton getBtnSend() {
 		if (btnReenviar == null) {
-			btnReenviar = new JButton("REENVIAR");
+			btnReenviar = new JButton("ENVIAR");
 			btnReenviar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int cod=Arkanoid.getArkanoid().recuperarContrasena(txtEmail.getText());
 					switch (cod){
 					case 0: //todo bien
-						
+						/*if(IURecuperar.getMiIURecuperar().isFirstTry())
+							IURecuperar.getMiIURecuperar().aceptarClave();*/
 						break;
 					case 1: //correo no válido
-						
+						JOptionPane.showMessageDialog(null, "Introduzca un correo válido.");
 						break;
-					case 2: //correo inexistente
-						
+					case 2:
+						JOptionPane.showMessageDialog(null, "La dirección de correo no corresponde a ningún usuario.");
+						break;
+					case 3: //correo inexistente
+						JOptionPane.showMessageDialog(null, "La dirección de correo introducida no existe.");
 						break;
 					}
 				}
@@ -147,7 +166,24 @@ public class IURecuperar extends JFrame {
 		}
 		return btnReenviar;
 	}
-	private JLabel getLblReenviar() {
+	protected boolean isFirstTry() {
+		return primera;
+	}
+
+	protected void aceptarClave() { //TODO - Revisar por que no se refleja en la IU
+		panel_1.remove(getBtnSend());
+		getBtnSend().setText("REENVIAR");
+		panel_1.add(getLblSend());
+		panel_1.add(getBtnSend());
+		panel_1.add(getBtnValidar());
+		primera=false;
+		panel.add(getTxtrSeHaEnviado());
+		panel.add(getTxtKey());
+		window.repaint();
+		window.revalidate();
+	}
+
+	private JLabel getLblSend() {
 		if (lblReenviar == null) {
 			lblReenviar = new JLabel("\u00BFA\u00FAn no ha llegado?");
 		}

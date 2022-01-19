@@ -11,6 +11,7 @@ import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -99,7 +100,19 @@ public class IURenovar extends JFrame {
 			btnEnviar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					Arkanoid.getArkanoid().cambiarContrasena(email, txtRepeat.getText());
+					int cod=Arkanoid.getArkanoid().cambiarContrasena(email, txtPassword.getText(), txtRepeat.getText());
+					switch (cod) {
+					case 0: //todo bien
+						IUIdentificarse.getMiIUIdentificarse().mostrarVentana();
+						((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
+						break;
+					case 1: //las contraseñas no coinciden
+						JOptionPane.showMessageDialog(null, "Las contraseñas introducidas no coinciden.");
+						break;
+					case 2: //contraseña con formato incorrecto
+						JOptionPane.showMessageDialog(null, "La contraseña tiene un formato incorrecto.");
+						break;
+					}
 				}
 			});
 		}
