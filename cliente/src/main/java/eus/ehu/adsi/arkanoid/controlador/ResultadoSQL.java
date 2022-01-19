@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package eus.ehu.adsi.arkanoid.controlador; 
  
 import java.util.ArrayList; 
@@ -80,6 +79,5 @@ public class ResultadoSQL {
 		map.put(clave, lista);
 		
 	}
-
->>>>>>> refs/remotes/origin/feature-identificacion
+	
 }
