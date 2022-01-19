@@ -190,7 +190,7 @@ public class Usuario {
 	}
 
 	public boolean isIdentificado() {
-		return email==null;
+		return email!=null;
 	}
 
 	public JSONObject getDatosHistoricosJugador() {

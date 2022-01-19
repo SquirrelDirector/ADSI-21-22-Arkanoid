@@ -1,14 +1,7 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
-public class EnvioRRSS {
+public abstract class EnvioRRSS {
 
-	/**
-	 * 
-	 * @param mensaje
-	 */
-	public void enviar(String mensaje) {
-		// TODO - implement EnvioRRSS.enviar
-		throw new UnsupportedOperationException();
-	}
+	public abstract void enviar(String mensaje);
 
 }

@@ -5,6 +5,7 @@ public class Logro {
 	private int idLogro;
 	private String nombre;
 	private String descripcion;
+<<<<<<< HEAD
 	private int objetivo;
 	
 	public Logro(int pIdLogro, String pNombre, String pDescripcion, int pObjetivo) {
@@ -12,6 +13,16 @@ public class Logro {
 		this.nombre = pNombre;
 		this.descripcion = pDescripcion;
 		this.objetivo = pObjetivo;
+=======
+
+	public Logro(String nombre, String descripcion) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
+	public Logro() {
+		// TODO - implement Logro.Logro
+		throw new UnsupportedOperationException();
+>>>>>>> refs/heads/feature-publicacion-resultados
 	}
 
 	public String getDescripcion() {

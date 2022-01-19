@@ -38,8 +38,10 @@ public class GestorRedes {
 	 * @param logro
 	 */
 	public void publicarResultados(String redSocial, int puntuacionPartida, int tiempoPartida, int mejorPuntuacion, int mejorTiempo, String logro) {
-		// TODO - implement GestorRedes.publicarResultados
-		throw new UnsupportedOperationException();
+		//FIXME Definir mensaje
+		String mensaje=null;
+		EnvioRRSS envio = new EnvioRRSSFactory().getEnvioRRSS(redSocial);
+		envio.enviar(mensaje);
 	}
 
 	/**

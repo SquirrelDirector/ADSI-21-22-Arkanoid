@@ -54,7 +54,7 @@ public class Partida extends Observable {
 			logro.put("nombreLogro", l.getNombre());
 			logros.put(logro);
 		}
-		datos.put("logros", logros);
+		datos.put("logrosConseguidos", logros);
 		return datos;
 	}
 
