@@ -5,12 +5,10 @@ import java.util.Iterator;
 
 import org.json.JSONObject;
 
-import java.util.Collection;
-
 public class CatalogoLogros {
 
 	private ArrayList<Logro> listaLogros;
-	private static CatalogoLogros miCatalogoLogros;
+	private static CatalogoLogros miCatalogoLogros = null;
 
 	private CatalogoLogros() {
 		this.listaLogros = new ArrayList<Logro>();
