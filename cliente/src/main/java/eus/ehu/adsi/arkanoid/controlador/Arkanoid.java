@@ -183,6 +183,7 @@ public class Arkanoid extends Observable {
 		if(GestorUsuarios.getGestorUsuario().existeUsuario(mail))
 			return 4;
 		
+		pass=resumir(pass);
 		GestorUsuarios.getGestorUsuario().crearUsuario(usr, mail, pass);
 		JSONObject datos=GestorUsuarios.getGestorUsuario().importarUsuario(mail, pass);
 		usuario=new Usuario(datos);
@@ -214,14 +215,18 @@ public class Arkanoid extends Observable {
 	 * @param pass
 	 */
 	public int cambiarContrasena(String mail, String pass, String rePass) {
-		if (!pass.equals(rePass))
-			return 1;
+		
 		String regPass[] = new String[] { 
 				"^.{6,}$", "^.*\\p{javaLowerCase}.*$", "^.*\\p{javaUpperCase}.*$", "^.*\\d.*$", "^.*\\p{Punct}.*$"};
 		for (String regex : regPass) {
 			if (!Pattern.matches(regex, pass)) //minimo de 6 caracteres con mayusculas, minusculas, numeros y simbolos.
 				return 2;
 		}
+		
+		pass=resumir(pass);
+		rePass=resumir(rePass);
+		if (!pass.equals(rePass))
+			return 1;
 		
 		GestorUsuarios.getGestorUsuario().cambiarContrasena(mail, pass);
 		return 0;
