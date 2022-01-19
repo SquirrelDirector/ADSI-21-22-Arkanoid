@@ -18,8 +18,7 @@ public class Paddle extends Rectangle {
 	 * @param g
 	 */
 	public void modificarPaddle(double n) {
-		// TODO - implement Paddle1.modificarPaddle
-		throw new UnsupportedOperationException();
+		this.sizeX += n;
 	}
 
 }

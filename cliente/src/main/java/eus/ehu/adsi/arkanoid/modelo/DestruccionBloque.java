@@ -7,19 +7,20 @@ public class DestruccionBloque implements ComportamientoBloque {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param min
-	 * @param max
-	 */
-	private int getRandom(int min, int max) {
-		// TODO - implement DestruccionBloque.getRandom
-		throw new UnsupportedOperationException();
-	}
 
 	@Override
 	public void romper() {
-		// TODO Auto-generated method stub
+        Partida miPartida = Partida.getMiPartida();
+        int numBloques = miPartida.getNumBloques()-1;
+        //generar numero de bloques que se deben romper
+        numBloques = (int) Math.floor((Math.random()*numBloques)+1);
+
+        for (int i = 0; i < numBloques; i++) {
+            //generar posicion aleatoria del bloque a romper
+            int pos = (int) Math.floor((Math.random()*8)+1);
+
+            miPartida.romperBloque(pos);
+        }
 		
 	}
 

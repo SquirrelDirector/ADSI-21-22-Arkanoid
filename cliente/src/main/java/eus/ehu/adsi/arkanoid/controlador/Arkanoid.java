@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.event.*;
+import java.awt.image.BufferStrategy;
+
 import eus.ehu.adsi.arkanoid.modelo.*;
 import java.awt.Color;
 import eus.ehu.adsi.arkanoid.vista.Tablero;
@@ -34,9 +36,55 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		return miArkanoid;
 	}
 
+	public void jugar() {
+		
+		game.setRunning(true);
+
+		while (game.isRunning()) {
+
+			long time1 = System.currentTimeMillis();
+
+			if (!partida.gameOver && !partida.ganar) {
+				game.setTryAgain(false);
+				update();
+
+				// to simulate low FPS
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {}
+
+			} else {
+				if (game.isTryAgain()) {
+					game.setTryAgain(false);
+					partida.generarPartida();
+				}
+			}
+
+			long time2 = System.currentTimeMillis();
+			double elapsedTime = time2 - time1;
+
+			lastFt = elapsedTime;
+
+			double seconds = elapsedTime / 1000.0;
+			if (seconds > 0.0) {
+				double fps = 1.0 / seconds;
+			}
+
+		}
+
+	}
+	
 	private void update() {
-		// TODO - implement Arkanoid.update
-		throw new UnsupportedOperationException();
+		currentSlice += lastFt;
+
+		for (; currentSlice >= Config.FT_SLICE; currentSlice -= Config.FT_SLICE) {
+			Partida miPartida = Partida.getMiPartida();
+			miPartida.testPaddle();
+			miPartida.testBola();
+			
+			//comprobar si se han roto todos los bloques
+			partida.ganar();
+		}
 	}
 
 	public boolean isIdentificado() {

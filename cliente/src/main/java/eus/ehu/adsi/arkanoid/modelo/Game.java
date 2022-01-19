@@ -42,9 +42,28 @@ public class Game {
 	 * @param mBall
 	 * @param partida
 	 */
-	public static void testCollision(Bloque mBrick, Ball mBall, Partida partida) {
-		// TODO - implement Game.testCollision
-		throw new UnsupportedOperationException();
+	public static void testCollision(Bloque mBrick, Bola mBall, Partida partida) {
+		if (!Game.isIntersecting(mBrick, mBall))
+			return;
+
+		mBrick.romper();
+
+		double overlapLeft = mBall.right() - mBrick.left();
+		double overlapRight = mBrick.right() - mBall.left();
+		double overlapTop = mBall.bottom() - mBrick.top();
+		double overlapBottom = mBrick.bottom() - mBall.top();
+
+		boolean ballFromLeft = overlapLeft < overlapRight;
+		boolean ballFromTop = overlapTop < overlapBottom;
+
+		double minOverlapX = ballFromLeft ? overlapLeft : overlapRight;
+		double minOverlapY = ballFromTop ? overlapTop : overlapBottom;
+
+		if (minOverlapX < minOverlapY) {
+			mBall.velocityX = ballFromLeft ? -Config.BALL_VELOCITY : Config.BALL_VELOCITY;
+		} else {
+			mBall.velocityY = ballFromTop ? -Config.BALL_VELOCITY : Config.BALL_VELOCITY;
+		}
 	}
 
 	/**
@@ -53,8 +72,8 @@ public class Game {
 	 * @param mB
 	 */
 	public static boolean isIntersecting(GameObject mA, GameObject mB) {
-		// TODO - implement Game.isIntersecting
-		throw new UnsupportedOperationException();
+		return mA.right() >= mB.left() && mA.left() <= mB.right()
+				&& mA.bottom() >= mB.top() && mA.top() <= mB.bottom();
 	}
 
 	/**

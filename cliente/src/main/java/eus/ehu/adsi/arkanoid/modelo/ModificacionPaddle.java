@@ -2,15 +2,14 @@ package eus.ehu.adsi.arkanoid.modelo;
 
 public class ModificacionPaddle implements ComportamientoBloque {
 
-	public ModificacionPaddle() {
-		// TODO - implement ModificacionPaddle.ModificacionPaddle
-		throw new UnsupportedOperationException();
-	}
+	public ModificacionPaddle() {}
 
 	@Override
 	public void romper() {
 		// TODO Auto-generated method stub
 		
+		Partida miPartida = Partida.getMiPartida();
+		miPartida.modificarPaddle(0);
 	}
 
 }

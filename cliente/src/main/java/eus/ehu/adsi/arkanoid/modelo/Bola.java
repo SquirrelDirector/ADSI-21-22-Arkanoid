@@ -50,8 +50,7 @@ public class Bola extends GameObject {
 	 * @param n
 	 */
 	public void modificarBola(double n) {
-		// TODO - implement Bola.modificarBola
-		throw new UnsupportedOperationException();
+		this.radius += n;
 	}
 
 }

@@ -34,9 +34,6 @@ public class Cronometro extends Observable implements Runnable {
                 Thread.sleep(1000);
             } catch (InterruptedException e) { e.printStackTrace(); }
             segundos++;
-            /*if (Juego.getmJuego().haPerdido() || Juego.getmJuego().haGanado()){
-                stopped = true;
-            }*/
         }
     }
 
@@ -49,5 +46,9 @@ public class Cronometro extends Observable implements Runnable {
         setChanged();
         String tiempo = (segundos < 10) ? minutos+":0"+segundos : minutos+":"+segundos ;
         notifyObservers(tiempo);
+    }
+    
+    public void parar() {
+    	stopped = true;
     }
 }
