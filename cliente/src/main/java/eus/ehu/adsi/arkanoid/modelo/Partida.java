@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class Partida {
 
 	private int vidasRestantes;
-	private Coleccion<Bloque> bloques;
+	private Collection<Bloque> bloques;
 	private ArrayList<Logro> listaLogros;
 	private int tiempo;
 	private int puntuacion;
@@ -18,8 +18,7 @@ public class Partida {
 	private static Partida miPartida;
 
 	public Partida() {
-		// TODO - implement Partida.Partida
-		throw new UnsupportedOperationException();
+
 	}
 
 	public void restarVidas() {

@@ -2,8 +2,8 @@ package eus.ehu.adsi.arkanoid.modelo;
 
 public class Color {
 
-	private string codigo;
-	private string nombre;
+	private String codigo;
+	private String nombre;
 
 	public Color() {
 		// TODO - implement Color.Color

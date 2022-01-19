@@ -1,26 +1,18 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import org.json.JSONObject;
+
 public class GestorUsuarios {
 
 	private static GestorUsuarios miGestorUsuario;
 
-	private GestorUsuarios() {
-		// TODO - implement GestorUsuarios.GestorUsuarios
-		throw new UnsupportedOperationException();
-	}
+	private GestorUsuarios() {}
 
 	public static GestorUsuarios getGestorUsuario() {
-		// TODO - implement GestorUsuarios.getGestorUsuario
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param emailUsuario
-	 */
-	public JSON obtenerPersonalizacion(int emailUsuario) {
-		// TODO - implement GestorUsuarios.obtenerPersonalizacion
-		throw new UnsupportedOperationException();
+		if (miGestorUsuario == null) {
+			miGestorUsuario = new GestorUsuarios();
+		}
+		return miGestorUsuario;
 	}
 
 	/**
@@ -32,9 +24,21 @@ public class GestorUsuarios {
 	 * @param colorPaddle
 	 * @param colorLadrillo
 	 */
-	public void actualizarPersonalizacion(int emailUsuario, int pathMusica, int colorFondo, int colorBola, int colorPaddle, int colorLadrillo) {
-		// TODO - implement GestorUsuarios.actualizarPersonalizacion
-		throw new UnsupportedOperationException();
+	public void actualizarPersonalizacion(String emailUsuario, String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo, String atributosPersonalizacion) {
+		GestorDB.getGestorDB().execSQL("UPDATE usuario SET PathMusica='"+pathMusica+"', CodigoColorFondo='"+colorFondo+"', "
+				+ "CodigoColorBola='"+colorBola+"', CodigoColorPaddle='"+colorPaddle+"', CodigoColorLadrillo='"+colorLadrillo+"', "
+						+ "Atributos_Personalizado='"+atributosPersonalizacion+"' WHERE Email='"+emailUsuario+"'");
+	}
+	
+	/**
+	 * 
+	 * @param emailUsuario
+	 * @param pathAvatar
+	 * @param nombreUsu
+	 */
+	public void actualizarDatosUsuDB(String email, String pathAvatar, String nombreUsu) {
+		GestorDB.getGestorDB().execSQL("UPDATE usuario SET PathPerfil='"+pathAvatar+"', NombreUsuario='"+nombreUsu+"' WHERE "
+				+ "Email = '"+email+"'");
 	}
 
 	/**
@@ -42,7 +46,7 @@ public class GestorUsuarios {
 	 * @param mail
 	 * @param pass
 	 */
-	public JSON importarUsuario(String mail, String pass) {
+	public JSONObject importarUsuario(String mail, String pass) {
 		// TODO - implement GestorUsuarios.importarUsuario
 		throw new UnsupportedOperationException();
 	}
@@ -77,4 +81,14 @@ public class GestorUsuarios {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * 
+	 * @param nombreUsu
+	 */
+	public boolean comprobarNombre(String nombreUsu) {
+		boolean existe = false;
+		ResultadoSQL resultado = GestorDB.getGestorDB().execSQL("SELECT NombreUsuario FROM usuario WHERE NombreUsuario='"+nombreUsu+"'");
+		if (resultado.get("NombreUsuario").equals(nombreUsu)) existe = true;
+		return existe;
+	}
 }

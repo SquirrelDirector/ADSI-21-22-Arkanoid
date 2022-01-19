@@ -11,31 +11,53 @@ import org.json.JSONObject;
 public class Usuario {
 
 	private String email;
+	private String nombreUsuario;
 	private String contrasena;
-	private Coleccion<T> atributosPersonalizado;
+	private String atributosPersonalizado;
 	private String pathPerfil;
 	private String pathMusica;
 	private String codigoColorFondo;
 	private String codigoColorBola;
 	private String codigoColorLadrillo;
 	private String codigoColorPaddle;
-	private int nivelDefault;
-	private Coleccion<LogroObtenido> susLogros;
-	private ArrayList<Puntuacion> susPuntuaciones; //Al cargar las puntuaciones, de mayor a menor!
+	private int nivelDefault; //Al cargar las puntuaciones, de mayor a menor!
+	private Collection<LogroObtenido> susLogros;
+	private Collection<Puntuacion> susPuntuaciones;
 
-	public Usuario() {
-		// TODO - implement Usuario.Usuario
-		throw new UnsupportedOperationException();
+	public Usuario(String email1,String nombreUsuario1, String atributosPersonalizado1,String pathPerfil1,String pathMusica1,String codigoColorFondo1,String codigoColorBola1,
+			String codigoColorLadrillo1,String codigoColorPaddle1) {
+		this.email = email1;
+		this.nombreUsuario = nombreUsuario1;
+		this.atributosPersonalizado = atributosPersonalizado1;
+		this.pathPerfil = pathPerfil1;
+		this.pathMusica = pathMusica1;
+		this.codigoColorFondo = codigoColorFondo1;
+		this.codigoColorBola = codigoColorBola1;
+		this.codigoColorLadrillo = codigoColorLadrillo1;
+		this.codigoColorPaddle = codigoColorPaddle1;
 	}
 
 	public String getEmail() {
-		// TODO - implement Usuario.getEmail
-		throw new UnsupportedOperationException();
+		return email;
+	}
+	
+	public JSONObject getDatosUsuario() {
+		JSONObject datos = new JSONObject();
+		datos.put("PathPerfil", pathPerfil);
+		datos.put("NombreUsuario", nombreUsuario);
+		datos.put("Email", email);
+		return datos;
 	}
 
-	public JSON obtenerPersonalizacionUsuario() {
-		// TODO - implement Usuario.obtenerPersonalizacionUsuario
-		throw new UnsupportedOperationException();
+	public JSONObject obtenerPersonalizacionUsuario() {
+		JSONObject personalizado = new JSONObject();
+		personalizado.put("PathMusica", pathMusica);
+		personalizado.put("CodigoFondo", codigoColorFondo);
+		personalizado.put("CodigoBola", codigoColorBola);
+		personalizado.put("CodigoPaddle", codigoColorPaddle);
+		personalizado.put("CodigoLadrillo", codigoColorLadrillo);
+		personalizado.put("atributosPersonalizado", atributosPersonalizado);
+		return personalizado;
 	}
 
 	/**
@@ -62,7 +84,7 @@ public class Usuario {
 	 * 
 	 * @param nombre
 	 */
-	public boolean tieneLogro(string nombre) {
+	public boolean tieneLogro(String nombre) {
 		// TODO - implement Usuario.tieneLogro
 		throw new UnsupportedOperationException();
 	}
@@ -71,7 +93,7 @@ public class Usuario {
 	 * 
 	 * @param nombre
 	 */
-	public JSON getInfoLogro(String nombre) {
+	public JSONObject getInfoLogro(String nombre) {
 		// TODO - implement Usuario.getInfoLogro
 		throw new UnsupportedOperationException();
 	}
@@ -84,9 +106,23 @@ public class Usuario {
 	 * @param colorPaddle
 	 * @param colorLadrillo
 	 */
-	public void actualizarPersonalizacionUsu(int pathMusica, int colorFondo, int colorBola, int colorPaddle, int colorLadrillo) {
-		// TODO - implement Usuario.actualizarPersonalizacionUsu
-		throw new UnsupportedOperationException();
+	public void actualizarPersonalizacionUsu(String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo, String atributosPersonalizacion) {
+		this.pathMusica = pathMusica;
+		this.codigoColorFondo = colorFondo;
+		this.codigoColorBola = colorBola;
+		this.codigoColorLadrillo = colorLadrillo;
+		this.codigoColorPaddle = colorPaddle;
+		this.atributosPersonalizado = atributosPersonalizacion;
+	}
+	
+	/**
+	 * 
+	 * @param pathAvatar
+	 * @param nombreUsu
+	 */
+	public void actualizarDatosUsu(String pathAvatar, String nombreUsu) {
+		this.pathPerfil = pathAvatar;
+		this.nombreUsuario = nombreUsu;
 	}
 
 	public boolean isIdentificado() {
@@ -112,7 +148,7 @@ public class Usuario {
 	 * 
 	 * @param logro
 	 */
-	public LogroObtenido buscarLogro(string logro) {
+	public LogroObtenido buscarLogro(String logro) {
 		// TODO - implement Usuario.buscarLogro
 		throw new UnsupportedOperationException();
 	}

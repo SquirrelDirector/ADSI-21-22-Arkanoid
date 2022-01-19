@@ -1,8 +1,11 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+<<<<<<< HEAD
 import java.sql.SQLException;
 
 import org.json.JSONArray;
+=======
+>>>>>>> refs/remotes/origin/feature-personalizacion
 import org.json.JSONObject;
 
 public class GestorPuntuaciones {
@@ -23,6 +26,7 @@ public class GestorPuntuaciones {
 	 * 
 	 * @param dificultad
 	 */
+<<<<<<< HEAD
 	public JSONArray obtenerRanking(int dificultad) {
 		JSONArray ranking = new JSONArray();
 		try {
@@ -49,5 +53,10 @@ public class GestorPuntuaciones {
 			GestorDB.getGestorDB().cerrarConexion();
 		}
 		return ranking;
+=======
+	public JSONObject obtenerRanking(int dificultad) {
+		// TODO - implement GestorPuntuaciones.obtenerRanking
+		throw new UnsupportedOperationException();
+>>>>>>> refs/remotes/origin/feature-personalizacion
 	}
 }

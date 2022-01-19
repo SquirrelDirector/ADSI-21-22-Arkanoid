@@ -2,7 +2,7 @@ package eus.ehu.adsi.arkanoid.modelo;
 
 public class Bola extends GameObject {
 
-	double radius = eus.ehu.adsi.arkanoid.modelo.Configuracion.BALL_RADIUS;
+	double radius = Config.BALL_RADIUS;
 	public double velocityX;
 	public double velocityY;
 
@@ -12,8 +12,7 @@ public class Bola extends GameObject {
 	 * @param y
 	 */
 	public Bola(int x, int y) {
-		// TODO - implement Bola.Bola
-		throw new UnsupportedOperationException();
+
 	}
 
 	/**

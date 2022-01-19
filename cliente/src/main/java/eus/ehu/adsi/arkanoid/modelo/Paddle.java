@@ -10,8 +10,7 @@ public class Paddle {
 	 * @param y
 	 */
 	public Paddle(double x, double y) {
-		// TODO - implement Paddle.Paddle
-		throw new UnsupportedOperationException();
+
 	}
 
 	public void update() {
