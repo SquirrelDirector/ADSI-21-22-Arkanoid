@@ -13,7 +13,7 @@ public class DestruccionBloque implements ComportamientoBloque {
         Partida miPartida = Partida.getMiPartida();
         int numBloques = miPartida.getNumBloques()-1;
         //generar numero de bloques que se deben romper
-        int numBloques = (int) Math.floor((Math.random()*numBloques)+1);
+        numBloques = (int) Math.floor((Math.random()*numBloques)+1);
 
         for (int i = 0; i < numBloques; i++) {
             //generar posicion aleatoria del bloque a romper
