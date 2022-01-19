@@ -108,18 +108,16 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 		throw new UnsupportedOperationException();
 	}
 
-	public JSON getLogros() {
-		// TODO - implement Arkanoid.getLogros
-		throw new UnsupportedOperationException();
+	public JSONArray getLogros() {
+		return usuario.getLogros();
 	}
 
 	/**
 	 * 
 	 * @param nombre
 	 */
-	public JSON getInfoLogro(string nombre) {
-		// TODO - implement Arkanoid.getInfoLogro
-		throw new UnsupportedOperationException();
+	public JSONObject getInfoLogro(String nombre) {
+		return usuario.getInfoLogro(nombre);
 	}
 
 	/**
