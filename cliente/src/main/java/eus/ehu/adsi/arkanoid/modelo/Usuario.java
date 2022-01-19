@@ -244,6 +244,10 @@ public class Usuario {
 	public Iterator<LogroObtenido> getIterador() {
 		return this.susLogros.iterator();
 	}
+	
+	public void actualizarUltimaPartida(int idNivel) {
+		this.nivelDefault=idNivel;
+	}
 
 	public JSONArray cotejarLogros(JSONArray logros) {
 		JSONArray nuevosLogros = new JSONArray();
