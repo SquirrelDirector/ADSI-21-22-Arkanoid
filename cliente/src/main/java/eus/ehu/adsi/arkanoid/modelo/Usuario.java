@@ -26,9 +26,7 @@ public class Usuario {
 	
 
 	public Usuario() {
-		email ="A";
-		mejorTiempo = 2;
-		mejorPuntuacion = 4;
+		throw new UnsupportedOperationException();
 	}
 
 	public String getEmail() {

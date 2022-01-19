@@ -21,13 +21,7 @@ public class Partida {
 	private static Partida miPartida;
 
 	public Partida() {
-		logrosLista= new ArrayList();//TEST!
-		Logro l = new Logro("NA", "DA");
-		Logro l2 = new Logro("NB", "DB");
-		logrosLista.add(l);
-		logrosLista.add(l2);
-		tiempo = 35;
-		puntuacion =30;
+		throw new UnsupportedOperationException();
 	}
 
 	public void restarVidas() {
