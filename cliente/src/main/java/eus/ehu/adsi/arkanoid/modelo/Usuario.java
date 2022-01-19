@@ -158,4 +158,11 @@ public class Usuario {
 		throw new UnsupportedOperationException();
 	}
 
+	public int getNivelDefault() {
+		return nivelDefault;
+	}
+	
+	public String[] obtenerDatosNivelPersonalizado() {
+		return atributosPersonalizado.split(",");
+	}
 }
