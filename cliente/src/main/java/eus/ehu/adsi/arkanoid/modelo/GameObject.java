@@ -4,13 +4,10 @@ public abstract class GameObject {
 
 	public double x;
 	public double y;
-
-	public abstract double left();
-
-	public abstract double right();
-
-	public abstract double top();
-
-	public abstract double bottom();
+	
+	public GameObject(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
 
 }

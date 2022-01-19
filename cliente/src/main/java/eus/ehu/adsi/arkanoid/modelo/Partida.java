@@ -1,12 +1,12 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collection;
+import java.util.Observable;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Partida {
+@SuppressWarnings("deprecation")
+public class Partida extends Observable {
 
 	private int vidasRestantes;
 	private Collection<Bloque> bloques;
@@ -16,10 +16,20 @@ public class Partida {
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
 	private Bola bola = new Bola(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT / 2);
 	private static Partida miPartida;
+	private Cronometro crono;
 
 	public Partida() {
 
+		
 	}
+	
+	public Cronometro getCrono() {
+		return crono;
+	}
+	
+	public void iniciarCrono(){
+        if (this.crono == null || crono.estaParado()) this.crono = new Cronometro();
+    }
 
 	public void restarVidas() {
 		vidasRestantes--;
@@ -73,7 +83,8 @@ public class Partida {
 	}
 
 	public static Partida getMiPartida() {
-		return Partida.miPartida;
+		if (miPartida == null) miPartida = new Partida();
+        return miPartida;
 	}
 
 }

@@ -1,8 +1,8 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
-public class Paddle {
+public class Paddle extends Rectangle {
 
-	double velocity = 0.0;
+	public double velocity = 0.0;
 
 	/**
 	 * 
@@ -10,35 +10,15 @@ public class Paddle {
 	 * @param y
 	 */
 	public Paddle(double x, double y) {
-
-	}
-
-	public void update() {
-		// TODO - implement Paddle.update
-		throw new UnsupportedOperationException();
-	}
-
-	public void stopMove() {
-		// TODO - implement Paddle.stopMove
-		throw new UnsupportedOperationException();
-	}
-
-	public void moveLeft() {
-		// TODO - implement Paddle.moveLeft
-		throw new UnsupportedOperationException();
-	}
-
-	public void moveRight() {
-		// TODO - implement Paddle.moveRight
-		throw new UnsupportedOperationException();
+		super(x,y);
 	}
 
 	/**
 	 * 
 	 * @param g
 	 */
-	public void draw(java.awt.Graphics g) {
-		// TODO - implement Paddle.draw
+	public void modificarPaddle(double n) {
+		// TODO - implement Paddle1.modificarPaddle
 		throw new UnsupportedOperationException();
 	}
 

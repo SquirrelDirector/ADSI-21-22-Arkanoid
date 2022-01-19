@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.awt.event.*;
 import eus.ehu.adsi.arkanoid.modelo.*;
 import java.awt.Color;
+import eus.ehu.adsi.arkanoid.vista.Tablero;
 
 public class Arkanoid{ //extends JFrame implements KeyListener {
 
@@ -22,6 +23,8 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	private Usuario usuario;
 
 	private Arkanoid() {
+
+		
 	}
 
 	public static Arkanoid getArkanoid() {

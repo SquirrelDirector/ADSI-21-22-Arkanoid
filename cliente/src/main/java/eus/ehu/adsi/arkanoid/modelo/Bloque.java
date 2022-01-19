@@ -10,8 +10,7 @@ public class Bloque extends Rectangle {
 	 * @param y
 	 */
 	public Bloque(double x, double y) {
-		// TODO - implement Bloque.Bloque
-		throw new UnsupportedOperationException();
+		super(x,y); 
 	}
 
 	public void romper() {

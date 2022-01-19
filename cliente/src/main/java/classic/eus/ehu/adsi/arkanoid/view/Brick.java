@@ -12,6 +12,14 @@ public class Brick extends Rectangle {
 		this.sizeX = Config.BLOCK_WIDTH;
 		this.sizeY = Config.BLOCK_HEIGHT;
 	}
+	
+	public double getX() {
+		return x;
+	}
+	
+	public double getY() {
+		return y;
+	}
 
 	public void draw(Graphics g) {
 		g.setColor(Config.BRICK_COLOR);

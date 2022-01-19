@@ -1,10 +1,10 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
 public class Bola extends GameObject {
-
-	double radius = Config.BALL_RADIUS;
-	public double velocityX;
-	public double velocityY;
+	
+	public double radius = Config.BALL_RADIUS;
+	public double velocityX = Config.BALL_VELOCITY;
+	public double velocityY = Config.BALL_VELOCITY;;
 
 	/**
 	 * 
@@ -12,7 +12,7 @@ public class Bola extends GameObject {
 	 * @param y
 	 */
 	public Bola(int x, int y) {
-
+		super(x,y);
 	}
 
 	/**
