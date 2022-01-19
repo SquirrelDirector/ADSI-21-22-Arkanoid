@@ -25,6 +25,7 @@ public class Partida {
 		vidasRestantes--;
 		if (vidasRestantes == 0) {
 			gameOver = true;
+			tiempo.parar();
 			//TODO: llamar a la funcionalidad de la vista de perder
 		}
 	}
@@ -87,12 +88,17 @@ public class Partida {
 	public void ganar() {
 		if (puntuacion == (Config.COUNT_BLOCKS_X * Config.COUNT_BLOCKS_Y)) {
 			ganar = true;
+			tiempo.parar();
 			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
 		}
 	}
 	
 	public void generarPartida() {
-		//TODO: generar bloques bola y paddle
+		//TODO: generar bloques bola y paddle e iniciar cronometro
+	}
+	
+	public int getNumBloques() {
+		this.bloques.size();
 	}
 
 }

@@ -38,4 +38,8 @@ public class Cronometro implements Runnable {
         segundos = 0;
         stopped = true;
     }
+    
+    public void parar() {
+    	stopped = true;
+    }
 }
