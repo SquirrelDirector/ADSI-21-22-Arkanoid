@@ -1,17 +1,31 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.SendFailedException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
 public class GestorRedes {
 
 	private static GestorRedes miGestorRedes;
 
 	private GestorRedes() {
-		// TODO - implement GestorRedes.GestorRedes
-		throw new UnsupportedOperationException();
 	}
 
 	public static GestorRedes getGestorRedes() {
-		// TODO - implement GestorRedes.getGestorRedes
-		throw new UnsupportedOperationException();
+		if(miGestorRedes==null)
+			miGestorRedes=new GestorRedes();
+		return miGestorRedes;
 	}
 
 	/**
@@ -31,10 +45,36 @@ public class GestorRedes {
 	/**
 	 * 
 	 * @param mail
+	 * @throws MessagingException 
 	 */
-	public void enviarRecuperacion(String mail) {
-		// TODO - implement GestorRedes.enviarRecuperacion
-		throw new UnsupportedOperationException();
+	public void enviarRecuperacion(String mail, String cod) throws MessagingException {
+		//https://netcorecloud.com/tutorials/send-email-in-java-using-gmail-smtp/
+        String from = "noreply.arkanoid@gmail.com";
+        String host = "smtp.gmail.com";
+
+        Properties properties = System.getProperties();
+
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+        
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {
+        	return new PasswordAuthentication("noreply.arkanoid@gmail.com", "H43eVq5xDRVrNsuj");
+
+            }
+
+        });
+        session.setDebug(true);
+
+        MimeMessage message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(from));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+        message.setSubject("Código de cambio de contraseña");
+        message.setText("Su código de cambio de contraseña es "+cod+", introdúzcalo en la aplicación para cambiar su contraseña. El código será válido mientras el programa siga ejecutándose y no se envíe otro correo nuevo.");
+        System.out.println("sending...");
+        Transport.send(message);
 	}
 
 }

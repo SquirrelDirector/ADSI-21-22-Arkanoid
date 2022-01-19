@@ -1,27 +1,33 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import javax.mail.MessagingException;
 import javax.swing.*;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
+import java.util.Observable;
+import java.util.Random;
+import java.util.regex.Pattern;
 
 import eus.ehu.adsi.arkanoid.modelo.*;
 import java.awt.Color;
 import eus.ehu.adsi.arkanoid.vista.Tablero;
 
-public class Arkanoid{ //extends JFrame implements KeyListener {
+public class Arkanoid extends Observable {
 
+	private String usrCod;
 	private static Arkanoid miArkanoid;
 	/**
 	 * Game variables
 	 */
-	private Game game;
-	private Partida partida = new Partida();
+	/*private Game game;*/
 	private double lastFt;
 	private double currentSlice;
+	private Partida partida = new Partida();
 	private Usuario usuario;
 
 	private Arkanoid() {
@@ -231,8 +237,36 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param pass
 	 */
 	public int iniciarSesion(String mail, String pass) {
-		// TODO - implement Arkanoid.iniciarSesion
-		throw new UnsupportedOperationException();
+		String regPass[] = new String[] { 
+		"^.{6,}$", "^.*\\p{javaLowerCase}.*$", "^.*\\p{javaUpperCase}.*$", "^.*\\d.*$", "^.*\\p{Punct}.*$"};
+		
+		if (!Pattern.matches("^\\p{Graph}+@\\p{Graph}+\u002e\\p{Graph}+$", mail)) //cadena de caracteres + @ + cadena de caracteres + . + cadena de caracteres
+			return 1;
+		for (String regex : regPass) {
+			if (!Pattern.matches(regex, pass)) //minimo de 6 caracteres con mayusculas, minusculas, numeros y simbolos.
+				return 2;
+		}
+		
+		pass=resumir(pass); //se hace en una funcion separada para facilitar la posibilidad de cambiar el algoritmo de resumen
+		
+		JSONObject datos=GestorUsuarios.getGestorUsuario().importarUsuario(mail, pass);
+		if (datos==null)
+			return 3;
+		
+		usuario=new Usuario(datos);
+		notifyObservers(usuario.getPerfil());
+		return 0;
+	}
+	
+	private String resumir(String pass) {
+		String hash=pass.hashCode()+"";
+		return hash;
+	}
+
+	public void cerrarSesion(){
+		if (!usuario.isIdentificado()) //caso a priori imposible de suceder
+			notifyObservers(usuario.getPerfil());
+		usuario=new Usuario();
 	}
 
 	/**
@@ -242,8 +276,26 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param pass
 	 */
 	public int registrarse(String usr, String mail, String pass) {
-		// TODO - implement Arkanoid.registrarse
-		throw new UnsupportedOperationException();
+		String regPass[] = new String[] { 
+				"^.{6,}$", "^.*\\p{javaLowerCase}.*$", "^.*\\p{javaUpperCase}.*$", "^.*\\d.*$", "^.*\\p{Punct}.*$"};
+		
+		if (GestorUsuarios.getGestorUsuario().existeNombre(usr))
+			return 1;
+		if (!Pattern.matches("^\\p{Graph}+@\\p{Graph}+\u002e\\p{Graph}+$", mail)) //cadena de caracteres + @ + cadena de caracteres + . + cadena de caracteres
+			return 2;
+		for (String regex : regPass) {
+			if (!Pattern.matches(regex, pass)) //minimo de 6 caracteres con mayusculas, minusculas, numeros y simbolos.
+				return 3;
+		}
+		if(GestorUsuarios.getGestorUsuario().existeUsuario(mail))
+			return 4;
+		
+		pass=resumir(pass);
+		GestorUsuarios.getGestorUsuario().crearUsuario(usr, mail, pass);
+		JSONObject datos=GestorUsuarios.getGestorUsuario().importarUsuario(mail, pass);
+		usuario=new Usuario(datos);
+		return 0;
+		
 	}
 
 	/**
@@ -251,8 +303,17 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param mail
 	 */
 	public int recuperarContrasena(String mail) {
-		// TODO - implement Arkanoid.recuperarContrasena
-		throw new UnsupportedOperationException();
+		if (!Pattern.matches("^\\p{Graph}+@\\p{Graph}+\u002e\\p{Graph}+$", mail)) //cadena de caracteres + @ + cadena de caracteres + . + cadena de caracteres
+			return 1;
+		if (!GestorUsuarios.getGestorUsuario().existeUsuario(mail))
+			return 2;
+		try{
+			usrCod= (new Random().nextInt((999999 - 100000) + 1) + 100000)+"";
+			GestorRedes.getGestorRedes().enviarRecuperacion(mail,usrCod);
+			return 0;
+		}catch (MessagingException e){
+			return 3;
+		}
 	}
 
 	/**
@@ -260,9 +321,22 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	 * @param mail
 	 * @param pass
 	 */
-	public void cambiarContrasena(String mail, String pass) {
-		// TODO - implement Arkanoid.cambiarContrasena
-		throw new UnsupportedOperationException();
+	public int cambiarContrasena(String mail, String pass, String rePass) {
+		
+		String regPass[] = new String[] { 
+				"^.{6,}$", "^.*\\p{javaLowerCase}.*$", "^.*\\p{javaUpperCase}.*$", "^.*\\d.*$", "^.*\\p{Punct}.*$"};
+		for (String regex : regPass) {
+			if (!Pattern.matches(regex, pass)) //minimo de 6 caracteres con mayusculas, minusculas, numeros y simbolos.
+				return 2;
+		}
+		
+		pass=resumir(pass);
+		rePass=resumir(rePass);
+		if (!pass.equals(rePass))
+			return 1;
+		
+		GestorUsuarios.getGestorUsuario().cambiarContrasena(mail, pass);
+		return 0;
 	}
 
 	public JSONObject getResultadosPartida() {
@@ -321,4 +395,12 @@ public class Arkanoid{ //extends JFrame implements KeyListener {
 	public void updateMusica(String path) { 
 		Config.PATH_MUSICA = path; 
 	} 
+	public int comprobarCodigo(String cod) {
+		if (!Pattern.matches("\\d{6,6}", cod))
+			return 1;
+		if (!usrCod.equals(cod))
+			return 2;
+		return 0;
+	}
+
 }

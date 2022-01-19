@@ -21,8 +21,8 @@ public class Usuario {
 	private String codigoColorLadrillo;
 	private String codigoColorPaddle;
 	private int nivelDefault; //Al cargar las puntuaciones, de mayor a menor!
-	private Collection<LogroObtenido> susLogros;
-	private Collection<Puntuacion> susPuntuaciones;
+	private ArrayList<LogroObtenido> susLogros;
+	private ArrayList<Puntuacion> susPuntuaciones;
 
 	public Usuario(String email1,String nombreUsuario1, String atributosPersonalizado1,String pathPerfil1,String pathMusica1,String codigoColorFondo1,String codigoColorBola1,
 			String codigoColorLadrillo1,String codigoColorPaddle1) {
@@ -35,6 +35,70 @@ public class Usuario {
 		this.codigoColorBola = codigoColorBola1;
 		this.codigoColorLadrillo = codigoColorLadrillo1;
 		this.codigoColorPaddle = codigoColorPaddle1;
+	}
+	
+	public Usuario(JSONObject datos) {
+		//informacion de la cuenta
+		nombreUsuario=datos.getString("nombreUsuario");
+		email=datos.getString("email");
+		pathPerfil=datos.getString("pathPerfil");
+		
+		//configuracion del juego
+		pathMusica=datos.getString("pathMusica");
+		codigoColorFondo=datos.getString("codigoColorFondo");
+		codigoColorBola=datos.getString("codigoColorBola");
+		codigoColorLadrillo=datos.getString("codigoColorLadrillo");
+		codigoColorPaddle=datos.getString("codigoColorPaddle");
+		nivelDefault=datos.getInt("nivelDefault");
+		atributosPersonalizado=datos.getString("atributosPersonalizado");
+		
+		//puntuaciones del jugador
+		JSONArray ranking=datos.getJSONArray("ranking");
+		JSONObject partida;
+		int lvl;
+		Date fecha;
+		int tiempo;
+		int num;
+		
+		for (int i=0;i<ranking.length();i++){
+			partida=ranking.getJSONObject(i);
+			
+			lvl=(int) partida.get("idNivel");
+			fecha=(Date) partida.get("valorFechaHora");
+			tiempo=(int) partida.get("tiempo");
+			num=(int) partida.get("numero");
+			
+			susPuntuaciones.add(new Puntuacion(this, lvl, num, fecha, tiempo));
+		}
+		
+		//datos de los logros
+		JSONArray logros=datos.getJSONArray("logros");
+		JSONObject logro;
+		String nom;
+		int id;
+		String desc;
+		float prog;
+		int obj;
+		Logro l;
+		LogroObtenido lo;
+		
+		for (int i=0;i<logros.length();i++){
+			logro=logros.getJSONObject(i);
+			
+			nom=(String) logro.get("nombre");
+			id=(int) logro.get("IdLogro");
+			desc=(String) logro.get("descripcion");
+			obj=(int) logro.get("Objetivo");
+			
+			l=new Logro(id, nom, desc, obj);
+			
+			fecha=(Date) logro.get("fechaObtencion");
+			prog=(float) logro.get("Progreso");
+			
+			lo=new LogroObtenido(fecha, l, prog);
+			susLogros.add(lo);
+			
+		}
 	}
 
 	public String getEmail() {
@@ -160,6 +224,13 @@ public class Usuario {
 
 	public int getNivelDefault() {
 		return nivelDefault;
+	}
+	
+	public JSONObject getPerfil() {
+		JSONObject perfil = new JSONObject();
+		perfil.put("nombre", nombreUsuario);
+		perfil.put("foto", pathPerfil);
+		return perfil;
 	}
 	
 	public String[] obtenerDatosNivelPersonalizado() {

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package eus.ehu.adsi.arkanoid.controlador; 
  
 import java.io.BufferedReader; 
@@ -98,28 +98,5 @@ public class GestorDB {
 		} 
 		in.close(); 
 		return respuesta; 
-	} 
-=======
-package eus.ehu.adsi.arkanoid.controlador;
-
-public class GestorDB {
-
-	private static GestorDB miGestorDB;
-
-	private GestorDB() {
-		// TODO - implement GestorDB.GestorDB
-		throw new UnsupportedOperationException();
 	}
-
-	public static GestorDB getGestorDB() {
-		// TODO - implement GestorDB.getGestorDB
-		throw new UnsupportedOperationException();
-	}
-
-	public ResultadoSQL execSQL() {
-		// TODO - implement GestorDB.execSQL
-		throw new UnsupportedOperationException();
-	}
-
->>>>>>> refs/remotes/origin/feature-niveles
 }

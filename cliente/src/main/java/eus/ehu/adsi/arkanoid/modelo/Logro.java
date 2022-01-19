@@ -6,6 +6,7 @@ public class Logro {
 	private String nombre;
 	private String descripcion;
 	private int objetivo;
+	
 	public Logro(int pIdLogro, String pNombre, String pDescripcion, int pObjetivo) {
 		this.idLogro = pIdLogro;
 		this.nombre = pNombre;

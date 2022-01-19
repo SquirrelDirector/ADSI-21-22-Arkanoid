@@ -47,8 +47,71 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public JSONObject importarUsuario(String mail, String pass) {
-		// TODO - implement GestorUsuarios.importarUsuario
-		throw new UnsupportedOperationException();
+		String preg="SELECT Contraseña FROM Usuario WHERE Email = "+mail;
+		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
+		String usrPass=(String) res.get("Contraseña");
+		if (usrPass==null) //no existe tal usuario
+			return null;
+		if (!pass.equals(usrPass)) //el usuario no tiene tal contraseña
+			return null;
+		
+		preg="SELECT NombreUsuario, NivelDefault, PathMusica, PathPerfil, CodigoColorFondo, CodigoColorBola, CodigoColorPaddle, CodigoColorLadrillo, VelocidadCustom, AnchuraCustom, AceleracionCustom, NumLadrillosCustom FROM Usuario WHERE Email = "+mail;
+		res=GestorDB.getGestorDB().execSQL(preg);
+		JSONObject datos=new JSONObject();
+		
+		datos.put("email", mail);
+		String nombre=(String) res.get("NombreUsuario");
+		datos.put("nombreUsuario", nombre);
+		
+		datos.put("atributosPersonalizado", res.get("Atributos_Personalizado"));
+		datos.put("pathPerfil", res.get("PathPerfil"));
+		datos.put("pathMusica", res.get("PathMusica"));
+		
+		datos.put("codigoColorFondo", res.get("CodigoColorFondo"));
+		datos.put("codigoColorBola", res.get("CodigoColorBola"));
+		datos.put("codigoColorLadrillo", res.get("CodigoColorLadrillo"));
+		datos.put("codigoColorPaddle", res.get("CodigoColorPaddle"));
+		
+		datos.put("nivelDefault", res.get("NivelDefault"));
+		
+		preg="SELECT Nombre, IdLogro, Descripcion, FechaObtencion, Progreso, Objetivo FROM TieneLogro NATURAL JOIN Logro WHERE Usuario ="+nombre;
+		res=GestorDB.getGestorDB().execSQL(preg);
+		JSONArray logros=new JSONArray();
+		JSONObject logro;
+		
+		for (int i=0;i<res.longitud;i++){
+			logro=new JSONObject();
+			
+			logro.put("nombre", res.get("Nombre"));
+			logro.put("idLogro", res.get("IdLogro"));
+			logro.put("descripcion", res.get("Descripcion"));
+			logro.put("fechaObtencion", res.get("FechaObtencion"));
+			logro.put("progreso", res.get("Progreso"));
+			logro.put("objetivo", res.get("Objetivo"));
+			
+			logros.put(logro);
+			res.next();
+		}
+		datos.put("logros", logros);
+		
+		preg="SELECT IdNivel, ValorFechaHora, Tiempo, Numero FROM Puntuacion WHERE Usuario = "+nombre;
+		res=GestorDB.getGestorDB().execSQL(preg);
+		JSONArray ranking=new JSONArray();
+		JSONObject partida;
+		
+		for (int i=0;i<res.longitud;i++){
+			partida=new JSONObject();
+			
+			partida.put("idNivel", res.get("IdNivel"));
+			partida.put("valorFechaHora", res.get("ValorFechaHora"));
+			partida.put("tiempo", res.get("Tiempo"));
+			partida.put("numero", res.get("Numero"));
+			
+			ranking.put(partida);
+			res.next();
+		}
+		datos.put("ranking", ranking);
+		return datos;
 	}
 
 	/**
@@ -56,8 +119,9 @@ public class GestorUsuarios {
 	 * @param mail
 	 */
 	public boolean existeUsuario(String mail) {
-		// TODO - implement GestorUsuarios.existeUsuario
-		throw new UnsupportedOperationException();
+		String preg="SELECT NombreUsuario FROM Usuario WHERE Email = "+mail;
+		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
+		return (res.get("NombreUsuario")!=null);
 	}
 
 	/**
@@ -67,8 +131,19 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void crearUsuario(String usr, String mail, String pass) {
-		// TODO - implement GestorUsuarios.crearUsuario
-		throw new UnsupportedOperationException();
+		//TODO - establecer valores predeterminados de personalizacion, sea por el propio SQL o por una nueva clase de modelo que los almacene
+		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contrasena) VALUES ("+mail+", "+usr+", "+pass+");";
+		GestorDB.getGestorDB().execSQL(preg);
+		
+		preg="SELECT idLogro FROM Logro;";
+		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
+		String id;
+		
+		for (int i=0;i<res.longitud;i++){
+			id=(String) res.get("idLogro");
+			preg="INSERT INTO TieneLogro (Usuario, idLogro) VALUES ("+mail+", "+id+");";
+			res.next();
+		}
 	}
 
 	/**
@@ -77,8 +152,14 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void cambiarContrasena(String mail, String pass) {
-		// TODO - implement GestorUsuarios.cambiarContrasena
-		throw new UnsupportedOperationException();
+		String preg="UPDATE Usuario SET Contrasena="+pass+" WHERE Mail="+mail;
+		GestorDB.getGestorDB().execSQL(preg);
+	}
+
+	public boolean existeNombre(String usr) {
+		String preg="SELECT Email FROM Usuario WHERE NombreUsuario = "+usr;
+		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
+		return (res.get("Email")!=null);
 	}
 
 	/**
