@@ -1,6 +1,5 @@
 package eus.ehu.adsi.arkanoid.vista;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -53,7 +52,7 @@ public class PanelTablero extends JPanel {
       // Lista de bloques
       for (int iX = 0; iX < Config.COUNT_BLOCKS_X; ++iX) {
     	  for (int iY = 0; iY < Config.COUNT_BLOCKS_Y; ++iY) {
-    		  bricks.add(new Bloque((iX + 1) * (sizeX + 3) + 10, (iY + 2) * (sizeY + 3) - 30));
+    		  bricks.add(new Bloque((iX + 1) * (sizeX + 2) - 10, (iY + 2) * (sizeY + 2) - 30));
 		  }
 	  }
       
@@ -95,8 +94,6 @@ public class PanelTablero extends JPanel {
       };
       gameThread.start();  // Callback run()
       
-      //Paddle
-      
    }
   
    /** Custom rendering codes for drawing the JPanel */
@@ -105,7 +102,7 @@ public class PanelTablero extends JPanel {
       super.paintComponent(g);    // Paint background
   
       // Draw the box
-      g.setColor(Color.BLACK);
+      g.setColor(Config.BACKGROUND_COLOR);
       g.fillRect(0, 0, BOX_WIDTH, BOX_HEIGHT);
       
       // Draw bricks
@@ -114,18 +111,18 @@ public class PanelTablero extends JPanel {
       for (Bloque brick : bricks) {
     	  if (i == ladrilloSuerte) g.setColor(Config.LUCK_BRICK_COLOR);
     	  else g.setColor(Config.BRICK_COLOR);
-  		  g.fillRect((int) (brick.x - sizeX / 2.0), (int) (brick.y - sizeY / 2.0), (int) sizeX, (int) sizeY);
+    	  g.fillRect((int) brick.left(), (int) brick.top(), (int) sizeX, (int) sizeY);
   		  i++;
 	  }
   
       // Draw the ball
       g.setColor(Config.BALL_COLOR);
-      g.fillOval((int) (bola.x - bola.radius), (int) (bola.y - bola.radius), (int)(2 * bola.radius), (int)(2 * bola.radius));
+      g.fillOval((int) bola.left(), (int) bola.top(), (int) bola.radius * 2,(int) bola.radius * 2);
       
       // Draw paddle
       
       g.setColor(Config.PADDLE_COLOR);
-	  g.fillRect((int) (paddle.x - sizeX / 2.0), (int) (paddle.y - sizeY / 2.0), (int) sizeXPaddle, (int) sizeYPaddle);
+      g.fillRect((int) (paddle.left()), (int) (paddle.top()), (int) sizeXPaddle, (int) sizeYPaddle);
       
       
    }
@@ -172,31 +169,22 @@ public class PanelTablero extends JPanel {
    public void moverPaddle(KeyEvent event) {
 	   switch (event.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
-			if ((paddle.x - sizeXPaddle / 2.0) > 0.0) {
-				paddle.velocity = -Config.PADDLE_VELOCITY;
-			} else {
-				paddle.velocity = 0.0;
-			}
-			paddle.x += paddle.velocity * Config.FT_STEP;
+			paddle.moveLeft();
 			break;
 		case KeyEvent.VK_RIGHT:
-			if (paddle.x + sizeXPaddle / 2.0 < this.getWidth()) {
-				paddle.velocity = Config.PADDLE_VELOCITY;
-			} else {
-				paddle.velocity = 0.0;
-			}
-			paddle.x += paddle.velocity * Config.FT_STEP;
+			paddle.moveRight();
 			break;
 		default:
 			break;
 		}
+	   paddle.update();
    }
    
    public void pararPaddle(KeyEvent event) {
 	   switch (event.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_RIGHT:
-			paddle.velocity = 0.0;
+			paddle.stopMove();
 			break;
 		default:
 			break;

@@ -1,5 +1,9 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import classic.eus.ehu.adsi.arkanoid.view.Config;
+import classic.eus.ehu.adsi.arkanoid.view.Paddle;
+import classic.eus.ehu.adsi.arkanoid.view.ScoreBoard;
+
 public class Bola extends GameObject {
 	
 	public double radius = Config.BALL_RADIUS;
@@ -20,29 +24,39 @@ public class Bola extends GameObject {
 	 * @param partida
 	 * @param paddle
 	 */
-	public void update(Partida partida, Paddle paddle) {
-		// TODO - implement Bola.update
-		throw new UnsupportedOperationException();
+	public void update(ScoreBoard scoreBoard, Paddle paddle) {
+		x += velocityX * Config.FT_STEP;
+		y += velocityY * Config.FT_STEP;
+
+		if (left() < 0)
+			velocityX = Config.BALL_VELOCITY;
+		else if (right() > Config.SCREEN_WIDTH)
+			velocityX = -Config.BALL_VELOCITY;
+		if (top() < 0) {
+			velocityY = Config.BALL_VELOCITY;
+		} else if (bottom() > Config.SCREEN_HEIGHT) {
+			velocityY = -Config.BALL_VELOCITY;
+			x = paddle.x;
+			//y = paddle.y - 50;
+			//scoreBoard.die();
+		}
+
 	}
 
 	public double left() {
-		// TODO - implement Bola.left
-		throw new UnsupportedOperationException();
+		return x - radius;
 	}
 
 	public double right() {
-		// TODO - implement Bola.right
-		throw new UnsupportedOperationException();
+		return x + radius;
 	}
 
 	public double top() {
-		// TODO - implement Bola.top
-		throw new UnsupportedOperationException();
+		return y - radius;
 	}
 
 	public double bottom() {
-		// TODO - implement Bola.bottom
-		throw new UnsupportedOperationException();
+		return y + radius;
 	}
 
 	/**
