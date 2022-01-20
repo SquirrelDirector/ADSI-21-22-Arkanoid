@@ -41,7 +41,7 @@ public class PnlIdentidad extends JPanel {
 			pnlIdentidad.setLayout(new BorderLayout(0, 0));
 			pnlIdentidad.add(getPnlFoto(), BorderLayout.WEST);
 			pnlIdentidad.add(getPnlNoIdentificado(), BorderLayout.CENTER);
-			pnlIdentidad.add(getPnlIdentificado(), BorderLayout.CENTER);
+			//pnlIdentidad.add(getPnlIdentificado(), BorderLayout.CENTER);
 		}
 		return pnlIdentidad;
 	}
@@ -63,7 +63,6 @@ public class PnlIdentidad extends JPanel {
 			pnlNoIdentificado.setBackground(Color.BLACK);
 			pnlNoIdentificado.setLayout(new GridLayout(0, 1, 0, 0));
 			pnlNoIdentificado.add(getLblIdentidad());
-			pnlNoIdentificado.setVisible(false);
 		}
 		return pnlNoIdentificado;
 	}
