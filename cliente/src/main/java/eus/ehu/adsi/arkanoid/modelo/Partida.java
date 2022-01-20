@@ -142,11 +142,10 @@ public class Partida extends Observable {
 	
 	public void generarPartida() {
 		//Iniciar cronometro
-		crono.reset();
-		crono.run();
+		System.out.println("cronometro iniciado");
 		
 		//Generar bloques
-		bloques.clear();
+		bloques = new ArrayList<Bloque>();
 		for (int iX = 0; iX < Config.COUNT_BLOCKS_X; ++iX) {
 			for (int iY = 0; iY < Config.COUNT_BLOCKS_Y; ++iY) {
 				bloques.add(new Bloque(
@@ -155,20 +154,25 @@ public class Partida extends Observable {
 						);
 			}
 		}
+		System.out.println("bloquesGenerados");
 		
 		//Reiniciar bola
 		bola.x = Config.SCREEN_WIDTH / 2;
 		bola.y = Config.SCREEN_HEIGHT / 2;
+		System.out.println("bola");
 		
 		//Reiniciar paddle
 		paddle.x = Config.SCREEN_WIDTH / 2;
+		System.out.println("paddle");
 		
 		//Asignar numero de vidas
 		vidasRestantes = Config.PLAYER_LIVES;
+		System.out.println("vidas");
 		
 		//Iniciar cronometro
-		crono.reset();
-		crono.run();
+		//crono.reset();
+		//crono.run();
+		System.out.println("cronometro");
 	}
 	
 	public int getNumBloques() {
