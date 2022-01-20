@@ -41,43 +41,47 @@ public class Arkanoid extends Observable {
 	}
 
 	public void jugar() {
-		Partida miPartida = Partida.getMiPartida();
-		miPartida.generarPartida();
+		Thread gameThread = new Thread() {
+	         public void run() {
+				Partida miPartida = Partida.getMiPartida();
+				miPartida.generarPartida();
+				
+				game.setRunning(true);
 		
-		game.setRunning(true);
-
-		while (game.isRunning()) {
-
-			long time1 = System.currentTimeMillis();
-
-			if (!miPartida.gameOver && !miPartida.ganar) {
-				game.setTryAgain(false);
-				update();
-
-				// to simulate low FPS
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {}
-
-			} else {
-				if (game.isTryAgain()) {
-					game.setTryAgain(false);
-					miPartida.generarPartida();
+				while (game.isRunning()) {
+		
+					long time1 = System.currentTimeMillis();
+		
+					if (!miPartida.gameOver && !miPartida.ganar) {
+						game.setTryAgain(false);
+						update();
+		
+						// to simulate low FPS
+						try {
+							Thread.sleep(10);
+						} catch (InterruptedException e) {}
+		
+					} else {
+						if (game.isTryAgain()) {
+							game.setTryAgain(false);
+							miPartida.generarPartida();
+						}
+					}
+		
+					long time2 = System.currentTimeMillis();
+					double elapsedTime = time2 - time1;
+		
+					lastFt = elapsedTime;
+		
+					double seconds = elapsedTime / 1000.0;
+					if (seconds > 0.0) {
+						double fps = 1.0 / seconds;
+					}
+		
 				}
 			}
-
-			long time2 = System.currentTimeMillis();
-			double elapsedTime = time2 - time1;
-
-			lastFt = elapsedTime;
-
-			double seconds = elapsedTime / 1000.0;
-			if (seconds > 0.0) {
-				double fps = 1.0 / seconds;
-			}
-
-		}
-
+	    };
+	    gameThread.start();  // Callback run()
 	}
 	
 	private void update() {
