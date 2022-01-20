@@ -56,6 +56,7 @@ public class Logros extends JDialog {
 	 * Create the dialog.
 	 */
 	public Logros() {
+		setVisible(true);
 		/* creamos los logros a mano para simular el array de json */
 		JSONObject logro1 = new JSONObject();
 		logro1.put("nombre", "Rey de los Principiantes");

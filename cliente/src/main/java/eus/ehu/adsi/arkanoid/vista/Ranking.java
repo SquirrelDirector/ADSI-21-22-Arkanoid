@@ -53,7 +53,7 @@ public class Ranking {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+		frame.setVisible(true);
 		/*// puntuaciones de prueba
 		
 		JSONObject puntuacion1 = new JSONObject();

@@ -6,6 +6,9 @@ import java.awt.CardLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -63,6 +66,13 @@ public class PnlIdentidad extends JPanel {
 			pnlNoIdentificado.setBackground(Color.BLACK);
 			pnlNoIdentificado.setLayout(new GridLayout(0, 1, 0, 0));
 			pnlNoIdentificado.add(getLblIdentidad());
+			pnlNoIdentificado.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					IUIdentificarse.getMiIUIdentificarse().mostrarVentana();
+				}
+			});
 		}
 		return pnlNoIdentificado;
 	}
