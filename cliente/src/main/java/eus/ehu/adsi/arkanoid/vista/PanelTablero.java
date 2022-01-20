@@ -3,17 +3,15 @@ package eus.ehu.adsi.arkanoid.vista;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 import javax.swing.JPanel;
 
+import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 import eus.ehu.adsi.arkanoid.modelo.Bloque;
 import eus.ehu.adsi.arkanoid.modelo.Bola;
 import eus.ehu.adsi.arkanoid.modelo.Config;
-import eus.ehu.adsi.arkanoid.modelo.Game;
 import eus.ehu.adsi.arkanoid.modelo.Paddle;
 /**
  * One ball bouncing inside a rectangular box. 
@@ -55,7 +53,7 @@ public class PanelTablero extends JPanel {
       ladrilloSuerte = r.nextInt(bricks.size());
   
       // Start the ball bouncing (in its own thread)
-      Thread gameThread = new Thread() {
+      /*Thread gameThread = new Thread() {
          public void run() {
             while (true) { // Execute one update step
                // Calculate the ball's new position
@@ -87,7 +85,7 @@ public class PanelTablero extends JPanel {
             }
          }
       };
-      gameThread.start();  // Callback run()
+      gameThread.start();  // Callback run()*/
       
    }
   
@@ -118,6 +116,7 @@ public class PanelTablero extends JPanel {
    }
    
    public void updateTablero(Object arg, Graphics g) {
+	   System.out.println(arg);
 	   if (arg instanceof Bloque) {
 		   Bloque bl = (Bloque) arg;
 		   drawBloqueRoto(g, bl);
@@ -148,10 +147,11 @@ public class PanelTablero extends JPanel {
    public void moverPaddle(KeyEvent event) {
 	   switch (event.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
-			paddle.moveLeft();
+			System.out.println("izquierda");
+			Arkanoid.getArkanoid().moverPaddleLeft();
 			break;
 		case KeyEvent.VK_RIGHT:
-			paddle.moveRight();
+			Arkanoid.getArkanoid().moverPaddleRight();
 			break;
 		default:
 			break;

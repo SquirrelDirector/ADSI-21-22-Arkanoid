@@ -21,19 +21,16 @@ public class GestorPartida {
 		return miGestorPartida;
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void addObserver(Tablero tablero){
-        Partida.getMiPartida().deleteObservers();
-        Partida.getMiPartida().addObserver(tablero);
-    }
 	
 	@SuppressWarnings("deprecation")
 	public void addObserverCrono(Tablero tablero){
+		Partida.getMiPartida().deleteObservers();
         Partida.getMiPartida().getCrono().addObserver(tablero);
     }
 	
 	@SuppressWarnings("deprecation")
 	public void addObserverPartida(Tablero tablero){
+		Partida.getMiPartida().deleteObservers();
         Partida.getMiPartida().addObserver(tablero);
     }
 

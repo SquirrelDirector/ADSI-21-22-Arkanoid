@@ -22,8 +22,11 @@ public class Partida extends Observable {
 	public boolean gameOver = false;
 	
 
-	private Partida() {
-
+	private Partida() {}
+	
+	public static Partida getMiPartida() {
+		if (miPartida == null) miPartida = new Partida();
+        return miPartida;
 	}
 	
 	public Cronometro getCrono() {
@@ -83,6 +86,22 @@ public class Partida extends Observable {
 	public void modificarPaddle(double n) {
 		this.paddle.modificarPaddle(n);
 	}
+	
+	public void moverPaddleRight() {
+		this.paddle.moveRight();
+	}
+	
+	public void moverPaddleLeft() {
+		this.paddle.moveLeft();
+	}
+	
+	public void pararPaddle() {
+		this.paddle.stopMove();
+	}
+	
+	public void updatePaddle() {
+		this.paddle.update();
+	}
 
 	/**
 	 * 
@@ -92,11 +111,6 @@ public class Partida extends Observable {
 		this.bola.modificarBola(n);
 	}
 
-	public static Partida getMiPartida() {
-		if (miPartida == null) miPartida = new Partida();
-        return miPartida;
-	}
-	
 	public void testBola() {
 		Iterator<Bloque> it = bloques.iterator();
 		while (it.hasNext()) {

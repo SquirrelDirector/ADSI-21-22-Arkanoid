@@ -430,6 +430,22 @@ public class Arkanoid extends Observable {
 			return 2;
 		return 0;
 	}
+	
+	public void moverPaddleRight() {
+		Partida.getMiPartida().moverPaddleRight();
+	}
+	
+	public void moverPaddleLeft() {
+		Partida.getMiPartida().moverPaddleLeft();
+	}
+	
+	public void pararPaddle() {
+		Partida.getMiPartida().pararPaddle();
+	}
+	
+	public void updatePaddle() {
+		Partida.getMiPartida().updatePaddle();
+	}
 
 	public void addObserverCrono(Tablero tablero){ 
 		GestorPartida.getGestorPartida().addObserverCrono(tablero); 
