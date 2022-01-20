@@ -17,14 +17,16 @@ public class Partida extends Observable {
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
 	private Bola bola = new Bola(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT / 2);
 	private static Partida miPartida;
-	private Cronometro crono;
+	private Cronometro crono = new Cronometro();
 	public boolean ganar = false;
 	public boolean gameOver = false;
 	
 
-	public Partida() {
-
-		
+	private Partida() {}
+	
+	public static Partida getMiPartida() {
+		if (miPartida == null) miPartida = new Partida();
+        return miPartida;
 	}
 	
 	public Cronometro getCrono() {
@@ -70,6 +72,11 @@ public class Partida extends Observable {
 	 */
 	public void romperBloque(int n) {
 		bloques.get(n).romper();
+		if (bloques.get(n).destroyed) {
+			setChanged();
+			notifyObservers(bloques.get(n));
+			bloques.remove(n);
+		}
 	}
 
 	/**
@@ -78,6 +85,22 @@ public class Partida extends Observable {
 	 */
 	public void modificarPaddle(double n) {
 		this.paddle.modificarPaddle(n);
+	}
+	
+	public void moverPaddleRight() {
+		this.paddle.moveRight();
+	}
+	
+	public void moverPaddleLeft() {
+		this.paddle.moveLeft();
+	}
+	
+	public void pararPaddle() {
+		this.paddle.stopMove();
+	}
+	
+	public void updatePaddle() {
+		this.paddle.update();
 	}
 
 	/**
@@ -88,27 +111,25 @@ public class Partida extends Observable {
 		this.bola.modificarBola(n);
 	}
 
-	public static Partida getMiPartida() {
-		if (miPartida == null) miPartida = new Partida();
-        return miPartida;
-	}
-	
 	public void testBola() {
 		Iterator<Bloque> it = bloques.iterator();
 		while (it.hasNext()) {
 			Bloque bloque = it.next();
 			Game.testCollision(bloque, bola, this);
 			if (bloque.destroyed) {
+				setChanged();
+				notifyObservers(it);
 				it.remove();
 			}
 		}
-		
-		//TODO: setChange()
-		//TODO: notifyObservers()
+		setChanged();
+		notifyObservers(bola);
 	}
 	
 	public void testPaddle() {
 		Game.testCollision(paddle, bola);
+		setChanged();
+		notifyObservers(paddle);
 	}
 	
 	public boolean ganar() {
@@ -124,7 +145,38 @@ public class Partida extends Observable {
 	}
 	
 	public void generarPartida() {
-		//TODO: generar bloques bola y paddle e iniciar cronometro
+		//Iniciar cronometro
+		System.out.println("cronometro iniciado");
+		
+		//Generar bloques
+		bloques = new ArrayList<Bloque>();
+		for (int iX = 0; iX < Config.COUNT_BLOCKS_X; ++iX) {
+			for (int iY = 0; iY < Config.COUNT_BLOCKS_Y; ++iY) {
+				bloques.add(new Bloque(
+						(iX + 1) * (Config.BLOCK_WIDTH + 3) + 22,
+						(iY + 2) * (Config.BLOCK_HEIGHT + 3) + 50)
+						);
+			}
+		}
+		System.out.println("bloquesGenerados");
+		
+		//Reiniciar bola
+		bola.x = Config.SCREEN_WIDTH / 2;
+		bola.y = Config.SCREEN_HEIGHT / 2;
+		System.out.println("bola");
+		
+		//Reiniciar paddle
+		paddle.x = Config.SCREEN_WIDTH / 2;
+		System.out.println("paddle");
+		
+		//Asignar numero de vidas
+		vidasRestantes = Config.PLAYER_LIVES;
+		System.out.println("vidas");
+		
+		//Iniciar cronometro
+		//crono.reset();
+		//crono.run();
+		System.out.println("cronometro");
 	}
 	
 	public int getNumBloques() {

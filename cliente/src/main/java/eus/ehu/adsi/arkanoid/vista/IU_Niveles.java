@@ -19,7 +19,6 @@ public class IU_Niveles {
 
 	private JFrame frame;
 	private int Nivel;
-	private String textazo;
 	private JLabel lblL;
 	/**
 	 * Launch the application.
@@ -42,6 +41,7 @@ public class IU_Niveles {
 	 */
 	public IU_Niveles() {
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -49,8 +49,8 @@ public class IU_Niveles {
 	 */
 	private void initialize() {
 		lblL = new JLabel();
-		//Nivel=Arkanoid.getArkanoid().getUltimaPartida();
-		Nivel=1;
+		Nivel=Arkanoid.getArkanoid().getUltimaPartida();
+	//	Nivel=1;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 951, 645);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,6 +77,9 @@ public class IU_Niveles {
 		Botones2.setLayout(new GridLayout(1, 2, 0, 0));
 		
 		JButton BotonPersonalizar = new JButton("Personalizar");
+		if (Arkanoid.getArkanoid().isIdentificado()==false) {
+			BotonPersonalizar.setEnabled(false);
+		}
 		BotonPersonalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Personalizacion();
@@ -88,7 +91,9 @@ public class IU_Niveles {
 		JButton BotonJugar = new JButton("Jugar");
 		BotonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			 IUIdentificarse.getMiIUIdentificarse().mostrarVentana();
+				Arkanoid.getArkanoid().actualizarUltimaPartida(Nivel);
+				Arkanoid.getArkanoid().updateConfig(Arkanoid.getArkanoid().obtenerDatosNivel(Nivel));
+				new Tablero().setVisible(true);
 			frame.dispose();
 			}
 		});
@@ -101,19 +106,19 @@ public class IU_Niveles {
 		
 		switch (Nivel) {
 		case 1:
-			lblL.setText("Texto de modo fácil");
+			lblL.setText("Version fácil del juego, ideal para principiantes y gente adaptándose al juego. 4 Líneas de bloques, anchura de la barra aumentada, velocidad estándar");
 			break;
 		case 2:
-			lblL.setText("Texto de modo estándar");
+			lblL.setText("Versión media del juego, para gente con algo más de experiencia. 6 Líneas de bloques, anchura de barra y velócidad estándar");
 			break;
 		case 3:
-			lblL.setText("Texto de modo experto");
+			lblL.setText("Versión difícil del juego, para gente buscando un reto. 8 líneas de bloques, anchura de barra estándar, velócidad aumentada");
 			break;
 		case 4:
-			lblL.setText("Texto de modo imposible");
+			lblL.setText("Versión solo apta para quien busque completar el logro. 10 líneas de bloques, anchura de barra reducida, velócidad aumentada");
 			break;
 		case 5:
-			lblL.setText("Texto de modo personalizado");
+			lblL.setText("Crea tu propio nivel y prueba tantas combinaciones de dificultad como quieras. Accede al botón de personalizar para cambiarlo. (La puntuación no se guardará en los ránkings)");
 			break;
 
 		default:
@@ -125,14 +130,14 @@ public class IU_Niveles {
 		BotonNvl1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Nivel=1;
-				lblL.setText("Texto de modo fácil");
+				lblL.setText("Version fácil del juego, ideal para principiantes y gente adaptándose al juego. 4 Líneas de bloques, anchura de la barra aumentada, velocidad estándar");
 			}
 		});
 		JButton BotonNvl2 = new JButton("Est\u00E1ndar");
 		BotonNvl2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Nivel=2;
-				lblL.setText("Texto de modo estándar");
+				lblL.setText("Versión media del juego, para gente con algo más de experiencia. 6 Líneas de bloques, anchura de barra y velócidad estándar");
 			}
 		});
 		Izquierda.add(BotonNvl2);
@@ -141,7 +146,7 @@ public class IU_Niveles {
 		BotonNvl3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Nivel=3;
-				lblL.setText("Texto de modo experto");
+				lblL.setText("Versión difícil del juego, para gente buscando un reto. 8 líneas de bloques, anchura de barra estándar, velócidad aumentada");
 			}
 		});
 		Izquierda.add(BotonNvl3);
@@ -150,16 +155,19 @@ public class IU_Niveles {
 		BotonNvl4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Nivel=4;
-				lblL.setText("Texto de modo imposible");
+				lblL.setText("Versión solo apta para quien busque completar el logro. 10 líneas de bloques, anchura de barra reducida, velócidad aumentada");
 			}
 		});
 		Izquierda.add(BotonNvl4);
 		
 		JButton BotonNvl5 = new JButton("Personalizado");
+		if (Arkanoid.getArkanoid().isIdentificado()==false) {
+			BotonNvl5.setEnabled(false);
+		}
 		BotonNvl5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Nivel=5;
-				lblL.setText("Texto de modo personalizado");
+				lblL.setText("Crea tu propio nivel y prueba tantas combinaciones de dificultad como quieras. Accede al botón de personalizar para cambiarlo. (La puntuación no se guardará en los ránkings)");
 			}
 		});
 		Izquierda.add(BotonNvl5);

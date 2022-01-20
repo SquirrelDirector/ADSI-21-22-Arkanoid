@@ -21,4 +21,5 @@ public class Bloque extends Rectangle {
 		this.destroyed = true;
 	}
 
+	
 }

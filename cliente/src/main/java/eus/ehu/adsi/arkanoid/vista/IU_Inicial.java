@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -60,7 +62,8 @@ public class IU_Inicial extends JFrame {
 		imagenLogros = new ImageIcon(getClass().getResource("/general/img_logros.png"));
 		imagenRanking = new ImageIcon(getClass().getResource("/general/img_ranking.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 500);
+		setBounds(100, 100, 940, 570);
+		setLocationRelativeTo(null);
 		contentPane = new InterfazBase("Arkanoid");
 		setContentPane(contentPane);
 		contentPane.ocultarBotonRegreso();
@@ -81,6 +84,14 @@ public class IU_Inicial extends JFrame {
 			pnlNiveles.setBackground(new Color(0,0,0));
 			pnlNiveles.add(getLblImagenNiveles(), BorderLayout.CENTER);
 			pnlNiveles.add(getPnlTextoNiveles(), BorderLayout.SOUTH);
+			pnlNiveles.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					new IU_Niveles();
+					dispose();
+				}
+			});
 		}
 		return pnlNiveles;
 	}
@@ -91,6 +102,15 @@ public class IU_Inicial extends JFrame {
 			pnlLogros.setBackground(new Color(0,0,0));
 			pnlLogros.add(getLblImagenLogros(), BorderLayout.CENTER);
 			pnlLogros.add(getPnlTextoLogros(), BorderLayout.SOUTH);
+			pnlLogros.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					new Logros();
+					dispose();
+					
+				}
+			});
 		}
 		return pnlLogros;
 	}
@@ -101,6 +121,15 @@ public class IU_Inicial extends JFrame {
 			pnlRanking.setBackground(new Color(0,0,0));
 			pnlRanking.add(getLblImagenRanking(), BorderLayout.CENTER);
 			pnlRanking.add(getPnlTextoRanking(), BorderLayout.SOUTH);
+			pnlRanking.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					new Ranking();
+					dispose();
+					
+				}
+			});
 		}
 		return pnlRanking;
 	}

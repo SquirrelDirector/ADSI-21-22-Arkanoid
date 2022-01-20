@@ -7,24 +7,26 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.modelo.Bloque;
 import eus.ehu.adsi.arkanoid.modelo.Config;
 import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.modelo.Partida;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferStrategy;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Component;
 
 import javax.sound.sampled.AudioInputStream;
@@ -42,6 +44,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	
 	private Clip clip; 
 	private EtiquetaNormal cronometro, score, lives;
+	private int puntuacion;
 
 	/**
 	 * Launch the application.
@@ -101,7 +104,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		panel_3.setBackground(Color.black);
 		panel_1.add(panel_3);
 		
-		score = new EtiquetaNormal("Score:  0");
+		puntuacion = 0;
+		score = new EtiquetaNormal("Score:  "+puntuacion);
 		panel_3.add(score);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(50);
@@ -122,14 +126,16 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		reiniciarButton.setBackground(new Color(255,255,255));
 		reiniciarButton.setForeground(new Color(0x000000));
 		reiniciarButton.setBorder(new EmptyBorder(5,10,5,10));
-		reiniciarButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Partida.getMiPartida().getCrono().reset();
+		reiniciarButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
 				dispose();
 				Tablero newframe = new Tablero();
 				newframe.setVisible(true);	
 			}
 		});
+		
 		panel_4.add(reiniciarButton);
 		
 		JPanel panel_5 = new JPanel();
@@ -141,13 +147,17 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		play.setBorder(null);
         play.setContentAreaFilled(false);
         play.setFocusPainted(false);
-        play.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	if (!clip.isActive()) {
+        play.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		super.mouseClicked(e);
+        		if (!clip.isActive()) {
                 	clip.start();
                 }
-            }
-        });	
+        		requestFocus();
+        	}
+		});
+        
 		panel_5.add(play);
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(10);
@@ -158,11 +168,14 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		pause.setBorder(null);
         pause.setContentAreaFilled(false);
         pause.setFocusPainted(false);
-        pause.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                clip.stop();
-            }
-        });
+        pause.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		super.mouseClicked(e);
+        		clip.stop();
+        		requestFocus();
+        	}
+		});
 		panel_5.add(pause);
 		
 		tableroPanel = new PanelTablero();
@@ -171,10 +184,10 @@ public class Tablero extends JFrame implements Observer, KeyListener {
         jugar();
 	}
 	
+	
 	private void jugar() {
-		//Arkanoid.getArkanoid().jugar();
-		//Arkanoid.getArkanoid().addObserver(this);
-		Partida.getMiPartida().iniciarCrono();
+		Arkanoid.getArkanoid().jugar();
+		Arkanoid.getArkanoid().addObserverPartida(this);
 		Arkanoid.getArkanoid().addObserverCrono(this);
 		reproducirSonido();
 	}
@@ -182,11 +195,16 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Partida) {
-			//tableroPanel.update();
+			if (arg instanceof Bloque) {
+				puntuacion++;
+				score.setText("Score:  "+puntuacion);
+			}
+			BufferStrategy bf = this.getBufferStrategy();
+			Graphics g = bf.getDrawGraphics();
+			tableroPanel.updateTablero(arg, g);
 		} else if (o instanceof Cronometro) {
             cronometro.setText(" "+(String)arg+" ");
-        }
-		
+        }	
 	}
 	
 	private void reproducirSonido(){
@@ -201,6 +219,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
     }
 
     public void keyPressed(KeyEvent event) {
+    	System.out.println("teclado");
 		tableroPanel.moverPaddle(event);
 	}
   
@@ -211,3 +230,4 @@ public class Tablero extends JFrame implements Observer, KeyListener {
     public void keyTyped(KeyEvent arg0) {
     }
 }
+

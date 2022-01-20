@@ -29,15 +29,13 @@ public class Arkanoid extends Observable {
 	/**
 	 * Game variables
 	 */
-	private Game game;
+	private Game game = new Game();
 	private double lastFt;
 	private double currentSlice;
-	private Partida partida = new Partida();
 	private Usuario usuario;
 
 	private Arkanoid() {
 
-		
 	}
 
 	public static Arkanoid getArkanoid() {
@@ -48,41 +46,50 @@ public class Arkanoid extends Observable {
 	}
 
 	public void jugar() {
+		Partida miPartida = Partida.getMiPartida();
+		miPartida.iniciarCrono();
+		System.out.println("Iniciando la partida");
+		Thread gameThread = new Thread() {
+	         public void run() {
+				Partida miPartida = Partida.getMiPartida();
+				miPartida.generarPartida();
+				
+				game.setRunning(true);
+				while (game.isRunning()) {
+					System.out.println("Jugando");
+					long time1 = System.currentTimeMillis();
 		
-		game.setRunning(true);
-
-		while (game.isRunning()) {
-
-			long time1 = System.currentTimeMillis();
-
-			if (!partida.gameOver && !partida.ganar) {
-				game.setTryAgain(false);
-				update();
-
-				// to simulate low FPS
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {}
-
-			} else {
-				if (game.isTryAgain()) {
-					game.setTryAgain(false);
-					partida.generarPartida();
+					if (!miPartida.gameOver && !miPartida.ganar) {
+						System.out.println("update");
+						game.setTryAgain(false);
+						update();
+		
+						// to simulate low FPS
+						try {
+							Thread.sleep(10);
+						} catch (InterruptedException e) {}
+		
+					} else {
+						if (game.isTryAgain()) {
+							game.setTryAgain(false);
+							miPartida.generarPartida();
+						}
+					}
+		
+					long time2 = System.currentTimeMillis();
+					double elapsedTime = time2 - time1;
+		
+					lastFt = elapsedTime;
+		
+					double seconds = elapsedTime / 1000.0;
+					if (seconds > 0.0) {
+						double fps = 1.0 / seconds;
+					}
+		
 				}
 			}
-
-			long time2 = System.currentTimeMillis();
-			double elapsedTime = time2 - time1;
-
-			lastFt = elapsedTime;
-
-			double seconds = elapsedTime / 1000.0;
-			if (seconds > 0.0) {
-				double fps = 1.0 / seconds;
-			}
-
-		}
-
+	    };
+	    gameThread.start();  // Callback run()
 	}
 	
 	private void update() {
@@ -215,7 +222,9 @@ public class Arkanoid extends Observable {
 	 * @param idNivel
 	 */
 	public void actualizarUltimaPartida(int idNivel) {
-		usuario.actualizarUltimaPartida(idNivel);
+		if (usuario.isIdentificado()){
+			usuario.actualizarUltimaPartida(idNivel);
+		}
 	}
 
 	/**
@@ -223,7 +232,7 @@ public class Arkanoid extends Observable {
 	 * @param idNivel
 	 */
 	public Double[] obtenerDatosNivel(int idNivel) {
-        if (idNivel==6) {
+        if (idNivel==5) {
             String[] Datos = usuario.obtenerDatosNivelPersonalizado();
             Double[] DatosFinal = new Double[3];
             DatosFinal[1]= Double.parseDouble(Datos[1]);
@@ -368,7 +377,9 @@ public class Arkanoid extends Observable {
 	}
 
 	public JSONObject getResultadosPartida() {
-		JSONObject datosPartida = partida.getDatosPartidaActual();
+		Partida miPartida = Partida.getMiPartida();
+		
+		JSONObject datosPartida = miPartida.getDatosPartidaActual();
 		if(usuario.isIdentificado()){
 			JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
 			agregarJSON(datosPartida, datosHistoricos);
@@ -402,7 +413,11 @@ public class Arkanoid extends Observable {
 	}
 
 	public int getUltimaPartida() {
-		return usuario.getNivelDefault();
+		if (usuario.isIdentificado()) {
+			return usuario.getNivelDefault();
+		} else {
+			return 1;
+		}
 	}
 	
 	/**
@@ -413,10 +428,10 @@ public class Arkanoid extends Observable {
 		return GestorUsuarios.getGestorUsuario().comprobarNombre(nombreUsu);
 	}
 	
-	public void updateConfig(double Velocidad, double Anchura, int Num_Ladrillos) { 
-		Config.BALL_VELOCITY=Velocidad/2; 
-		Config.PADDLE_WIDTH=Anchura; 
-		Config.COUNT_BLOCKS_Y=Num_Ladrillos/Config.COUNT_BLOCKS_X; 
+	public void updateConfig(Double[] Datos) { 
+		Config.BALL_VELOCITY=Datos[1]/2; 
+		Config.PADDLE_WIDTH=Datos[2]; 
+		Config.COUNT_BLOCKS_Y= Datos[3].intValue()/Config.COUNT_BLOCKS_X; 
 	} 
 	 
 	public void updateColores(String Fondo, String Bola, String Ladrillo, String Paddle) { 
@@ -436,8 +451,28 @@ public class Arkanoid extends Observable {
 			return 2;
 		return 0;
 	}
+	
+	public void moverPaddleRight() {
+		Partida.getMiPartida().moverPaddleRight();
+	}
+	
+	public void moverPaddleLeft() {
+		Partida.getMiPartida().moverPaddleLeft();
+	}
+	
+	public void pararPaddle() {
+		Partida.getMiPartida().pararPaddle();
+	}
+	
+	public void updatePaddle() {
+		Partida.getMiPartida().updatePaddle();
+	}
 
 	public void addObserverCrono(Tablero tablero){ 
 		GestorPartida.getGestorPartida().addObserverCrono(tablero); 
+    } 
+	
+	public void addObserverPartida(Tablero tablero){ 
+		GestorPartida.getGestorPartida().addObserverPartida(tablero); 
     } 
 }
