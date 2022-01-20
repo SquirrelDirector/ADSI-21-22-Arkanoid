@@ -20,9 +20,9 @@ public class Usuario {
 	private String codigoColorBola;
 	private String codigoColorLadrillo;
 	private String codigoColorPaddle;
-	private int nivelDefault; //Al cargar las puntuaciones, de mayor a menor!
+	private int nivelDefault; 
 	private ArrayList<LogroObtenido> susLogros;
-	private ArrayList<Puntuacion> susPuntuaciones;
+	private ArrayList<Puntuacion> susPuntuaciones; //Al cargar las puntuaciones, de mayor a menor!
 	
 	public Usuario() {
 		
@@ -299,5 +299,9 @@ public class Usuario {
 	
 	public String[] obtenerDatosNivelPersonalizado() {
 		return atributosPersonalizado.split(",");
+	}
+
+	public void anadirPuntuacion(Puntuacion p){
+		this.susPuntuaciones.add(p);
 	}
 }
