@@ -24,7 +24,7 @@ public abstract class Config {
 	public static Color PADDLE_COLOR = new Color(78,255,0);  
 	public static Color BRICK_COLOR = new Color(244,255,0);  
 	public static final Color LUCK_BRICK_COLOR = Color.yellow; 
-	public static String PATH_MUSICA = "/sonidosPersonalizar/Sonido1.wav";  
+	public static String PATH_MUSICA = "/sonidoPersonalizar/Sonido1.wav";  
 
 
 }

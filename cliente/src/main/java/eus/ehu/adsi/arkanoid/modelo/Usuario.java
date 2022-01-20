@@ -300,8 +300,4 @@ public class Usuario {
 	public String[] obtenerDatosNivelPersonalizado() {
 		return atributosPersonalizado.split(",");
 	}
-	
-	public void actualizarUltimaPartida(int idNivel) {
-        this.nivelDefault=idNivel;
-    }
 }

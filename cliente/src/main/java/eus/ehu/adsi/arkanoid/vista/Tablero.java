@@ -40,8 +40,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	private JPanel contentPane;
 	private PanelTablero tableroPanel;
 	
-	private Clip clip;
-	private JLabel cronometro, score, lives;
+	private Clip clip; 
+	private EtiquetaNormal cronometro, score, lives;
 
 	/**
 	 * Launch the application.
@@ -71,7 +71,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout());
-		contentPane.setBackground(Config.BACKGROUND_COLOR);
+		contentPane.setBackground(Color.black);
 		
 		addKeyListener(this);
 		
@@ -79,7 +79,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
-		panel_1.setBackground(Config.BACKGROUND_COLOR);
+		panel_1.setBackground(Color.black);
 		panel_1.setBorder(new EmptyBorder(5, 0, 5, 0));
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		
@@ -87,12 +87,10 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
 		flowLayout.setVgap(15);
 		flowLayout.setHgap(0);
-		panel_2.setBackground(Config.BACKGROUND_COLOR);
+		panel_2.setBackground(Color.black);
 		panel_1.add(panel_2);
 		
-		cronometro = new JLabel(" 0:00 ");
-		cronometro.setForeground(Color.WHITE);
-		cronometro.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		cronometro = new EtiquetaNormal(" 0:00 ");
 		cronometro.setBorder(new LineBorder(Color.white));
 		panel_2.add(cronometro);
 		
@@ -100,35 +98,29 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
 		flowLayout_1.setVgap(15);
 		flowLayout_1.setHgap(0);
-		panel_3.setBackground(Config.BACKGROUND_COLOR);
+		panel_3.setBackground(Color.black);
 		panel_1.add(panel_3);
 		
-		score = new JLabel("Score:  0");
-		score.setForeground(Color.WHITE);
-		score.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		score = new EtiquetaNormal("Score:  0");
 		panel_3.add(score);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(50);
 		panel_3.add(horizontalStrut);
 		
-		lives = new JLabel("Lives:  "+Config.PLAYER_LIVES);
-		lives.setForeground(Color.WHITE);
-		lives.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lives = new EtiquetaNormal("Lives:  "+Config.PLAYER_LIVES);
 		panel_3.add(lives);
 		
 		JPanel panel_4 = new JPanel();
 		FlowLayout flowLayout_2 = (FlowLayout) panel_4.getLayout();
 		flowLayout_2.setVgap(15);
 		flowLayout_2.setHgap(0);
-		panel_4.setBackground(Config.BACKGROUND_COLOR);
+		panel_4.setBackground(Color.black);
 		panel_1.add(panel_4);
 		
-		JButton reiniciarButton = new JButton("REINICIAR PARTIDA");
+		Boton reiniciarButton = new Boton("REINICIAR PARTIDA");
 		reiniciarButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		reiniciarButton.setBackground(new Color(255,255,255));
 		reiniciarButton.setForeground(new Color(0x000000));
-		reiniciarButton.setBorder(null);
-		reiniciarButton.setFocusPainted(false);
 		reiniciarButton.setBorder(new EmptyBorder(5,10,5,10));
 		reiniciarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,7 +133,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		panel_4.add(reiniciarButton);
 		
 		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Config.BACKGROUND_COLOR);
+		panel_5.setBackground(Color.black);
 		panel_1.add(panel_5);
 		
 		JButton play = new JButton("");
@@ -174,7 +166,6 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		panel_5.add(pause);
 		
 		tableroPanel = new PanelTablero();
-		tableroPanel.setBackground(Config.BACKGROUND_COLOR);
 		contentPane.add(tableroPanel, BorderLayout.CENTER);
 		        
         jugar();
