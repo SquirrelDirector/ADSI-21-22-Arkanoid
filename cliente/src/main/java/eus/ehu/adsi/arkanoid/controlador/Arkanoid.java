@@ -24,7 +24,7 @@ public class Arkanoid extends Observable {
 	/**
 	 * Game variables
 	 */
-	private Game game;
+	private Game game = new Game();
 	private double lastFt;
 	private double currentSlice;
 	private Usuario usuario;
@@ -429,5 +429,9 @@ public class Arkanoid extends Observable {
 
 	public void addObserverCrono(Tablero tablero){ 
 		GestorPartida.getGestorPartida().addObserverCrono(tablero); 
+    } 
+	
+	public void addObserverPartida(Tablero tablero){ 
+		GestorPartida.getGestorPartida().addObserverPartida(tablero); 
     } 
 }

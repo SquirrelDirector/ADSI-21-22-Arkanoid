@@ -3,6 +3,7 @@ package eus.ehu.adsi.arkanoid.vista;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -33,21 +34,15 @@ public class PanelTablero extends JPanel {
   
    // Ball's properties
    private Bola bola = new Bola(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT / 2);
-  
-   private static final int UPDATE_RATE = 30; // Number of refresh per second
    
    //Paddle
    private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 150); 
    private static double sizeXPaddle = Config.PADDLE_WIDTH;
    private static final double sizeYPaddle = Config.PADDLE_HEIGHT;
-   
-   private double lastFt;
-   private double currentSlice;	
   
    /** Constructor to create the UI components and init game objects. */
    public PanelTablero() {
       this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));
-      
       
       // Lista de bloques
       for (int iX = 0; iX < Config.COUNT_BLOCKS_X; ++iX) {
@@ -87,7 +82,7 @@ public class PanelTablero extends JPanel {
                 repaint(); // Callback paintComponent()
                 // Delay for timing control and give other threads a chance
                 try {
-                    Thread.sleep(1000 / UPDATE_RATE);  // milliseconds
+                    Thread.sleep(10);  // milliseconds
                 } catch (InterruptedException ex) { }
             }
          }
@@ -106,7 +101,6 @@ public class PanelTablero extends JPanel {
       g.fillRect(0, 0, BOX_WIDTH, BOX_HEIGHT);
       
       // Draw bricks
-      
       int i = 0;
       for (Bloque brick : bricks) {
     	  if (i == ladrilloSuerte) g.setColor(Config.LUCK_BRICK_COLOR);
@@ -116,55 +110,40 @@ public class PanelTablero extends JPanel {
 	  }
   
       // Draw the ball
-      g.setColor(Config.BALL_COLOR);
-      g.fillOval((int) bola.left(), (int) bola.top(), (int) bola.radius * 2,(int) bola.radius * 2);
+      drawBola(g, bola);
       
       // Draw paddle
-      
-      g.setColor(Config.PADDLE_COLOR);
-      g.fillRect((int) (paddle.left()), (int) (paddle.top()), (int) sizeXPaddle, (int) sizeYPaddle);
-      
+      drawPaddle(g, paddle);
       
    }
    
-   public void update() {
-	   currentSlice += lastFt;
-
-		for (; currentSlice >= Config.FT_SLICE; currentSlice -= Config.FT_SLICE) {
-			
-			//Update bola
-			bola.x += bola.velocityX * Config.FT_STEP;
-			bola.y += bola.velocityY * Config.FT_STEP;
-
-			if (bola.x - bola.radius < 0)
-				bola.velocityX = Config.BALL_VELOCITY;
-			else if (bola.x + bola.radius > Config.SCREEN_WIDTH)
-				bola.velocityX = -Config.BALL_VELOCITY;
-			if (bola.y - bola.radius < 0) {
-				bola.velocityY = Config.BALL_VELOCITY;
-			} else if (bola.y + bola.radius > Config.SCREEN_HEIGHT) {
-				bola.velocityY = -Config.BALL_VELOCITY;
-				bola.x = paddle.x;
-				bola.y = paddle.y - 50;
-				//scoreBoard.die();
-			}
-			
-			//Update paddle
-			paddle.x += paddle.velocity * Config.FT_STEP;
-			
-			Game.testCollision(paddle, bola);
-
-			//Update bloques
-			Iterator<Bloque> it = bricks.iterator();
-		    while (it.hasNext()) {
-		    	Bloque bloque = it.next();
-				//Game.testCollision(bloque, bola, new Partida());
-				if (bloque.destroyed) {
-					it.remove();
-				}
-			}
-		}
-	}
+   public void updateTablero(Object arg, Graphics g) {
+	   if (arg instanceof Bloque) {
+		   Bloque bl = (Bloque) arg;
+		   drawBloqueRoto(g, bl);
+	   } else if (arg instanceof Bola) {
+		   Bola b = (Bola) arg;
+		   drawBola(g, b);
+	   } else if (arg instanceof Paddle) {
+		   Paddle p = (Paddle) arg;
+		   drawPaddle(g, p);
+	   }
+   }
+   
+   private void drawBola(Graphics g, Bola b) {
+	   g.setColor(Config.BALL_COLOR);
+	   g.fillOval((int) b.left(), (int) b.top(), (int) b.radius * 2,(int) b.radius * 2);
+   }
+   
+   private void drawPaddle(Graphics g, Paddle pl) {
+	   g.setColor(Config.PADDLE_COLOR);
+	   g.fillRect((int) (pl.left()), (int) (pl.top()), (int) sizeXPaddle, (int) sizeYPaddle);
+   }
+   
+   private void drawBloqueRoto(Graphics g, Bloque bl) {
+	   g.setColor(Config.BACKGROUND_COLOR);
+	   g.fillRect((int) (bl.left()), (int) (bl.top()), (int) sizeX, (int) sizeY);
+   }
    
    public void moverPaddle(KeyEvent event) {
 	   switch (event.getKeyCode()) {

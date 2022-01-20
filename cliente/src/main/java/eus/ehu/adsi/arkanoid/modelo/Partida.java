@@ -17,7 +17,7 @@ public class Partida extends Observable {
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
 	private Bola bola = new Bola(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT / 2);
 	private static Partida miPartida;
-	private Cronometro crono;
+	private Cronometro crono = new Cronometro();
 	public boolean ganar = false;
 	public boolean gameOver = false;
 	

@@ -10,7 +10,6 @@ import eus.ehu.adsi.arkanoid.vista.Tablero;
 public class GestorPartida {
 
 	private static GestorPartida miGestorPartida;
-	private Partida partida;
 
 	private GestorPartida() {
 	}
@@ -31,6 +30,11 @@ public class GestorPartida {
 	@SuppressWarnings("deprecation")
 	public void addObserverCrono(Tablero tablero){
         Partida.getMiPartida().getCrono().addObserver(tablero);
+    }
+	
+	@SuppressWarnings("deprecation")
+	public void addObserverPartida(Tablero tablero){
+        Partida.getMiPartida().addObserver(tablero);
     }
 
 }

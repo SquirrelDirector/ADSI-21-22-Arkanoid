@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.modelo.Bloque;
 import eus.ehu.adsi.arkanoid.modelo.Config;
 import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.modelo.Partida;
@@ -21,10 +22,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferStrategy;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Component;
 
 import javax.sound.sampled.AudioInputStream;
@@ -42,6 +45,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	
 	private Clip clip; 
 	private EtiquetaNormal cronometro, score, lives;
+	private int puntuacion;
 
 	/**
 	 * Launch the application.
@@ -74,6 +78,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		contentPane.setBackground(Color.black);
 		
 		addKeyListener(this);
+		//this.createBufferStrategy(1);
 		
 		setFocusable(true);
 		
@@ -101,7 +106,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		panel_3.setBackground(Color.black);
 		panel_1.add(panel_3);
 		
-		score = new EtiquetaNormal("Score:  0");
+		puntuacion = 0;
+		score = new EtiquetaNormal("Score:  "+puntuacion);
 		panel_3.add(score);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(50);
@@ -172,9 +178,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	}
 	
 	private void jugar() {
-		//Arkanoid.getArkanoid().jugar();
-		//Arkanoid.getArkanoid().addObserver(this);
-		Partida.getMiPartida().iniciarCrono();
+		Arkanoid.getArkanoid().jugar();
+		Arkanoid.getArkanoid().addObserverPartida(this);
 		Arkanoid.getArkanoid().addObserverCrono(this);
 		reproducirSonido();
 	}
@@ -182,7 +187,13 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Partida) {
-			//tableroPanel.update();
+			if (arg instanceof Bloque) {
+				puntuacion++;
+				score.setText("Score:  "+puntuacion);
+			}
+			BufferStrategy bf = this.getBufferStrategy();
+			Graphics g = bf.getDrawGraphics();
+			tableroPanel.updateTablero(arg, g);
 		} else if (o instanceof Cronometro) {
             cronometro.setText(" "+(String)arg+" ");
         }
