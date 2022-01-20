@@ -22,9 +22,8 @@ public class Partida extends Observable {
 	public boolean gameOver = false;
 	
 
-	public Partida() {
+	private Partida() {
 
-		
 	}
 	
 	public Cronometro getCrono() {
@@ -70,6 +69,11 @@ public class Partida extends Observable {
 	 */
 	public void romperBloque(int n) {
 		bloques.get(n).romper();
+		if (bloques.get(n).destroyed) {
+			setChanged();
+			notifyObservers(bloques.get(n));
+			bloques.remove(n);
+		}
 	}
 
 	/**
@@ -99,16 +103,19 @@ public class Partida extends Observable {
 			Bloque bloque = it.next();
 			Game.testCollision(bloque, bola, this);
 			if (bloque.destroyed) {
+				setChanged();
+				notifyObservers(it);
 				it.remove();
 			}
 		}
-		
-		//TODO: setChange()
-		//TODO: notifyObservers()
+		setChanged();
+		notifyObservers(bola);
 	}
 	
 	public void testPaddle() {
 		Game.testCollision(paddle, bola);
+		setChanged();
+		notifyObservers(paddle);
 	}
 	
 	public void ganar() {
@@ -120,7 +127,34 @@ public class Partida extends Observable {
 	}
 	
 	public void generarPartida() {
-		//TODO: generar bloques bola y paddle e iniciar cronometro
+		//Iniciar cronometro
+		crono.reset();
+		crono.run();
+		
+		//Generar bloques
+		bloques.clear();
+		for (int iX = 0; iX < Config.COUNT_BLOCKS_X; ++iX) {
+			for (int iY = 0; iY < Config.COUNT_BLOCKS_Y; ++iY) {
+				bloques.add(new Bloque(
+						(iX + 1) * (Config.BLOCK_WIDTH + 3) + 22,
+						(iY + 2) * (Config.BLOCK_HEIGHT + 3) + 50)
+						);
+			}
+		}
+		
+		//Reiniciar bola
+		bola.x = Config.SCREEN_WIDTH / 2;
+		bola.y = Config.SCREEN_HEIGHT / 2;
+		
+		//Reiniciar paddle
+		paddle.x = Config.SCREEN_WIDTH / 2;
+		
+		//Asignar numero de vidas
+		vidasRestantes = Config.PLAYER_LIVES;
+		
+		//Iniciar cronometro
+		crono.reset();
+		crono.run();
 	}
 	
 	public int getNumBloques() {

@@ -27,12 +27,10 @@ public class Arkanoid extends Observable {
 	private Game game;
 	private double lastFt;
 	private double currentSlice;
-	private Partida partida = new Partida();
 	private Usuario usuario;
 
 	private Arkanoid() {
 
-		
 	}
 
 	public static Arkanoid getArkanoid() {
@@ -43,14 +41,14 @@ public class Arkanoid extends Observable {
 	}
 
 	public void jugar() {
-		
+		Partida miPartida = Partida.getMiPartida();
 		game.setRunning(true);
 
 		while (game.isRunning()) {
 
 			long time1 = System.currentTimeMillis();
 
-			if (!partida.gameOver && !partida.ganar) {
+			if (!miPartida.gameOver && !miPartida.ganar) {
 				game.setTryAgain(false);
 				update();
 
@@ -62,7 +60,7 @@ public class Arkanoid extends Observable {
 			} else {
 				if (game.isTryAgain()) {
 					game.setTryAgain(false);
-					partida.generarPartida();
+					miPartida.generarPartida();
 				}
 			}
 
@@ -89,7 +87,7 @@ public class Arkanoid extends Observable {
 			miPartida.testBola();
 			
 			//comprobar si se han roto todos los bloques
-			partida.ganar();
+			miPartida.ganar();
 		}
 	}
 
@@ -356,7 +354,9 @@ public class Arkanoid extends Observable {
 	}
 
 	public JSONObject getResultadosPartida() {
-		JSONObject datosPartida = partida.getDatosPartidaActual();
+		Partida miPartida = Partida.getMiPartida();
+		
+		JSONObject datosPartida = miPartida.getDatosPartidaActual();
 		if(usuario.isIdentificado()){
 			JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
 			agregarJSON(datosPartida, datosHistoricos);
