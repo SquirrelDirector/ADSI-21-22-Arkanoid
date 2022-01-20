@@ -20,7 +20,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
 public class VentanaFinPartida extends JFrame {
-
+	//TODO Observer de Inicio de sesión
 	private JPanel pnlPrincipal;
 	private JPanel pnlEnhorabuena;
 	private JPanel pnlMain;
