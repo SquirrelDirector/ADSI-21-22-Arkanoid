@@ -210,7 +210,9 @@ public class Arkanoid extends Observable {
 	 * @param idNivel
 	 */
 	public void actualizarUltimaPartida(int idNivel) {
-		usuario.actualizarUltimaPartida(idNivel);
+		if (usuario.isIdentificado()){
+			usuario.actualizarUltimaPartida(idNivel);
+		}
 	}
 
 	/**
@@ -218,7 +220,7 @@ public class Arkanoid extends Observable {
 	 * @param idNivel
 	 */
 	public Double[] obtenerDatosNivel(int idNivel) {
-        if (idNivel==6) {
+        if (idNivel==5) {
             String[] Datos = usuario.obtenerDatosNivelPersonalizado();
             Double[] DatosFinal = new Double[3];
             DatosFinal[1]= Double.parseDouble(Datos[1]);
@@ -399,7 +401,11 @@ public class Arkanoid extends Observable {
 	}
 
 	public int getUltimaPartida() {
-		return usuario.getNivelDefault();
+		if (usuario.isIdentificado()) {
+			return usuario.getNivelDefault();
+		} else {
+			return 1;
+		}
 	}
 	
 	/**
@@ -410,10 +416,10 @@ public class Arkanoid extends Observable {
 		return GestorUsuarios.getGestorUsuario().comprobarNombre(nombreUsu);
 	}
 	
-	public void updateConfig(double Velocidad, double Anchura, int Num_Ladrillos) { 
-		Config.BALL_VELOCITY=Velocidad/2; 
-		Config.PADDLE_WIDTH=Anchura; 
-		Config.COUNT_BLOCKS_Y=Num_Ladrillos/Config.COUNT_BLOCKS_X; 
+	public void updateConfig(Double[] Datos) { 
+		Config.BALL_VELOCITY=Datos[1]/2; 
+		Config.PADDLE_WIDTH=Datos[2]; 
+		Config.COUNT_BLOCKS_Y= Datos[3].intValue()/Config.COUNT_BLOCKS_X; 
 	} 
 	 
 	public void updateColores(String Fondo, String Bola, String Ladrillo, String Paddle) { 
