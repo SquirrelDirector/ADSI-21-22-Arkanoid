@@ -42,6 +42,7 @@ public class IU_Niveles {
 	 */
 	public IU_Niveles() {
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
