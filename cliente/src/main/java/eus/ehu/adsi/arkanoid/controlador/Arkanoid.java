@@ -101,14 +101,13 @@ public class Arkanoid extends Observable {
 			miPartida.testBola();
 			
 			//comprobar si se han roto todos los bloques
-			if(partida.ganar() && usuario.isIdentificado()){
-				Puntuacion p = new Puntuacion(usuario, usuario.getNivelDefault(), partida.getPuntuacion(), LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss")), partida.getTiempo());
+			if(Partida.getMiPartida().ganar() && usuario.isIdentificado()){
+				Puntuacion p = new Puntuacion(usuario, usuario.getNivelDefault(), Partida.getMiPartida().getPuntuacion(), LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss")), Partida.getMiPartida().getTiempo());
 				usuario.anadirPuntuacion(p);
-				String s = "INSERT INTO Puntuacion (NombreUsuario, idNivel, Numero, ValorFechaHora, Tiempo,) VALUES ('"+usuario+"', "+usuario.getNivelDefault()+", "+partida.getPuntuacion()+", '"+LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss"))+"', "+partida.getTiempo()+");";
+				String s = "INSERT INTO Puntuacion (NombreUsuario, idNivel, Numero, ValorFechaHora, Tiempo,) VALUES ('"+usuario+"', "+usuario.getNivelDefault()+", "+Partida.getMiPartida().getPuntuacion()+", '"+LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss"))+"', "+Partida.getMiPartida().getTiempo()+");";
 				System.out.println(s);
 				GestorDB.getGestorDB().execSQL(s);
 			}
-			
 		}
 	}
 

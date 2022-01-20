@@ -96,7 +96,7 @@ public class Ranking {
 				panel.revalidate();
 				panel.repaint();
 				personal = false;
-				//ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
+				ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
