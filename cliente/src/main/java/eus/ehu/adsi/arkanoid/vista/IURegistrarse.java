@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
@@ -150,22 +151,25 @@ public class IURegistrarse extends JFrame {
 			btnRegistrarse.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					int cod=Arkanoid.getArkanoid().registrarse(txtUsername.getText(), txtEmail.getText(), txtPassword.getText());
+					int cod=Arkanoid.getArkanoid().registrarse(txtUsername.getText(), txtEmail.getText(), txtPassword.getText(), txtRepeat.getText());
 					switch (cod){
 					case 0: //todo bien
 						
 						break;
-					case 1: //usuario no válido
-						
+					case 1: //usuario repetido
+						JOptionPane.showMessageDialog(null, "El nombre de usuario introducido ya existe");
 						break;
 					case 2: //correo no válido
-						
+						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
 						break;
-					case 3: //contraseña no válida
-						
+					case 3: //contrasena no válida
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida");
 						break;
 					case 4: //cuenta ya existente
-						
+						JOptionPane.showMessageDialog(null, "La dirección de correo introducida ya existe");
+						break;
+					case 5: //contrasenas no coincidentes
+						JOptionPane.showMessageDialog(null, "Las contraseñas introducidas no coinciden");
 						break;
 					}
 				}

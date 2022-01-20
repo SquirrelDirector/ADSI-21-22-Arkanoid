@@ -28,7 +28,7 @@ public class GestorUsuarios {
 	public void actualizarPersonalizacion(String emailUsuario, String pathMusica, String colorFondo, String colorBola, String colorPaddle, String colorLadrillo, String atributosPersonalizacion) {
 		GestorDB.getGestorDB().execSQL("UPDATE usuario SET PathMusica='"+pathMusica+"', CodigoColorFondo='"+colorFondo+"', "
 				+ "CodigoColorBola='"+colorBola+"', CodigoColorPaddle='"+colorPaddle+"', CodigoColorLadrillo='"+colorLadrillo+"', "
-						+ "Atributos_Personalizado='"+atributosPersonalizacion+"' WHERE Email='"+emailUsuario+"'");
+						+ "Atributos_Personalizado='"+atributosPersonalizacion+"' WHERE Email='"+emailUsuario+"';");
 	}
 	
 	/**
@@ -38,8 +38,7 @@ public class GestorUsuarios {
 	 * @param nombreUsu
 	 */
 	public void actualizarDatosUsuDB(String email, String pathAvatar, String nombreUsu) {
-		GestorDB.getGestorDB().execSQL("UPDATE usuario SET PathPerfil='"+pathAvatar+"', NombreUsuario='"+nombreUsu+"' WHERE "
-				+ "Email = '"+email+"'");
+		GestorDB.getGestorDB().execSQL("UPDATE usuario SET PathPerfil='"+pathAvatar+"', NombreUsuario='"+nombreUsu+"' WHERE Email = '"+email+"'");
 	}
 
 	/**
@@ -48,7 +47,7 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public JSONObject importarUsuario(String mail, String pass) {
-		String preg="SELECT Contraseña FROM Usuario WHERE Email = "+mail;
+		String preg="SELECT Contraseña FROM Usuario WHERE Email = '"+mail+"';";
 		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
 		String usrPass=(String) res.get("Contraseña");
 		if (usrPass==null) //no existe tal usuario
@@ -56,7 +55,7 @@ public class GestorUsuarios {
 		if (!pass.equals(usrPass)) //el usuario no tiene tal contraseña
 			return null;
 		
-		preg="SELECT NombreUsuario, NivelDefault, PathMusica, PathPerfil, CodigoColorFondo, CodigoColorBola, CodigoColorPaddle, CodigoColorLadrillo, VelocidadCustom, AnchuraCustom, AceleracionCustom, NumLadrillosCustom FROM Usuario WHERE Email = "+mail;
+		preg="SELECT NombreUsuario, NivelDefault, PathMusica, PathPerfil, CodigoColorFondo, CodigoColorBola, CodigoColorPaddle, CodigoColorLadrillo, VelocidadCustom, AnchuraCustom, AceleracionCustom, NumLadrillosCustom FROM Usuario WHERE Email = '"+mail+"';";
 		res=GestorDB.getGestorDB().execSQL(preg);
 		JSONObject datos=new JSONObject();
 		
@@ -75,7 +74,7 @@ public class GestorUsuarios {
 		
 		datos.put("nivelDefault", res.get("NivelDefault"));
 		
-		preg="SELECT Nombre, IdLogro, Descripcion, FechaObtencion, Progreso, Objetivo FROM TieneLogro NATURAL JOIN Logro WHERE Usuario ="+nombre;
+		preg="SELECT Nombre, IdLogro, Descripcion, FechaObtencion, Progreso, Objetivo FROM TieneLogro NATURAL JOIN Logro WHERE Usuario ='"+nombre+"';";
 		res=GestorDB.getGestorDB().execSQL(preg);
 		JSONArray logros=new JSONArray();
 		JSONObject logro;
@@ -95,7 +94,7 @@ public class GestorUsuarios {
 		}
 		datos.put("logros", logros);
 		
-		preg="SELECT IdNivel, ValorFechaHora, Tiempo, Numero FROM Puntuacion WHERE Usuario = "+nombre;
+		preg="SELECT IdNivel, ValorFechaHora, Tiempo, Numero FROM Puntuacion WHERE Usuario = '"+nombre+"';";
 		res=GestorDB.getGestorDB().execSQL(preg);
 		JSONArray ranking=new JSONArray();
 		JSONObject partida;
@@ -120,7 +119,7 @@ public class GestorUsuarios {
 	 * @param mail
 	 */
 	public boolean existeUsuario(String mail) {
-		String preg="SELECT NombreUsuario FROM Usuario WHERE Email = "+mail;
+		String preg="SELECT NombreUsuario FROM Usuario WHERE Email = '"+mail+"';";
 		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
 		return (res.get("NombreUsuario")!=null);
 	}
@@ -133,7 +132,7 @@ public class GestorUsuarios {
 	 */
 	public void crearUsuario(String usr, String mail, String pass) {
 		//TODO - establecer valores predeterminados de personalizacion, sea por el propio SQL o por una nueva clase de modelo que los almacene
-		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contrasena) VALUES ("+mail+", "+usr+", "+pass+");";
+		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contrasena) VALUES ('"+mail+"', '"+usr+"', '"+pass+"');";
 		GestorDB.getGestorDB().execSQL(preg);
 		
 		preg="SELECT idLogro FROM Logro;";
@@ -142,7 +141,7 @@ public class GestorUsuarios {
 		
 		for (int i=0;i<res.longitud;i++){
 			id=(String) res.get("idLogro");
-			preg="INSERT INTO TieneLogro (Usuario, idLogro) VALUES ("+mail+", "+id+");";
+			preg="INSERT INTO TieneLogro (Usuario, idLogro) VALUES ('"+mail+"', '"+id+"');";
 			res.next();
 		}
 	}
@@ -153,12 +152,12 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void cambiarContrasena(String mail, String pass) {
-		String preg="UPDATE Usuario SET Contrasena="+pass+" WHERE Mail="+mail;
+		String preg="UPDATE Usuario SET Contrasena="+pass+" WHERE Mail='"+mail+"';";
 		GestorDB.getGestorDB().execSQL(preg);
 	}
 
 	public boolean existeNombre(String usr) {
-		String preg="SELECT Email FROM Usuario WHERE NombreUsuario = "+usr;
+		String preg="SELECT Email FROM Usuario WHERE NombreUsuario = '"+usr+"';";
 		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
 		return (res.get("Email")!=null);
 	}
@@ -169,8 +168,13 @@ public class GestorUsuarios {
 	 */
 	public boolean comprobarNombre(String nombreUsu) {
 		boolean existe = false;
-		ResultadoSQL resultado = GestorDB.getGestorDB().execSQL("SELECT NombreUsuario FROM usuario WHERE NombreUsuario='"+nombreUsu+"'");
+		ResultadoSQL resultado = GestorDB.getGestorDB().execSQL("SELECT NombreUsuario FROM usuario WHERE NombreUsuario='"+nombreUsu+"';");
 		if (resultado.get("NombreUsuario").equals(nombreUsu)) existe = true;
 		return existe;
+	}
+
+	public void cerrarCuenta(String mail) {
+		String preg="DELETE FROM Usuario WHERE Email='"+mail+"';";
+		GestorDB.getGestorDB().execSQL(preg);
 	}
 }

@@ -280,7 +280,7 @@ public class Arkanoid extends Observable {
 	 * @param mail
 	 * @param pass
 	 */
-	public int registrarse(String usr, String mail, String pass) {
+	public int registrarse(String usr, String mail, String pass, String rePass) {
 		String regPass[] = new String[] { 
 				"^.{6,}$", "^.*\\p{javaLowerCase}.*$", "^.*\\p{javaUpperCase}.*$", "^.*\\d.*$", "^.*\\p{Punct}.*$"};
 		
@@ -294,6 +294,10 @@ public class Arkanoid extends Observable {
 		}
 		if(GestorUsuarios.getGestorUsuario().existeUsuario(mail))
 			return 4;
+		pass=resumir(pass);
+		rePass=resumir(rePass);
+		if (!pass.equals(rePass))
+			return 5;
 		
 		pass=resumir(pass);
 		GestorUsuarios.getGestorUsuario().crearUsuario(usr, mail, pass);
@@ -341,6 +345,13 @@ public class Arkanoid extends Observable {
 			return 1;
 		
 		GestorUsuarios.getGestorUsuario().cambiarContrasena(mail, pass);
+		return 0;
+	}
+	
+	public int cerrarCuenta(String mail){
+		if (!GestorUsuarios.getGestorUsuario().existeUsuario(mail))
+			return 1;
+		GestorUsuarios.getGestorUsuario().cerrarCuenta(mail);
 		return 0;
 	}
 
