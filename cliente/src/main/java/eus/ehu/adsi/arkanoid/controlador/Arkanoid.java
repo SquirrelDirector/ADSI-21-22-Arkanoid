@@ -42,6 +42,8 @@ public class Arkanoid extends Observable {
 
 	public void jugar() {
 		Partida miPartida = Partida.getMiPartida();
+		miPartida.generarPartida();
+		
 		game.setRunning(true);
 
 		while (game.isRunning()) {
