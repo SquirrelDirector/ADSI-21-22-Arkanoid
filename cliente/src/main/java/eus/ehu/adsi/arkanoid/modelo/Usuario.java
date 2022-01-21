@@ -59,7 +59,7 @@ public class Usuario {
 			tiempo=(int) partida.get("tiempo");
 			num=(int) partida.get("numero");
 			
-			susPuntuaciones.add(new Puntuacion(this, lvl, num, fecha, tiempo));
+			susPuntuaciones.add(new Puntuacion(this, lvl, num, fecha.toString(), tiempo));
 		}
 		
 		//datos de los logros

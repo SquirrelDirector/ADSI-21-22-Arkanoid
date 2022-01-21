@@ -29,7 +29,7 @@ public class Ranking {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void mostrarVentana(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -150,7 +150,6 @@ public class Ranking {
 				panel.removeAll();
 				panel.revalidate();
 				panel.repaint();
-				personal = true;
 				ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
@@ -176,7 +175,6 @@ public class Ranking {
 				panel.removeAll();
 				panel.revalidate();
 				panel.repaint();
-				personal = true;
 				ranking = Arkanoid.getArkanoid().mostrarRanking(1, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
@@ -201,7 +199,6 @@ public class Ranking {
 				panel.removeAll();
 				panel.revalidate();
 				panel.repaint();
-				personal = true;
 				ranking = Arkanoid.getArkanoid().mostrarRanking(2, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
@@ -226,7 +223,6 @@ public class Ranking {
 				panel.removeAll();
 				panel.revalidate();
 				panel.repaint();
-				personal = true;
 				ranking = Arkanoid.getArkanoid().mostrarRanking(3, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
@@ -251,7 +247,6 @@ public class Ranking {
 				panel.removeAll();
 				panel.revalidate();
 				panel.repaint();
-				personal = true;
 				ranking = Arkanoid.getArkanoid().mostrarRanking(4, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);

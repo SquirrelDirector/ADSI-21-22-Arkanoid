@@ -3,6 +3,8 @@ package eus.ehu.adsi.arkanoid.controlador;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import classic.eus.ehu.adsi.arkanoid.view.Config;
+
 public class GestorUsuarios {
 
 	private static GestorUsuarios miGestorUsuario;
@@ -49,7 +51,7 @@ public class GestorUsuarios {
 	public JSONObject importarUsuario(String mail, String pass) {
 		String preg="SELECT Contraseña FROM Usuario WHERE Email = '"+mail+"';";
 		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
-		String usrPass=(String) res.get("Contraseña");
+		String usrPass=(String) res.get("Contrasena");
 		if (usrPass==null) //no existe tal usuario
 			return null;
 		if (!pass.equals(usrPass)) //el usuario no tiene tal contraseña
@@ -121,7 +123,7 @@ public class GestorUsuarios {
 	public boolean existeUsuario(String mail) {
 		String preg="SELECT NombreUsuario FROM Usuario WHERE Email = '"+mail+"';";
 		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
-		return (res.get("NombreUsuario")!=null);
+		return (res.longitud>0);
 	}
 
 	/**
@@ -131,8 +133,7 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void crearUsuario(String usr, String mail, String pass) {
-		//TODO - establecer valores predeterminados de personalizacion, sea por el propio SQL o por una nueva clase de modelo que los almacene
-		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contrasena) VALUES ('"+mail+"', '"+usr+"', '"+pass+"');";
+		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contrasena, PathPerfil, PathMusica, CodigoColorFondo, CodigoColorBola, CodigoColorLadrillo, CodigoColorPaddle, NivelDefault) VALUES ('"+mail+"', '"+usr+"', '"+pass+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_PERFIL+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_MUSICA+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.BACKGROUND_COLOR.toString()+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.BALL_COLOR.toString()+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.BRICK_COLOR.toString()+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_COLOR.toString()+"', '"+1+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_Y*eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_X+","+eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_WIDTH+","+eus.ehu.adsi.arkanoid.modelo.Config.BALL_VELOCITY+"');";
 		GestorDB.getGestorDB().execSQL(preg);
 		
 		preg="SELECT idLogro FROM Logro;";
@@ -159,7 +160,7 @@ public class GestorUsuarios {
 	public boolean existeNombre(String usr) {
 		String preg="SELECT Email FROM Usuario WHERE NombreUsuario = '"+usr+"';";
 		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
-		return (res.get("Email")!=null);
+		return (res.longitud>0);
 	}
 
 	/**

@@ -65,7 +65,10 @@ public class InterfazBase extends JPanel {
 
 	public void ocultarBotonRegreso() {
 		volverButton.setVisible(false);
-		
+	}
+	
+	public void ocultarPanelIdentidad() {
+		panelIdentidades.setVisible(false);
 	}
 	
 	public void setEventoRegreso(final JFrame ventanaAnterior) {
@@ -78,5 +81,9 @@ public class InterfazBase extends JPanel {
 				topFrame.dispose();
 			}
 		});
+	}
+	
+	public void setIdentificado(boolean id){
+		((PnlIdentidad)panelIdentidades).setIdentificado(id);
 	}
 }

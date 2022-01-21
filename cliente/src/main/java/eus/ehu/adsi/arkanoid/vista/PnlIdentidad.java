@@ -28,6 +28,8 @@ public class PnlIdentidad extends JPanel {
 	private JLabel lblIdentificado;
 	private JPanel pnlCerrarSesionGeneral;
 	private JButton btnCerrarSesion;
+	
+	private boolean identificado;
 	/**
 	 * Create the panel.
 	 */
@@ -48,6 +50,13 @@ public class PnlIdentidad extends JPanel {
 			pnlIdentidad.add(getPnlFoto(), BorderLayout.WEST);
 			pnlIdentidad.add(getPnlNoIdentificado(), BorderLayout.CENTER);
 			//pnlIdentidad.add(getPnlIdentificado(), BorderLayout.CENTER);
+			pnlIdentidad.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
+				}
+			});
 		}
 		return pnlIdentidad;
 	}
@@ -70,13 +79,6 @@ public class PnlIdentidad extends JPanel {
 			pnlNoIdentificado.setBackground(new Color(0,0,0,0));
 			pnlNoIdentificado.setLayout(new GridLayout(0, 1, 0, 0));
 			pnlNoIdentificado.add(getLblIdentidad());
-			pnlNoIdentificado.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					super.mouseClicked(e);
-					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
-				}
-			});
 		}
 		return pnlNoIdentificado;
 	}
@@ -124,5 +126,16 @@ public class PnlIdentidad extends JPanel {
 			btnCerrarSesion.setText("Log Out");
 		}
 		return btnCerrarSesion;
+	}
+	
+	public void setIdentificado(boolean id){
+		if (!identificado&&id){
+			pnlIdentidad.remove(pnlNoIdentificado);
+			pnlIdentidad.add(pnlIdentificado);
+		}else if (identificado&&!id){
+			pnlIdentidad.remove(pnlIdentificado);
+			pnlIdentidad.add(pnlNoIdentificado);
+		}
+		identificado=id;
 	}
 }
