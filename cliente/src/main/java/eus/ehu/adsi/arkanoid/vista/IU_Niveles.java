@@ -67,6 +67,7 @@ public class IU_Niveles {
 			seleccionar(1);
 		
 		JPanel base=new InterfazBase("SELECCIONAR NIVEL");
+		((InterfazBase) base).setEventoRegreso(new IU_Inicial());
 		frame.add(base);
 		
 		JPanel principal=new JPanel();
