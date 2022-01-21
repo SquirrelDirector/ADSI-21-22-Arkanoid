@@ -39,9 +39,11 @@ public class Partida extends Observable {
 
 	public void restarVidas() {
 		vidasRestantes--;
+		System.out.println("vidas-"+vidasRestantes);
 		if (vidasRestantes == 0) {
 			gameOver = true;
 			crono.parar();
+			System.out.println("has perdido");
 			//TODO: llamar a la funcionalidad de la vista de perder
 		}
 	}
@@ -122,6 +124,7 @@ public class Partida extends Observable {
 				it.remove();
 			}
 		}
+		bola.update();
 		setChanged();
 		notifyObservers(bola);
 	}
@@ -141,8 +144,6 @@ public class Partida extends Observable {
 	}
 	
 	public void generarPartida() {
-		//Iniciar cronometro
-		System.out.println("cronometro iniciado");
 		
 		//Generar bloques
 		bloques = new ArrayList<Bloque>();
@@ -154,25 +155,19 @@ public class Partida extends Observable {
 						);
 			}
 		}
-		System.out.println("bloquesGenerados");
 		
 		//Reiniciar bola
 		bola.x = Config.SCREEN_WIDTH / 2;
 		bola.y = Config.SCREEN_HEIGHT / 2;
-		System.out.println("bola");
 		
 		//Reiniciar paddle
 		paddle.x = Config.SCREEN_WIDTH / 2;
-		System.out.println("paddle");
 		
 		//Asignar numero de vidas
 		vidasRestantes = Config.PLAYER_LIVES;
-		System.out.println("vidas");
 		
-		//Iniciar cronometro
-		//crono.reset();
-		//crono.run();
-		System.out.println("cronometro");
+		ganar = false;
+		gameOver = false;
 	}
 	
 	public int getNumBloques() {

@@ -43,7 +43,7 @@ public class Arkanoid extends Observable {
 	public void jugar() {
 		Partida miPartida = Partida.getMiPartida();
 		miPartida.iniciarCrono();
-		System.out.println("Iniciando la partida");
+
 		Thread gameThread = new Thread() {
 	         public void run() {
 				Partida miPartida = Partida.getMiPartida();
@@ -51,11 +51,9 @@ public class Arkanoid extends Observable {
 				
 				game.setRunning(true);
 				while (game.isRunning()) {
-					System.out.println("Jugando");
 					long time1 = System.currentTimeMillis();
 		
 					if (!miPartida.gameOver && !miPartida.ganar) {
-						System.out.println("update");
 						game.setTryAgain(false);
 						update();
 		
@@ -67,7 +65,7 @@ public class Arkanoid extends Observable {
 					} else {
 						if (game.isTryAgain()) {
 							game.setTryAgain(false);
-							miPartida.generarPartida();
+							//miPartida.generarPartida();
 						}
 					}
 		
