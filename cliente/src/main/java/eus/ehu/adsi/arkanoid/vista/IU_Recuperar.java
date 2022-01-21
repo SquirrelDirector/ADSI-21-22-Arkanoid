@@ -26,9 +26,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.CardLayout;
 
-public class IURecuperar extends JFrame {
+public class IU_Recuperar extends JFrame {
 
-	private static IURecuperar window;
+	private static IU_Recuperar window;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JLabel lblNewLabel;
@@ -50,7 +50,7 @@ public class IURecuperar extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IURecuperar frame = new IURecuperar();
+					IU_Recuperar frame = new IU_Recuperar();
 					frame.setVisible(true);
 					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
@@ -62,16 +62,16 @@ public class IURecuperar extends JFrame {
 		});
 	}
 	
-	public static IURecuperar getMiIURecuperar(){
+	public static IU_Recuperar getMiIU_Recuperar(){
 		if (window==null)
-			window=new IURecuperar();
+			window=new IU_Recuperar();
 		return window;
 	}
 	
 	/**
 	 * Create the frame.
 	 */
-	private IURecuperar() {
+	private IU_Recuperar() {
 		initialize();
 	}
 	private void initialize() {
@@ -113,7 +113,7 @@ public class IURecuperar extends JFrame {
 					int cod=Arkanoid.getArkanoid().comprobarCodigo(getTxtKey().getText());
 					switch (cod) {
 					case 0: //todo bien
-						IURenovar.getMiIURenovar().mostrarVentana(txtEmail.getText());
+						IU_Renovar.getMiIU_Renovar().mostrarVentana(txtEmail.getText());
 						((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
 						break;
 					case 1: //formato de clave incorrecto
@@ -148,8 +148,8 @@ public class IURecuperar extends JFrame {
 					int cod=Arkanoid.getArkanoid().recuperarContrasena(txtEmail.getText());
 					switch (cod){
 					case 0: //todo bien
-						/*if(IURecuperar.getMiIURecuperar().isFirstTry())
-							IURecuperar.getMiIURecuperar().aceptarClave();*/
+						/*if(IU_Recuperar.getMiIU_Recuperar().isFirstTry())
+							IU_Recuperar.getMiIU_Recuperar().aceptarClave();*/
 						break;
 					case 1: //correo no válido
 						JOptionPane.showMessageDialog(null, "Introduzca un correo válido.");
@@ -244,7 +244,7 @@ public class IURecuperar extends JFrame {
 			btnReturn.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					IUIdentificarse.getMiIUIdentificarse().mostrarVentana();
+					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
 					((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
 				}
 			});

@@ -31,9 +31,9 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class IUIdentificarse extends JFrame {
+public class IU_Identificarse extends JFrame {
 
-	private static IUIdentificarse miIUIdentificarse;
+	private static IU_Identificarse miIU_Identificarse;
 	private JPanel contentPane;
 	private JLabel lblLogin;
 	private JTextField email;
@@ -50,14 +50,14 @@ public class IUIdentificarse extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args){
-		new IUIdentificarse().mostrarVentana();
+		new IU_Identificarse().mostrarVentana();
 	}
 	
 	public void mostrarVentana() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IUIdentificarse frame = new IUIdentificarse();
+					IU_Identificarse frame = new IU_Identificarse();
 					frame.setVisible(true);
 					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
@@ -68,16 +68,16 @@ public class IUIdentificarse extends JFrame {
 		});
 	}
 	
-	public static IUIdentificarse getMiIUIdentificarse(){
-		if (miIUIdentificarse==null)
-			miIUIdentificarse=new IUIdentificarse();
-		return miIUIdentificarse;
+	public static IU_Identificarse getMiIU_Identificarse(){
+		if (miIU_Identificarse==null)
+			miIU_Identificarse=new IU_Identificarse();
+		return miIU_Identificarse;
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	private IUIdentificarse() {
+	private IU_Identificarse() {
 		initialize();
 		ark=Arkanoid.getArkanoid();
 	}
@@ -157,7 +157,7 @@ public class IUIdentificarse extends JFrame {
 			btnSignup.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					IURegistrarse.getMiIURegistrarse().mostrarVentana();
+					IU_Registrarse.getMiIU_Registrarse().mostrarVentana();
 					setVisible(false);
 				}
 			});
@@ -181,7 +181,7 @@ public class IUIdentificarse extends JFrame {
 			btnForgotPassword.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					IURecuperar.getMiIURecuperar().mostrarVentana();
+					IU_Recuperar.getMiIU_Recuperar().mostrarVentana();
 					setVisible(false);
 				}
 			});

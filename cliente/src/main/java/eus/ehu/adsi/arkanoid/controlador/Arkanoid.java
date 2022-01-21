@@ -35,7 +35,7 @@ public class Arkanoid extends Observable {
 	private Usuario usuario;
 
 	private Arkanoid() {
-
+		usuario=new Usuario();
 	}
 
 	public static Arkanoid getArkanoid() {

@@ -25,9 +25,9 @@ import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
-public class IURegistrarse extends JFrame {
+public class IU_Registrarse extends JFrame {
 
-	private static IURegistrarse miIURegistrarse;
+	private static IU_Registrarse miIU_Registrarse;
 	private JPanel contentPane;
 	private JLabel lblSignUp;
 	private JPanel panel;
@@ -47,7 +47,7 @@ public class IURegistrarse extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IURegistrarse frame = new IURegistrarse();
+					IU_Registrarse frame = new IU_Registrarse();
 					frame.setVisible(true);
 					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
@@ -58,16 +58,16 @@ public class IURegistrarse extends JFrame {
 		});
 	}
 
-	public static IURegistrarse getMiIURegistrarse(){
-		if (miIURegistrarse==null)
-			miIURegistrarse=new IURegistrarse();
-		return miIURegistrarse;
+	public static IU_Registrarse getMiIU_Registrarse(){
+		if (miIU_Registrarse==null)
+			miIU_Registrarse=new IU_Registrarse();
+		return miIU_Registrarse;
 	}
 	
 	/**
 	 * Create the frame.
 	 */
-	private IURegistrarse() {
+	private IU_Registrarse() {
 		initialize();
 	}
 	private void initialize() {
@@ -122,7 +122,7 @@ public class IURegistrarse extends JFrame {
 			btnSignIn.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					IUIdentificarse.getMiIUIdentificarse().mostrarVentana();
+					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
 					((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
 				}
 			});

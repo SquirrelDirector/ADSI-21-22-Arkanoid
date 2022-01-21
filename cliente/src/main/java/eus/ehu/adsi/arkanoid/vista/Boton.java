@@ -15,7 +15,7 @@ public class Boton extends JButton {
 	public Boton(String texto) {
 		super(texto);
 		this.setFont(new Font("Good Times", Font.PLAIN, 20));
-		this.setBackground(new Color(0,0,0));
+		this.setBackground(new Color(2,7,41));
 		this.setForeground(new Color(0xFFFFFF));
 		this.setBorder(null);
 		this.setFocusPainted(false);

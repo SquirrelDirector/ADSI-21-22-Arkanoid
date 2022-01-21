@@ -3,6 +3,7 @@ package eus.ehu.adsi.arkanoid.vista;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class VistaPrueba {
 
@@ -39,7 +40,8 @@ public class VistaPrueba {
 		frame.setBounds(100, 100, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-		frame.add(new InterfazBase("PERSONALIZAR"));
+		JPanel base=new InterfazBase("PERSONALIZAR");
+		frame.add(base);
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
 public class PnlIdentidad extends JPanel {
@@ -42,6 +43,8 @@ public class PnlIdentidad extends JPanel {
 		if (pnlIdentidad == null) {
 			pnlIdentidad = new JPanel();
 			pnlIdentidad.setLayout(new BorderLayout(0, 0));
+			pnlIdentidad.setBackground(new Color(2,4,40));
+			pnlIdentidad.setBorder(new EmptyBorder(5,10,5,10));
 			pnlIdentidad.add(getPnlFoto(), BorderLayout.WEST);
 			pnlIdentidad.add(getPnlNoIdentificado(), BorderLayout.CENTER);
 			//pnlIdentidad.add(getPnlIdentificado(), BorderLayout.CENTER);
@@ -51,8 +54,9 @@ public class PnlIdentidad extends JPanel {
 	private JPanel getPnlFoto() {
 		if (pnlFoto == null) {
 			pnlFoto = new JPanel();
-			pnlFoto.setBackground(Color.BLACK);
+			pnlFoto.setBackground(new Color(0,0,0,0));
 			pnlFoto.setLayout(new GridLayout(1, 1, 0, 0));
+			pnlFoto.setBorder(new EmptyBorder(0,0,0,20));
 			picLabel= new JLabel(imagen);
 			picLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			picLabel.setVerticalAlignment(SwingConstants.CENTER);
@@ -63,14 +67,14 @@ public class PnlIdentidad extends JPanel {
 	private JPanel getPnlNoIdentificado() {
 		if (pnlNoIdentificado == null) {
 			pnlNoIdentificado = new JPanel();
-			pnlNoIdentificado.setBackground(Color.BLACK);
+			pnlNoIdentificado.setBackground(new Color(0,0,0,0));
 			pnlNoIdentificado.setLayout(new GridLayout(0, 1, 0, 0));
 			pnlNoIdentificado.add(getLblIdentidad());
 			pnlNoIdentificado.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
-					IUIdentificarse.getMiIUIdentificarse().mostrarVentana();
+					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
 				}
 			});
 		}

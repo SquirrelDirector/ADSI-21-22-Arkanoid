@@ -53,7 +53,6 @@ public class Ranking {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame.setVisible(true);
 		/*// puntuaciones de prueba
 		
 		JSONObject puntuacion1 = new JSONObject();
@@ -75,6 +74,7 @@ public class Ranking {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 668, 443);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 		
 		JPanel panelGeneral = new JPanel();
 		frame.getContentPane().add(panelGeneral, BorderLayout.CENTER);

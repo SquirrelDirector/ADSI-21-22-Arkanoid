@@ -38,12 +38,12 @@ public class InterfazBase extends JPanel {
 		EtiquetaTitulo tituloPersonalizar = new EtiquetaTitulo(texto);
 		panelCabecera.add(tituloPersonalizar);
 		
-		panelIdentidades = new JPanel();
+		panelIdentidades = new PnlIdentidad();
 		panelIdentidades.setBackground(new Color(0,0,0,0));
 		panelInicial.add(panelIdentidades, BorderLayout.EAST);
 		
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(new Color(0,0,0,200));
+		panelPrincipal.setBackground(new Color(0,0,0,0));
 		this.add(panelPrincipal, BorderLayout.CENTER);
 		
 		//this.add(new Panel());

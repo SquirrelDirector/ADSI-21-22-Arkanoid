@@ -4,8 +4,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 
@@ -18,7 +23,7 @@ import java.awt.event.ActionEvent;
 public class IU_Niveles {
 
 	private JFrame frame;
-	private int Nivel;
+	private int nivel;
 	private JLabel lblL;
 	/**
 	 * Launch the application.
@@ -48,130 +53,195 @@ public class IU_Niveles {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		lblL = new JLabel();
-		Nivel=Arkanoid.getArkanoid().getUltimaPartida();
-	//	Nivel=1;
+		lblL = new EtiquetaNormal("");
+		lblL.setBackground(new Color(2,4,40)); //TODO - Este color hijuelaremaracamadrequeloremilperrasparió no se aplica, sospecho del repaint de seleccionar()
+		lblL.setForeground(new Color(255,255,255));
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 951, 645);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frame.setLocationRelativeTo(null);
+		if (Arkanoid.getArkanoid().isIdentificado())
+			seleccionar(Arkanoid.getArkanoid().getUltimaPartida());
+		else
+			seleccionar(1);
 		
-		JPanel Titulo = new JPanel();
-		frame.getContentPane().add(Titulo, BorderLayout.NORTH);
+		JPanel base=new InterfazBase("SELECCIONAR NIVEL");
+		frame.add(base);
 		
-		JPanel Layout = new JPanel();
-		frame.getContentPane().add(Layout, BorderLayout.CENTER);
-		Layout.setLayout(new GridLayout(1, 2, 0, 0));
+		JPanel principal=new JPanel();
+		principal.setBackground(new Color(0,0,0,0));
+		principal.setLayout(new BorderLayout(0, 0));
+		base.add(principal);
 		
-		JPanel Izquierda = new JPanel();
-		Layout.add(Izquierda);
-		Izquierda.setLayout(new GridLayout(5, 1, 0, 0));
+		JPanel layout = new JPanel();
+		principal.add(layout, BorderLayout.CENTER);
+		layout.setLayout(new GridLayout(1, 2, 0, 0));
+		layout.setBackground(new Color(0,0,0,0));
+		layout.setBorder(new EmptyBorder(30,0,70,0));
+		
+		JPanel izquierda = new JPanel();
+		layout.add(izquierda);
+		izquierda.setBackground(new Color(0,0,0,0));
+		izquierda.setLayout(new GridLayout(5, 1, 0, 0));
 		
 		
-		JPanel Derecha = new JPanel();
-		Layout.add(Derecha);
-		Derecha.setLayout(new BorderLayout(0, 0));
+		JPanel derecha = new JPanel();
+		layout.add(derecha);
+		derecha.setLayout(new BorderLayout(0, 0));
+		derecha.setBackground(new Color(0,0,0,0));
+		derecha.setBorder(new EmptyBorder(0,0,0,20));
 		
-		JPanel Botones2 = new JPanel();
-		Derecha.add(Botones2, BorderLayout.SOUTH);
-		Botones2.setLayout(new GridLayout(1, 2, 0, 0));
+		JPanel botones = new JPanel();
+		derecha.add(botones, BorderLayout.SOUTH);
+		botones.setLayout(new GridLayout(1, 2, 0, 0));
+		botones.setBackground(new Color(0,0,0,0));
 		
-		JButton BotonPersonalizar = new JButton("Personalizar");
+		
+		JPanel pnlPersonalizar=new JPanel();
+		pnlPersonalizar.setLayout(new CardLayout());
+		pnlPersonalizar.setBackground(new Color(0,0,0,0));
+		pnlPersonalizar.setBorder(new EmptyBorder(0, 10, 0, 10));
+		
+		JButton botonPersonalizar = new Boton("Personalizar");
 		if (Arkanoid.getArkanoid().isIdentificado()==false) {
-			BotonPersonalizar.setEnabled(false);
+			botonPersonalizar.setEnabled(false);
 		}
-		BotonPersonalizar.addActionListener(new ActionListener() {
+		botonPersonalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Personalizacion();
 			frame.dispose();
 			}
 		});
-		Botones2.add(BotonPersonalizar);
+		botones.add(pnlPersonalizar);
+		pnlPersonalizar.add(botonPersonalizar);
 		
-		JButton BotonJugar = new JButton("Jugar");
-		BotonJugar.addActionListener(new ActionListener() {
+		JPanel pnlJugar=new JPanel();
+		pnlJugar.setLayout(new CardLayout());
+		pnlJugar.setBackground(new Color(0,0,0,0));
+		pnlJugar.setBorder(new EmptyBorder(0, 30, 0, 30));
+		
+		JButton botonJugar = new Boton("Jugar");
+		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Arkanoid.getArkanoid().actualizarUltimaPartida(Nivel);
-				Arkanoid.getArkanoid().updateConfig(Arkanoid.getArkanoid().obtenerDatosNivel(Nivel));
+				if (Arkanoid.getArkanoid().isIdentificado()){
+					Arkanoid.getArkanoid().actualizarUltimaPartida(nivel);
+					Arkanoid.getArkanoid().updateConfig(Arkanoid.getArkanoid().obtenerDatosNivel(nivel));
+				}
 				new Tablero().setVisible(true);
 			frame.dispose();
 			}
 		});
-		Botones2.add(BotonJugar);
+		botones.add(pnlJugar);
+		pnlJugar.add(botonJugar);
 		
-		JPanel Descripcion = new JPanel();
-		Derecha.add(Descripcion, BorderLayout.CENTER);
+		JPanel descripcion = new JPanel();
+		derecha.add(descripcion, BorderLayout.CENTER);
+		descripcion.setBackground(new Color(0,0,0,0));
+		descripcion.setLayout(new CardLayout());
+		descripcion.setBorder(new EmptyBorder(0,0,100,0));
+		descripcion.add(lblL);
 		
-		Descripcion.add(lblL);
+		JPanel pnlNvl1=new JPanel();
+		pnlNvl1.setLayout(new CardLayout());
+		pnlNvl1.setBackground(new Color(0,0,0,0));
+		pnlNvl1.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
-		switch (Nivel) {
+		JButton botonNvl1 = new Boton("Novato");
+		botonNvl1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				seleccionar(1);
+			}
+		});
+		pnlNvl1.add(botonNvl1);
+		izquierda.add(pnlNvl1);
+		
+		
+		JPanel pnlNvl2=new JPanel();
+		pnlNvl2.setLayout(new CardLayout());
+		pnlNvl2.setBackground(new Color(0,0,0,0));
+		pnlNvl2.setBorder(new EmptyBorder(10, 30, 10, 100));
+		
+		JButton botonNvl2 = new Boton("Est\u00E1ndar");
+		botonNvl2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				seleccionar(2);
+			}
+		});
+		pnlNvl2.add(botonNvl2);
+		izquierda.add(pnlNvl2);
+		
+		
+		JPanel pnlNvl3=new JPanel();
+		pnlNvl3.setLayout(new CardLayout());
+		pnlNvl3.setBackground(new Color(0,0,0,0));
+		pnlNvl3.setBorder(new EmptyBorder(10, 30, 10, 100));
+		
+		JButton botonNvl3 = new Boton("Experto");
+		botonNvl3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				seleccionar(3);
+			}
+		});
+		pnlNvl3.add(botonNvl3);
+		izquierda.add(pnlNvl3);
+		
+		
+		JPanel pnlNvl4=new JPanel();
+		pnlNvl4.setLayout(new CardLayout());
+		pnlNvl4.setBackground(new Color(0,0,0,0));
+		pnlNvl4.setBorder(new EmptyBorder(10, 30, 10, 100));
+		
+		JButton botonNvl4 = new Boton("Imposible");
+		botonNvl4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				seleccionar(4);
+			}
+		});
+		pnlNvl4.add(botonNvl4);
+		izquierda.add(pnlNvl4);
+		
+		
+		JPanel pnlNvl5=new JPanel();
+		pnlNvl5.setLayout(new CardLayout());
+		pnlNvl5.setBackground(new Color(0,0,0,0));
+		pnlNvl5.setBorder(new EmptyBorder(10, 30, 10, 100));
+		
+		JButton botonNvl5 = new Boton("Personalizado");
+		if (Arkanoid.getArkanoid().isIdentificado()==false) {
+			botonNvl5.setEnabled(false);
+		}
+		botonNvl5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				seleccionar(5);
+			}
+		});
+		pnlNvl5.add(botonNvl5);
+		izquierda.add(pnlNvl5);
+		
+	}
+	
+	private void seleccionar(int lvl){
+		nivel=lvl;
+		
+		switch (nivel) {
 		case 1:
-			lblL.setText("Version fácil del juego, ideal para principiantes y gente adaptándose al juego. 4 Líneas de bloques, anchura de la barra aumentada, velocidad estándar");
+			lblL.setText("<HTML>Version fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 4 líneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estándar</HTML>");
 			break;
 		case 2:
-			lblL.setText("Versión media del juego, para gente con algo más de experiencia. 6 Líneas de bloques, anchura de barra y velócidad estándar");
+			lblL.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 6 líneas de bloques <br> - anchura de barra y velócidad estándar");
 			break;
 		case 3:
-			lblL.setText("Versión difícil del juego, para gente buscando un reto. 8 líneas de bloques, anchura de barra estándar, velócidad aumentada");
+			lblL.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 8 líneas de bloques <br> - anchura de barra estándar <br> - velócidad aumentada</HTML>");
 			break;
 		case 4:
-			lblL.setText("Versión solo apta para quien busque completar el logro. 10 líneas de bloques, anchura de barra reducida, velócidad aumentada");
+			lblL.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 10 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
 			break;
 		case 5:
-			lblL.setText("Crea tu propio nivel y prueba tantas combinaciones de dificultad como quieras. Accede al botón de personalizar para cambiarlo. (La puntuación no se guardará en los ránkings)");
-			break;
-
-		default:
+			lblL.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botón de personalizar para cambiarlo <br>(La puntuación no se guardará en los ránkings)</HTML>");
 			break;
 		}
-		
-		JButton BotonNvl1 = new JButton("Novato");
-		Izquierda.add(BotonNvl1);
-		BotonNvl1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Nivel=1;
-				lblL.setText("Version fácil del juego, ideal para principiantes y gente adaptándose al juego. 4 Líneas de bloques, anchura de la barra aumentada, velocidad estándar");
-			}
-		});
-		JButton BotonNvl2 = new JButton("Est\u00E1ndar");
-		BotonNvl2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Nivel=2;
-				lblL.setText("Versión media del juego, para gente con algo más de experiencia. 6 Líneas de bloques, anchura de barra y velócidad estándar");
-			}
-		});
-		Izquierda.add(BotonNvl2);
-		
-		JButton BotonNvl3 = new JButton("Experto");
-		BotonNvl3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Nivel=3;
-				lblL.setText("Versión difícil del juego, para gente buscando un reto. 8 líneas de bloques, anchura de barra estándar, velócidad aumentada");
-			}
-		});
-		Izquierda.add(BotonNvl3);
-		
-		JButton BotonNvl4 = new JButton("Imposible");
-		BotonNvl4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Nivel=4;
-				lblL.setText("Versión solo apta para quien busque completar el logro. 10 líneas de bloques, anchura de barra reducida, velócidad aumentada");
-			}
-		});
-		Izquierda.add(BotonNvl4);
-		
-		JButton BotonNvl5 = new JButton("Personalizado");
-		if (Arkanoid.getArkanoid().isIdentificado()==false) {
-			BotonNvl5.setEnabled(false);
-		}
-		BotonNvl5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Nivel=5;
-				lblL.setText("Crea tu propio nivel y prueba tantas combinaciones de dificultad como quieras. Accede al botón de personalizar para cambiarlo. (La puntuación no se guardará en los ránkings)");
-			}
-		});
-		Izquierda.add(BotonNvl5);
-		
+		frame.repaint();
 	}
 
 }

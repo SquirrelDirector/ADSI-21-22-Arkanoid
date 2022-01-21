@@ -26,9 +26,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPasswordField;
 
-public class IURenovar extends JFrame {
+public class IU_Renovar extends JFrame {
 
-	private static IURenovar miIURenovar;
+	private static IU_Renovar miIU_Renovar;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JButton btnEnviar;
@@ -47,7 +47,7 @@ public class IURenovar extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IURenovar frame = new IURenovar();
+					IU_Renovar frame = new IU_Renovar();
 					frame.setVisible(true);
 					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
@@ -60,16 +60,16 @@ public class IURenovar extends JFrame {
 		});
 	}
 
-	public static IURenovar getMiIURenovar(){
-		if (miIURenovar==null)
-			miIURenovar=new IURenovar();
-		return miIURenovar;
+	public static IU_Renovar getMiIU_Renovar(){
+		if (miIU_Renovar==null)
+			miIU_Renovar=new IU_Renovar();
+		return miIU_Renovar;
 	}
 	
 	/**
 	 * Create the frame.
 	 */
-	private IURenovar() {
+	private IU_Renovar() {
 		initialize();
 	}
 	private void initialize() {
@@ -103,7 +103,7 @@ public class IURenovar extends JFrame {
 					int cod=Arkanoid.getArkanoid().cambiarContrasena(email, txtPassword.getText(), txtRepeat.getText());
 					switch (cod) {
 					case 0: //todo bien
-						IUIdentificarse.getMiIUIdentificarse().mostrarVentana();
+						IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
 						((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
 						break;
 					case 1: //las contraseñas no coinciden
@@ -148,7 +148,7 @@ public class IURenovar extends JFrame {
 			btnReturn.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					IUIdentificarse.getMiIUIdentificarse().mostrarVentana();
+					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
 					((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
 				}
 			});
