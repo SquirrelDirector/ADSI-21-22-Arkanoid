@@ -31,7 +31,6 @@ public class GestorDB {
 	public ResultadoSQL execSQL(String sql) {
 		ResultadoSQL rSQL = null;
 		JSONArray js = new JSONArray(getConsulta(sql));
-		
 		if(js!=null) {
 			rSQL = new ResultadoSQL(js.length());
 			for(int i=0; i<js.length(); i++){
@@ -50,9 +49,9 @@ public class GestorDB {
 		String charset = "UTF-8";
 		HttpURLConnection httpConnection;
 		try {
-			String query = String.format("query=%s",
+			String query = String.format("query=%s&token=",
 				    URLEncoder.encode(sql, charset));
-			httpConnection= (HttpURLConnection) new URL("http://127.0.0.1").openConnection();
+			httpConnection= (HttpURLConnection) new URL("http://infotek.es/eib_adsi/index.php").openConnection();
 			enviarDatos(httpConnection, query, charset);
 			respuesta = recibirDatos(httpConnection);
 			
@@ -63,6 +62,7 @@ public class GestorDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(respuesta);
 		return respuesta;
 	}
 
@@ -73,7 +73,6 @@ public class GestorDB {
 		
 		hurl.setRequestProperty("Accept-Charset", charset);
 		hurl.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
-
 		OutputStream output = hurl.getOutputStream();
 		output.write(consulta.getBytes(charset));
 	}
