@@ -25,8 +25,8 @@ public class GestorNiveles {
         ResultadoSQL rs = GestorDB.getGestorDB().execSQL(preg);
         Double DatosNivel[] = new Double[3];
         DatosNivel[1]=(Double) rs.get("Velocidad");
-        DatosNivel[2]=(Double) rs.get("Velocidad");
-        DatosNivel[3]=(Double) rs.get("Velocidad");
+        DatosNivel[2]=(Double) rs.get("Anchura");
+        DatosNivel[3]=(Double) rs.get("Num_Ladrillos");
         return DatosNivel;
     }
 
