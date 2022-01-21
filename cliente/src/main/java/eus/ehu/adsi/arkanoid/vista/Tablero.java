@@ -54,7 +54,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 			public void run() {
 				try {
 					Tablero frame = new Tablero();
-					frame.setVisible(true);
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -134,7 +134,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 				super.mouseClicked(e);
 				dispose();
 				Tablero newframe = new Tablero();
-				newframe.setVisible(true);	
+				newframe.setVisible(true);
+				clip.stop();
 			}
 		});
 		
@@ -182,7 +183,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		
 		tableroPanel = new PanelTablero();
 		contentPane.add(tableroPanel, BorderLayout.CENTER);
-		        
+		setVisible(true);
         jugar();
 	}
 	
