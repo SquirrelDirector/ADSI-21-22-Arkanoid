@@ -6,9 +6,13 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class InterfazBase extends JPanel {
 	Image icon;
@@ -38,12 +42,12 @@ public class InterfazBase extends JPanel {
 		EtiquetaTitulo tituloPersonalizar = new EtiquetaTitulo(texto);
 		panelCabecera.add(tituloPersonalizar);
 		
-		panelIdentidades = new JPanel();
+		panelIdentidades = new PnlIdentidad();
 		panelIdentidades.setBackground(new Color(0,0,0,0));
 		panelInicial.add(panelIdentidades, BorderLayout.EAST);
 		
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(new Color(0,0,0,200));
+		panelPrincipal.setBackground(new Color(0,0,0,0));
 		this.add(panelPrincipal, BorderLayout.CENTER);
 		
 		//this.add(new Panel());
@@ -62,5 +66,17 @@ public class InterfazBase extends JPanel {
 	public void ocultarBotonRegreso() {
 		volverButton.setVisible(false);
 		
+	}
+	
+	public void setEventoRegreso(final JFrame ventanaAnterior) {
+		volverButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				ventanaAnterior.setVisible(true);
+				JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+				topFrame.dispose();
+			}
+		});
 	}
 }

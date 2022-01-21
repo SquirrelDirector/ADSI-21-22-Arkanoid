@@ -135,12 +135,16 @@ public class Partida extends Observable {
 		notifyObservers(paddle);
 	}
 	
-	public void ganar() {
+	public boolean ganar() {
 		if (puntuacion == (Config.COUNT_BLOCKS_X * Config.COUNT_BLOCKS_Y)) {
 			ganar = true;
 			crono.parar();
+
+			
+			
 			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
 		}
+		return ganar;
 	}
 	
 	public void generarPartida() {
@@ -172,6 +176,14 @@ public class Partida extends Observable {
 	
 	public int getNumBloques() {
 		return this.bloques.size();
+	}
+
+	public int getPuntuacion(){
+		return puntuacion;
+	}
+
+	public int getTiempo(){
+		return crono.getSegundosTotales();
 	}
 
 }

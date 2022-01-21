@@ -1,18 +1,14 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
-
-import java.beans.PropertyChangeEvent;
-import java.util.Date;
-
 public class Puntuacion {
 
 	private Usuario usuario;
 	private int nivel;
 	private int puntuacion;
-	private Date fecha;
+	private String fecha;
 	private int tiempo;
 
-	public Puntuacion(Usuario pUsuario, int pNivel, int pPuntuacion, Date pFecha, int pTiempo) {
+	public Puntuacion(Usuario pUsuario, int pNivel, int pPuntuacion, String pFecha, int pTiempo) {
 		this.usuario = pUsuario;
 		this.nivel = pNivel;
 		this.puntuacion = pPuntuacion;
@@ -29,7 +25,7 @@ public class Puntuacion {
 	public int getPuntuacion(){
 		return this.puntuacion;
 	}
-	public Date getFecha(){
+	public String getFecha(){
 		return this.fecha;
 	}
 	public int getTiempo(){

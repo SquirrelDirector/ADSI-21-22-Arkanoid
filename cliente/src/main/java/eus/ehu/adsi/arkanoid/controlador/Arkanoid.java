@@ -9,6 +9,11 @@ import org.json.JSONObject;
 
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -30,7 +35,7 @@ public class Arkanoid extends Observable {
 	private Usuario usuario;
 
 	private Arkanoid() {
-
+		usuario=new Usuario();
 	}
 
 	public static Arkanoid getArkanoid() {
@@ -94,7 +99,13 @@ public class Arkanoid extends Observable {
 			miPartida.testBola();
 			
 			//comprobar si se han roto todos los bloques
-			miPartida.ganar();
+			if(Partida.getMiPartida().ganar() && usuario.isIdentificado()){
+				Puntuacion p = new Puntuacion(usuario, usuario.getNivelDefault(), Partida.getMiPartida().getPuntuacion(), LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss")), Partida.getMiPartida().getTiempo());
+				usuario.anadirPuntuacion(p);
+				String s = "INSERT INTO Puntuacion (NombreUsuario, idNivel, Numero, ValorFechaHora, Tiempo,) VALUES ('"+usuario+"', "+usuario.getNivelDefault()+", "+Partida.getMiPartida().getPuntuacion()+", '"+LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss"))+"', "+Partida.getMiPartida().getTiempo()+");";
+				System.out.println(s);
+				GestorDB.getGestorDB().execSQL(s);
+			}
 		}
 	}
 
