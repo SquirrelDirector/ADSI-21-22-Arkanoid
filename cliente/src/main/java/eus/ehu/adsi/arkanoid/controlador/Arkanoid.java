@@ -378,8 +378,9 @@ public class Arkanoid extends Observable {
 		
 		JSONObject datosPartida = miPartida.getDatosPartidaActual();
 		if(usuario.isIdentificado()){
+			JSONArray logros = miPartida.getLogrosPartida();
 			JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
-			agregarJSON(datosPartida, datosHistoricos);
+			datosPartida = agregarJSON(datosPartida, datosHistoricos, logros);
 		}
 		return datosPartida;
 	}
@@ -389,9 +390,11 @@ public class Arkanoid extends Observable {
 	 * @param datosPartida
 	 * @param datosHistoricos
 	 */
-	private void agregarJSON(JSONObject datosPartida, JSONObject datosHistoricos) {
-		// TODO - implement Arkanoid.publicarResultados
-		throw new UnsupportedOperationException();
+	private JSONObject agregarJSON(JSONObject datosPartida, JSONObject datosHistoricos, JSONArray logros) {
+		datosPartida.put("mejorTiempo", datosHistoricos.get("mejorTiempo"));
+		datosPartida.put("mejorPuntuacion", datosHistoricos.get("mejorPuntuacion"));
+		datosPartida.put("logros", logros.getJSONObject(0));
+		return datosPartida;
 	}
 
 	/**
