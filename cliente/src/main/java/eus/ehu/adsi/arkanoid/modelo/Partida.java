@@ -50,6 +50,10 @@ public class Partida extends Observable {
 		JSONObject datos = new JSONObject();
 		datos.put("tiempoPartida", crono);
 		datos.put("puntuacionConseguida", puntuacion);
+		return datos;
+	}
+
+	public JSONArray getLogrosPartida(){
 		JSONArray logros = new JSONArray();
 		Iterator<Logro> itr = listaLogros.iterator();
 		while(itr.hasNext()) {
@@ -58,8 +62,7 @@ public class Partida extends Observable {
 			logro.put("nombreLogro", l.getNombre());
 			logros.put(logro);
 		}
-		datos.put("logrosConseguidos", logros);
-		return datos;
+		return logros;
 	}
 
 	public void incrementarPuntuacion() {
