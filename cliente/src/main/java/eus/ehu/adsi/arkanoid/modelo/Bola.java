@@ -42,5 +42,25 @@ public class Bola extends GameObject {
 	public void modificarBola(double n) {
 		this.radius += n;
 	}
+	
+	public void update() {
+		x += velocityX * Config.FT_STEP;
+		y += velocityY * Config.FT_STEP;
+
+		if (left() < 0)
+			velocityX = Config.BALL_VELOCITY;
+		else if (right() > Config.SCREEN_WIDTH)
+			velocityX = -Config.BALL_VELOCITY;
+		if (top() < 0) {
+			velocityY = Config.BALL_VELOCITY;
+		} else if (bottom() > Config.SCREEN_HEIGHT) {
+			velocityY = -Config.BALL_VELOCITY;
+			Partida miPartida = Partida.getMiPartida();
+			x = Config.SCREEN_WIDTH / 2;
+			y = Config.SCREEN_HEIGHT / 2;
+			miPartida.restarVidas();
+		}
+
+	}
 
 }
