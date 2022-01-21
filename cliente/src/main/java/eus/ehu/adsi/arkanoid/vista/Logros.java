@@ -10,26 +10,21 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
-
-import java.awt.Panel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.awt.GridLayout;
-import java.awt.Label;
+import java.awt.LayoutManager;
 
 import javax.swing.JLabel;
-import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
-import java.awt.Font;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.CardLayout;
 
 public class Logros extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	private InterfazBase contentPane;
 	private JLabel lblLogout;
 	private JLabel lblDescrp_content;
 	private JLabel lblFecha_content;
@@ -56,6 +51,8 @@ public class Logros extends JDialog {
 	 * Create the dialog.
 	 */
 	public Logros() {
+		contentPane = new InterfazBase("Logros");
+		setContentPane(contentPane);
 		setVisible(true);
 		/* creamos los logros a mano para simular el array de json */
 		JSONObject logro1 = new JSONObject();
@@ -103,58 +100,38 @@ public class Logros extends JDialog {
 		logros.put(logro6);
 
 		setBounds(100, 100, 750, 574);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new BorderLayout(0, 0));
-
-		Panel panel_titulo = new Panel();
-		contentPanel.add(panel_titulo, BorderLayout.NORTH);
-		panel_titulo.setLayout(new GridLayout(1, 0, 0, 0));
-
-		JLabel lblTitulo = new JLabel("LOGROS");
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblTitulo.setHorizontalAlignment(SwingConstants.LEFT);
-		panel_titulo.add(lblTitulo);
-
-		Panel panel_usuario = new Panel();
-		panel_titulo.add(panel_usuario);
-		panel_usuario.setLayout(new BorderLayout(0, 0));
-
-		JLabel lblNewLabel = new JLabel("Usuario");
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		panel_usuario.add(lblNewLabel);
-
-		lblLogout = new JLabel("Logout");
-		lblLogout.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblLogout.setHorizontalAlignment(SwingConstants.RIGHT);
-		panel_usuario.add(lblLogout, BorderLayout.SOUTH);
-
+		contentPane.panelPrincipal.setLayout(new CardLayout(0, 0));
+		
+		
+		
+		//Panel panel_logros = new Panel();
+		//contentPane.panelPrincipal.add(panel_logros);
+		JPanel UI = new JPanel();
+		UI.setLayout(new BorderLayout());
 		JPanel panel_logros = new JPanel();
-		contentPanel.add(panel_logros, BorderLayout.CENTER);
 		panel_logros.setLayout(new GridLayout(0, 2, 0, 0));
+		UI.add(panel_logros, BorderLayout.CENTER);
 
 		JPanel panel_descp_logro = new JPanel();
-		contentPanel.add(panel_descp_logro, BorderLayout.SOUTH);
 		panel_descp_logro.setLayout(new GridLayout(2, 0, 0, 0));
-
-		JLabel lblDescrp = new JLabel("Descripcion del logro:");
+		
+		EtiquetaNormal lblDescrp = new EtiquetaNormal("Descripcion del logro:");
 		lblDescrp.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_descp_logro.add(lblDescrp);
 
-		lblDescrp_content = new JLabel("");
+		lblDescrp_content = new EtiquetaNormal("");
 		panel_descp_logro.add(lblDescrp_content);
 
-		JLabel lblFecha = new JLabel("Logro conseguido el:");
+		EtiquetaNormal lblFecha = new EtiquetaNormal("Logro conseguido el:");
 		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_descp_logro.add(lblFecha);
 
-		lblFecha_content = new JLabel("");
+		lblFecha_content = new EtiquetaNormal("");
 		panel_descp_logro.add(lblFecha_content);
 
-
-
+		UI.add(panel_descp_logro, BorderLayout.SOUTH);
+		
+		contentPane.panelPrincipal.add(UI, "name_169472020845800");
 		// Arkanoid arka = Arkanoid.getArkanoid();
 		// JSONArray logros = arka.getLogros();
 
@@ -169,7 +146,7 @@ public class Logros extends JDialog {
 			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 			panel_logros.add(lblNewLabel_1); 
 			*/
-			btn= new JButton(nombreLogro);
+			btn= new Boton(nombreLogro);
 			ac = new Actioner(logro, lblDescrp_content, lblFecha_content);
 			btn.addActionListener(ac);
 			panel_logros.add(btn);
