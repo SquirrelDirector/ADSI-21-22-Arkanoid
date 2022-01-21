@@ -24,3 +24,5 @@ hs_err_pid*
 /target/
 /.apt_generated/
 /.apt_generated_tests/
+
+src/main/java/eus/ehu/adsi/arkanoid/controlador/GestorDB.java

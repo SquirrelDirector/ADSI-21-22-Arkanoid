@@ -17,6 +17,7 @@ public class Bloque extends Rectangle {
 		if (this.destroyed == false) {
 			Partida miPartida = Partida.getMiPartida();
 			miPartida.incrementarPuntuacion();
+			System.out.println("Se a roto un bloque");
 		}
 		this.destroyed = true;
 	}

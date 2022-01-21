@@ -67,6 +67,7 @@ public class IU_Niveles {
 			seleccionar(1);
 		
 		JPanel base=new InterfazBase("SELECCIONAR NIVEL");
+		((InterfazBase) base).setEventoRegreso(new IU_Inicial());
 		frame.add(base);
 		
 		JPanel principal=new JPanel();
@@ -126,8 +127,8 @@ public class IU_Niveles {
 			public void actionPerformed(ActionEvent arg0) {
 				if (Arkanoid.getArkanoid().isIdentificado()){
 					Arkanoid.getArkanoid().actualizarUltimaPartida(nivel);
-					Arkanoid.getArkanoid().updateConfig(Arkanoid.getArkanoid().obtenerDatosNivel(nivel));
 				}
+					Arkanoid.getArkanoid().updateConfig(Arkanoid.getArkanoid().obtenerDatosNivel(nivel));
 				new Tablero().setVisible(true);
 			frame.dispose();
 			}

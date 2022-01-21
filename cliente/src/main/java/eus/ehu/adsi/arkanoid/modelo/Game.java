@@ -31,7 +31,14 @@ public class Game {
 	 * @param mBall
 	 */
 	public static void testCollision(Paddle mPaddle, Bola mBall) {
-		System.out.println("Comprobando colision con paddle");
+		
+		if (!Game.isIntersecting(mPaddle, mBall))
+			return;
+		mBall.velocityY = -Config.BALL_VELOCITY;
+		if (mBall.x < mPaddle.x)
+			mBall.velocityX = -Config.BALL_VELOCITY;
+		else
+			mBall.velocityX = Config.BALL_VELOCITY;
 	}
 
 	/**
@@ -58,6 +65,7 @@ public class Game {
 		double minOverlapY = ballFromTop ? overlapTop : overlapBottom;
 
 		if (minOverlapX < minOverlapY) {
+			System.out.println("he golpeado");
 			mBall.velocityX = ballFromLeft ? -Config.BALL_VELOCITY : Config.BALL_VELOCITY;
 		} else {
 			mBall.velocityY = ballFromTop ? -Config.BALL_VELOCITY : Config.BALL_VELOCITY;
