@@ -28,7 +28,7 @@ if($token==""){
 	     array_push($filas, $row);
 	  }
 	}
-	echo json_encode($filas);
+	echo json_encode($filas, JSON_UNESCAPED_SLASHES);
 	mysqli_close($conn);
 	}
 	
