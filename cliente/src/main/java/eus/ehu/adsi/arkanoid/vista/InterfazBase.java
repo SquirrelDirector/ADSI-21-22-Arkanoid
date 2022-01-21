@@ -6,9 +6,13 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class InterfazBase extends JPanel {
 	Image icon;
@@ -62,5 +66,17 @@ public class InterfazBase extends JPanel {
 	public void ocultarBotonRegreso() {
 		volverButton.setVisible(false);
 		
+	}
+	
+	public void setEventoRegreso(final JFrame ventanaAnterior) {
+		volverButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				ventanaAnterior.setVisible(true);
+				JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+				topFrame.dispose();
+			}
+		});
 	}
 }
