@@ -62,7 +62,6 @@ public class GestorDB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(respuesta);
 		return respuesta;
 	}
 
