@@ -78,6 +78,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		
 		addKeyListener(this);
 		
+		this.createBufferStrategy(1);
+		
 		setFocusable(true);
 		
 		JPanel panel_1 = new JPanel();
@@ -189,19 +191,25 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		Arkanoid.getArkanoid().jugar();
 		Arkanoid.getArkanoid().addObserverPartida(this);
 		Arkanoid.getArkanoid().addObserverCrono(this);
+		
 		reproducirSonido();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Partida) {
+			System.out.println("Partida");
 			if (arg instanceof Bloque) {
 				puntuacion++;
 				score.setText("Score:  "+puntuacion);
+			} else if (arg instanceof Integer) {
+				lives.setText("Lives:  "+(int)arg);
 			}
-			BufferStrategy bf = this.getBufferStrategy();
-			Graphics g = bf.getDrawGraphics();
+			//BufferStrategy bf = this.getBufferStrategy();
+			Graphics g = this.getGraphics();//bf.getDrawGraphics();
+			System.out.println(g);
 			tableroPanel.updateTablero(arg, g);
+			//bf.show();
 		} else if (o instanceof Cronometro) {
             cronometro.setText(" "+(String)arg+" ");
         }	
@@ -219,7 +227,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
     }
 
     public void keyPressed(KeyEvent event) {
-    	System.out.println("teclado");
+    	//System.out.println("teclado");
 		tableroPanel.moverPaddle(event);
 	}
   

@@ -40,6 +40,8 @@ public class Partida extends Observable {
 	public void restarVidas() {
 		vidasRestantes--;
 		System.out.println("vidas-"+vidasRestantes);
+		setChanged();
+		notifyObservers(vidasRestantes);
 		if (vidasRestantes == 0) {
 			gameOver = true;
 			crono.parar();
@@ -106,6 +108,8 @@ public class Partida extends Observable {
 	
 	public void updatePaddle() {
 		this.paddle.update();
+		setChanged();
+		notifyObservers(paddle);
 	}
 
 	/**
@@ -134,8 +138,8 @@ public class Partida extends Observable {
 	
 	public void testPaddle() {
 		Game.testCollision(paddle, bola);
-		setChanged();
-		notifyObservers(paddle);
+		//setChanged();
+		//notifyObservers(paddle);
 	}
 	
 	public boolean ganar() {

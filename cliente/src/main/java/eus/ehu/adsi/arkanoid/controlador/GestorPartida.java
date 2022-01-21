@@ -24,7 +24,7 @@ public class GestorPartida {
 	
 	@SuppressWarnings("deprecation")
 	public void addObserverCrono(Tablero tablero){
-		Partida.getMiPartida().deleteObservers();
+		//Partida.getMiPartida().deleteObservers();
         Partida.getMiPartida().getCrono().addObserver(tablero);
     }
 	
