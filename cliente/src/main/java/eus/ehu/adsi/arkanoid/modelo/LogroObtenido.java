@@ -6,7 +6,7 @@ public class LogroObtenido {
 
 	private Date fecha;
 	private Logro logro;
-	private double progreso;
+	private float progreso;
 
 	public LogroObtenido(Date pFecha, Logro pLogro, float pProgreso) {
 		this.fecha = pFecha;
