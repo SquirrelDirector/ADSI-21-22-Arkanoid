@@ -13,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -116,7 +118,7 @@ public class IU_Niveles implements Observer {
 		}
 		botonPersonalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Personalizacion();
+				new IU_Personalizacion();
 				frame.dispose();
 			}
 		});

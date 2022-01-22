@@ -1,4 +1,4 @@
-package eus.ehu.adsi.arkanoid.vista;
+package eus.ehu.adsi.arkanoid.vista.claseObjetos;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -20,12 +20,5 @@ public class Boton extends JButton {
 		this.setBorder(null);
 		this.setFocusPainted(false);
 		this.setBorder(new EmptyBorder(10,10,10,10));
-		/*this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(java.awt.event.MouseEvent e) {
-            	e.getComponent().setBackground(new Color(0,0,0,75));
-            }
-		});*/
 	}
-
 }

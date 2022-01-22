@@ -25,6 +25,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputContrasena;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputTexto;
 
 import javax.swing.JScrollPane;
 import java.awt.GridLayout;
@@ -39,12 +43,12 @@ import javax.swing.ButtonGroup;
 
 import java.awt.Component;
 
-public class ModificarDatos extends JDialog {
+public class IU_ModificarDatos extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JButton guardarButton, volverButton;
-	private JTextField nombreUsuario;
-	private JPasswordField passwordField;
+	private JButton volverButton;
+	private InputTexto nombreUsuario;
+	private InputContrasena passwordField;
 	private JPanel avatarLabels, avataresButton;
 	private JScrollPane jspA;
 	
@@ -59,7 +63,7 @@ public class ModificarDatos extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			ModificarDatos dialog = new ModificarDatos();
+			IU_ModificarDatos dialog = new IU_ModificarDatos();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -70,7 +74,7 @@ public class ModificarDatos extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ModificarDatos() {
+	public IU_ModificarDatos() {
 		setBounds(100, 100, 550, 400);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,7 +96,7 @@ public class ModificarDatos extends JDialog {
 					panel.add(avatarPanel);
 					avatarPanel.setLayout(new BoxLayout(avatarPanel, BoxLayout.Y_AXIS));
 					{
-						JLabel lblNewLabel = new JLabel("CAMBIAR AVATAR");
+						EtiquetaNormal lblNewLabel = new EtiquetaNormal("CAMBIAR AVATAR");
 						lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 						lblNewLabel.setBorder(new EmptyBorder(5, 0, 5, 0));
 						lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -133,7 +137,7 @@ public class ModificarDatos extends JDialog {
 					panel.add(nombrePanel);
 					nombrePanel.setLayout(new GridLayout(2, 2, 0, 0));
 					{
-						JLabel lblNewLabel_1 = new JLabel("CAMBIAR NOMBRE DE USUARIO");
+						EtiquetaNormal lblNewLabel_1 = new EtiquetaNormal("CAMBIAR NOMBRE DE USUARIO");
 						lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 						nombrePanel.add(lblNewLabel_1);
 					}
@@ -141,7 +145,7 @@ public class ModificarDatos extends JDialog {
 						JPanel panel_1 = new JPanel();
 						nombrePanel.add(panel_1);
 						{
-							nombreUsuario = new JTextField();
+							nombreUsuario = new InputTexto();
 							nombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 							nombreUsuario.setColumns(20);
 							nombreUsuario.setPreferredSize(new Dimension(0, 25));
@@ -155,7 +159,7 @@ public class ModificarDatos extends JDialog {
 					panel.add(contrasenaPanel);
 					contrasenaPanel.setLayout(new GridLayout(2, 1, 0, 0));
 					{
-						JLabel lblNewLabel_2 = new JLabel("CAMBIAR PASSWORD");
+						EtiquetaNormal lblNewLabel_2 = new EtiquetaNormal("CAMBIAR PASSWORD");
 						lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 						contrasenaPanel.add(lblNewLabel_2);
 					}
@@ -163,9 +167,8 @@ public class ModificarDatos extends JDialog {
 						JPanel panel_1 = new JPanel();
 						contrasenaPanel.add(panel_1);
 						{
-							passwordField = new JPasswordField();
+							passwordField = new InputContrasena();
 							passwordField.setHorizontalAlignment(SwingConstants.CENTER);
-							passwordField.setColumns(20);
 							passwordField.setPreferredSize(new Dimension(0, 25));
 							panel_1.add(passwordField);
 						}
@@ -182,6 +185,12 @@ public class ModificarDatos extends JDialog {
 				volverButton.setIcon(new ImageIcon("D:\\Uni\\ADSI-21-22-Arkanoid\\cliente\\src\\main\\resources\\general\\back.png"));
 				volverButton.setBorder(null);
 				volverButton.setContentAreaFilled(false);
+				volverButton.addActionListener(new ActionListener() {
+			        @Override
+			        public void actionPerformed(ActionEvent e) {
+			            dispose();
+			        }
+			    });
 				topPane.add(volverButton);
 			}
 			{
@@ -195,23 +204,15 @@ public class ModificarDatos extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				guardarButton = new JButton("GUARDAR");
+				Boton guardarButton = new Boton("GUARDAR");
+				guardarButton.addActionListener(new ActionListener() {
+			        public void actionPerformed(ActionEvent e) {
+			            guardarPersonalizacion();
+			        }
+			    });
 				buttonPane.add(guardarButton);
 			}
 		}
-		
-		guardarButton.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	            guardarPersonalizacion();
-	        }
-	    });
-	    
-	    volverButton.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            dispose();
-	        }
-	    });
 	    
 	    getAvatares();
 	    setInfoUsuario();
