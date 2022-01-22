@@ -183,17 +183,21 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		});
 		panel_5.add(pause);
 		
+		jugar();
+		
 		tableroPanel = new PanelTablero();
 		contentPane.add(tableroPanel, BorderLayout.CENTER);
 		setVisible(true);
-        jugar();
+		
+		Arkanoid.getArkanoid().addObserverPartida(this);
+		Arkanoid.getArkanoid().addObserverCrono(this);
 	}
 	
 	
 	private void jugar() {
 		Arkanoid.getArkanoid().jugar();
-		Arkanoid.getArkanoid().addObserverPartida(this);
-		Arkanoid.getArkanoid().addObserverCrono(this);
+		//Arkanoid.getArkanoid().addObserverPartida(this);
+		//Arkanoid.getArkanoid().addObserverCrono(this);
 		
 		reproducirSonido();
 	}
@@ -201,7 +205,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Partida) {
-			System.out.println("Partida");
+			//System.out.println("Partida");
 			if (arg instanceof Bloque) {
 				puntuacion++;
 				score.setText("Score:  "+puntuacion);
@@ -209,8 +213,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 				lives.setText("Lives:  "+(int)arg);
 			}
 			//BufferStrategy bf = this.getBufferStrategy();
-			Graphics g = this.getGraphics();//bf.getDrawGraphics();
-			System.out.println(g);
+			Graphics g = this.tableroPanel.getGraphics();//bf.getDrawGraphics();
+			//System.out.println(g);
 			tableroPanel.updateTablero(arg, g);
 			//bf.show();
 		} else if (o instanceof Cronometro) {

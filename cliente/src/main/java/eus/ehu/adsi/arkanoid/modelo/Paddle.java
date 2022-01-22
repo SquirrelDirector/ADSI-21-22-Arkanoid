@@ -1,7 +1,5 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
-import classic.eus.ehu.adsi.arkanoid.view.Config;
-
 public class Paddle extends Rectangle {
 
 	public double velocity = 0.0;
@@ -27,6 +25,7 @@ public class Paddle extends Rectangle {
 	
 	public void update() {
 		x += velocity * Config.FT_STEP;
+		System.out.println(Config.PADDLE_VELOCITY);
 	}
 	
 	public void stopMove() {

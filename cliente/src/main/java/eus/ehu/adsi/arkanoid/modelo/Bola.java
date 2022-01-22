@@ -1,9 +1,5 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
-import classic.eus.ehu.adsi.arkanoid.view.Config;
-import classic.eus.ehu.adsi.arkanoid.view.Paddle;
-import classic.eus.ehu.adsi.arkanoid.view.ScoreBoard;
-
 public class Bola extends GameObject {
 	
 	public double radius = Config.BALL_RADIUS;

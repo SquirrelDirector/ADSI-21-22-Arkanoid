@@ -11,6 +11,8 @@ public class Bloque extends Rectangle {
 	 */
 	public Bloque(double x, double y) {
 		super(x,y); 
+		super.sizeX = Config.BLOCK_WIDTH;
+		super.sizeY = Config.BLOCK_HEIGHT;
 	}
 
 	public void romper() {

@@ -200,6 +200,10 @@ public class Partida extends Observable {
 	public int getTiempo(){
 		return crono.getSegundosTotales();
 	}
+	
+	public ArrayList<Bloque> getBloques(){
+		return this.bloques;
+	}
 
 	public void actualizarPuntuacion(int nivel){
 		this.puntuacion = ((puntuacion*(vidasRestantes+1)*nivel)/crono.getSegundosTotales())*1000);
