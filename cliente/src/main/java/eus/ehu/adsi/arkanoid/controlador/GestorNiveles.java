@@ -21,9 +21,9 @@ public class GestorNiveles {
         String preg="SELECT Velocidad, Anchura, Num_Ladrillos FROM Nivel WHERE idNivel=%int%";
         ResultadoSQL rs = GestorDB.getGestorDB().execSQL(preg);
         Double DatosNivel[] = new Double[3];
-        DatosNivel[1]=(Double) rs.get("Velocidad");
-        DatosNivel[2]=(Double) rs.get("Anchura");
-        DatosNivel[3]=(Double) rs.get("Num_Ladrillos");
+        DatosNivel[0]=(Double) rs.get("Velocidad");
+        DatosNivel[1]=(Double) rs.get("Anchura");
+        DatosNivel[2]=(Double) rs.get("Num_Ladrillos");
         return DatosNivel;
     }
 
