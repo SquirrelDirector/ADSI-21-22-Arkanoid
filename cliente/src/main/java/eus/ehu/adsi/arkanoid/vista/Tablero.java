@@ -69,7 +69,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	 */
 	public Tablero() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT);
+		setBounds(100, 100, Config.SCREEN_WIDTH + 20, Config.SCREEN_HEIGHT + 115);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		contentPane = new JPanel();

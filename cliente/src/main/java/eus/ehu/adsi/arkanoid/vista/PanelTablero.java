@@ -21,10 +21,8 @@ import eus.ehu.adsi.arkanoid.modelo.Partida;
 @SuppressWarnings("serial")
 public class PanelTablero extends JPanel {
    // Container box's width and height
-   private static final int BOX_WIDTH = Config.SCREEN_WIDTH - 20;
-   private static final int BOX_HEIGHT = Config.SCREEN_HEIGHT - 115;
-   
-   private Graphics gBola;
+   private static final int BOX_WIDTH = Config.SCREEN_WIDTH;
+   private static final int BOX_HEIGHT = Config.SCREEN_HEIGHT;
    
    //Bricks
    private ArrayList<Bloque> bricks;
@@ -106,7 +104,8 @@ public class PanelTablero extends JPanel {
       for (Bloque brick : bricks) {
     	  if (i == ladrilloSuerte) g.setColor(Config.LUCK_BRICK_COLOR);
     	  else g.setColor(Config.BRICK_COLOR);
-    	  g.fillRect((int) brick.left()-10+(int)sizeX/2, (int) brick.top()-115+(int)sizeY/2, (int) sizeX, (int) sizeY);
+    	  //g.fillRect((int) brick.left()-10+(int)sizeX/2, (int) brick.top()-115+(int)sizeY/2, (int) sizeX, (int) sizeY);
+    	  g.fillRect((int) brick.left()-30+(int)sizeX/2, (int) brick.top()-5+(int)sizeY/2, (int) sizeX, (int) sizeY);
   		  i++;
 	  }
   
@@ -131,8 +130,8 @@ public class PanelTablero extends JPanel {
 		   drawPaddle(g, p);
 	   }
 	   
-	   //repaint();
-	   //revalidate();
+	   repaint();
+	   revalidate();
    }
    
    private void drawBola(Graphics g, Bola b) { 
@@ -141,7 +140,6 @@ public class PanelTablero extends JPanel {
 	   
 	   g.setColor(Config.BALL_COLOR);
 	   g.fillOval((int) b.left(), (int) b.top(), (int) b.radius * 2,(int) b.radius * 2);
-	   gBola = g;
 
 	   bola.x = b.x;
 	   bola.y = b.y;
@@ -154,15 +152,16 @@ public class PanelTablero extends JPanel {
 	   
 	   g.setColor(Config.PADDLE_COLOR);
 	   g.fillRect((int) (pl.left()), (int) (pl.top()), (int) sizeXPaddle, (int) sizeYPaddle);
-	   
+	   System.out.println(pl.x);
+	   System.out.println(pl.y);
 	   paddle.x = pl.x;
 	   paddle.y = pl.y;
    }
    
    private void drawBloqueRoto(Graphics g, Bloque bl) {
 	   g.setColor(Config.BACKGROUND_COLOR);
-	   //g.fillRect((int) (bl.left()), (int) (bl.top()), (int) sizeX, (int) sizeY);
-	   g.fillRect((int) bl.left()-10+(int)sizeX/2, (int) bl.top()-115+(int)sizeY/2, (int) sizeX, (int) sizeY);
+	   g.fillRect((int) (bl.left()-30), (int) (bl.top()-5), (int) sizeX, (int) sizeY);
+	   //g.fillRect((int) bl.left()-10+(int)sizeX/2, (int) bl.top()-115+(int)sizeY/2, (int) sizeX, (int) sizeY);
    }
    
    public void moverPaddle(KeyEvent event) {

@@ -25,7 +25,7 @@ public class Paddle extends Rectangle {
 	
 	public void update() {
 		x += velocity * Config.FT_STEP;
-		System.out.println(Config.PADDLE_VELOCITY);
+		System.out.println(this.x);
 	}
 	
 	public void stopMove() {
