@@ -202,7 +202,7 @@ public class Partida extends Observable {
 	}
 
 	public void actualizarPuntuacion(int nivel){
-		this.puntuacion = ((puntuacion*(vidasRestantes+1)*nivel)/crono.getSegundosTotales())*1000);
+		this.puntuacion = ((puntuacion*(vidasRestantes+1)*nivel)/crono.getSegundosTotales())*1000;
 	}
 
 }
