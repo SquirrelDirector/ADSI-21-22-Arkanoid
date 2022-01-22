@@ -100,6 +100,7 @@ public class Arkanoid extends Observable {
 			
 			//comprobar si se han roto todos los bloques
 			if(Partida.getMiPartida().ganar() && usuario.isIdentificado()){
+				Partida.getMiPartida().actualizarPuntuacion(usuario.getNivelDefault());
 				Puntuacion p = new Puntuacion(usuario, usuario.getNivelDefault(), Partida.getMiPartida().getPuntuacion(), LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss")), Partida.getMiPartida().getTiempo());
 				usuario.anadirPuntuacion(p);
 				String s = "INSERT INTO Puntuacion (NombreUsuario, idNivel, Numero, ValorFechaHora, Tiempo,) VALUES ('"+usuario+"', "+usuario.getNivelDefault()+", "+Partida.getMiPartida().getPuntuacion()+", '"+LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss"))+"', "+Partida.getMiPartida().getTiempo()+");";
