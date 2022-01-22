@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -22,7 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.awt.CardLayout;
 
-public class Logros extends JDialog {
+public class Logros extends JFrame {
 
 	private InterfazBase contentPane;
 	private JLabel lblLogout;
@@ -37,7 +38,7 @@ public class Logros extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void mostrarVentana() {
 		try {
 			Logros dialog = new Logros();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -53,6 +54,7 @@ public class Logros extends JDialog {
 	public Logros() {
 		contentPane = new InterfazBase("Logros");
 		setContentPane(contentPane);
+		((InterfazBase) contentPane).setEventoRegreso(new IU_Inicial());
 		setVisible(true);
 		/* creamos los logros a mano para simular el array de json */
 		JSONObject logro1 = new JSONObject();

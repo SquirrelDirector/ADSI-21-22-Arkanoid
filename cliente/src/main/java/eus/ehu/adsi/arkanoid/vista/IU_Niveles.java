@@ -28,7 +28,7 @@ public class IU_Niveles {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void mostrarVentana() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -54,7 +54,7 @@ public class IU_Niveles {
 	 */
 	private void initialize() {
 		lblL = new EtiquetaNormal("");
-		lblL.setBackground(new Color(2,4,40)); //TODO - Este color hijuelaremaracamadrequeloremilperrasparió no se aplica, sospecho del repaint de seleccionar()
+		lblL.setBackground(new Color(2,4,40)); //TODO - Este color hijuelarremaracamadrequeloremilperrasparió no se aplica, sospecho del repaint de seleccionar()
 		lblL.setForeground(new Color(255,255,255));
 		
 		frame = new JFrame();
@@ -111,7 +111,7 @@ public class IU_Niveles {
 		botonPersonalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Personalizacion();
-			frame.dispose();
+				frame.dispose();
 			}
 		});
 		botones.add(pnlPersonalizar);
@@ -128,9 +128,9 @@ public class IU_Niveles {
 				if (Arkanoid.getArkanoid().isIdentificado()){
 					Arkanoid.getArkanoid().actualizarUltimaPartida(nivel);
 				}
-					Arkanoid.getArkanoid().updateConfig(Arkanoid.getArkanoid().obtenerDatosNivel(nivel));
+				Arkanoid.getArkanoid().updateConfig(Arkanoid.getArkanoid().obtenerDatosNivel(nivel));
 				new Tablero().setVisible(true);
-			frame.dispose();
+				frame.dispose();
 			}
 		});
 		botones.add(pnlJugar);

@@ -60,7 +60,7 @@ public class Personalizacion extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void mostrarVentana(String[] args) {
 		try {
 			Personalizacion dialog = new Personalizacion();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

@@ -73,7 +73,7 @@ public class Ranking {
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 668, 443);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 		
 		JPanel panelGeneral = new JPanel();
@@ -100,12 +100,12 @@ public class Ranking {
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
-					String tiempo = puntuacion.getString("tiempo");
+					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
 					JLabel labelNombre = new JLabel(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo);
+					JLabel labelTiempo = new JLabel(tiempo+"");
 					panel.add(labelTiempo);
 					JLabel labelPuntos = new JLabel(""+puntos);
 					panel.add(labelPuntos);
@@ -126,12 +126,12 @@ public class Ranking {
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
-					String tiempo = puntuacion.getString("tiempo");
+					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
 					JLabel labelNombre = new JLabel(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo);
+					JLabel labelTiempo = new JLabel(tiempo+"");
 					panel.add(labelTiempo);
 					JLabel labelPuntos = new JLabel(""+puntos);
 					panel.add(labelPuntos);
@@ -154,12 +154,12 @@ public class Ranking {
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
-					String tiempo = puntuacion.getString("tiempo");
+					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
 					JLabel labelNombre = new JLabel(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo);
+					JLabel labelTiempo = new JLabel(tiempo+"");
 					panel.add(labelTiempo);
 					JLabel labelPuntos = new JLabel(""+puntos);
 					panel.add(labelPuntos);
@@ -179,12 +179,12 @@ public class Ranking {
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
-					String tiempo = puntuacion.getString("tiempo");
+					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
 					JLabel labelNombre = new JLabel(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo);
+					JLabel labelTiempo = new JLabel(tiempo+"");
 					panel.add(labelTiempo);
 					JLabel labelPuntos = new JLabel(""+puntos);
 					panel.add(labelPuntos);
@@ -203,12 +203,12 @@ public class Ranking {
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
-					String tiempo = puntuacion.getString("tiempo");
+					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
 					JLabel labelNombre = new JLabel(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo);
+					JLabel labelTiempo = new JLabel(tiempo+"");
 					panel.add(labelTiempo);
 					JLabel labelPuntos = new JLabel(""+puntos);
 					panel.add(labelPuntos);
@@ -227,12 +227,12 @@ public class Ranking {
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
-					String tiempo = puntuacion.getString("tiempo");
+					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
 					JLabel labelNombre = new JLabel(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo);
+					JLabel labelTiempo = new JLabel(tiempo+"");
 					panel.add(labelTiempo);
 					JLabel labelPuntos = new JLabel(""+puntos);
 					panel.add(labelPuntos);
@@ -251,12 +251,12 @@ public class Ranking {
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
 					String nombreUsuario = puntuacion.getString("usuario");
-					String tiempo = puntuacion.getString("tiempo");
+					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
 					JLabel labelNombre = new JLabel(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo);
+					JLabel labelTiempo = new JLabel(tiempo+"");
 					panel.add(labelTiempo);
 					JLabel labelPuntos = new JLabel(""+puntos);
 					panel.add(labelPuntos);
@@ -285,12 +285,12 @@ public class Ranking {
 		for(int i = 0; i<ranking.length(); i++) {
 			JSONObject puntuacion = ranking.getJSONObject(i);
 			String nombreUsuario = puntuacion.getString("usuario");
-			String tiempo = puntuacion.getString("tiempo");
+			int tiempo = puntuacion.getInt("tiempo");
 			int puntos = puntuacion.getInt("puntuacion");
 			
 			JLabel labelNombre = new JLabel(nombreUsuario);
 			panel.add(labelNombre);
-			JLabel labelTiempo = new JLabel(tiempo);
+			JLabel labelTiempo = new JLabel(tiempo+"");
 			panel.add(labelTiempo);
 			JLabel labelPuntos = new JLabel(""+puntos);
 			panel.add(labelPuntos);

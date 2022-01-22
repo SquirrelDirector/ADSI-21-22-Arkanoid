@@ -52,9 +52,6 @@ public class IU_Identificarse extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args){
-		new IU_Identificarse().mostrarVentana();
-	}
 	
 	public void mostrarVentana() {
 		EventQueue.invokeLater(new Runnable() {

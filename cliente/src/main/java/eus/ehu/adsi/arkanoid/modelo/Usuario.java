@@ -22,7 +22,7 @@ public class Usuario {
 	private String codigoColorPaddle;
 	private int nivelDefault; 
 	private ArrayList<LogroObtenido> susLogros;
-	private ArrayList<Puntuacion> susPuntuaciones; //Al cargar las puntuaciones, de mayor a menor!
+	private ArrayList<Puntuacion> susPuntuaciones=new ArrayList<>(); //Al cargar las puntuaciones, de mayor a menor!
 	
 	public Usuario() {
 		
