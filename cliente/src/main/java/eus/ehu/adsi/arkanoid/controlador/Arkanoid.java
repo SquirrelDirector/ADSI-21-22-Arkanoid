@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -98,7 +99,12 @@ public class Arkanoid extends Observable {
 				miPartida.addLogro(ganarMismoNivel);
 
 				JSONArray logrosObtenidos = miPartida.getLogrosPartida();
-				usuario.cotejarLogros(logrosObtenidos);
+				try {
+					usuario.cotejarLogros(logrosObtenidos);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 	    };
 	    gameThread.start();  // Callback run()

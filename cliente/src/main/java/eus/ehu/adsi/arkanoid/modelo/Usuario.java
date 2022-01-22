@@ -2,6 +2,8 @@ package eus.ehu.adsi.arkanoid.modelo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -257,7 +259,7 @@ public class Usuario {
 		this.nivelDefault=idNivel;
 	}
 
-	public JSONArray cotejarLogros(JSONArray logros) {
+	public JSONArray cotejarLogros(JSONArray logros) throws ParseException {
 		JSONArray nuevosLogros = new JSONArray();
 		// TODO comparar los logros y actualizar progresos de logros
 		for (int i = 0; i < logros.length(); i++) {
@@ -269,12 +271,15 @@ public class Usuario {
 			
 			if (logroUsuario.getString("fechaObtencion")==null) {// esto quiere decir que el usuario no tiene este logro obtenido
 				if (progresoUsuario < 1) {
-					this.actualizarProgreso(1, nombreLogro);
+					Logro logro = CatalogoLogros.getMiCatalogoLogros().getLogro(nombreLogro);
+					int aumento = (1 / logro.getObjetivo()) * 10;
+					this.actualizarProgreso(aumento, nombreLogro);
 				}else {
 					nuevosLogros.put(unLogro);
 					//Anadimos el nuevo logro obtenido en partida a la lista de logros del usuario
 					Logro nuevoLogro = CatalogoLogros.getMiCatalogoLogros().getLogro(nombreLogro);
-					LogroObtenido nuevoLogroObtenido = new LogroObtenido(new Date(),nuevoLogro,1);
+					Date fechaActual = new SimpleDateFormat("yyyy-MM-dd").parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd")));
+					LogroObtenido nuevoLogroObtenido = new LogroObtenido(fechaActual,nuevoLogro,1);
 					susLogros.add(nuevoLogroObtenido);
 				}
 			}

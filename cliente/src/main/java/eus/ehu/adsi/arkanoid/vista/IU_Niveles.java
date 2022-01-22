@@ -235,16 +235,16 @@ public class IU_Niveles implements Observer {
 		
 		switch (nivel) {
 		case 1:
-			elLabel.setText("<HTML>Version fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 4 líneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estándar</HTML>");
+			elLabel.setText("<HTML>Version fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 2 líneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estándar</HTML>");
 			break;
 		case 2:
-			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 6 líneas de bloques <br> - anchura de barra y velócidad estándar");
+			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 4 líneas de bloques <br> - anchura de barra y velócidad estándar");
 			break;
 		case 3:
-			elLabel.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 8 líneas de bloques <br> - anchura de barra estándar <br> - velócidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 líneas de bloques <br> - anchura de barra estándar <br> - velócidad aumentada</HTML>");
 			break;
 		case 4:
-			elLabel.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 10 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 8 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
 			break;
 		case 5:
 			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botón de personalizar para cambiarlo <br>(La puntuación no se guardará en los ránkings)</HTML>");
