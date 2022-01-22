@@ -460,15 +460,11 @@ public class Arkanoid extends Observable {
 	} 
 	 
 	public void updateColores(String Fondo, String Bola, String Ladrillo, String Paddle) {
-		String[] ColoresSeparados= new String[3];
-		ColoresSeparados=Fondo.split(",");
-		Config.BACKGROUND_COLOR = new Color(Integer.parseInt(ColoresSeparados[0]),Integer.parseInt(ColoresSeparados[1]),Integer.parseInt(ColoresSeparados[2]));
-		ColoresSeparados=Bola.split(",");
-		Config.BALL_COLOR = new Color(Integer.parseInt(ColoresSeparados[0]),Integer.parseInt(ColoresSeparados[1]),Integer.parseInt(ColoresSeparados[2]));
-		ColoresSeparados=Ladrillo.split(",");
-		Config.BRICK_COLOR = new Color(Integer.parseInt(ColoresSeparados[0]),Integer.parseInt(ColoresSeparados[1]),Integer.parseInt(ColoresSeparados[2]));
-		ColoresSeparados=Paddle.split(",");
-		Config.PADDLE_COLOR = new Color(Integer.parseInt(ColoresSeparados[0]),Integer.parseInt(ColoresSeparados[1]),Integer.parseInt(ColoresSeparados[2]));
+		
+		Config.BACKGROUND_COLOR = Fondo;
+		Config.BALL_COLOR = Bola;
+		Config.BRICK_COLOR = Ladrillo;
+		Config.PADDLE_COLOR = Paddle;
 	} 
 	 
 	public void updateMusica(String path) { 

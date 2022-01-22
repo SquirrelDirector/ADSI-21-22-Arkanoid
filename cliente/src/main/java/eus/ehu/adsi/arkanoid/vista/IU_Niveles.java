@@ -8,15 +8,12 @@ import java.awt.CardLayout;
 import java.awt.Color;
 
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
 
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,7 +21,9 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import java.awt.event.ActionEvent;
-public class IU_Niveles implements Observer {
+
+@SuppressWarnings("deprecation")
+public class IU_Niveles extends JFrame implements Observer {
 
 	private JFrame frame;
 	private int nivel;
@@ -53,7 +52,6 @@ public class IU_Niveles implements Observer {
 	 */
 	public IU_Niveles() {
 		initialize();
-		frame.setVisible(true);
 	}
 
 	/**
@@ -113,9 +111,6 @@ public class IU_Niveles implements Observer {
 		pnlPersonalizar.setBorder(new EmptyBorder(0, 10, 0, 10));
 		
 		botonPersonalizar = new Boton("Personalizar");
-		if (Arkanoid.getArkanoid().isIdentificado()==false) {
-			botonPersonalizar.setEnabled(false);
-		}
 		botonPersonalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new IU_Personalizacion().mostrarVentana();
@@ -218,9 +213,6 @@ public class IU_Niveles implements Observer {
 		pnlNvl5.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
 		botonNvl5 = new Boton("Personalizado");
-		if (Arkanoid.getArkanoid().isIdentificado()==false) {
-			botonNvl5.setEnabled(false);
-		}
 		botonNvl5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				seleccionar(5);
@@ -228,7 +220,6 @@ public class IU_Niveles implements Observer {
 		});
 		pnlNvl5.add(botonNvl5);
 		izquierda.add(pnlNvl5);
-		
 	}
 	
 	private void seleccionar(int lvl){
@@ -258,8 +249,6 @@ public class IU_Niveles implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		if (arg1 instanceof Boolean){
 			base.setIdentificado((boolean) arg1);
-			botonPersonalizar.setEnabled((boolean) arg1);
-			botonNvl5.setEnabled((boolean) arg1);
 		}
 	}
 

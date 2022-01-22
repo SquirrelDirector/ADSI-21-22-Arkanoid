@@ -95,8 +95,8 @@ public class IU_Inicial extends JFrame implements Observer{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
-					new IU_Niveles();
-					dispose();
+					new IU_Niveles().mostrarVentana();
+					//dispose();
 				}
 			});
 		}

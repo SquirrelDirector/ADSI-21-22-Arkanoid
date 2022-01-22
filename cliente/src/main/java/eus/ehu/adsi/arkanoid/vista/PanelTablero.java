@@ -43,51 +43,6 @@ public class PanelTablero extends JPanel {
       this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));
       
       bricks = Partida.getMiPartida().getBloques();
-      // Lista de bloques
-      /*for (int iX = 0; iX < Config.COUNT_BLOCKS_X; ++iX) {
-    	  for (int iY = 0; iY < Config.COUNT_BLOCKS_Y; ++iY) {
-    		  bricks.add(new Bloque((iX + 1) * (sizeX + 2) - 10, (iY + 2) * (sizeY + 2) - 30));
-		  }
-	  }
-      
-      Random r = new Random();
-      ladrilloSuerte = r.nextInt(bricks.size());*/
-  
-      // Start the ball bouncing (in its own thread)
-      /*Thread gameThread = new Thread() {
-         public void run() {
-            while (true) { // Execute one update step
-               // Calculate the ball's new position
-            	bola.x += bola.velocityX;
-            	bola.y += bola.velocityY;
-                // Check if the ball moves over the bounds
-                // If so, adjust the position and speed.
-                if (bola.x - bola.radius < 0) {
-                	bola.velocityX = -bola.velocityX; // Reflect along normal
-                	bola.x = bola.radius; // Re-position the ball at the edge
-                } else if (bola.x + bola.radius > BOX_WIDTH) {
-                	bola.velocityX = -bola.velocityX;
-                    bola.x = BOX_WIDTH - bola.radius;
-                }
-                // May cross both x and y bounds
-                if (bola.y - bola.radius < 0) {
-                	bola.velocityY = -bola.velocityY;
-                    bola.y = bola.radius;
-                } else if (bola.y + bola.radius > BOX_HEIGHT) {
-                	bola.velocityY = -bola.velocityY;
-                    bola.y = BOX_HEIGHT - bola.radius;
-                }
-                // Refresh the display
-                repaint(); // Callback paintComponent()
-                // Delay for timing control and give other threads a chance
-                try {
-                    Thread.sleep(10);  // milliseconds
-                } catch (InterruptedException ex) { }
-            }
-         }
-      };
-      gameThread.start();  // Callback run()*/
-      
    }
   
    /** Custom rendering codes for drawing the JPanel */
@@ -104,7 +59,6 @@ public class PanelTablero extends JPanel {
       for (Bloque brick : bricks) {
     	  if (i == ladrilloSuerte) g.setColor(Config.LUCK_BRICK_COLOR);
     	  else g.setColor(Config.BRICK_COLOR);
-    	  //g.fillRect((int) brick.left()-10+(int)sizeX/2, (int) brick.top()-115+(int)sizeY/2, (int) sizeX, (int) sizeY);
     	  g.fillRect((int) brick.left()-30+(int)sizeX/2, (int) brick.top()-5+(int)sizeY/2, (int) sizeX, (int) sizeY);
   		  i++;
 	  }
@@ -118,7 +72,6 @@ public class PanelTablero extends JPanel {
    }
    
    public void updateTablero(Object arg, Graphics g) {
-	   //System.out.println(arg);
 	   if (arg instanceof Bloque) {
 		   Bloque bl = (Bloque) arg;
 		   drawBloqueRoto(g, bl);
@@ -161,7 +114,6 @@ public class PanelTablero extends JPanel {
    private void drawBloqueRoto(Graphics g, Bloque bl) {
 	   g.setColor(Config.BACKGROUND_COLOR);
 	   g.fillRect((int) (bl.left()-30), (int) (bl.top()-5), (int) sizeX, (int) sizeY);
-	   //g.fillRect((int) bl.left()-10+(int)sizeX/2, (int) bl.top()-115+(int)sizeY/2, (int) sizeX, (int) sizeY);
    }
    
    public void moverPaddle(KeyEvent event) {

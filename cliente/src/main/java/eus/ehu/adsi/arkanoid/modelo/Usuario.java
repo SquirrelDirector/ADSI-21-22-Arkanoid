@@ -19,13 +19,13 @@ public class Usuario {
 	private String email;
 	private String nombreUsuario;
 	private String contrasena;
-	private String atributosPersonalizado;
-	private String pathPerfil;
-	private String pathMusica;
-	private String codigoColorFondo;
-	private String codigoColorBola;
-	private String codigoColorLadrillo;
-	private String codigoColorPaddle;
+	private String atributosPersonalizado = Config.atributosPersonalizado;
+	private String pathPerfil = Config.PATH_PERFIL;
+	private String pathMusica = Config.PATH_MUSICA;
+	private String codigoColorFondo = Config.BACKGROUND_COLOR;
+	private String codigoColorBola = Config.BALL_COLOR;
+	private String codigoColorLadrillo = Config.BRICK_COLOR;
+	private String codigoColorPaddle = Config.PADDLE_COLOR;
 	private int nivelDefault;
 	private ArrayList<LogroObtenido> susLogros = new ArrayList<LogroObtenido>();
 	private ArrayList<Puntuacion> susPuntuaciones = new ArrayList<>(); // Al cargar las puntuaciones, de mayor a menor!

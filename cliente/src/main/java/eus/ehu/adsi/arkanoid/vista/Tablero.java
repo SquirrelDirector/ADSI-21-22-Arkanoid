@@ -23,7 +23,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferStrategy;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -56,7 +55,6 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 			public void run() {
 				try {
 					Tablero frame = new Tablero();
-					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -196,27 +194,20 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	
 	private void jugar() {
 		Arkanoid.getArkanoid().jugar();
-		//Arkanoid.getArkanoid().addObserverPartida(this);
-		//Arkanoid.getArkanoid().addObserverCrono(this);
-		
 		reproducirSonido();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Partida) {
-			//System.out.println("Partida");
 			if (arg instanceof Bloque) {
 				puntuacion++;
 				score.setText("Score:  "+puntuacion);
 			} else if (arg instanceof Integer) {
 				lives.setText("Lives:  "+(int)arg);
 			}
-			//BufferStrategy bf = this.getBufferStrategy();
-			Graphics g = this.tableroPanel.getGraphics();//bf.getDrawGraphics();
-			//System.out.println(g);
+			Graphics g = this.tableroPanel.getGraphics();
 			tableroPanel.updateTablero(arg, g);
-			//bf.show();
 		} else if (o instanceof Cronometro) {
             cronometro.setText(" "+(String)arg+" ");
         }	
@@ -234,7 +225,6 @@ public class Tablero extends JFrame implements Observer, KeyListener {
     }
 
     public void keyPressed(KeyEvent event) {
-    	//System.out.println("teclado");
 		tableroPanel.moverPaddle(event);
 	}
   
