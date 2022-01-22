@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -16,16 +18,21 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.ScrollPane;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.PanelNegro;
 
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 
 public class Ranking implements Observer{
 
 	private JFrame frame;
 	private JSONArray ranking = new JSONArray();
-	private JPanel panel = new JPanel();
+	private JPanel panel = new PanelNegro();
 	private boolean personal = false;
 
 	/**
@@ -49,50 +56,40 @@ public class Ranking implements Observer{
 	 */
 	public Ranking() {
 		initialize();
+		frame.repaint();
+		frame.revalidate();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		/*// puntuaciones de prueba
-		
-		JSONObject puntuacion1 = new JSONObject();
-		puntuacion1.put("usuario", "Angela");
-		puntuacion1.put("tiempo", "12345");
-		puntuacion1.put("puntuacion", 9999);
 
-		JSONObject puntuacion2 = new JSONObject();
-		puntuacion2.put("usuario", "Pepito");
-		puntuacion2.put("tiempo", "12345678");
-		puntuacion2.put("puntuacion", 10000);
-		
-		ranking.put(puntuacion1);
-		ranking.put(puntuacion2);
-		
-		// fin de las puntuaciones de prueba */
 		Arkanoid.getArkanoid().addObserver(this);
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 668, 443);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
+
+		InterfazBase ib = new InterfazBase("RANKING");
+		frame.getContentPane().add(ib, BorderLayout.CENTER);
 		
 		JPanel panelGeneral = new JPanel();
-		frame.getContentPane().add(panelGeneral, BorderLayout.CENTER);
+		panelGeneral.setBackground(new Color(0,0,0,0));
 		panelGeneral.setLayout(null);
 		frame.setLocationRelativeTo(null);
-		
-		JLabel Ranking = new JLabel("Ranking");
-		Ranking.setBounds(0, 0, 184, 56);
-		Ranking.setFont(new Font("Lucida Grande", Font.PLAIN, 47));
-		panelGeneral.add(Ranking);
+
+		ib.panelPrincipal.add(panelGeneral);
+		ib.panelPrincipal.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel textoRanking = new JPanel();
-		textoRanking.setBounds(0, 91, 668, 48);
+		textoRanking.setBorder(new EmptyBorder(0, 10, 0, 10));
+		textoRanking.setBounds(0, 6, 668, 67);
+		textoRanking.setBackground(new Color(0,0,0,0));
 		panelGeneral.add(textoRanking);
 
-		JButton botonGlobal = new JButton("Global");
+		Boton botonGlobal = new Boton("Global");
 		botonGlobal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
@@ -106,19 +103,19 @@ public class Ranking implements Observer{
 					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
-					JLabel labelNombre = new JLabel(nombreUsuario);
+					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo+"");
+					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
 					panel.add(labelTiempo);
-					JLabel labelPuntos = new JLabel(""+puntos);
+					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
 					panel.add(labelPuntos);
 				}
 			}
 		});
-		textoRanking.setLayout(new GridLayout(0, 2, 0, 0));
+		textoRanking.setLayout(new GridLayout(0, 2, 10, 0));
 		textoRanking.add(botonGlobal);
 		
-		JButton botonPersonal = new JButton("Personal");
+		Boton botonPersonal = new Boton("Personal");
 		botonPersonal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
@@ -132,11 +129,11 @@ public class Ranking implements Observer{
 					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
-					JLabel labelNombre = new JLabel(nombreUsuario);
+					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo+"");
+					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
 					panel.add(labelTiempo);
-					JLabel labelPuntos = new JLabel(""+puntos);
+					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
 					panel.add(labelPuntos);
 				}
 			}
@@ -144,15 +141,14 @@ public class Ranking implements Observer{
 		textoRanking.add(botonPersonal);
 		
 		JPanel panelBotonesNiveles = new JPanel();
-		panelBotonesNiveles.setBounds(0, 144, 668, 39);
+		panelBotonesNiveles.setBounds(0, 85, 668, 47);
+		panelBotonesNiveles.setBackground(new Color(0,0,0,0));
 		panelGeneral.add(panelBotonesNiveles);
 		
-		JButton botonAbsolute = new JButton("Absolute");
+		Boton botonAbsolute = new Boton("Absolute");
 		botonAbsolute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel.removeAll();
-				panel.revalidate();
-				panel.repaint();
+				
 				ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
 				for(int i = 0; i<ranking.length(); i++) {
 					JSONObject puntuacion = ranking.getJSONObject(i);
@@ -160,19 +156,22 @@ public class Ranking implements Observer{
 					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
-					JLabel labelNombre = new JLabel(nombreUsuario);
+					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo+"");
+					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
 					panel.add(labelTiempo);
-					JLabel labelPuntos = new JLabel(""+puntos);
+					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
 					panel.add(labelPuntos);
 				}
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
 				
 			}
 		});
 		panelBotonesNiveles.add(botonAbsolute);
 		
-		JButton botonRookie = new JButton("Rookie");
+		Boton botonRookie = new Boton("Rookie");
 		botonRookie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
@@ -185,18 +184,18 @@ public class Ranking implements Observer{
 					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
-					JLabel labelNombre = new JLabel(nombreUsuario);
+					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo+"");
+					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
 					panel.add(labelTiempo);
-					JLabel labelPuntos = new JLabel(""+puntos);
+					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
 					panel.add(labelPuntos);
 				}
 			}
 		});
 		panelBotonesNiveles.add(botonRookie);
 		
-		JButton botonStandard = new JButton("Standard");
+		Boton botonStandard = new Boton("Standard");
 		botonStandard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
@@ -209,18 +208,18 @@ public class Ranking implements Observer{
 					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
-					JLabel labelNombre = new JLabel(nombreUsuario);
+					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo+"");
+					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
 					panel.add(labelTiempo);
-					JLabel labelPuntos = new JLabel(""+puntos);
+					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
 					panel.add(labelPuntos);
 				}
 			}
 		});
 		panelBotonesNiveles.add(botonStandard);
 		
-		JButton botonExpert = new JButton("Expert");
+		Boton botonExpert = new Boton("Expert");
 		botonExpert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
@@ -233,18 +232,18 @@ public class Ranking implements Observer{
 					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
-					JLabel labelNombre = new JLabel(nombreUsuario);
+					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo+"");
+					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
 					panel.add(labelTiempo);
-					JLabel labelPuntos = new JLabel(""+puntos);
+					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
 					panel.add(labelPuntos);
 				}
 			}
 		});
 		panelBotonesNiveles.add(botonExpert);
 		
-		JButton botonImposible = new JButton("Impossible");
+		Boton botonImposible = new Boton("Impossible");
 		botonImposible.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
@@ -257,26 +256,26 @@ public class Ranking implements Observer{
 					int tiempo = puntuacion.getInt("tiempo");
 					int puntos = puntuacion.getInt("puntuacion");
 					
-					JLabel labelNombre = new JLabel(nombreUsuario);
+					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
 					panel.add(labelNombre);
-					JLabel labelTiempo = new JLabel(tiempo+"");
+					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
 					panel.add(labelTiempo);
-					JLabel labelPuntos = new JLabel(""+puntos);
+					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
 					panel.add(labelPuntos);
 				}
 			}
 		});
 		panelBotonesNiveles.add(botonImposible);
 		
-		JPanel panelPuntuaciones = new JPanel();
-		panelPuntuaciones.setBounds(26, 195, 619, 214);
+		PanelNegro panelPuntuaciones = new PanelNegro();
+		panelPuntuaciones.setBounds(26, 144, 619, 265);
 		panelGeneral.add(panelPuntuaciones);
 		panelPuntuaciones.setLayout(new BorderLayout(0, 0));
 		
-		JLabel labelTitulos = new JLabel("Nombre                                           Tiempo                                 Puntos ");
+		EtiquetaNormal labelTitulos = new EtiquetaNormal("Nombre                                           Tiempo                                 Puntos ");
 		panelPuntuaciones.add(labelTitulos, BorderLayout.NORTH);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		ScrollPane scrollPane = new ScrollPane();
 		panelPuntuaciones.add(scrollPane, BorderLayout.CENTER);
 		
 		
@@ -291,11 +290,11 @@ public class Ranking implements Observer{
 			int tiempo = puntuacion.getInt("tiempo");
 			int puntos = puntuacion.getInt("puntuacion");
 			
-			JLabel labelNombre = new JLabel(nombreUsuario);
+			EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
 			panel.add(labelNombre);
-			JLabel labelTiempo = new JLabel(tiempo+"");
+			EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
 			panel.add(labelTiempo);
-			JLabel labelPuntos = new JLabel(""+puntos);
+			EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
 			panel.add(labelPuntos);
 			
 		}

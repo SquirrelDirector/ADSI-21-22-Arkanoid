@@ -29,6 +29,8 @@ import java.awt.event.MouseEvent;
 import java.util.Date;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
+
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
@@ -42,7 +44,7 @@ import java.awt.event.ActionEvent;
 public class IU_Identificarse extends JFrame {
 
 	private static IU_Identificarse miIU_Identificarse;
-	private JPanel contentPane;
+	private InterfazBase contentPane;
 	private JLabel lblLogin;
 	private JTextField email;
 	private JPanel panel;
@@ -89,14 +91,16 @@ public class IU_Identificarse extends JFrame {
 	private void initialize() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 320, 420);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
+		setBounds(100, 100, 520, 540);
+		contentPane = new InterfazBase("INICIA SESI\u00D3N");
+		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.add(getLblLogin(), BorderLayout.NORTH);
-		contentPane.add(getPanel(), BorderLayout.CENTER);
-		contentPane.add(getPanel_1(), BorderLayout.SOUTH);
+		contentPane.ocultarPanelIdentidad();
+		contentPane.ocultarBotonRegreso();
+		//contentPane.add(getLblLogin(), BorderLayout.NORTH);
+		contentPane.panelPrincipal.add(getPanel(), BorderLayout.CENTER);
+		contentPane.panelPrincipal.add(getPanel_1(), BorderLayout.SOUTH);
 	}
 
 	private JLabel getLblLogin() {
@@ -120,6 +124,7 @@ public class IU_Identificarse extends JFrame {
 			panel = new JPanel();
 			panel.setBorder(new EmptyBorder(20, 0, 20, 0));
 			panel.setLayout(new GridLayout(0, 1, 0, 5));
+			panel.setBackground(new Color(0,0,0,0));
 			panel.add(getEmail());
 			panel.add(getPassword());
 			panel.add(getBtnAcceder());
@@ -141,10 +146,10 @@ public class IU_Identificarse extends JFrame {
 						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
 						break;
 					case 2: //contraseña no válida
-						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida");
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida. Debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un caracter especial.");
 						break;
 					case 3: //credenciales no coincidentes
-						JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos");
+						JOptionPane.showMessageDialog(null, "Correo y/o contraseña incorrectos");
 						break;
 					}
 				}
@@ -174,6 +179,7 @@ public class IU_Identificarse extends JFrame {
 			panel_1 = new JPanel();
 			panel_1.setBorder(new EmptyBorder(10, 0, 0, 0));
 			panel_1.setLayout(new GridLayout(0, 1, 0, 5));
+			panel_1.setBackground(new Color(0,0,0,0));
 			panel_1.add(getBtnForgotPassword());
 			panel_1.add(getLblSignUp());
 			panel_1.add(getBtnSignup());

@@ -22,7 +22,7 @@ public abstract class Config {
 	public static Color BACKGROUND_COLOR = new Color(255,0,0);  
 	public static Color BALL_COLOR = new Color(255,181,0);  
 	public static Color PADDLE_COLOR = new Color(78,255,0);  
-	public static Color BRICK_COLOR = new Color(244,255,0);  
+	public static Color BRICK_COLOR = new Color(0,153,255);  
 	public static final Color LUCK_BRICK_COLOR = Color.yellow; 
 	public static String PATH_MUSICA = "/sonidoPersonalizar/Sonido1.wav";
 	public static String PATH_PERFIL = "/imagenesAvatar/Avatar1.png";

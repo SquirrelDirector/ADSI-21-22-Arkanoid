@@ -5,26 +5,38 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import org.json.JSONObject;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.controlador.GestorPartida;
+import eus.ehu.adsi.arkanoid.modelo.Cronometro;
+import eus.ehu.adsi.arkanoid.vista.IU_Identificarse;
+import eus.ehu.adsi.arkanoid.vista.IU_Inicial;
+import eus.ehu.adsi.arkanoid.vista.InterfazBase;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.PanelNegro;
 
 import java.awt.CardLayout;
+import java.awt.Color;
+
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 
-public class VentanaFinPartida extends JFrame {
+public class VentanaFinPartida extends JFrame implements Observer{
 	//TODO Observer de Inicio de sesión
-	private JPanel pnlPrincipal;
-	private JPanel pnlEnhorabuena;
+	private InterfazBase uiBase;
 	private JPanel pnlMain;
-	private JLabel lblNewLabel;
 	private JPanel pnlDatos;
 	private JPanel pnlBotones;
 	private JButton btnInicio;
@@ -41,9 +53,10 @@ public class VentanaFinPartida extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaFinPartida frame = new VentanaFinPartida();
+					VentanaFinPartida frame = new VentanaFinPartida(true);
 					frame.setVisible(true);
 					frame.getDatosPartida();
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,46 +67,42 @@ public class VentanaFinPartida extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaFinPartida() {
+	public VentanaFinPartida(boolean haGanado) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 565, 381);
-		pnlPrincipal = new JPanel();
-		pnlPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(pnlPrincipal);
-		pnlPrincipal.setLayout(new BorderLayout(0, 0));
-		pnlPrincipal.add(getPnlEnhorabuena(), BorderLayout.NORTH);
-		pnlPrincipal.add(getPnlMain(), BorderLayout.CENTER);
-		gestionarEventos();
+		setBounds(100, 100, 850, 525);
+		setLocationRelativeTo(null);
+		if(haGanado) {
+			uiBase = new InterfazBase("¡Enhorabuena!");	
+		}else {
+			uiBase = new InterfazBase("Buen intento");
+		}
 		
+		uiBase.ocultarPanelIdentidad();
+		uiBase.ocultarBotonRegreso();
+		setContentPane(uiBase);
+		uiBase.panelPrincipal.setLayout(new CardLayout());
+		uiBase.panelPrincipal.add(getPnlMain());
+		gestionarEventos();
+		Arkanoid.getArkanoid().addObserver(this);
 	}
 
-	private JPanel getPnlEnhorabuena() {
-		if (pnlEnhorabuena == null) {
-			pnlEnhorabuena = new JPanel();
-			pnlEnhorabuena.setLayout(new GridLayout(0, 1, 0, 0));
-			pnlEnhorabuena.add(getLblNewLabel());
-		}
-		return pnlEnhorabuena;
-	}
 	private JPanel getPnlMain() {
 		if (pnlMain == null) {
-			pnlMain = new JPanel();
+			pnlMain = new PanelNegro();
 			pnlMain.setLayout(new BorderLayout(0, 0));
+			pnlMain.setBackground(new Color(0,0,0,0));
 			pnlMain.add(getPnlDatos(), BorderLayout.CENTER);
 			pnlMain.add(getPnlBotones(), BorderLayout.SOUTH);
 		}
 		return pnlMain;
 	}
-	private JLabel getLblNewLabel() {
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("Enhorabuena!");
-		}
-		return lblNewLabel;
-	}
+	
 	private JPanel getPnlDatos() {
 		if (pnlDatos == null) {
 			pnlDatos = new JPanel();
 			pnlDatos.setLayout(new BorderLayout(0, 0));
+			pnlDatos.setBorder(new EmptyBorder(25,25,25,25));
+			pnlDatos.setBackground(new Color(0,0,0,0));
 			pnlDatos.add(getPnlEstatico(), BorderLayout.WEST);
 			pnlDatos.add(getPnlDinamico(), BorderLayout.CENTER);
 		}
@@ -102,7 +111,8 @@ public class VentanaFinPartida extends JFrame {
 	private JPanel getPnlBotones() {
 		if (pnlBotones == null) {
 			pnlBotones = new JPanel();
-			pnlBotones.setLayout(new GridLayout(1, 0, 0, 0));
+			pnlBotones.setBackground(new Color(0,0,0,0));
+			pnlBotones.setLayout(new GridLayout(1, 0, 20, 20));
 			pnlBotones.add(getBtnInicio());
 			pnlBotones.add(getBtnNuevaPartida());
 			pnlBotones.add(getBtnCompartir());
@@ -111,19 +121,19 @@ public class VentanaFinPartida extends JFrame {
 	}
 	private JButton getBtnInicio() {
 		if (btnInicio == null) {
-			btnInicio = new JButton("Inicio");
+			btnInicio = new Boton("Inicio");
 		}
 		return btnInicio;
 	}
 	private JButton getBtnNuevaPartida() {
 		if (btnNuevaPartida == null) {
-			btnNuevaPartida = new JButton("Nueva partida");
+			btnNuevaPartida = new Boton("Nueva partida");
 		}
 		return btnNuevaPartida;
 	}
 	private JButton getBtnCompartir() {
 		if (btnCompartir == null) {
-			btnCompartir = new JButton("Compartir");
+			btnCompartir = new Boton("Compartir");
 		}
 		return btnCompartir;
 	}
@@ -131,33 +141,42 @@ public class VentanaFinPartida extends JFrame {
 	private void getDatosPartida() {
 		datos = Arkanoid.getArkanoid().getResultadosPartida();
 		if(datos.get("tiempoPartida")!=null) {
-			getPnlEstatico().add(new JLabel("Tiempo"));
-			getPnlDinamico().add(new JLabel(datos.get("tiempoPartida").toString()));
+			Cronometro tiempo = (Cronometro)datos.get("tiempoPartida");
+			EtiquetaNormal datTiempo=new EtiquetaNormal(tiempo.getMinutosFormat()+":"+tiempo.getSegundosFormat());
+			getPnlEstatico().add(new EtiquetaNormal("Tiempo"));
+			getPnlDinamico().add(datTiempo);
+			datTiempo.setHorizontalAlignment(JLabel.CENTER);
 		}
 		if(datos.get("puntuacionConseguida")!=null) {
-			getPnlEstatico().add(new JLabel("Puntos obtenidos"));
-			getPnlDinamico().add(new JLabel(datos.get("puntuacionConseguida").toString()));
+			EtiquetaNormal puntConseguida=new EtiquetaNormal(datos.get("puntuacionConseguida").toString());
+			getPnlEstatico().add(new EtiquetaNormal("Puntos obtenidos"));
+			getPnlDinamico().add(puntConseguida);
+			puntConseguida.setHorizontalAlignment(JLabel.CENTER);
 		}
 		if(datos.get("mejorTiempo")!=null) {
-			getPnlEstatico().add(new JLabel("Record tiempo"));
-			getPnlDinamico().add(new JLabel(datos.get("mejorTiempo").toString()));
+			EtiquetaNormal mejorTiempo=new EtiquetaNormal(datos.get("mejorTiempo").toString());
+			getPnlEstatico().add(new EtiquetaNormal("Record tiempo"));
+			getPnlDinamico().add(mejorTiempo);
+			mejorTiempo.setHorizontalAlignment(JLabel.CENTER);
 		}
 		if(datos.get("mejorPuntuacion")!=null) {
-			getPnlEstatico().add(new JLabel("Record puntos"));
-			getPnlDinamico().add(new JLabel(datos.get("mejorPuntuacion").toString()));
+			EtiquetaNormal mejorPuntuacion=new EtiquetaNormal(datos.get("mejorPuntuacion").toString());
+			getPnlEstatico().add(new EtiquetaNormal("Record puntos"));
+			getPnlDinamico().add(mejorPuntuacion);
+			mejorPuntuacion.setHorizontalAlignment(JLabel.CENTER);
 		}
 	}
 	
 	private JPanel getPnlEstatico() {
 		if (pnlEstatico == null) {
-			pnlEstatico = new JPanel();
+			pnlEstatico = new PanelNegro();
 			pnlEstatico.setLayout(new GridLayout(4, 1, 0, 0));
 		}
 		return pnlEstatico;
 	}
 	private JPanel getPnlDinamico() {
 		if (pnlDinamico == null) {
-			pnlDinamico = new JPanel();
+			pnlDinamico = new PanelNegro();
 			pnlDinamico.setLayout(new GridLayout(4, 1, 0, 0));
 		}
 		return pnlDinamico;
@@ -168,7 +187,10 @@ public class VentanaFinPartida extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				throw new UnsupportedOperationException("¡Implementar evento de clic en botón de inicio!");
+				new IU_Inicial().setVisible(true);
+				dispose();
+				
+				Arkanoid.getArkanoid().deleteObserver((VentanaFinPartida)SwingUtilities.getWindowAncestor(e.getComponent()));
 			}
 		});
 		
@@ -184,12 +206,17 @@ public class VentanaFinPartida extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				if(datos.get("mejorTiempo")!=null && datos.get("mejorPuntuacion")!=null) {
+				if(datos.has("mejorTiempo") && datos.has("mejorPuntuacion")){
 					new IU_PublicarResultados();
 				}else {
-					throw new UnsupportedOperationException("¡Se debe redirigir a Iniciar Sesión!");
+					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
 				}
 			}
 		});
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		new IU_PublicarResultados();
 	}
 }

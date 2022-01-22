@@ -78,7 +78,7 @@ public class GestorUsuarios {
 		
 		datos.put("nivelDefault", res.get("NivelDefault"));
 		
-		preg="SELECT Nombre, IdLogro, Descripcion, FechaObtencion, Progreso, Objetivo FROM TieneLogro NATURAL JOIN Logro WHERE Usuario ='"+nombre+"';";
+		preg="SELECT Nombre, IdLogro, Descripcion, FechaObtencion, Progreso, Objetivo FROM TieneLogro NATURAL JOIN Logro WHERE Usuario ='"+mail+"';";
 		res=GestorDB.getGestorDB().execSQL(preg);
 		JSONArray logros=new JSONArray();
 		JSONObject logro;
@@ -135,7 +135,7 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void crearUsuario(String usr, String mail, String pass) {
-		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contraseña, PathPerfil, PathMusica, CodigoColorFondo, CodigoColorBola, CodigoColorLadrillo, CodigoColorPaddle, NivelDefault, Atributos_Personalizado) VALUES ('"+mail+"', '"+usr+"', '"+pass+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_PERFIL+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_MUSICA+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.BACKGROUND_COLOR)+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.BALL_COLOR)+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.BRICK_COLOR)+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_COLOR)+"', '"+1+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_Y*eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_X+","+eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_WIDTH+","+eus.ehu.adsi.arkanoid.modelo.Config.BALL_VELOCITY+"');";
+		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contraseña, PathPerfil, PathMusica, CodigoColorFondo, CodigoColorBola, CodigoColorLadrillo, CodigoColorPaddle, NivelDefault, Atributos_Personalizado) VALUES ('"+mail+"', '"+usr+"', '"+pass+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_PERFIL+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_MUSICA+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.BACKGROUND_COLOR)+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.BALL_COLOR)+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.BRICK_COLOR)+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_COLOR)+"', '"+1+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_Y*eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_X+","+(int)eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_WIDTH+","+(int)eus.ehu.adsi.arkanoid.modelo.Config.BALL_VELOCITY+"');";
 		GestorDB.getGestorDB().execSQL(preg);
 		
 		preg="SELECT idLogro FROM Logro;";
@@ -144,7 +144,8 @@ public class GestorUsuarios {
 		
 		for (int i=0;i<res.longitud;i++){
 			id=(String) res.get("idLogro");
-			preg="INSERT INTO TieneLogro (Usuario, idLogro) VALUES ('"+mail+"', '"+id+"');";
+			preg="INSERT INTO TieneLogro (Usuario, idLogro, Progreso) VALUES ('"+mail+"', '"+id+"', 0);";
+			GestorDB.getGestorDB().execSQL(preg);
 			res.next();
 		}
 	}

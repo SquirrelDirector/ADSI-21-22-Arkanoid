@@ -13,7 +13,21 @@ public class Cronometro extends Observable implements Runnable {
         this.t = new Thread(this, "Crono");
         this.t.start();
     }
-
+    public String getMinutosFormat() {
+    	if(minutos<10) {
+    		return "0"+minutos;
+    	}else {
+    		return minutos+"";
+    	}
+    }
+    
+    public String getSegundosFormat() {
+    	if(segundos<10) {
+    		return "0"+segundos;
+    	}else {
+    		return segundos+"";
+    	}
+    }
     public int getMinutos() { return minutos; }
     public int getSegundos() { return segundos; }
     public int getSegundosTotales(){ return segundos+minutos*60; }

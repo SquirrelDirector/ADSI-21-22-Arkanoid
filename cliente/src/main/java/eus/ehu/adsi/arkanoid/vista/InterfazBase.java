@@ -1,6 +1,7 @@
 package eus.ehu.adsi.arkanoid.vista;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -11,6 +12,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -24,6 +26,7 @@ public class InterfazBase extends JPanel {
 	private Boton volverButton;
 	public JPanel panelCabecera;
 	public JPanel panelIdentidades;
+	private EtiquetaTitulo tituloPersonalizar;
 	/**
 	 * Create the panel.
 	 */
@@ -42,7 +45,7 @@ public class InterfazBase extends JPanel {
 		volverButton = new Boton("<");
 		panelCabecera.add(volverButton);
 		
-		EtiquetaTitulo tituloPersonalizar = new EtiquetaTitulo(texto);
+		tituloPersonalizar = new EtiquetaTitulo(texto);
 		panelCabecera.add(tituloPersonalizar);
 		
 		panelIdentidades = new PnlIdentidad();
@@ -85,5 +88,10 @@ public class InterfazBase extends JPanel {
 	
 	public void setIdentificado(boolean id){
 		((PnlIdentidad)panelIdentidades).setIdentificado(id);
+	}
+
+
+	public void centrarCabecera() {
+		panelInicial.setLayout(new CardLayout());
 	}
 }

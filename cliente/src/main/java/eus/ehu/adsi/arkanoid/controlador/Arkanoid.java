@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -98,7 +99,12 @@ public class Arkanoid extends Observable {
 				miPartida.addLogro(ganarMismoNivel);
 
 				JSONArray logrosObtenidos = miPartida.getLogrosPartida();
-				usuario.cotejarLogros(logrosObtenidos);
+				try {
+					usuario.cotejarLogros(logrosObtenidos);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 	    };
 	    gameThread.start();  // Callback run()
@@ -421,14 +427,14 @@ public class Arkanoid extends Observable {
 	 * @param redSocial
 	 */
 	public void publicarResultados(String redSocial) {
-		/*JSONObject datosPartida = GestorPartida.getGestorPartida().getDatosPartidaActual();
+		JSONObject datosPartida = getResultadosPartida();
 		JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
 		GestorRedes.getGestorRedes().publicarResultados(redSocial, 
 														Integer.parseInt(datosPartida.get("puntuacionConseguida").toString()), 
 														Integer.parseInt(datosPartida.get("tiempoPartida").toString()), 
 														Integer.parseInt(datosHistoricos.get("mejorPuntuacion").toString()), 
 														Integer.parseInt(datosHistoricos.get("mejorTiempo").toString()), 
-														datosPartida.getJSONArray("logrosConseguidos"));*/
+														datosPartida.getJSONArray("logrosConseguidos"));
 	}
 
 	public int getUltimaPartida() {
@@ -453,11 +459,16 @@ public class Arkanoid extends Observable {
 		Config.COUNT_BLOCKS_Y= Datos[2].intValue()/Config.COUNT_BLOCKS_X; 
 	} 
 	 
-	public void updateColores(String Fondo, String Bola, String Ladrillo, String Paddle) { 
-		Config.BACKGROUND_COLOR = new Color(Integer.parseInt(Fondo)); 
-		Config.BALL_COLOR = new Color(Integer.parseInt(Bola));
-		Config.BRICK_COLOR = new Color(Integer.parseInt(Ladrillo));
-		Config.PADDLE_COLOR = new Color(Integer.parseInt(Paddle));
+	public void updateColores(String Fondo, String Bola, String Ladrillo, String Paddle) {
+		String[] ColoresSeparados= new String[3];
+		ColoresSeparados=Fondo.split(",");
+		Config.BACKGROUND_COLOR = new Color(Integer.parseInt(ColoresSeparados[0]),Integer.parseInt(ColoresSeparados[1]),Integer.parseInt(ColoresSeparados[2]));
+		ColoresSeparados=Bola.split(",");
+		Config.BALL_COLOR = new Color(Integer.parseInt(ColoresSeparados[0]),Integer.parseInt(ColoresSeparados[1]),Integer.parseInt(ColoresSeparados[2]));
+		ColoresSeparados=Ladrillo.split(",");
+		Config.BRICK_COLOR = new Color(Integer.parseInt(ColoresSeparados[0]),Integer.parseInt(ColoresSeparados[1]),Integer.parseInt(ColoresSeparados[2]));
+		ColoresSeparados=Paddle.split(",");
+		Config.PADDLE_COLOR = new Color(Integer.parseInt(ColoresSeparados[0]),Integer.parseInt(ColoresSeparados[1]),Integer.parseInt(ColoresSeparados[2]));
 	} 
 	 
 	public void updateMusica(String path) { 

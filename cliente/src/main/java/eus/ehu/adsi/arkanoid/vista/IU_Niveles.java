@@ -28,7 +28,7 @@ public class IU_Niveles implements Observer {
 
 	private JFrame frame;
 	private int nivel;
-	private JLabel lblL;
+	private JLabel elLabel;
 	private InterfazBase base;
 	private JButton botonPersonalizar;
 	private JButton botonNvl5;
@@ -60,9 +60,9 @@ public class IU_Niveles implements Observer {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		lblL = new EtiquetaNormal("");
-		lblL.setBackground(new Color(2,4,40)); //TODO - Este color hijuelarremaracamadrequeloremilperrasparió no se aplica, sospecho del repaint de seleccionar()
-		lblL.setForeground(new Color(255,255,255));
+		elLabel = new EtiquetaNormal("");
+		elLabel.setBackground(new Color(2,4,40)); //TODO - Este color hijuelarremaracamadrequeloremilperrasparió no se aplica, sospecho del repaint de seleccionar()
+		elLabel.setForeground(new Color(255,255,255));
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 951, 645);
@@ -118,7 +118,8 @@ public class IU_Niveles implements Observer {
 		}
 		botonPersonalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new IU_Personalizacion();
+				new IU_Personalizacion().mostrarVentana();
+				Arkanoid.getArkanoid().deleteObserver(IU_Niveles.this);
 				frame.dispose();
 			}
 		});
@@ -149,7 +150,7 @@ public class IU_Niveles implements Observer {
 		descripcion.setBackground(new Color(0,0,0,0));
 		descripcion.setLayout(new CardLayout());
 		descripcion.setBorder(new EmptyBorder(0,0,100,0));
-		descripcion.add(lblL);
+		descripcion.add(elLabel);
 		
 		JPanel pnlNvl1=new JPanel();
 		pnlNvl1.setLayout(new CardLayout());
@@ -235,19 +236,19 @@ public class IU_Niveles implements Observer {
 		
 		switch (nivel) {
 		case 1:
-			lblL.setText("<HTML>Version fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 4 líneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estándar</HTML>");
+			elLabel.setText("<HTML>Version fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 2 líneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estándar</HTML>");
 			break;
 		case 2:
-			lblL.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 6 líneas de bloques <br> - anchura de barra y velócidad estándar");
+			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 4 líneas de bloques <br> - anchura de barra y velócidad estándar");
 			break;
 		case 3:
-			lblL.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 8 líneas de bloques <br> - anchura de barra estándar <br> - velócidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 líneas de bloques <br> - anchura de barra estándar <br> - velócidad aumentada</HTML>");
 			break;
 		case 4:
-			lblL.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 10 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 8 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
 			break;
 		case 5:
-			lblL.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botón de personalizar para cambiarlo <br>(La puntuación no se guardará en los ránkings)</HTML>");
+			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botón de personalizar para cambiarlo <br>(La puntuación no se guardará en los ránkings)</HTML>");
 			break;
 		}
 		frame.repaint();
