@@ -6,7 +6,7 @@ public class GestorNiveles {
 	private GestorNiveles() {
 	}
 
-	public static GestorNiveles getGestorLogros() {
+	public static GestorNiveles getGestorNiveles() {
 		if (miGestorNiveles == null) {
 			miGestorNiveles = new GestorNiveles();
 		}
