@@ -427,14 +427,14 @@ public class Arkanoid extends Observable {
 	 * @param redSocial
 	 */
 	public void publicarResultados(String redSocial) {
-		/*JSONObject datosPartida = GestorPartida.getGestorPartida().getDatosPartidaActual();
+		JSONObject datosPartida = getResultadosPartida();
 		JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
 		GestorRedes.getGestorRedes().publicarResultados(redSocial, 
 														Integer.parseInt(datosPartida.get("puntuacionConseguida").toString()), 
 														Integer.parseInt(datosPartida.get("tiempoPartida").toString()), 
 														Integer.parseInt(datosHistoricos.get("mejorPuntuacion").toString()), 
 														Integer.parseInt(datosHistoricos.get("mejorTiempo").toString()), 
-														datosPartida.getJSONArray("logrosConseguidos"));*/
+														datosPartida.getJSONArray("logrosConseguidos"));
 	}
 
 	public int getUltimaPartida() {

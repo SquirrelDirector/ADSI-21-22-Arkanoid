@@ -48,6 +48,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Enumeration;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
@@ -55,7 +57,7 @@ import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 
-public class IU_Personalizacion extends JFrame {
+public class IU_Personalizacion extends JFrame implements Observer {
 
 	private final JPanel tabPanel = new JPanel();
 	private TabbedPanel personalizarPestanas;
@@ -68,11 +70,12 @@ public class IU_Personalizacion extends JFrame {
     private JSONObject personalizablesJugador;
     private ButtonGroup bg1, bg2, bg3, bg4, bgS;
     private Clip clip;
+    private InterfazBase ib;
 
     /**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void mostrarVentana() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -95,8 +98,9 @@ public class IU_Personalizacion extends JFrame {
 		setBounds(100, 100, 600, 540);
 		getContentPane().setLayout(new BorderLayout());
 		
-		InterfazBase ib = new InterfazBase("PERSONALIZAR");
+		ib = new InterfazBase("PERSONALIZAR");
 		getContentPane().add(ib, BorderLayout.CENTER);
+		ib.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
 		
 		tabPanel.setBorder(new EmptyBorder(10,10,10,10));
 		//tabPanel.setBackground(new Color(0,0,0,0));
@@ -698,4 +702,11 @@ public class IU_Personalizacion extends JFrame {
     private void onCancel() {
         dispose();
     }
+    
+    @Override
+	public void update(Observable arg0, Object arg1) {
+		if (arg1 instanceof Boolean){
+			ib.setIdentificado((boolean) arg1);
+		}
+	}
 }

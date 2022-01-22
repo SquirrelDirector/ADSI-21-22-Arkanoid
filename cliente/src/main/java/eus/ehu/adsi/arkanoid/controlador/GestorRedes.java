@@ -38,8 +38,17 @@ public class GestorRedes {
 	 * @param logro
 	 */
 	public void publicarResultados(String redSocial, int puntuacionPartida, int tiempoPartida, int mejorPuntuacion, int mejorTiempo, JSONArray logro) {
-		//FIXME Definir mensaje
-		String mensaje=null;
+		String mensaje="He conseguido "+puntuacionPartida+" puntos con un tiempo de "+tiempoPartida+" segs, siendo mi mejor puntuación de "+mejorPuntuacion+" y mi mejor tiempo "+mejorTiempo+"segs.";
+		for(int i=0;i<logro.length(); i++) {
+			if(i==0) {
+				mensaje+="He conseguido los siguientes logros: ";
+			}
+			if(i!=logro.length()-1) {
+				mensaje+=logro.getJSONObject(i).getString("nombreLogro")+", ";	
+			}else {
+				mensaje+=logro.getJSONObject(i).getString("nombreLogro");
+			}
+		}
 		EnvioRRSS envio = new EnvioRRSSFactory().getEnvioRRSS(redSocial);
 		envio.enviar(mensaje);
 	}

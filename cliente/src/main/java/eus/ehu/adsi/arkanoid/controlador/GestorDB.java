@@ -49,7 +49,7 @@ public class GestorDB {
 		String charset = "UTF-8";
 		HttpURLConnection httpConnection;
 		try {
-			String query = String.format("query=%s&token=",
+			String query = String.format("query=%s&token=bro8h0-lP7sTi",
 				    URLEncoder.encode(sql, charset));
 			httpConnection= (HttpURLConnection) new URL("http://infotek.es/eib_adsi/index.php").openConnection();
 			enviarDatos(httpConnection, query, charset);
