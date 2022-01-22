@@ -146,7 +146,7 @@ public class IU_Personalizacion extends JFrame {
 									fondo.add(panel);
 									panel.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										jspF = new JScrollPane();
+										jspF = new ScrollPane();
 										jspF.setBorder(null);
 										panel.add(jspF);
 										{

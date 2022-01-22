@@ -1,19 +1,16 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
-import org.json.JSONObject;
-
 public class GestorNiveles {
 
-	private static GestorNiveles miGestorNiveles;
-
+	private static GestorNiveles miGestorNiveles = null;
 	private GestorNiveles() {
-		// TODO - implement GestorNiveles.GestorNiveles
-		throw new UnsupportedOperationException();
 	}
 
-	public static GestorNiveles getGestorNiveles() {
-		// TODO - implement GestorNiveles.getGestorNiveles
-		throw new UnsupportedOperationException();
+	public static GestorNiveles getGestorLogros() {
+		if (miGestorNiveles == null) {
+			miGestorNiveles = new GestorNiveles();
+		}
+		return miGestorNiveles;
 	}
 
 	/**
