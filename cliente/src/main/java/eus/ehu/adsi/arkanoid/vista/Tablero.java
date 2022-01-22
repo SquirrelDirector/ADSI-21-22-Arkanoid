@@ -16,6 +16,8 @@ import eus.ehu.adsi.arkanoid.modelo.Bloque;
 import eus.ehu.adsi.arkanoid.modelo.Config;
 import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.modelo.Partida;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

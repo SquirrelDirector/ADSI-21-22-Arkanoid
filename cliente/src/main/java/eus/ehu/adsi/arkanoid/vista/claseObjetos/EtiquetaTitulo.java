@@ -1,4 +1,4 @@
-package eus.ehu.adsi.arkanoid.vista;
+package eus.ehu.adsi.arkanoid.vista.claseObjetos;
 
 import java.awt.Color;
 import java.awt.Font;

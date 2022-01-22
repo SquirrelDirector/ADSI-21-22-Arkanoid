@@ -3,19 +3,32 @@ package eus.ehu.adsi.arkanoid.vista;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.PanelNegro;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.RadioButton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.ScrollPane;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Slider;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.TabbedPanel;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -42,64 +55,70 @@ import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 
-public class Personalizacion extends JDialog {
+public class IU_Personalizacion extends JFrame {
 
-	private final JPanel contentPanel = new JPanel();
-	private JButton guardarButton, volverButton;
-	private JTabbedPane personalizarPestanas;
-	private JPanel cbButtons, cbpLabels, cfButtons, cfpLabels, clButtons, clpLabels, cppLabels, cpButtons;
-	private JPanel sonidosButtons;
-	private JScrollPane jspB, jspF, jspL, jspP;
-	private JSlider jsBloques, jsPaddle, jsBola;
+	private final JPanel tabPanel = new JPanel();
+	private TabbedPanel personalizarPestanas;
+	private TransparentPanel cbButtons, cbpLabels, clButtons, clpLabels, cppLabels, cpButtons, cfpLabels, cfButtons;
+	private TransparentPanel sonidosButtons;
+	private ScrollPane jspB, jspF, jspL, jspP;
+	private Slider jsBloques, jsPaddle, jsBola;
 	
 	private JSONArray colores, sonidos;
     private JSONObject personalizablesJugador;
     private ButtonGroup bg1, bg2, bg3, bg4, bgS;
     private Clip clip;
 
-	/**
+    /**
 	 * Launch the application.
 	 */
-	public static void mostrarVentana(String[] args) {
-		try {
-			Personalizacion dialog = new Personalizacion();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					IU_Personalizacion frame = new IU_Personalizacion();
+					frame.setVisible(true);
+					frame.setResizable(false);
+					frame.setLocationRelativeTo(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public Personalizacion() {
-		setBounds(100, 100, 520, 540);
+	public IU_Personalizacion() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 600, 540);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		setLocationRelativeTo(null);
-		setResizable(false);
+		
+		InterfazBase ib = new InterfazBase("PERSONALIZAR");
+		getContentPane().add(ib, BorderLayout.CENTER);
+		
+		tabPanel.setBorder(new EmptyBorder(10,10,10,10));
+		//tabPanel.setBackground(new Color(0,0,0,0));
+		tabPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		{
-			personalizarPestanas = new JTabbedPane(JTabbedPane.TOP);
-			contentPanel.add(personalizarPestanas);
+			personalizarPestanas = new TabbedPanel();	
+			
+			tabPanel.add(personalizarPestanas);
 			{
-				JPanel coloresPersonalizar = new JPanel();
-				coloresPersonalizar.setBorder(new EmptyBorder(5, 5, 5, 5));
+				PanelNegro coloresPersonalizar = new PanelNegro();
 				personalizarPestanas.addTab("COLORES", null, coloresPersonalizar, null);
 				coloresPersonalizar.setLayout(new GridLayout(0, 1, 0, 0));
 				{
-					JScrollPane scrollPane = new JScrollPane();
-					scrollPane.setBorder(null);
+					ScrollPane scrollPane = new ScrollPane();
 					coloresPersonalizar.add(scrollPane);
 					{
-						JPanel colores = new JPanel();
+						TransparentPanel colores = new TransparentPanel();
 						scrollPane.setViewportView(colores);
 						colores.setLayout(new GridLayout(4, 0, 0, 0));
 						{
-							JPanel coloresFondo = new JPanel();
-							coloresFondo.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(0, 0, 0), 2, true)));
+							TransparentPanel coloresFondo = new TransparentPanel();
+							coloresFondo.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 							colores.add(coloresFondo);
 							coloresFondo.setLayout(new BoxLayout(coloresFondo, BoxLayout.X_AXIS));
 							{
@@ -107,7 +126,7 @@ public class Personalizacion extends JDialog {
 								coloresFondo.add(horizontalStrut);
 							}
 							{
-								JLabel lblNewLabel = new JLabel("Fondo");
+								EtiquetaNormal lblNewLabel = new EtiquetaNormal("Fondo");
 								lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 								lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 								lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -118,11 +137,11 @@ public class Personalizacion extends JDialog {
 								coloresFondo.add(horizontalStrut);
 							}
 							{
-								JPanel fondo = new JPanel();
+								TransparentPanel fondo = new TransparentPanel();
 								coloresFondo.add(fondo);
 								fondo.setLayout(new GridLayout(2, 1, 0, 0));
 								{
-									JPanel panel = new JPanel();
+									TransparentPanel panel = new TransparentPanel();
 									panel.setBorder(new EmptyBorder(10, 35, 5, 0));
 									fondo.add(panel);
 									panel.setLayout(new GridLayout(0, 1, 0, 0));
@@ -131,14 +150,14 @@ public class Personalizacion extends JDialog {
 										jspF.setBorder(null);
 										panel.add(jspF);
 										{
-											cfpLabels = new JPanel();
+											cfpLabels = new TransparentPanel();
 											jspF.setViewportView(cfpLabels);
 											cfpLabels.setLayout(new GridLayout(1, 0, 0, 0));
 										}
 									}
 								}
 								{
-									cfButtons = new JPanel();
+									cfButtons = new TransparentPanel();
 									cfButtons.setBorder(new EmptyBorder(0, 5, 0, 0));
 									fondo.add(cfButtons);
 									cfButtons.setLayout(new BoxLayout(cfButtons, BoxLayout.X_AXIS));
@@ -146,8 +165,8 @@ public class Personalizacion extends JDialog {
 							}
 						}
 						{
-							JPanel coloresBola = new JPanel();
-							coloresBola.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(0, 0, 0), 2, true)));
+							TransparentPanel coloresBola = new TransparentPanel();
+							coloresBola.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 							colores.add(coloresBola);
 							coloresBola.setLayout(new BoxLayout(coloresBola, BoxLayout.X_AXIS));
 							{
@@ -155,7 +174,7 @@ public class Personalizacion extends JDialog {
 								coloresBola.add(horizontalStrut);
 							}
 							{
-								JLabel lblNewLabel_1 = new JLabel("Bola");
+								EtiquetaNormal lblNewLabel_1 = new EtiquetaNormal("Bola");
 								coloresBola.add(lblNewLabel_1);
 							}
 							{
@@ -163,27 +182,26 @@ public class Personalizacion extends JDialog {
 								coloresBola.add(horizontalStrut);
 							}
 							{
-								JPanel bola = new JPanel();
+								TransparentPanel bola = new TransparentPanel();
 								coloresBola.add(bola);
 								bola.setLayout(new GridLayout(2, 0, 0, 0));
 								{
-									JPanel panel = new JPanel();
+									TransparentPanel panel = new TransparentPanel();
 									panel.setBorder(new EmptyBorder(10, 35, 5, 0));
 									bola.add(panel);
 									panel.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										jspB = new JScrollPane();
-										jspB.setBorder(null);
+										jspB = new ScrollPane();
 										panel.add(jspB);
 										{
-											cbpLabels = new JPanel();
+											cbpLabels = new TransparentPanel();
 											jspB.setViewportView(cbpLabels);
 											cbpLabels.setLayout(new GridLayout(1, 0, 0, 0));
 										}
 									}
 								}
 								{
-									cbButtons = new JPanel();
+									cbButtons = new TransparentPanel();
 									cbButtons.setBorder(new EmptyBorder(0, 5, 0, 0));
 									bola.add(cbButtons);
 									cbButtons.setLayout(new BoxLayout(cbButtons, BoxLayout.X_AXIS));
@@ -191,8 +209,8 @@ public class Personalizacion extends JDialog {
 							}
 						}
 						{
-							JPanel coloresLadrillos = new JPanel();
-							coloresLadrillos.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(0, 0, 0), 2, true)));
+							TransparentPanel coloresLadrillos = new TransparentPanel();
+							coloresLadrillos.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 							colores.add(coloresLadrillos);
 							coloresLadrillos.setLayout(new BoxLayout(coloresLadrillos, BoxLayout.X_AXIS));
 							{
@@ -200,31 +218,30 @@ public class Personalizacion extends JDialog {
 								coloresLadrillos.add(horizontalStrut);
 							}
 							{
-								JLabel lblNewLabel_2 = new JLabel("Ladrillos");
+								EtiquetaNormal lblNewLabel_2 = new EtiquetaNormal("Ladrillos");
 								coloresLadrillos.add(lblNewLabel_2);
 							}
 							{
-								JPanel ladrillos = new JPanel();
+								TransparentPanel ladrillos = new TransparentPanel();
 								coloresLadrillos.add(ladrillos);
 								ladrillos.setLayout(new GridLayout(2, 0, 0, 0));
 								{
-									JPanel panel = new JPanel();
+									TransparentPanel panel = new TransparentPanel();
 									panel.setBorder(new EmptyBorder(10, 30, 5, 0));
 									ladrillos.add(panel);
 									panel.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										jspL = new JScrollPane();
-										jspL.setBorder(null);
+										jspL = new ScrollPane();
 										panel.add(jspL);
 										{
-											clpLabels = new JPanel();
+											clpLabels = new TransparentPanel();
 											jspL.setViewportView(clpLabels);
 											clpLabels.setLayout(new GridLayout(1, 0, 0, 0));
 										}
 									}
 								}
 								{
-									clButtons = new JPanel();
+									clButtons = new TransparentPanel();
 									clButtons.setBorder(new EmptyBorder(0, 0, 0, 0));
 									ladrillos.add(clButtons);
 									clButtons.setLayout(new BoxLayout(clButtons, BoxLayout.X_AXIS));
@@ -232,8 +249,8 @@ public class Personalizacion extends JDialog {
 							}
 						}
 						{
-							JPanel coloresPaddle = new JPanel();
-							coloresPaddle.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(0, 0, 0), 2, true)));
+							TransparentPanel coloresPaddle = new TransparentPanel();
+							coloresPaddle.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 							colores.add(coloresPaddle);
 							coloresPaddle.setLayout(new BoxLayout(coloresPaddle, BoxLayout.X_AXIS));
 							{
@@ -241,7 +258,7 @@ public class Personalizacion extends JDialog {
 								coloresPaddle.add(horizontalStrut);
 							}
 							{
-								JLabel lblNewLabel_3 = new JLabel("Paddle");
+								EtiquetaNormal lblNewLabel_3 = new EtiquetaNormal("Paddle");
 								coloresPaddle.add(lblNewLabel_3);
 							}
 							{
@@ -249,27 +266,26 @@ public class Personalizacion extends JDialog {
 								coloresPaddle.add(horizontalStrut);
 							}
 							{
-								JPanel paddle = new JPanel();
+								TransparentPanel paddle = new TransparentPanel();
 								coloresPaddle.add(paddle);
 								paddle.setLayout(new GridLayout(2, 0, 0, 0));
 								{
-									JPanel panel = new JPanel();
+									TransparentPanel panel = new TransparentPanel();
 									panel.setBorder(new EmptyBorder(10, 35, 5, 0));
 									paddle.add(panel);
 									panel.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										jspP = new JScrollPane();
-										jspP.setBorder(null);
+										jspP = new ScrollPane();
 										panel.add(jspP);
 										{
-											cppLabels = new JPanel();
+											cppLabels = new TransparentPanel();
 											jspP.setViewportView(cppLabels);
 											cppLabels.setLayout(new GridLayout(1, 0, 0, 0));
 										}
 									}
 								}
 								{
-									cpButtons = new JPanel();
+									cpButtons = new TransparentPanel();
 									cpButtons.setBorder(new EmptyBorder(0, 5, 0, 0));
 									paddle.add(cpButtons);
 									cpButtons.setLayout(new BoxLayout(cpButtons, BoxLayout.X_AXIS));
@@ -280,26 +296,24 @@ public class Personalizacion extends JDialog {
 				}
 			}
 			{
-				JPanel sonidoPersonalizar = new JPanel();
-				sonidoPersonalizar.setBorder(new EmptyBorder(5, 5, 5, 5));
+				PanelNegro sonidoPersonalizar = new PanelNegro();
 				personalizarPestanas.addTab("SONIDOS", null, sonidoPersonalizar, null);
 				sonidoPersonalizar.setLayout(new GridLayout(0, 1, 0, 0));
 				{
-					JScrollPane scrollPane = new JScrollPane();
-					scrollPane.setBorder(null);
+					ScrollPane scrollPane = new ScrollPane();
 					sonidoPersonalizar.add(scrollPane);
 					{
-						JPanel panel = new JPanel();
+						TransparentPanel panel = new TransparentPanel();
 						panel.setBorder(new EmptyBorder(10, 0, 0, 0));
 						scrollPane.setViewportView(panel);
 						panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 						{
-							JLabel lblNewLabel_4 = new JLabel("Escoge la música que quieras escuchar:");
+							EtiquetaNormal lblNewLabel_4 = new EtiquetaNormal("Escoge la música que quieras escuchar:");
 							lblNewLabel_4.setAlignmentX(Component.CENTER_ALIGNMENT);
 							panel.add(lblNewLabel_4);
 						}
 						{
-							sonidosButtons = new JPanel();
+							sonidosButtons = new TransparentPanel();
 							sonidosButtons.setBorder(new EmptyBorder(15, 0, 0, 0));
 							panel.add(sonidosButtons);
 							sonidosButtons.setLayout(new GridLayout(0, 1, 0, 0));
@@ -308,81 +322,73 @@ public class Personalizacion extends JDialog {
 				}
 			}
 			{
-				JPanel dimensionesPersonalizar = new JPanel();
-				dimensionesPersonalizar.setBorder(new EmptyBorder(5, 5, 5, 5));
+				PanelNegro dimensionesPersonalizar = new PanelNegro();
 				personalizarPestanas.addTab("DIMENSIONES", null, dimensionesPersonalizar, null);
 				dimensionesPersonalizar.setLayout(new GridLayout(0, 1, 0, 0));
 				{
-					JScrollPane scrollPane = new JScrollPane();
-					scrollPane.setBorder(null);
+					ScrollPane scrollPane = new ScrollPane();
 					dimensionesPersonalizar.add(scrollPane);
 					{
-						JPanel panel = new JPanel();
-						panel.setBorder(new EmptyBorder(10, 0, 0, 55));
+						TransparentPanel panel = new TransparentPanel();
 						scrollPane.setViewportView(panel);
 						panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 						{
-							JLabel lblNewLabel_5 = new JLabel("Personaliza los elementos del juego:");
+							EtiquetaNormal lblNewLabel_5 = new EtiquetaNormal("Personaliza los elementos del juego:");
+							lblNewLabel_5.setAlignmentX(Component.CENTER_ALIGNMENT);
 							panel.add(lblNewLabel_5);
 						}
 						{
-							JPanel panel_1 = new JPanel();
+							TransparentPanel panel_1 = new TransparentPanel();
 							panel.add(panel_1);
 							panel_1.setLayout(new GridLayout(3, 0, 0, 0));
 							{
-								JPanel panel_2 = new JPanel();
+								TransparentPanel panel_2 = new TransparentPanel();
 								panel_1.add(panel_2);
 								panel_2.setLayout(new GridLayout(0, 2, 0, 0));
 								{
-									JPanel panel_3 = new JPanel();
+									TransparentPanel panel_3 = new TransparentPanel();
 									panel_2.add(panel_3);
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										JLabel lblNewLabel_6 = new JLabel("Número bloques");
+										EtiquetaNormal lblNewLabel_6 = new EtiquetaNormal("Número bloques");
 										lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 										panel_3.add(lblNewLabel_6);
 									}
 								}
 								{
-									JPanel panel_3 = new JPanel();
+									TransparentPanel panel_3 = new TransparentPanel();
 									panel_2.add(panel_3);
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										jsBloques = new JSlider();
-										jsBloques.setSnapToTicks(true);
+										jsBloques = new Slider();
 										jsBloques.setMinorTickSpacing(11);
 										jsBloques.setMinimum(22);
 										jsBloques.setMaximum(66);
 										jsBloques.setMajorTickSpacing(11);
-										jsBloques.setPaintLabels(true);
-										jsBloques.setPaintTicks(true);
 										panel_3.add(jsBloques);
 									}
 								}
 							}
 							{
-								JPanel panel_2 = new JPanel();
+								TransparentPanel panel_2 = new TransparentPanel();
 								panel_1.add(panel_2);
 								panel_2.setLayout(new GridLayout(0, 2, 0, 0));
 								{
-									JPanel panel_3 = new JPanel();
+									TransparentPanel panel_3 = new TransparentPanel();
 									panel_2.add(panel_3);
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										JLabel lblNewLabel_7 = new JLabel("Tamaño paddle");
+										EtiquetaNormal lblNewLabel_7 = new EtiquetaNormal("Tamaño paddle");
 										lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 										panel_3.add(lblNewLabel_7);
 									}
 								}
 								{
-									JPanel panel_3 = new JPanel();
+									TransparentPanel panel_3 = new TransparentPanel();
 									panel_2.add(panel_3);
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										jsPaddle = new JSlider();
-										jsPaddle.setSnapToTicks(true);
-										jsPaddle.setPaintTicks(true);
-										jsPaddle.setPaintLabels(true);
+										jsPaddle = new Slider();
 										jsPaddle.setMinorTickSpacing(5);
 										jsPaddle.setMinimum(40);
 										jsPaddle.setMaximum(80);
@@ -392,32 +398,29 @@ public class Personalizacion extends JDialog {
 								}
 							}
 							{
-								JPanel panel_2 = new JPanel();
+								TransparentPanel panel_2 = new TransparentPanel();
 								panel_1.add(panel_2);
 								panel_2.setLayout(new GridLayout(0, 2, 0, 0));
 								{
-									JPanel panel_3 = new JPanel();
+									TransparentPanel panel_3 = new TransparentPanel();
 									panel_2.add(panel_3);
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										JLabel lblNewLabel_8 = new JLabel("Velocidad bola");
+										EtiquetaNormal lblNewLabel_8 = new EtiquetaNormal("Velocidad bola");
 										lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 										panel_3.add(lblNewLabel_8);
 									}
 								}
 								{
-									JPanel panel_3 = new JPanel();
+									TransparentPanel panel_3 = new TransparentPanel();
 									panel_2.add(panel_3);
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 									{
-										jsBola = new JSlider();
-										jsBola.setSnapToTicks(true);
+										jsBola = new Slider();
 										jsBola.setMinorTickSpacing(1);
 										jsBola.setMinimum(1);
 										jsBola.setMaximum(7);
 										jsBola.setMajorTickSpacing(1);
-										jsBola.setPaintTicks(true);
-										jsBola.setPaintLabels(true);
 										panel_3.add(jsBola);
 									}
 								}
@@ -427,29 +430,21 @@ public class Personalizacion extends JDialog {
 				}
 			}
 		}
-		{
-			JPanel topPane = new JPanel();
-			topPane.setLayout(new FlowLayout(FlowLayout.LEFT));
-			getContentPane().add(topPane, BorderLayout.NORTH);
-			{
-				volverButton = new JButton("");
-				volverButton.setIcon(new ImageIcon("/general/back.png"));
-				volverButton.setBorder(null);
-				volverButton.setContentAreaFilled(false);
-				topPane.add(volverButton);
-			}
-			{
-				JLabel tituloPersonalizar = new JLabel("PERSONALIZAR");
-				tituloPersonalizar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				topPane.add(tituloPersonalizar);
-			}
-		}
+		ib.panelPrincipal.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		ib.panelPrincipal.add(tabPanel);
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			ib.add(buttonPane, BorderLayout.SOUTH);
 			{
-				guardarButton = new JButton("GUARDAR");
+				Boton guardarButton = new Boton("GUARDAR");
+				guardarButton.addActionListener(new ActionListener() {
+		            public void actionPerformed(ActionEvent e) {
+		                guardarPersonalizacion();
+		            }
+		        });
 				buttonPane.add(guardarButton);
 			}
 		}
@@ -463,19 +458,6 @@ public class Personalizacion extends JDialog {
         if (!personalizarPestanas.isEnabledAt(2)){
             personalizarPestanas.setToolTipTextAt(2, "Tienes que iniciar sesión!");
         }
-        
-        guardarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                guardarPersonalizacion();
-            }
-        });
-        
-        volverButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
         
      // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -505,7 +487,7 @@ public class Personalizacion extends JDialog {
                 String nombre = colorObjeto.getString("Nombre");
                 String codigo = colorObjeto.getString("Codigo");
                 //Nombre colores - buttongroup
-                JRadioButton jrb = new JRadioButton(nombre);
+                RadioButton jrb = new RadioButton(nombre);
                 jrb.setMargin(new Insets(0, 25, 0, 0));
                 jrb.setToolTipText(codigo);
                 if (j==0) {
@@ -526,7 +508,7 @@ public class Personalizacion extends JDialog {
                 }
                 //Colores - Labels
                 JLabel color = new JLabel();
-                color.setBorder(new LineBorder(Color.black, 2, true)); //Cambiar a blanco al juntar las ramas
+                color.setBorder(new LineBorder(Color.white, 2, true));
                 color.setPreferredSize(new Dimension(40, 40));
                 int[] rgb = obtenerRGB(codigo);
                 color.setBackground(new Color(rgb[0], rgb[1], rgb[2]));
@@ -556,7 +538,7 @@ public class Personalizacion extends JDialog {
         }
     }
 	
-	private JRadioButton addUserPreference(JRadioButton jrb, String name, String codUsu) {
+	private RadioButton addUserPreference(RadioButton jrb, String name, String codUsu) {
         String codigo = personalizablesJugador.getString(codUsu);
         if (name.equals(codigo)) jrb.setSelected(true);
         return jrb;
@@ -583,7 +565,7 @@ public class Personalizacion extends JDialog {
             sonidoObjeto = (JSONObject) sonidos.get(i);
             String nombre = sonidoObjeto.getString("Nombre");
             final String path = sonidoObjeto.getString("Path");
-            JRadioButton jrb = new JRadioButton(nombre);
+            RadioButton jrb = new RadioButton(nombre);
             jrb.setMargin(new Insets(15, 15, 15, 15));
             jrb = addUserPreference(jrb, path, "PathMusica");
             bgS.add(jrb);
@@ -702,7 +684,11 @@ public class Personalizacion extends JDialog {
 
             Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4, atributos);
             Arkanoid.getArkanoid().actualizarPersonalizacionUsu(sonido, color1, color2, color3, color4, atributos);
-            Arkanoid.getArkanoid().updateConfig((double)bola, (double)paddle, bloques);
+            Double[] datos = new Double[3];
+            datos[0] = (double) bola;
+            datos[1] = (double) paddle;
+            datos[2] = (double)bloques;
+            Arkanoid.getArkanoid().updateConfig(datos);
         } 
         
         Arkanoid.getArkanoid().updateColores(color1, color2, color3, color4);
