@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
@@ -13,8 +12,7 @@ import java.util.regex.Pattern;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,24 +27,23 @@ import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputContrasena;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputTexto;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.PanelNegro;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.RadioButton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.ScrollPane;
 
 import javax.swing.JScrollPane;
 import java.awt.GridLayout;
 import java.awt.Insets;
 
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 
 import java.awt.Component;
 
-public class IU_ModificarDatos extends JDialog {
+public class IU_ModificarDatos extends JFrame {
 
-	private final JPanel contentPanel = new JPanel();
-	private JButton volverButton;
+	private final JPanel datosPanel = new JPanel();
 	private InputTexto nombreUsuario;
 	private InputContrasena passwordField;
 	private JPanel avatarLabels, avataresButton;
@@ -63,9 +60,10 @@ public class IU_ModificarDatos extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			IU_ModificarDatos dialog = new IU_ModificarDatos();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
+			IU_ModificarDatos frame = new IU_ModificarDatos();
+			frame.setVisible(true);
+			frame.setResizable(false);
+			frame.setLocationRelativeTo(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -75,24 +73,25 @@ public class IU_ModificarDatos extends JDialog {
 	 * Create the dialog.
 	 */
 	public IU_ModificarDatos() {
-		setBounds(100, 100, 550, 400);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 700, 550);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		setLocationRelativeTo(null);
-		setResizable(false);
+		datosPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		datosPanel.setLayout(new GridLayout(0, 1, 0, 0));
+				
+		InterfazBase ib = new InterfazBase("MODIFICAR DATOS");
+		getContentPane().add(ib, BorderLayout.CENTER);
+		
 		{
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBorder(null);
-			contentPanel.add(scrollPane);
+			ScrollPane scrollPane = new ScrollPane();
+			datosPanel.add(scrollPane);
 			{
-				JPanel panel = new JPanel();
+				PanelNegro panel = new PanelNegro();
 				scrollPane.setViewportView(panel);
 				panel.setLayout(new GridLayout(3, 0, 0, 0));
 				{
-					JPanel avatarPanel = new JPanel();
-					avatarPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(0, 0, 0), 2, true)));
+					PanelNegro avatarPanel = new PanelNegro();
+					avatarPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 					panel.add(avatarPanel);
 					avatarPanel.setLayout(new BoxLayout(avatarPanel, BoxLayout.Y_AXIS));
 					{
@@ -103,20 +102,19 @@ public class IU_ModificarDatos extends JDialog {
 						avatarPanel.add(lblNewLabel);
 					}
 					{
-						JPanel panel_1 = new JPanel();
+						PanelNegro panel_1 = new PanelNegro();
 						panel_1.setBorder(new EmptyBorder(0, 0, 5, 0));
 						avatarPanel.add(panel_1);
 						panel_1.setLayout(new GridLayout(2, 5, 0, 0));
 						{
-							JPanel panel_2 = new JPanel();
+							PanelNegro panel_2 = new PanelNegro();
 							panel_1.add(panel_2);
 							panel_2.setLayout(new GridLayout(0, 1, 0, 0));
 							{
-								jspA = new JScrollPane();
-								jspA.setBorder(null);
+								jspA = new ScrollPane();
 								panel_2.add(jspA);
 								{
-									avatarLabels = new JPanel();
+									avatarLabels = new PanelNegro();
 									avatarLabels.setBorder(new EmptyBorder(10, 35, 0, 15));
 									jspA.setViewportView(avatarLabels);
 									avatarLabels.setLayout(new GridLayout(1, 0, 0, 0));
@@ -124,16 +122,16 @@ public class IU_ModificarDatos extends JDialog {
 							}
 						}
 						{
-							avataresButton = new JPanel();
-							avataresButton.setBorder(new EmptyBorder(0, 0, 0, 10));
+							avataresButton = new PanelNegro();
+							avataresButton.setBorder(new EmptyBorder(0, 0, 0, 15));
 							panel_1.add(avataresButton);
 							avataresButton.setLayout(new BoxLayout(avataresButton, BoxLayout.X_AXIS));
 						}
 					}
 				}
 				{
-					JPanel nombrePanel = new JPanel();
-					nombrePanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(0, 0, 0), 2, true)));
+					PanelNegro nombrePanel = new PanelNegro();
+					nombrePanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 					panel.add(nombrePanel);
 					nombrePanel.setLayout(new GridLayout(2, 2, 0, 0));
 					{
@@ -142,20 +140,17 @@ public class IU_ModificarDatos extends JDialog {
 						nombrePanel.add(lblNewLabel_1);
 					}
 					{
-						JPanel panel_1 = new JPanel();
+						PanelNegro panel_1 = new PanelNegro();
 						nombrePanel.add(panel_1);
 						{
-							nombreUsuario = new InputTexto();
-							nombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-							nombreUsuario.setColumns(20);
-							nombreUsuario.setPreferredSize(new Dimension(0, 25));
+							nombreUsuario = new InputTexto("Nombre");
 							panel_1.add(nombreUsuario);
 						}
 					}
 				}
 				{
-					JPanel contrasenaPanel = new JPanel();
-					contrasenaPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(0, 0, 0), 2, true)));
+					PanelNegro contrasenaPanel = new PanelNegro();
+					contrasenaPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 					panel.add(contrasenaPanel);
 					contrasenaPanel.setLayout(new GridLayout(2, 1, 0, 0));
 					{
@@ -164,45 +159,24 @@ public class IU_ModificarDatos extends JDialog {
 						contrasenaPanel.add(lblNewLabel_2);
 					}
 					{
-						JPanel panel_1 = new JPanel();
+						PanelNegro panel_1 = new PanelNegro();
 						contrasenaPanel.add(panel_1);
 						{
-							passwordField = new InputContrasena();
-							passwordField.setHorizontalAlignment(SwingConstants.CENTER);
-							passwordField.setPreferredSize(new Dimension(0, 25));
+							passwordField = new InputContrasena("CONTRASEÑA:");
 							panel_1.add(passwordField);
 						}
 					}
 				}
 			}
 		}
-		{
-			JPanel topPane = new JPanel();
-			topPane.setLayout(new FlowLayout(FlowLayout.LEFT));
-			getContentPane().add(topPane, BorderLayout.NORTH);
-			{
-				volverButton = new JButton("");
-				volverButton.setIcon(new ImageIcon("D:\\Uni\\ADSI-21-22-Arkanoid\\cliente\\src\\main\\resources\\general\\back.png"));
-				volverButton.setBorder(null);
-				volverButton.setContentAreaFilled(false);
-				volverButton.addActionListener(new ActionListener() {
-			        @Override
-			        public void actionPerformed(ActionEvent e) {
-			            dispose();
-			        }
-			    });
-				topPane.add(volverButton);
-			}
-			{
-				JLabel tituloPersonalizar = new JLabel("MODIFICAR DATOS");
-				tituloPersonalizar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				topPane.add(tituloPersonalizar);
-			}
-		}
+		ib.panelPrincipal.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		ib.panelPrincipal.add(datosPanel);
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			ib.add(buttonPane, BorderLayout.SOUTH);
 			{
 				Boton guardarButton = new Boton("GUARDAR");
 				guardarButton.addActionListener(new ActionListener() {
@@ -243,15 +217,15 @@ public class IU_ModificarDatos extends JDialog {
 			}
 			
 			//RadioButtons - Nombre
-			JRadioButton jrb = new JRadioButton(nombre);
+			RadioButton jrb = new RadioButton(nombre);
 			jrb = addUserPreference(jrb, path);
-			jrb.setMargin(new Insets(0, 26, 0, 0));
+			jrb.setMargin(new Insets(0, 45, 0, 0));
 			bgA.add(jrb);
 			avataresButton.add(jrb);
 		}
 	}
 	
-	private JRadioButton addUserPreference(JRadioButton jrb, String pathPerfil) {
+	private RadioButton addUserPreference(RadioButton jrb, String pathPerfil) {
         if (pathPerfil.equals(pathPerfilUsu)) jrb.setSelected(true);
         return jrb;
     }

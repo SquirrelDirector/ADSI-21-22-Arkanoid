@@ -1,13 +1,14 @@
 package eus.ehu.adsi.arkanoid.vista.claseObjetos;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
@@ -23,6 +24,8 @@ public class InputContrasena extends JPasswordField{
 		this.setColumns(20);
 		this.setEchoChar('*');
 		this.setBorder(new EmptyBorder(5,10,5,10));
+		this.setPreferredSize(new Dimension(0, 30));
+		this.setHorizontalAlignment(SwingConstants.CENTER);
 	}
 	
 	public InputContrasena() {
