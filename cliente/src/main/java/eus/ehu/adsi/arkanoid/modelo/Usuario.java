@@ -269,7 +269,9 @@ public class Usuario {
 			
 			if (logroUsuario.getString("fechaObtencion")==null) {// esto quiere decir que el usuario no tiene este logro obtenido
 				if (progresoUsuario < 1) {
-					this.actualizarProgreso(1, nombreLogro);
+					Logro logro = CatalogoLogros.getMiCatalogoLogros().getLogro(nombreLogro);
+					int aumento = (1 / logro.getObjetivo()) * 10;
+					this.actualizarProgreso(aumento, nombreLogro);
 				}else {
 					nuevosLogros.put(unLogro);
 					//Anadimos el nuevo logro obtenido en partida a la lista de logros del usuario
