@@ -3,6 +3,7 @@ package eus.ehu.adsi.arkanoid.controlador;
 import org.json.JSONObject;
 
 import eus.ehu.adsi.arkanoid.modelo.CatalogoLogros;
+import eus.ehu.adsi.arkanoid.modelo.Logro;
 
 public class GestorLogros {
 
@@ -23,11 +24,10 @@ public class GestorLogros {
 	 * 
 	 * @param nombre
 	 */
-	public boolean buscarLogro(String nombre) {
+	public Logro buscarLogro(String nombre) {
 		
-		return unCatalogoLogros.buscarLogro(nombre);
+		return unCatalogoLogros.getLogro(nombre);
 	}
-
 	/**
 	 * 
 	 * @param nombre

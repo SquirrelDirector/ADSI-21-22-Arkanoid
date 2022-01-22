@@ -260,14 +260,18 @@ public class Usuario {
 			double progresoUsuario = logroUsuario.getDouble("progreso");
 			
 			if (logroUsuario.getString("fechaObtencion")==null) {// esto quiere decir que el usuario no tiene este logro obtenido
-				nuevosLogros.put(unLogro);
-				//Anadimos el nuevo logro obtenido en partida a la lista de logros del usuario
-				Logro nuevoLogro = CatalogoLogros.getMiCatalogoLogros().getLogro(nombreLogro);
-				LogroObtenido nuevoLogroObtenido = new LogroObtenido(new Date(),nuevoLogro,1);
-				susLogros.add(nuevoLogroObtenido);
-			} else if (progresoUsuario < 1) {
-				this.actualizarProgreso(1, nombreLogro);
+				if (progresoUsuario < 1) {
+					this.actualizarProgreso(1, nombreLogro);
+				}else {
+					nuevosLogros.put(unLogro);
+					//Anadimos el nuevo logro obtenido en partida a la lista de logros del usuario
+					Logro nuevoLogro = CatalogoLogros.getMiCatalogoLogros().getLogro(nombreLogro);
+					LogroObtenido nuevoLogroObtenido = new LogroObtenido(new Date(),nuevoLogro,1);
+					susLogros.add(nuevoLogroObtenido);
+				}
 			}
+				
+			 
 		}
 		return nuevosLogros;
 

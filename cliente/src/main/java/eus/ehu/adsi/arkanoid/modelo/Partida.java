@@ -21,6 +21,7 @@ public class Partida extends Observable {
 	public boolean ganar = false;
 	public boolean gameOver = false;
 	
+	
 
 	private Partida() {}
 	
@@ -47,7 +48,9 @@ public class Partida extends Observable {
 			//TODO: llamar a la funcionalidad de la vista de perder
 		}
 	}
-
+	public void addLogro(Logro pLogro) {
+		this.listaLogros.add(pLogro);
+	}
 	public JSONObject getDatosPartidaActual() {
 		JSONObject datos = new JSONObject();
 		datos.put("tiempoPartida", crono);
@@ -146,8 +149,13 @@ public class Partida extends Observable {
 			
 			
 			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
+			
+			
+			
 		}
+		
 		return ganar;
+		
 	}
 	
 	public void generarPartida() {
