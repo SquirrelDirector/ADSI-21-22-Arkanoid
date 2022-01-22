@@ -25,7 +25,7 @@ public abstract class Config {
 	public static Color BRICK_COLOR = new Color(244,255,0);  
 	public static final Color LUCK_BRICK_COLOR = Color.yellow; 
 	public static String PATH_MUSICA = "/sonidoPersonalizar/Sonido1.wav";
-	public static String PATH_PERFIL;  //TODO - Definir path por defecto
+	public static String PATH_PERFIL = "/imagenesAvatar/Avatar1.png";
 
 
 }

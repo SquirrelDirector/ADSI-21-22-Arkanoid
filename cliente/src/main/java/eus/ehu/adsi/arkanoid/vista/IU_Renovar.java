@@ -40,7 +40,7 @@ public class IU_Renovar extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public void mostrarVentana(final String mail) {
+	public void mostrarVentana(String mail) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -49,12 +49,13 @@ public class IU_Renovar extends JFrame {
 					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
 					
-					email=mail;
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		email=mail;
 	}
 
 	public static IU_Renovar getMiIU_Renovar(){
@@ -97,7 +98,7 @@ public class IU_Renovar extends JFrame {
 			btnEnviar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					int cod=Arkanoid.getArkanoid().cambiarContrasena(email, txtPassword.getText(), txtRepeat.getText());
+					int cod=Arkanoid.getArkanoid().cambiarContrasena(email, txtPassword.getText(), txtRepeat.getText()); //FIXME - email se inicializa pero el valor se pierde al llegar aquí
 					switch (cod) {
 					case 0: //todo bien
 						IU_Identificarse.getMiIU_Identificarse().mostrarVentana();

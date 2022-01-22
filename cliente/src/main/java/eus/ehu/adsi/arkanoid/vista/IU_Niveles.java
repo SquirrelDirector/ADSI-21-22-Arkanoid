@@ -19,12 +19,17 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.event.ActionEvent;
-public class IU_Niveles {
+public class IU_Niveles implements Observer {
 
 	private JFrame frame;
 	private int nivel;
 	private JLabel lblL;
+	private InterfazBase base;
+	private JButton botonPersonalizar;
+	private JButton botonNvl5;
 	/**
 	 * Launch the application.
 	 */
@@ -66,7 +71,8 @@ public class IU_Niveles {
 		else
 			seleccionar(1);
 		
-		JPanel base=new InterfazBase("SELECCIONAR NIVEL");
+		base=new InterfazBase("SELECCIONAR NIVEL");
+		base.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
 		((InterfazBase) base).setEventoRegreso(new IU_Inicial());
 		frame.add(base);
 		
@@ -104,7 +110,7 @@ public class IU_Niveles {
 		pnlPersonalizar.setBackground(new Color(0,0,0,0));
 		pnlPersonalizar.setBorder(new EmptyBorder(0, 10, 0, 10));
 		
-		JButton botonPersonalizar = new Boton("Personalizar");
+		botonPersonalizar = new Boton("Personalizar");
 		if (Arkanoid.getArkanoid().isIdentificado()==false) {
 			botonPersonalizar.setEnabled(false);
 		}
@@ -208,7 +214,7 @@ public class IU_Niveles {
 		pnlNvl5.setBackground(new Color(0,0,0,0));
 		pnlNvl5.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
-		JButton botonNvl5 = new Boton("Personalizado");
+		botonNvl5 = new Boton("Personalizado");
 		if (Arkanoid.getArkanoid().isIdentificado()==false) {
 			botonNvl5.setEnabled(false);
 		}
@@ -243,6 +249,15 @@ public class IU_Niveles {
 			break;
 		}
 		frame.repaint();
+	}
+	
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if (arg1 instanceof Boolean){
+			base.setIdentificado((boolean) arg1);
+			botonPersonalizar.setEnabled((boolean) arg1);
+			botonNvl5.setEnabled((boolean) arg1);
+		}
 	}
 
 }

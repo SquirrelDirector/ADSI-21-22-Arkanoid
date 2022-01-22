@@ -277,7 +277,8 @@ public class Arkanoid extends Observable {
 			return 3;
 		
 		usuario=new Usuario(datos);
-		notifyObservers(usuario.getPerfil());
+		setChanged();
+		notifyObservers(true);
 		return 0;
 	}
 	
@@ -287,8 +288,10 @@ public class Arkanoid extends Observable {
 	}
 
 	public void cerrarSesion(){
-		if (!usuario.isIdentificado()) //caso a priori imposible de suceder
-			notifyObservers(usuario.getPerfil());
+		if (!usuario.isIdentificado()){ //caso a priori imposible de suceder
+			setChanged();
+			notifyObservers(false);
+		}
 		usuario=new Usuario();
 	}
 
@@ -317,10 +320,11 @@ public class Arkanoid extends Observable {
 		if (!pass.equals(rePass))
 			return 5;
 		
-		pass=resumir(pass);
 		GestorUsuarios.getGestorUsuario().crearUsuario(usr, mail, pass);
 		JSONObject datos=GestorUsuarios.getGestorUsuario().importarUsuario(mail, pass);
 		usuario=new Usuario(datos);
+		setChanged();
+		notifyObservers(true);
 		return 0;
 		
 	}
@@ -474,5 +478,9 @@ public class Arkanoid extends Observable {
 	
 	public void addObserverPartida(Tablero tablero){ 
 		GestorPartida.getGestorPartida().addObserverPartida(tablero); 
-    } 
+    }
+
+	public JSONObject getPerfil() {
+		return usuario.getPerfil();
+	} 
 }

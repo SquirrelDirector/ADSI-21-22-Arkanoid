@@ -1,5 +1,7 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
+import java.awt.Color;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -51,13 +53,13 @@ public class GestorUsuarios {
 	public JSONObject importarUsuario(String mail, String pass) {
 		String preg="SELECT Contraseña FROM Usuario WHERE Email = '"+mail+"';";
 		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
-		String usrPass=(String) res.get("Contrasena");
-		if (usrPass==null) //no existe tal usuario
+		if (res.longitud==0) //no existe tal usuario
 			return null;
+		String usrPass=(String) res.get("Contraseña");
 		if (!pass.equals(usrPass)) //el usuario no tiene tal contraseña
 			return null;
 		
-		preg="SELECT NombreUsuario, NivelDefault, PathMusica, PathPerfil, CodigoColorFondo, CodigoColorBola, CodigoColorPaddle, CodigoColorLadrillo, VelocidadCustom, AnchuraCustom, AceleracionCustom, NumLadrillosCustom FROM Usuario WHERE Email = '"+mail+"';";
+		preg="SELECT NombreUsuario, NivelDefault, PathMusica, PathPerfil, CodigoColorFondo, CodigoColorBola, CodigoColorPaddle, CodigoColorLadrillo, Atributos_Personalizado FROM Usuario WHERE Email = '"+mail+"';";
 		res=GestorDB.getGestorDB().execSQL(preg);
 		JSONObject datos=new JSONObject();
 		
@@ -133,7 +135,7 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void crearUsuario(String usr, String mail, String pass) {
-		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contrasena, PathPerfil, PathMusica, CodigoColorFondo, CodigoColorBola, CodigoColorLadrillo, CodigoColorPaddle, NivelDefault) VALUES ('"+mail+"', '"+usr+"', '"+pass+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_PERFIL+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_MUSICA+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.BACKGROUND_COLOR.toString()+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.BALL_COLOR.toString()+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.BRICK_COLOR.toString()+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_COLOR.toString()+"', '"+1+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_Y*eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_X+","+eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_WIDTH+","+eus.ehu.adsi.arkanoid.modelo.Config.BALL_VELOCITY+"');";
+		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contraseña, PathPerfil, PathMusica, CodigoColorFondo, CodigoColorBola, CodigoColorLadrillo, CodigoColorPaddle, NivelDefault, Atributos_Personalizado) VALUES ('"+mail+"', '"+usr+"', '"+pass+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_PERFIL+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.PATH_MUSICA+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.BACKGROUND_COLOR)+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.BALL_COLOR)+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.BRICK_COLOR)+"', '"+colorString(eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_COLOR)+"', '"+1+"', '"+eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_Y*eus.ehu.adsi.arkanoid.modelo.Config.COUNT_BLOCKS_X+","+eus.ehu.adsi.arkanoid.modelo.Config.PADDLE_WIDTH+","+eus.ehu.adsi.arkanoid.modelo.Config.BALL_VELOCITY+"');";
 		GestorDB.getGestorDB().execSQL(preg);
 		
 		preg="SELECT idLogro FROM Logro;";
@@ -147,13 +149,20 @@ public class GestorUsuarios {
 		}
 	}
 
+	private String colorString(Color col) {
+		int r=col.getRed();
+		int g=col.getGreen();
+		int b=col.getBlue();
+		return r+","+g+","+b;
+	}
+
 	/**
 	 * 
 	 * @param mail
 	 * @param pass
 	 */
 	public void cambiarContrasena(String mail, String pass) {
-		String preg="UPDATE Usuario SET Contrasena="+pass+" WHERE Mail='"+mail+"';";
+		String preg="UPDATE Usuario SET Contraseña="+pass+" WHERE Mail='"+mail+"';";
 		GestorDB.getGestorDB().execSQL(preg);
 	}
 

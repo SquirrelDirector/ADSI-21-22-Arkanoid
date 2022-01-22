@@ -154,7 +154,7 @@ public class IU_Registrarse extends JFrame {
 					int cod=Arkanoid.getArkanoid().registrarse(txtUsername.getText(), txtEmail.getText(), txtPassword.getText(), txtRepeat.getText());
 					switch (cod){
 					case 0: //todo bien
-						
+						dispose();
 						break;
 					case 1: //usuario repetido
 						JOptionPane.showMessageDialog(null, "El nombre de usuario introducido ya existe");

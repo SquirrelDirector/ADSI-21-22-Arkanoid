@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
@@ -19,7 +21,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 
-public class Ranking {
+public class Ranking implements Observer{
 
 	private JFrame frame;
 	private JSONArray ranking = new JSONArray();
@@ -69,7 +71,7 @@ public class Ranking {
 		ranking.put(puntuacion2);
 		
 		// fin de las puntuaciones de prueba */
-		
+		Arkanoid.getArkanoid().addObserver(this);
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 668, 443);
@@ -79,6 +81,7 @@ public class Ranking {
 		JPanel panelGeneral = new JPanel();
 		frame.getContentPane().add(panelGeneral, BorderLayout.CENTER);
 		panelGeneral.setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel Ranking = new JLabel("Ranking");
 		Ranking.setBounds(0, 0, 184, 56);
@@ -296,5 +299,12 @@ public class Ranking {
 			panel.add(labelPuntos);
 			
 		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		//if (arg1 instanceof Boolean)
+			//contentPane.setIdentificado((boolean) arg1);
+			//TODO - Cuando se ponga un InterfazBase aplicar esta parte
 	}
 }
