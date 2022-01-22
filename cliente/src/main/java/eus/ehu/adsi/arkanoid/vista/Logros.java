@@ -6,30 +6,38 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.BotonLogro;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.awt.CardLayout;
+import java.awt.Color;
 
-public class Logros extends JDialog {
+public class Logros extends JFrame implements Observer{
 
 	private InterfazBase contentPane;
 	private JLabel lblLogout;
 	private JLabel lblDescrp_content;
 	private JLabel lblFecha_content;
 	private JButton btn;
-	private Actioner ac;
 	private JSONArray logros = new JSONArray();
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	String fecha = dateFormat.format(new Date());
@@ -37,7 +45,7 @@ public class Logros extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void mostrarVentana() {
 		try {
 			Logros dialog = new Logros();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -52,7 +60,10 @@ public class Logros extends JDialog {
 	 */
 	public Logros() {
 		contentPane = new InterfazBase("Logros");
+		contentPane.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
+		Arkanoid.getArkanoid().addObserver(this);
 		setContentPane(contentPane);
+		((InterfazBase) contentPane).setEventoRegreso(new IU_Inicial());
 		setVisible(true);
 		/* creamos los logros a mano para simular el array de json */
 		JSONObject logro1 = new JSONObject();
@@ -107,14 +118,18 @@ public class Logros extends JDialog {
 		//Panel panel_logros = new Panel();
 		//contentPane.panelPrincipal.add(panel_logros);
 		JPanel UI = new JPanel();
+		UI.setBackground(new Color(0,0,0,0));
 		UI.setLayout(new BorderLayout());
 		JPanel panel_logros = new JPanel();
-		panel_logros.setLayout(new GridLayout(0, 2, 0, 0));
+		panel_logros.setBackground(new Color(0,0,0,0));
+		panel_logros.setLayout(new GridLayout(0, 2, 45, 45));
+		panel_logros.setBorder(new EmptyBorder(20, 20, 20, 20));
 		UI.add(panel_logros, BorderLayout.CENTER);
 
 		JPanel panel_descp_logro = new JPanel();
+		panel_descp_logro.setBackground(new Color(0,0,0,0));
 		panel_descp_logro.setLayout(new GridLayout(2, 0, 0, 0));
-		
+		panel_descp_logro.setBorder(new EmptyBorder(20, 20, 20, 20));
 		EtiquetaNormal lblDescrp = new EtiquetaNormal("Descripcion del logro:");
 		lblDescrp.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_descp_logro.add(lblDescrp);
@@ -139,20 +154,34 @@ public class Logros extends JDialog {
 
 		for (int i = 0; i < logros.length(); i++) {
 			JSONObject logro = logros.getJSONObject(i);
-			System.out.println(logro);			
 			String nombreLogro = logro.getString("nombre");
-			/*
-			JLabel lblNewLabel_1 = new JLabel(nombreLogro);
-			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_logros.add(lblNewLabel_1); 
-			*/
-			btn= new Boton(nombreLogro);
-			ac = new Actioner(logro, lblDescrp_content, lblFecha_content);
-			btn.addActionListener(ac);
+			btn= new BotonLogro(nombreLogro, logro);	
+			btn.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					JSONObject evt = ((BotonLogro)e.getComponent()).getInfoLogroAsociado();
+					lblDescrp_content.setText(evt.getString("descripcion"));
+					if(evt.getInt("progreso")!= 0) {
+						lblFecha_content.setText(evt.getString("fechaObtencion"));	
+					}else {
+						lblFecha_content.setText("");
+					}
+					repaint();
+					revalidate();
+					
+				}
+			});
 			panel_logros.add(btn);
 
 		}
+		
+	}
 
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if (arg1 instanceof Boolean)
+			contentPane.setIdentificado((boolean) arg1);
 	}
 
 }

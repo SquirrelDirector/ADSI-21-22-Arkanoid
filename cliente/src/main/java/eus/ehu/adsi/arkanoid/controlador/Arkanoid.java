@@ -100,6 +100,7 @@ public class Arkanoid extends Observable {
 			
 			//comprobar si se han roto todos los bloques
 			if(Partida.getMiPartida().ganar() && usuario.isIdentificado()){
+				Partida.getMiPartida().actualizarPuntuacion(usuario.getNivelDefault());
 				Puntuacion p = new Puntuacion(usuario, usuario.getNivelDefault(), Partida.getMiPartida().getPuntuacion(), LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss")), Partida.getMiPartida().getTiempo());
 				usuario.anadirPuntuacion(p);
 				String s = "INSERT INTO Puntuacion (NombreUsuario, idNivel, Numero, ValorFechaHora, Tiempo,) VALUES ('"+usuario+"', "+usuario.getNivelDefault()+", "+Partida.getMiPartida().getPuntuacion()+", '"+LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss"))+"', "+Partida.getMiPartida().getTiempo()+");";
@@ -277,7 +278,8 @@ public class Arkanoid extends Observable {
 			return 3;
 		
 		usuario=new Usuario(datos);
-		notifyObservers(usuario.getPerfil());
+		setChanged();
+		notifyObservers(true);
 		return 0;
 	}
 	
@@ -287,8 +289,10 @@ public class Arkanoid extends Observable {
 	}
 
 	public void cerrarSesion(){
-		if (!usuario.isIdentificado()) //caso a priori imposible de suceder
-			notifyObservers(usuario.getPerfil());
+		if (!usuario.isIdentificado()){ //caso a priori imposible de suceder
+			setChanged();
+			notifyObservers(false);
+		}
 		usuario=new Usuario();
 	}
 
@@ -317,10 +321,11 @@ public class Arkanoid extends Observable {
 		if (!pass.equals(rePass))
 			return 5;
 		
-		pass=resumir(pass);
 		GestorUsuarios.getGestorUsuario().crearUsuario(usr, mail, pass);
 		JSONObject datos=GestorUsuarios.getGestorUsuario().importarUsuario(mail, pass);
 		usuario=new Usuario(datos);
+		setChanged();
+		notifyObservers(true);
 		return 0;
 		
 	}
@@ -474,5 +479,9 @@ public class Arkanoid extends Observable {
 	
 	public void addObserverPartida(Tablero tablero){ 
 		GestorPartida.getGestorPartida().addObserverPartida(tablero); 
-    } 
+    }
+
+	public JSONObject getPerfil() {
+		return usuario.getPerfil();
+	} 
 }

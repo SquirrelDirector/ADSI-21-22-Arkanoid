@@ -1,4 +1,4 @@
-package eus.ehu.adsi.arkanoid.vista;
+package eus.ehu.adsi.arkanoid.vista.claseObjetos;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,24 +6,26 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
-public class InputTexto extends JTextField{
+public class InputContrasena extends JPasswordField{
 	
 	private String ph;
 
-	public InputTexto(String ph) {
+	public InputContrasena(String ph) {
 		this.ph = ph;
 		this.setFont(new Font("Good Times", Font.PLAIN, 20));
 		this.setBackground(new Color(0x000000));
 		this.setForeground(new Color(0xFFFFFF));
 		this.setColumns(20);
+		this.setEchoChar('*');
 		this.setBorder(new EmptyBorder(5,10,5,10));
 	}
 	
-	public InputTexto() {
+	public InputContrasena() {
 		this.ph = null;
 	}
 
@@ -44,7 +46,7 @@ public class InputTexto extends JTextField{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		if (super.getText().length() > 0 || ph == null) {
+		if (super.getPassword().length > 0 || ph == null) {
 			return;
 		}
 		

@@ -15,6 +15,14 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import org.json.JSONObject;
+
+import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaTitulo;
+
 import javax.swing.JButton;
 
 public class PnlIdentidad extends JPanel {
@@ -28,12 +36,14 @@ public class PnlIdentidad extends JPanel {
 	private JLabel lblIdentificado;
 	private JPanel pnlCerrarSesionGeneral;
 	private JButton btnCerrarSesion;
+	
+	private boolean identificado;
 	/**
 	 * Create the panel.
 	 */
 	public PnlIdentidad() {
 		imagen= new ImageIcon(getClass().getResource("/imagenesAvatar/Avatar1.png"));
-		setBackground(Color.BLACK);
+		setBackground(new Color(0,0,0,0));
 		setLayout(new CardLayout(0, 0));
 		add(getPnlIdentidad());
 
@@ -48,6 +58,13 @@ public class PnlIdentidad extends JPanel {
 			pnlIdentidad.add(getPnlFoto(), BorderLayout.WEST);
 			pnlIdentidad.add(getPnlNoIdentificado(), BorderLayout.CENTER);
 			//pnlIdentidad.add(getPnlIdentificado(), BorderLayout.CENTER);
+			pnlIdentidad.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
+				}
+			});
 		}
 		return pnlIdentidad;
 	}
@@ -70,13 +87,6 @@ public class PnlIdentidad extends JPanel {
 			pnlNoIdentificado.setBackground(new Color(0,0,0,0));
 			pnlNoIdentificado.setLayout(new GridLayout(0, 1, 0, 0));
 			pnlNoIdentificado.add(getLblIdentidad());
-			pnlNoIdentificado.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					super.mouseClicked(e);
-					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
-				}
-			});
 		}
 		return pnlNoIdentificado;
 	}
@@ -92,7 +102,7 @@ public class PnlIdentidad extends JPanel {
 	private JPanel getPnlIdentificado() {
 		if (pnlIdentificado == null) {
 			pnlIdentificado = new JPanel();
-			pnlIdentificado.setBackground(Color.BLACK);
+			pnlIdentificado.setBackground(new Color(0,0,0,0));
 			pnlIdentificado.setLayout(new BorderLayout(0, 0));
 			pnlIdentificado.add(getLblIdentificado(), BorderLayout.CENTER);
 			pnlIdentificado.add(getPnlCerrarSesionGeneral(), BorderLayout.SOUTH);
@@ -105,14 +115,14 @@ public class PnlIdentidad extends JPanel {
 			lblIdentificado.setFont(new Font("Good Times", Font.PLAIN, 20));
 			lblIdentificado.setHorizontalAlignment(SwingConstants.CENTER);
 			lblIdentificado.setForeground(Color.WHITE);
-			lblIdentificado.setBackground(Color.BLACK);
+			lblIdentificado.setBackground(new Color(0,0,0,0));
 		}
 		return lblIdentificado;
 	}
 	private JPanel getPnlCerrarSesionGeneral() {
 		if (pnlCerrarSesionGeneral == null) {
 			pnlCerrarSesionGeneral = new JPanel();
-			pnlCerrarSesionGeneral.setBackground(Color.BLACK);
+			pnlCerrarSesionGeneral.setBackground(new Color(0,0,0,0));
 			pnlCerrarSesionGeneral.setLayout(new BorderLayout(0, 0));
 			pnlCerrarSesionGeneral.add(getBtnCerrarSesion(), BorderLayout.EAST);
 		}
@@ -123,6 +133,29 @@ public class PnlIdentidad extends JPanel {
 			btnCerrarSesion = new Boton("Cerrar Sesi\u00F3n");
 			btnCerrarSesion.setText("Log Out");
 		}
+		btnCerrarSesion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				Arkanoid.getArkanoid().cerrarSesion();
+			}
+		});
 		return btnCerrarSesion;
+	}
+	
+	public void setIdentificado(boolean id){
+		if (!identificado&&id){
+			JSONObject perfil=Arkanoid.getArkanoid().getPerfil();
+			imagen= new ImageIcon(getClass().getResource(perfil.getString("foto")));
+			getLblIdentificado().setText(perfil.getString("nombre"));
+			pnlIdentidad.remove(pnlNoIdentificado);
+			pnlIdentidad.add(getPnlIdentificado());
+		}else if (identificado&&!id){
+			pnlIdentidad.remove(pnlIdentificado);
+			pnlIdentidad.add(getPnlNoIdentificado());
+		}
+		identificado=id;
+		repaint();
+		revalidate();
 	}
 }

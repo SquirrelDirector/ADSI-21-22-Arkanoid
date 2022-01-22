@@ -41,6 +41,8 @@ public class Partida extends Observable {
 	public void restarVidas() {
 		vidasRestantes--;
 		System.out.println("vidas-"+vidasRestantes);
+		setChanged();
+		notifyObservers(vidasRestantes);
 		if (vidasRestantes == 0) {
 			gameOver = true;
 			crono.parar();
@@ -109,6 +111,8 @@ public class Partida extends Observable {
 	
 	public void updatePaddle() {
 		this.paddle.update();
+		setChanged();
+		notifyObservers(paddle);
 	}
 
 	/**
@@ -137,8 +141,8 @@ public class Partida extends Observable {
 	
 	public void testPaddle() {
 		Game.testCollision(paddle, bola);
-		setChanged();
-		notifyObservers(paddle);
+		//setChanged();
+		//notifyObservers(paddle);
 	}
 	
 	public boolean ganar() {
@@ -195,6 +199,10 @@ public class Partida extends Observable {
 
 	public int getTiempo(){
 		return crono.getSegundosTotales();
+	}
+
+	public void actualizarPuntuacion(int nivel){
+		this.puntuacion = ((puntuacion*(vidasRestantes+1)*nivel)/crono.getSegundosTotales())*1000);
 	}
 
 }

@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaTitulo;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputTexto;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -37,7 +41,7 @@ public class IU_Recuperar extends JFrame {
 	private JButton btnReenviar;
 	private JLabel lblReenviar;
 	private JTextField txtEmail;
-	private JTextArea txtrSeHaEnviado;
+	private JLabel txtrSeHaEnviado;
 	private JTextField txtKey;
 	private JPanel panel_2;
 	private JButton btnReturn;
@@ -75,8 +79,8 @@ public class IU_Recuperar extends JFrame {
 		initialize();
 	}
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 240, 277);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 330, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -99,14 +103,14 @@ public class IU_Recuperar extends JFrame {
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("RECUPERAR");
+			lblNewLabel = new EtiquetaTitulo("RECUPERAR");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblNewLabel;
 	}
 	private JButton getBtnValidar() {
 		if (btnValidar == null) {
-			btnValidar = new JButton("VALIDAR");
+			btnValidar = new Boton("VALIDAR");
 			btnValidar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -141,7 +145,7 @@ public class IU_Recuperar extends JFrame {
 	}
 	private JButton getBtnSend() {
 		if (btnReenviar == null) {
-			btnReenviar = new JButton("ENVIAR");
+			btnReenviar = new Boton("ENVIAR");
 			btnReenviar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -185,30 +189,27 @@ public class IU_Recuperar extends JFrame {
 
 	private JLabel getLblSend() {
 		if (lblReenviar == null) {
-			lblReenviar = new JLabel("\u00BFA\u00FAn no ha llegado?");
+			lblReenviar = new EtiquetaNormal("\u00BFA\u00FAn no ha llegado?");
 		}
 		return lblReenviar;
 	}
 	private JTextField getTxtEmail() {
 		if (txtEmail == null) {
-			txtEmail = new JTextField();
+			txtEmail = new InputTexto("CORREO ELECTR\u00D3NICO");
 			txtEmail.setToolTipText("CORREO ELECTR\u00D3NICO");
 			txtEmail.setColumns(10);
 		}
 		return txtEmail;
 	}
-	private JTextArea getTxtrSeHaEnviado() {
+	private JLabel getTxtrSeHaEnviado() {
 		if (txtrSeHaEnviado == null) {
-			txtrSeHaEnviado = new JTextArea();
-			txtrSeHaEnviado.setEditable(false);
-			txtrSeHaEnviado.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			txtrSeHaEnviado.setText("Se ha enviado un correo con\r\nun c\u00F3digo de validaci\u00F3n.\r\nIntrod\u00FAzcalo a continuaci\u00F3n");
+			txtrSeHaEnviado = new EtiquetaNormal("<HTML>Se ha enviado un correo con<br>un c\u00F3digo de validaci\u00F3n.<br>Introd\u00FAzcalo a continuaci\u00F3n</HTML>");
 		}
 		return txtrSeHaEnviado;
 	}
 	private JTextField getTxtKey() {
 		if (txtKey == null) {
-			txtKey = new JTextField();
+			txtKey = new InputTexto("C\u00D3DIGO");
 			txtKey.setToolTipText("C\u00D3DIGO");
 			txtKey.setColumns(10);
 		}
@@ -240,7 +241,7 @@ public class IU_Recuperar extends JFrame {
 	}
 	private JButton getBtnReturn() {
 		if (btnReturn == null) {
-			btnReturn = new JButton("<");
+			btnReturn = new Boton("<");
 			btnReturn.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {

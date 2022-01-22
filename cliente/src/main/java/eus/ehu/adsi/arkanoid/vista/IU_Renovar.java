@@ -8,12 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaTitulo;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputContrasena;
 
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -21,7 +22,6 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPasswordField;
@@ -43,7 +43,7 @@ public class IU_Renovar extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public void mostrarVentana(final String mail) {
+	public void mostrarVentana(String mail) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -52,12 +52,13 @@ public class IU_Renovar extends JFrame {
 					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
 					
-					email=mail;
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		email=mail;
 	}
 
 	public static IU_Renovar getMiIU_Renovar(){
@@ -73,8 +74,8 @@ public class IU_Renovar extends JFrame {
 		initialize();
 	}
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 208, 195);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 330, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -87,7 +88,7 @@ public class IU_Renovar extends JFrame {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBorder(new EmptyBorder(20, 0, 20, 0));
+			panel.setBorder(new EmptyBorder(40, 0, 158, 0));
 			panel.setLayout(new GridLayout(0, 1, 0, 5));
 			panel.add(getTxtPassword());
 			panel.add(getTxtRepeat());
@@ -96,11 +97,11 @@ public class IU_Renovar extends JFrame {
 	}
 	private JButton getBtnEnviar() {
 		if (btnEnviar == null) {
-			btnEnviar = new JButton("ENVIAR");
+			btnEnviar = new Boton("ENVIAR");
 			btnEnviar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					int cod=Arkanoid.getArkanoid().cambiarContrasena(email, txtPassword.getText(), txtRepeat.getText());
+					int cod=Arkanoid.getArkanoid().cambiarContrasena(email, txtPassword.getText(), txtRepeat.getText()); //FIXME - email se inicializa pero el valor se pierde al llegar aquí
 					switch (cod) {
 					case 0: //todo bien
 						IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
@@ -144,7 +145,7 @@ public class IU_Renovar extends JFrame {
 	}
 	private JButton getBtnReturn() {
 		if (btnReturn == null) {
-			btnReturn = new JButton("<");
+			btnReturn = new Boton("<");
 			btnReturn.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -157,21 +158,21 @@ public class IU_Renovar extends JFrame {
 	}
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("RECUPERAR");
+			lblNewLabel = new EtiquetaTitulo("RECUPERAR");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblNewLabel;
 	}
 	private JPasswordField getTxtPassword() {
 		if (txtPassword == null) {
-			txtPassword = new JPasswordField();
+			txtPassword = new InputContrasena("CONTRASE\u00D1A");
 			txtPassword.setToolTipText("CONTRASE\u00D1A");
 		}
 		return txtPassword;
 	}
 	private JPasswordField getTxtRepeat() {
 		if (txtRepeat == null) {
-			txtRepeat = new JPasswordField();
+			txtRepeat = new InputContrasena("REPETIR CONTRASE\u00D1A");
 			txtRepeat.setToolTipText("REPETIR CONTRASE\u00D1A");
 		}
 		return txtRepeat;

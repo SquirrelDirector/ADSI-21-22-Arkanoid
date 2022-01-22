@@ -16,6 +16,8 @@ import eus.ehu.adsi.arkanoid.modelo.Bloque;
 import eus.ehu.adsi.arkanoid.modelo.Config;
 import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.modelo.Partida;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -54,7 +56,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 			public void run() {
 				try {
 					Tablero frame = new Tablero();
-					frame.setVisible(true);
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -77,6 +79,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		contentPane.setBackground(Color.black);
 		
 		addKeyListener(this);
+		
+		this.createBufferStrategy(1);
 		
 		setFocusable(true);
 		
@@ -132,7 +136,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 				super.mouseClicked(e);
 				dispose();
 				Tablero newframe = new Tablero();
-				newframe.setVisible(true);	
+				newframe.setVisible(true);
+				clip.stop();
 			}
 		});
 		
@@ -180,7 +185,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		
 		tableroPanel = new PanelTablero();
 		contentPane.add(tableroPanel, BorderLayout.CENTER);
-		        
+		setVisible(true);
         jugar();
 	}
 	
@@ -189,19 +194,25 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		Arkanoid.getArkanoid().jugar();
 		Arkanoid.getArkanoid().addObserverPartida(this);
 		Arkanoid.getArkanoid().addObserverCrono(this);
+		
 		reproducirSonido();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Partida) {
+			System.out.println("Partida");
 			if (arg instanceof Bloque) {
 				puntuacion++;
 				score.setText("Score:  "+puntuacion);
+			} else if (arg instanceof Integer) {
+				lives.setText("Lives:  "+(int)arg);
 			}
-			BufferStrategy bf = this.getBufferStrategy();
-			Graphics g = bf.getDrawGraphics();
+			//BufferStrategy bf = this.getBufferStrategy();
+			Graphics g = this.getGraphics();//bf.getDrawGraphics();
+			System.out.println(g);
 			tableroPanel.updateTablero(arg, g);
+			//bf.show();
 		} else if (o instanceof Cronometro) {
             cronometro.setText(" "+(String)arg+" ");
         }	
@@ -219,7 +230,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
     }
 
     public void keyPressed(KeyEvent event) {
-    	System.out.println("teclado");
+    	//System.out.println("teclado");
 		tableroPanel.moverPaddle(event);
 	}
   

@@ -9,15 +9,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaTitulo;
+
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class IU_Inicial extends JFrame {
+public class IU_Inicial extends JFrame implements Observer{
 
 	private InterfazBase contentPane;
 	private JPanel pnlNiveles;
@@ -73,7 +79,8 @@ public class IU_Inicial extends JFrame {
 		contentPane.panelPrincipal.add(getPnlNiveles());
 		contentPane.panelPrincipal.add(getPnlLogros());
 		contentPane.panelPrincipal.add(getPnlRanking());
-		
+		contentPane.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
+		Arkanoid.getArkanoid().addObserver(this);
 		
 	}
 
@@ -126,6 +133,7 @@ public class IU_Inicial extends JFrame {
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
 					new Ranking();
+					Arkanoid.getArkanoid().deleteObserver(IU_Inicial.this);
 					dispose();
 					
 				}
@@ -195,5 +203,11 @@ public class IU_Inicial extends JFrame {
 			lblRanking = new EtiquetaTitulo("Rankings");
 		}
 		return lblRanking;
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if (arg1 instanceof Boolean)
+			contentPane.setIdentificado((boolean) arg1);
 	}
 }

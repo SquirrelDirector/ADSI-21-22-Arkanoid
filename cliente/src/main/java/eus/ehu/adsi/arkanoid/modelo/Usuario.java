@@ -22,7 +22,7 @@ public class Usuario {
 	private String codigoColorPaddle;
 	private int nivelDefault; 
 	private ArrayList<LogroObtenido> susLogros;
-	private ArrayList<Puntuacion> susPuntuaciones; //Al cargar las puntuaciones, de mayor a menor!
+	private ArrayList<Puntuacion> susPuntuaciones=new ArrayList<>(); //Al cargar las puntuaciones, de mayor a menor!
 	
 	public Usuario() {
 		
@@ -59,7 +59,7 @@ public class Usuario {
 			tiempo=(int) partida.get("tiempo");
 			num=(int) partida.get("numero");
 			
-			susPuntuaciones.add(new Puntuacion(this, lvl, num, fecha, tiempo));
+			susPuntuaciones.add(new Puntuacion(this, lvl, num, fecha.toString(), tiempo));
 		}
 		
 		//datos de los logros

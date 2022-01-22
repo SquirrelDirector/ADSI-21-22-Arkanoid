@@ -25,17 +25,17 @@ public class GestorPuntuaciones {
 		JSONArray ranking = new JSONArray();
 		ResultadoSQL resultado = null;
 		if(dificultad==0){
-			resultado = GestorDB.getGestorDB().execSQL("SELECT NombreUsuario, Tiempo, Numero FROM Puntuacion ORDER BY Numero ASC");
+			resultado = GestorDB.getGestorDB().execSQL("SELECT NombreUsuario, Tiempo, Numero FROM Puntuacion ORDER BY Numero,ValorFechaHora, NombreUsuario DESC");
 		}
 		else{
-			resultado = GestorDB.getGestorDB().execSQL("SELECT nombreUsuario, Tiempo, Numero FROM Puntuacion WHERE idNivel =="+ dificultad +" ORDER BY Numero ASC");
+			resultado = GestorDB.getGestorDB().execSQL("SELECT nombreUsuario, Tiempo, Numero FROM Puntuacion WHERE idNivel =="+ dificultad +" ORDER BY Numero,ValorFechaHora, NombreUsuario DESC");
 		}
 		if (resultado != null){
 			while (resultado.hasNext()){
 				JSONObject puntuacion = new JSONObject();
 				puntuacion.put("usuario", (String)resultado.get("NombreUsuario"));
-				puntuacion.put("tiempo", (Integer)resultado.get("Tiempo"));
-				puntuacion.put("puntuacion", (Integer)resultado.get("Numero"));
+				puntuacion.put("tiempo", Integer.parseInt((String) resultado.get("Tiempo")));
+				puntuacion.put("puntuacion", Integer.parseInt((String) resultado.get("Numero")));
 				ranking.put(puntuacion);
 				resultado.next();
 			}

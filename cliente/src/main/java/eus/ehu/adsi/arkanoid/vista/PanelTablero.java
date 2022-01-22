@@ -127,6 +127,9 @@ public class PanelTablero extends JPanel {
 		   Paddle p = (Paddle) arg;
 		   drawPaddle(g, p);
 	   }
+	   
+	   //repaint();
+	   //revalidate();
    }
    
    private void drawBola(Graphics g, Bola b) {
@@ -151,22 +154,24 @@ public class PanelTablero extends JPanel {
 			Arkanoid.getArkanoid().moverPaddleLeft();
 			break;
 		case KeyEvent.VK_RIGHT:
+			System.out.println("derecha");
 			Arkanoid.getArkanoid().moverPaddleRight();
 			break;
 		default:
 			break;
 		}
-	   paddle.update();
+	   Arkanoid.getArkanoid().updatePaddle();
    }
    
    public void pararPaddle(KeyEvent event) {
 	   switch (event.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_RIGHT:
-			paddle.stopMove();
+			Arkanoid.getArkanoid().pararPaddle();
 			break;
 		default:
 			break;
 		}
+	   Arkanoid.getArkanoid().updatePaddle();
    }
 }

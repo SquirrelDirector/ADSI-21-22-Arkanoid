@@ -14,6 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaTitulo;
+
 public class InterfazBase extends JPanel {
 	Image icon;
 	public JPanel panelInicial;
@@ -48,10 +51,7 @@ public class InterfazBase extends JPanel {
 		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(new Color(0,0,0,0));
-		this.add(panelPrincipal, BorderLayout.CENTER);
-		
-		//this.add(new Panel());
-		
+		this.add(panelPrincipal, BorderLayout.CENTER);		
 	}
 
 	
@@ -65,7 +65,10 @@ public class InterfazBase extends JPanel {
 
 	public void ocultarBotonRegreso() {
 		volverButton.setVisible(false);
-		
+	}
+	
+	public void ocultarPanelIdentidad() {
+		panelIdentidades.setVisible(false);
 	}
 	
 	public void setEventoRegreso(final JFrame ventanaAnterior) {
@@ -78,5 +81,9 @@ public class InterfazBase extends JPanel {
 				topFrame.dispose();
 			}
 		});
+	}
+	
+	public void setIdentificado(boolean id){
+		((PnlIdentidad)panelIdentidades).setIdentificado(id);
 	}
 }

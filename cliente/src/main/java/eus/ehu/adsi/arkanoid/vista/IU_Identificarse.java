@@ -10,6 +10,11 @@ import javax.swing.border.EmptyBorder;
 import org.json.JSONObject;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaTitulo;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputContrasena;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputTexto;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.JTextField;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,6 +30,8 @@ import java.util.Date;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Window.Type;
@@ -49,9 +57,6 @@ public class IU_Identificarse extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args){
-		new IU_Identificarse().mostrarVentana();
-	}
 	
 	public void mostrarVentana() {
 		EventQueue.invokeLater(new Runnable() {
@@ -84,7 +89,7 @@ public class IU_Identificarse extends JFrame {
 	private void initialize() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 250, 272);
+		setBounds(100, 100, 320, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -96,7 +101,7 @@ public class IU_Identificarse extends JFrame {
 
 	private JLabel getLblLogin() {
 		if (lblLogin == null) {
-			lblLogin = new JLabel("INICIA SESI\u00D3N");
+			lblLogin = new EtiquetaTitulo("INICIA SESI\u00D3N");
 			lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 			lblLogin.setVerticalAlignment(SwingConstants.TOP);
 		}
@@ -104,7 +109,7 @@ public class IU_Identificarse extends JFrame {
 	}
 	private JTextField getEmail() {
 		if (email == null) {
-			email = new JTextField();
+			email = new InputTexto("CORREO ELECTR\u00D3NICO");
 			email.setToolTipText("CORREO ELECTR\u00D3NICO");
 			email.setColumns(20);
 		}
@@ -123,7 +128,7 @@ public class IU_Identificarse extends JFrame {
 	}
 	private JButton getBtnAcceder() {
 		if (btnAcceder == null) {
-			btnAcceder = new JButton("ACCEDER");
+			btnAcceder = new Boton("ACCEDER");
 			btnAcceder.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -149,7 +154,7 @@ public class IU_Identificarse extends JFrame {
 	}
 	private JButton getBtnSignup() {
 		if (btnSignup == null) {
-			btnSignup = new JButton("REG\u00CDSTRATE");
+			btnSignup = new Boton("REG\u00CDSTRATE");
 			btnSignup.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 				}
@@ -177,7 +182,7 @@ public class IU_Identificarse extends JFrame {
 	}
 	private JButton getBtnForgotPassword() {
 		if (btnForgotPassword == null) {
-			btnForgotPassword = new JButton("RECUPERAR CONTRASE\u00D1A");
+			btnForgotPassword = new Boton("RECUPERAR CONTRASE\u00D1A");
 			btnForgotPassword.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -190,13 +195,13 @@ public class IU_Identificarse extends JFrame {
 	}
 	private JLabel getLblSignUp() {
 		if (lblSignUp == null) {
-			lblSignUp = new JLabel("\u00BFA\u00FAn no tienes cuenta?");
+			lblSignUp = new EtiquetaNormal("\u00BFA\u00FAn no tienes cuenta?");
 		}
 		return lblSignUp;
 	}
 	private JPasswordField getPassword() {
 		if (password == null) {
-			password = new JPasswordField();
+			password = new InputContrasena("CONTRASE\u00D1A");
 			password.setToolTipText("CONTRASE\u00D1A");
 		}
 		return password;

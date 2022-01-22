@@ -8,6 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaTitulo;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputContrasena;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputTexto;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -71,8 +76,8 @@ public class IU_Registrarse extends JFrame {
 		initialize();
 	}
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 250, 241);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 320, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -84,7 +89,7 @@ public class IU_Registrarse extends JFrame {
 
 	private JLabel getLblSignUp() {
 		if (lblSignUp == null) {
-			lblSignUp = new JLabel("REG\u00CDSTRATE");
+			lblSignUp = new EtiquetaTitulo("REG\u00CDSTRATE");
 			lblSignUp.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblSignUp;
@@ -112,13 +117,13 @@ public class IU_Registrarse extends JFrame {
 	}
 	private JLabel getLbSignIn() {
 		if (lbSignIn == null) {
-			lbSignIn = new JLabel("\u00BFYa tienes cuenta?");
+			lbSignIn = new EtiquetaNormal("\u00BFYa tienes cuenta?");
 		}
 		return lbSignIn;
 	}
 	private JButton getBtnSignIn() {
 		if (btnSignIn == null) {
-			btnSignIn = new JButton("INICIA SESI\u00D3N");
+			btnSignIn = new Boton("INICIA SESI\u00D3N");
 			btnSignIn.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -131,7 +136,7 @@ public class IU_Registrarse extends JFrame {
 	}
 	private JTextField getTxtUsername() {
 		if (txtUsername == null) {
-			txtUsername = new JTextField();
+			txtUsername = new InputTexto("NOMBRE DE USUARIO");
 			txtUsername.setToolTipText("NOMBRE DE USUARIO");
 			txtUsername.setColumns(10);
 		}
@@ -139,7 +144,7 @@ public class IU_Registrarse extends JFrame {
 	}
 	private JTextField getTxtEmail() {
 		if (txtEmail == null) {
-			txtEmail = new JTextField();
+			txtEmail = new InputTexto("CORREO ELECTR\u00D3NICO");
 			txtEmail.setToolTipText("CORREO ELECTR\u00D3NICO");
 			txtEmail.setColumns(10);
 		}
@@ -147,14 +152,14 @@ public class IU_Registrarse extends JFrame {
 	}
 	private JButton getBtnRegistrarse() {
 		if (btnRegistrarse == null) {
-			btnRegistrarse = new JButton("CREAR CUENTA");
+			btnRegistrarse = new Boton("CREAR CUENTA");
 			btnRegistrarse.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int cod=Arkanoid.getArkanoid().registrarse(txtUsername.getText(), txtEmail.getText(), txtPassword.getText(), txtRepeat.getText());
 					switch (cod){
 					case 0: //todo bien
-						
+						dispose();
 						break;
 					case 1: //usuario repetido
 						JOptionPane.showMessageDialog(null, "El nombre de usuario introducido ya existe");
@@ -179,14 +184,14 @@ public class IU_Registrarse extends JFrame {
 	}
 	private JPasswordField getTxtPassword() {
 		if (txtPassword == null) {
-			txtPassword = new JPasswordField();
+			txtPassword = new InputContrasena("CONTRASE\u00D1A");
 			txtPassword.setToolTipText("CONTRASE\u00D1A");
 		}
 		return txtPassword;
 	}
 	private JPasswordField getTxtRepeat() {
 		if (txtRepeat == null) {
-			txtRepeat = new JPasswordField();
+			txtRepeat = new InputContrasena("REPETIR CONTRASE\u00D1A");
 			txtRepeat.setToolTipText("REPETIR CONTRASE\u00D1A");
 		}
 		return txtRepeat;

@@ -1,34 +1,29 @@
-package eus.ehu.adsi.arkanoid.vista;
+package eus.ehu.adsi.arkanoid.vista.claseObjetos;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
-public class PasswordInput extends JPasswordField {
-
+public class InputTexto extends JTextField{
+	
 	private String ph;
 
-	public PasswordInput(String ph) {
+	public InputTexto(String ph) {
 		this.ph = ph;
 		this.setFont(new Font("Good Times", Font.PLAIN, 20));
 		this.setBackground(new Color(0x000000));
 		this.setForeground(new Color(0xFFFFFF));
 		this.setColumns(20);
-		this.setEchoChar('*');
 		this.setBorder(new EmptyBorder(5,10,5,10));
 	}
 	
-	
-	public PasswordInput() {
+	public InputTexto() {
 		this.ph = null;
 	}
 
@@ -36,7 +31,7 @@ public class PasswordInput extends JPasswordField {
 	
 	@Override
 	public String getText() {
-		String text = String.valueOf(super.getPassword());
+		String text = super.getText();
 
 		if (text.trim().length() == 0 && ph != null) {
 			text = ph;
@@ -49,7 +44,7 @@ public class PasswordInput extends JPasswordField {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		if (super.getPassword().length > 0 || ph == null) {
+		if (super.getText().length() > 0 || ph == null) {
 			return;
 		}
 		
@@ -59,4 +54,5 @@ public class PasswordInput extends JPasswordField {
 		g2.setColor(super.getDisabledTextColor());
 		g2.drawString(ph, getInsets().left, g.getFontMetrics().getMaxAscent() + getInsets().top);
 	}
+	
 }
