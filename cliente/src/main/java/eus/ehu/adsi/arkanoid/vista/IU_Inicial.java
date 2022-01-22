@@ -113,7 +113,7 @@ public class IU_Inicial extends JFrame implements Observer{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
-					new Logros();
+					new IU_Logros();
 					dispose();
 					
 				}

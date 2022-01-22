@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.BotonLogro;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.claseObjetos.ScrollPane;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +31,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.awt.CardLayout;
 import java.awt.Color;
+import javax.swing.JScrollPane;
+import java.awt.Panel;
 
-public class Logros extends JFrame implements Observer{
+public class IU_Logros extends JFrame implements Observer{
 
 	private InterfazBase contentPane;
 	private JLabel lblLogout;
@@ -47,7 +50,7 @@ public class Logros extends JFrame implements Observer{
 	 */
 	public static void mostrarVentana() {
 		try {
-			Logros dialog = new Logros();
+			IU_Logros dialog = new IU_Logros();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -58,7 +61,7 @@ public class Logros extends JFrame implements Observer{
 	/**
 	 * Create the dialog.
 	 */
-	public Logros() {
+	public IU_Logros() {
 		contentPane = new InterfazBase("Logros");
 		contentPane.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
 		Arkanoid.getArkanoid().addObserver(this);
@@ -122,10 +125,20 @@ public class Logros extends JFrame implements Observer{
 		UI.setLayout(new BorderLayout());
 		JPanel panel_logros = new JPanel();
 		panel_logros.setBackground(new Color(0,0,0,0));
-		panel_logros.setLayout(new GridLayout(0, 2, 45, 45));
+		panel_logros.setLayout(new GridLayout(0, 1, 45, 45));
 		panel_logros.setBorder(new EmptyBorder(20, 20, 20, 20));
 		UI.add(panel_logros, BorderLayout.CENTER);
+		
+		ScrollPane scrollPane = new ScrollPane();
+		
+		panel_logros.add(scrollPane);
+		
+		Panel panelDentroScrollPane = new Panel();
+		
 
+		scrollPane.setViewportView(panelDentroScrollPane);
+		panelDentroScrollPane.setLayout(new GridLayout(0, 2, 45, 45));
+		
 		JPanel panel_descp_logro = new JPanel();
 		panel_descp_logro.setBackground(new Color(0,0,0,0));
 		panel_descp_logro.setLayout(new GridLayout(2, 0, 0, 0));
@@ -172,9 +185,12 @@ public class Logros extends JFrame implements Observer{
 					
 				}
 			});
-			panel_logros.add(btn);
-
+			//panel_logros.add(btn);
+			panelDentroScrollPane.add(btn);
+			
 		}
+		scrollPane.repaint();
+		scrollPane.revalidate();
 		
 	}
 
