@@ -87,10 +87,10 @@ public class Usuario {
 			
 			l=new Logro(id, nom, desc, obj);
 			fecha=null;
-			
-			try {
-				fecha=new SimpleDateFormat("yyyy-MM-dd").parse((String) logro.get("fechaObtencion"));
-			} catch (JSONException | ParseException e){}
+			if (!logro.isNull("fechaObtencion"))
+				try {
+					fecha=new SimpleDateFormat("yyyy-MM-dd").parse((String) logro.get("fechaObtencion"));
+				} catch (JSONException | ParseException e) {}
 			
 			prog=Float.parseFloat((String) logro.get("progreso"));
 			
