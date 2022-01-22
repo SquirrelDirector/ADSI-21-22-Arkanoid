@@ -1,11 +1,14 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Usuario {
@@ -63,6 +66,7 @@ public class Usuario {
 		}
 		
 		//datos de los logros
+		susLogros=new ArrayList<>();
 		JSONArray logros=datos.getJSONArray("logros");
 		JSONObject logro;
 		String nom;
@@ -77,14 +81,18 @@ public class Usuario {
 			logro=logros.getJSONObject(i);
 			
 			nom=(String) logro.get("nombre");
-			id=(int) logro.get("IdLogro");
+			id= Integer.parseInt((String) logro.get("idLogro"));
 			desc=(String) logro.get("descripcion");
-			obj=(int) logro.get("Objetivo");
+			obj=Integer.parseInt((String) logro.get("objetivo"));
 			
 			l=new Logro(id, nom, desc, obj);
+			fecha=null;
 			
-			fecha=(Date) logro.get("fechaObtencion");
-			prog=(float) logro.get("Progreso");
+			try {
+				fecha=new SimpleDateFormat("yyyy-MM-dd").parse((String) logro.get("fechaObtencion"));
+			} catch (JSONException | ParseException e){}
+			
+			prog=Float.parseFloat((String) logro.get("progreso"));
 			
 			lo=new LogroObtenido(fecha, l, prog);
 			susLogros.add(lo);
