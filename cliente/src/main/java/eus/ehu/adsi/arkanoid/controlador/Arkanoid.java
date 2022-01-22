@@ -85,6 +85,20 @@ public class Arkanoid extends Observable {
 					}
 		
 				}
+				Logro ganarMismoNivel = GestorLogros.getGestorLogros().buscarLogro("ganarMismoNivel1");//el logro de ganar x partidas seguidas en nivel 2 se llamara ganarMismoNivel2 y asi sucesivamente
+				Logro ganarPartidasSeguidas = GestorLogros.getGestorLogros().buscarLogro("ganarPartidasSeguidas");  
+				
+				int tiempoActual = miPartida.getTiempo();
+				if(tiempoActual < 60) {
+					Logro speedrun = GestorLogros.getGestorLogros().buscarLogro("Speedrun");
+					miPartida.addLogro(speedrun);
+					
+				}
+				miPartida.addLogro(ganarPartidasSeguidas);
+				miPartida.addLogro(ganarMismoNivel);
+
+				JSONArray logrosObtenidos = miPartida.getLogrosPartida();
+				usuario.cotejarLogros(logrosObtenidos);
 			}
 	    };
 	    gameThread.start();  // Callback run()
