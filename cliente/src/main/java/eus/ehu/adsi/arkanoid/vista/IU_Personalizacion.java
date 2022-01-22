@@ -363,7 +363,7 @@ public class IU_Personalizacion extends JFrame {
 										jsBloques = new Slider();
 										jsBloques.setMinorTickSpacing(11);
 										jsBloques.setMinimum(22);
-										jsBloques.setMaximum(66);
+										jsBloques.setMaximum(88);
 										jsBloques.setMajorTickSpacing(11);
 										panel_3.add(jsBloques);
 									}
