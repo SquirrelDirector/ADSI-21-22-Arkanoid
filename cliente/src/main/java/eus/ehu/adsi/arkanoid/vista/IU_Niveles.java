@@ -118,7 +118,7 @@ public class IU_Niveles implements Observer {
 		}
 		botonPersonalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new IU_Personalizacion();
+				new IU_Personalizacion().setVisible(true);
 				frame.dispose();
 			}
 		});
