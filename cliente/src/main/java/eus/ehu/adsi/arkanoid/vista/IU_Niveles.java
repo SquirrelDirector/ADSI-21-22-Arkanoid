@@ -118,7 +118,8 @@ public class IU_Niveles implements Observer {
 		}
 		botonPersonalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new IU_Personalizacion();
+				new IU_Personalizacion().mostrarVentana();
+				Arkanoid.getArkanoid().deleteObserver(IU_Niveles.this);
 				frame.dispose();
 			}
 		});

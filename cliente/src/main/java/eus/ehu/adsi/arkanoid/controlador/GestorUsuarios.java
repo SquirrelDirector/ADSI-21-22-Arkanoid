@@ -144,7 +144,8 @@ public class GestorUsuarios {
 		
 		for (int i=0;i<res.longitud;i++){
 			id=(String) res.get("idLogro");
-			preg="INSERT INTO TieneLogro (Usuario, idLogro) VALUES ('"+mail+"', '"+id+"');";
+			preg="INSERT INTO TieneLogro (Usuario, idLogro, Progreso) VALUES ('"+mail+"', '"+id+"', 0);";
+			GestorDB.getGestorDB().execSQL(preg);
 			res.next();
 		}
 	}
