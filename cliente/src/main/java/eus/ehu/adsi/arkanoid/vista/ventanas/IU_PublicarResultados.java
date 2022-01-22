@@ -32,9 +32,6 @@ public class IU_PublicarResultados extends JFrame {
 	private JButton btnFacebook;
 	private JButton btnMail;
 
-	public static void main(String[] args) {
-		new IU_PublicarResultados().setVisible(true);
-	}
 
 	/**
 	 * Create the frame.
