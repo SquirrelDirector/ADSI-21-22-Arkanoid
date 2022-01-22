@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import org.json.JSONObject;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.controlador.GestorPartida;
 import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.vista.IU_Identificarse;
 import eus.ehu.adsi.arkanoid.vista.IU_Inicial;
@@ -52,7 +53,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaFinPartida frame = new VentanaFinPartida();
+					VentanaFinPartida frame = new VentanaFinPartida(true);
 					frame.setVisible(true);
 					frame.getDatosPartida();
 					
@@ -66,11 +67,16 @@ public class VentanaFinPartida extends JFrame implements Observer{
 	/**
 	 * Create the frame.
 	 */
-	public VentanaFinPartida() {
+	public VentanaFinPartida(boolean haGanado) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 525);
 		setLocationRelativeTo(null);
-		uiBase = new InterfazBase("¡Enhorabuena!");
+		if(haGanado) {
+			uiBase = new InterfazBase("¡Enhorabuena!");	
+		}else {
+			uiBase = new InterfazBase("Buen intento");
+		}
+		
 		uiBase.ocultarPanelIdentidad();
 		uiBase.ocultarBotonRegreso();
 		setContentPane(uiBase);
