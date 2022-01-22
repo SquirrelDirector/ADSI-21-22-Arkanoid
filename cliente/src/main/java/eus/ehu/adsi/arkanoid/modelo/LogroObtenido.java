@@ -42,7 +42,10 @@ public class LogroObtenido {
 		return this.getNombre().equals(nombreLogro);
 	}
 	public void actualizarProgreso(int num) {
-		this.progreso = this.progreso + (num);
+		if(this.progreso<100) {
+			this.progreso = this.progreso + (num);	
+		}
+		
 	}
 	public Logro getLogro() {
 		return logro;
