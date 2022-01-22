@@ -56,10 +56,14 @@ public class CatalogoLogros {
 			if (unLogro.getNombre().equals(nombre)) {
 				infoLogro.put("nombre", unLogro.getNombre());
 				infoLogro.put("descripcion", unLogro.getDescripcion());
+				infoLogro.put("objetivo",unLogro.getObjetivo());
 				encontrado = true;
 			}
 		}
 		return infoLogro;
+	}
+	public void addLogro(Logro pLogro) {
+		this.listaLogros.add(pLogro);
 	}
 
 }
