@@ -168,7 +168,7 @@ public class IU_Registrarse extends JFrame {
 						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
 						break;
 					case 3: //contrasena no válida
-						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida");
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida. Debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un caracter especial.");
 						break;
 					case 4: //cuenta ya existente
 						JOptionPane.showMessageDialog(null, "La dirección de correo introducida ya existe");

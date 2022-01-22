@@ -111,7 +111,7 @@ public class IU_Renovar extends JFrame {
 						JOptionPane.showMessageDialog(null, "Las contraseñas introducidas no coinciden.");
 						break;
 					case 2: //contraseña con formato incorrecto
-						JOptionPane.showMessageDialog(null, "La contraseña tiene un formato incorrecto.");
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida. Debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un caracter especial.");
 						break;
 					}
 				}

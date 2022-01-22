@@ -92,7 +92,7 @@ public class IU_Identificarse extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 520, 540);
-		contentPane = new InterfazBase("LOG IN");
+		contentPane = new InterfazBase("INICIA SESI\u00D3N");
 		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		//contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -146,10 +146,10 @@ public class IU_Identificarse extends JFrame {
 						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
 						break;
 					case 2: //contraseña no válida
-						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida");
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida. Debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un caracter especial.");
 						break;
 					case 3: //credenciales no coincidentes
-						JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos");
+						JOptionPane.showMessageDialog(null, "Correo y/o contraseña incorrectos");
 						break;
 					}
 				}
