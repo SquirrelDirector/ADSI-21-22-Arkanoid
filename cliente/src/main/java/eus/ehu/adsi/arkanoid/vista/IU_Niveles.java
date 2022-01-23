@@ -115,7 +115,7 @@ public class IU_Niveles extends JFrame implements Observer {
 			public void actionPerformed(ActionEvent arg0) {
 				new IU_Personalizacion().mostrarVentana();
 				Arkanoid.getArkanoid().deleteObserver(IU_Niveles.this);
-				frame.dispose();
+				//frame.dispose();
 			}
 		});
 		botones.add(pnlPersonalizar);

@@ -148,7 +148,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 								coloresFondo.add(lblNewLabel); 
 							} 
 							{ 
-								Component horizontalStrut = Box.createHorizontalStrut(8); 
+								Component horizontalStrut = Box.createHorizontalStrut(13); 
 								coloresFondo.add(horizontalStrut); 
 							} 
 							{ 
@@ -173,7 +173,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 								} 
 								{ 
 									cfButtons = new TransparentPanel(); 
-									cfButtons.setBorder(new EmptyBorder(0, 5, 0, 0)); 
+									cfButtons.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 									fondo.add(cfButtons); 
 									cfButtons.setLayout(new BoxLayout(cfButtons, BoxLayout.X_AXIS)); 
 								} 
@@ -193,7 +193,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 								coloresBola.add(lblNewLabel_1); 
 							} 
 							{ 
-								Component horizontalStrut = Box.createHorizontalStrut(19); 
+								Component horizontalStrut = Box.createHorizontalStrut(30); 
 								coloresBola.add(horizontalStrut); 
 							} 
 							{ 
@@ -217,7 +217,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 								} 
 								{ 
 									cbButtons = new TransparentPanel(); 
-									cbButtons.setBorder(new EmptyBorder(0, 5, 0, 0)); 
+									cbButtons.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 									bola.add(cbButtons); 
 									cbButtons.setLayout(new BoxLayout(cbButtons, BoxLayout.X_AXIS)); 
 								} 
@@ -257,7 +257,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 								} 
 								{ 
 									clButtons = new TransparentPanel(); 
-									clButtons.setBorder(new EmptyBorder(0, 0, 0, 0)); 
+									clButtons.setBorder(new EmptyBorder(0, 0, 0, 10)); 
 									ladrillos.add(clButtons); 
 									clButtons.setLayout(new BoxLayout(clButtons, BoxLayout.X_AXIS)); 
 								} 
@@ -277,7 +277,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 								coloresPaddle.add(lblNewLabel_3); 
 							} 
 							{ 
-								Component horizontalStrut = Box.createHorizontalStrut(5); 
+								Component horizontalStrut = Box.createHorizontalStrut(8); 
 								coloresPaddle.add(horizontalStrut); 
 							} 
 							{ 
@@ -301,7 +301,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 								} 
 								{ 
 									cpButtons = new TransparentPanel(); 
-									cpButtons.setBorder(new EmptyBorder(0, 5, 0, 0)); 
+									cpButtons.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 									paddle.add(cpButtons); 
 									cpButtons.setLayout(new BoxLayout(cpButtons, BoxLayout.X_AXIS)); 
 								} 
@@ -329,7 +329,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 						} 
 						{ 
 							sonidosButtons = new TransparentPanel(); 
-							sonidosButtons.setBorder(new EmptyBorder(15, 0, 0, 0)); 
+							sonidosButtons.setBorder(new EmptyBorder(20, 0, 0, 0)); 
 							panel.add(sonidosButtons); 
 							sonidosButtons.setLayout(new GridLayout(0, 1, 0, 0)); 
 						} 
@@ -354,12 +354,13 @@ public class IU_Personalizacion extends JFrame implements Observer {
 						} 
 						{ 
 							TransparentPanel panel_1 = new TransparentPanel(); 
+							panel_1.setBorder(new EmptyBorder(0, 0, 0, 25));
 							panel.add(panel_1); 
 							panel_1.setLayout(new GridLayout(3, 0, 0, 0)); 
 							{ 
 								TransparentPanel panel_2 = new TransparentPanel(); 
-								panel_1.add(panel_2); 
-								panel_2.setLayout(new GridLayout(0, 2, 0, 0)); 
+								panel_1.add(panel_2);
+								panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
 								{ 
 									TransparentPanel panel_3 = new TransparentPanel(); 
 									panel_2.add(panel_3); 
@@ -386,8 +387,8 @@ public class IU_Personalizacion extends JFrame implements Observer {
 							} 
 							{ 
 								TransparentPanel panel_2 = new TransparentPanel(); 
-								panel_1.add(panel_2); 
-								panel_2.setLayout(new GridLayout(0, 2, 0, 0)); 
+								panel_1.add(panel_2);
+								panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
 								{ 
 									TransparentPanel panel_3 = new TransparentPanel(); 
 									panel_2.add(panel_3); 
@@ -414,8 +415,8 @@ public class IU_Personalizacion extends JFrame implements Observer {
 							} 
 							{ 
 								TransparentPanel panel_2 = new TransparentPanel(); 
-								panel_1.add(panel_2); 
-								panel_2.setLayout(new GridLayout(0, 2, 0, 0)); 
+								panel_1.add(panel_2);
+								panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
 								{ 
 									TransparentPanel panel_3 = new TransparentPanel(); 
 									panel_2.add(panel_3); 
@@ -713,6 +714,9 @@ public class IU_Personalizacion extends JFrame implements Observer {
 		if (arg1 instanceof Boolean){ 
 			ib.setIdentificado((boolean) arg1); 
 			personalizarPestanas.setEnabledAt(2, (boolean)arg1); 
+			if (!(boolean)arg1) {
+				personalizarPestanas.setSelectedComponent(personalizarPestanas.getComponentAt(0));
+			}
 		} 
 	} 
 } 
