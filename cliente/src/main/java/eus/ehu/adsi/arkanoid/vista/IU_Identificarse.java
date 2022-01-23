@@ -26,11 +26,14 @@ import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Date;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 
+import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
@@ -54,7 +57,6 @@ public class IU_Identificarse extends JFrame {
 	private JButton btnForgotPassword;
 	private JLabel lblSignUp;
 	private JPasswordField password;
-	private Arkanoid ark;
 
 	/**
 	 * Launch the application.
@@ -86,7 +88,6 @@ public class IU_Identificarse extends JFrame {
 	 */
 	private IU_Identificarse() {
 		initialize();
-		ark=Arkanoid.getArkanoid();
 	}
 	private void initialize() {
 		setResizable(false);
@@ -102,6 +103,12 @@ public class IU_Identificarse extends JFrame {
 		//contentPane.add(getLblLogin(), BorderLayout.NORTH);
 		contentPane.panelPrincipal.add(getPanel(), BorderLayout.CENTER);
 		contentPane.panelPrincipal.add(getPanel_1(), BorderLayout.SOUTH);
+		addWindowListener(new WindowAdapter() {
+
+            public void windowClosing(WindowEvent evt) {
+                Arkanoid.getArkanoid().cerrarSesion();
+            }
+        });
 	}
 
 	private JLabel getLblLogin() {
@@ -137,10 +144,10 @@ public class IU_Identificarse extends JFrame {
 			btnAcceder.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					int cod=ark.iniciarSesion(email.getText(), password.getText());
+					int cod=Arkanoid.getArkanoid().iniciarSesion(email.getText(), password.getText());
 					switch (cod){
 					case 0: //todo bien
-						((JFrame)SwingUtilities.getRoot(e.getComponent())).dispose();
+						dispose();
 						break;
 					case 1: //correo no válido
 						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
@@ -208,6 +215,28 @@ public class IU_Identificarse extends JFrame {
 	private JPasswordField getPassword() {
 		if (password == null) {
 			password = new InputContrasena("CONTRASE\u00D1A");
+			password.addActionListener(new AbstractAction()
+			{
+			    @Override
+			    public void actionPerformed(ActionEvent e)
+			    {
+			    	int cod=Arkanoid.getArkanoid().iniciarSesion(email.getText(), password.getText());
+					switch (cod){
+					case 0: //todo bien
+						dispose();
+						break;
+					case 1: //correo no válido
+						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
+						break;
+					case 2: //contraseña no válida
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida. Debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un caracter especial.");
+						break;
+					case 3: //credenciales no coincidentes
+						JOptionPane.showMessageDialog(null, "Correo y/o contraseña incorrectos");
+						break;
+					}
+			    }
+			});
 		}
 		return password;
 	}

@@ -78,6 +78,8 @@ public class Ranking implements Observer{
 		ib = new InterfazBase("RANKING");
 		frame.getContentPane().add(ib, BorderLayout.CENTER);
 		ib.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
+		ranking=Arkanoid.getArkanoid().mostrarRanking(0, personal);
+		desplegarRanking(ranking);
 		
 		JPanel panelGeneral = new JPanel();
 		panelGeneral.setBackground(new Color(0,0,0,0));

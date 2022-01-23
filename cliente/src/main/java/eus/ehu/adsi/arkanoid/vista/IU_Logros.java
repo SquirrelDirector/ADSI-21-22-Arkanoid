@@ -29,12 +29,14 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.omg.PortableServer.ServantRetentionPolicyOperations;
+
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import java.awt.Panel;
 
-public class IU_Logros extends JFrame implements Observer {
+public class IU_Logros extends JFrame {
 
 	private InterfazBase contentPane;
 	private JLabel lblLogout;
@@ -64,7 +66,8 @@ public class IU_Logros extends JFrame implements Observer {
 	public IU_Logros() {
 		contentPane = new InterfazBase("Logros");
 		contentPane.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
-		Arkanoid.getArkanoid().addObserver(this);
+		contentPane.ocultarPanelIdentidad();
+		setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		((InterfazBase) contentPane).setEventoRegreso(new IU_Inicial());
 		setVisible(true);
@@ -174,16 +177,4 @@ public class IU_Logros extends JFrame implements Observer {
 		scrollPane.revalidate();
 
 	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		if (arg1 instanceof Boolean) {
-			contentPane.setIdentificado((boolean) arg1);
-			if (!(boolean) arg1) {
-				new IU_Inicial().setVisible(true);
-				dispose();
-			}
-		}
-	}
-
 }

@@ -226,10 +226,12 @@ public class IU_Inicial extends JFrame implements Observer {
 		if (arg1 instanceof Boolean) {
 			contentPane.setIdentificado((boolean) arg1);
 			if ((boolean)arg1 && this.desdeLogros) {
-				new IU_Logros();
-				this.desdeLogros = false;
+				new IU_Logros().setLocationRelativeTo(null);;
+				desdeLogros = false;
+				Arkanoid.getArkanoid().deleteObserver(this);
 				dispose();
-			}
+			}else if (!(boolean)arg1)
+				desdeLogros=false;
 		}
 	}
 }
