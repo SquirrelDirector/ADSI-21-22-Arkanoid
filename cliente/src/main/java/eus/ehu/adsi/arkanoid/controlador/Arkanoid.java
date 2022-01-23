@@ -112,7 +112,7 @@ public class Arkanoid extends Observable {
 				String s = "INSERT INTO Puntuacion (NombreUsuario, idNivel, Numero, ValorFechaHora, Tiempo) VALUES ('"+usuario.getEmail()+"', "+usuario.getNivelDefault()+", "+Partida.getMiPartida().getPuntuacion()+", '"+LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm:ss"))+"', "+Partida.getMiPartida().getTiempo()+");";
 				GestorDB.getGestorDB().execSQL(s);
 				yaTa=true;
-			}
+			} else if (Partida.getMiPartida().ganar() && !usuario.isIdentificado() && !yaTa) new VentanaFinPartida(Partida.getMiPartida().ganar).mostrarVentana();
 		}
 		yaTa=false;
 	}
