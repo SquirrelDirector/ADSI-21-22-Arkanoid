@@ -223,9 +223,11 @@ public class Partida extends Observable {
 		//Reiniciar bola
 		bola.x = Config.SCREEN_WIDTH / 2;
 		bola.y = Config.SCREEN_HEIGHT / 2;
+		bola.radius = Config.BALL_RADIUS;
 		
 		//Reiniciar paddle
 		paddle.x = Config.SCREEN_WIDTH / 2;
+		paddle.sizeX = Config.PADDLE_WIDTH;
 		
 		//Asignar numero de vidas
 		vidasRestantes = Config.PLAYER_LIVES;
