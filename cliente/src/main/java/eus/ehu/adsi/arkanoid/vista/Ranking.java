@@ -7,12 +7,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,11 +21,10 @@ import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.ScrollPane;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.PanelNegro;
 
-import java.awt.Font;
 import java.awt.GridLayout;
-import javax.swing.JScrollPane;
+
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 public class Ranking implements Observer{
 
@@ -35,6 +32,7 @@ public class Ranking implements Observer{
 	private JSONArray ranking = new JSONArray();
 	private JPanel panel = new PanelNegro();
 	private boolean personal = false;
+	private boolean identificado = false;
 	InterfazBase ib;
 	Boton botonPersonal;
 
@@ -74,6 +72,7 @@ public class Ranking implements Observer{
 		frame.setBounds(100, 100, 668, 443);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
+		frame.setResizable(false);
 
 		ib = new InterfazBase("RANKING");
 		frame.getContentPane().add(ib, BorderLayout.CENTER);
@@ -110,10 +109,14 @@ public class Ranking implements Observer{
 		textoRanking.setLayout(new GridLayout(0, 2, 10, 0));
 		textoRanking.add(botonGlobal);
 		
+		
 		botonPersonal = new Boton("Personal");
-		botonPersonal.setEnabled(Arkanoid.getArkanoid().isIdentificado());
 		botonPersonal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(!Arkanoid.getArkanoid().isIdentificado()){
+					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
+					identificado = true;
+				}
 				panel.removeAll();
 				panel.revalidate();
 				panel.repaint();
@@ -189,12 +192,21 @@ public class Ranking implements Observer{
 		panelBotonesNiveles.add(botonImposible);
 		
 		PanelNegro panelPuntuaciones = new PanelNegro();
-		panelPuntuaciones.setBounds(26, 144, 619, 265);
+		panelPuntuaciones.setBounds(26, 144, 619, 207);
 		panelGeneral.add(panelPuntuaciones);
 		panelPuntuaciones.setLayout(new BorderLayout(0, 0));
+		textoRanking.setBorder(new EmptyBorder(0, 0, 10, 0));
 		
-		EtiquetaNormal labelTitulos = new EtiquetaNormal("Nombre                                           Tiempo                                 Puntos ");
-		panelPuntuaciones.add(labelTitulos, BorderLayout.NORTH);
+		PanelNegro panelTitulos = new PanelNegro();
+		panelPuntuaciones.add(panelTitulos, BorderLayout.NORTH);
+		panelTitulos.setLayout(new GridLayout(0,3,0,0));
+		
+		EtiquetaNormal labelNombre = new EtiquetaNormal("Nombre");
+		panelTitulos.add(labelNombre);
+		EtiquetaNormal labelTiempo = new EtiquetaNormal("Tiempo");
+		panelTitulos.add(labelTiempo);
+		EtiquetaNormal labelPuntos = new EtiquetaNormal("Puntos");
+		panelTitulos.add(labelPuntos);
 		
 		ScrollPane scrollPane = new ScrollPane();
 		panelPuntuaciones.add(scrollPane, BorderLayout.CENTER);
@@ -223,12 +235,20 @@ public class Ranking implements Observer{
 		panel.repaint();
 	}
 
+	
+
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		if (arg1 instanceof Boolean){
 			ib.setIdentificado((boolean) arg1);
-			botonPersonal.setEnabled((boolean) arg1);
-			if(!(boolean) arg1){ //volver al ranking global
+			if((boolean) arg1 && identificado){ //volver al ranking global
+				identificado = false;
+				Arkanoid.getArkanoid().deleteObserver(this);
+				ranking = Arkanoid.getArkanoid().mostrarRanking(0, true);
+				desplegarRanking(ranking);
+			}
+			else if(!(boolean) arg1){
+				identificado = false;
 				personal=false;
 				ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
 				desplegarRanking(ranking);
