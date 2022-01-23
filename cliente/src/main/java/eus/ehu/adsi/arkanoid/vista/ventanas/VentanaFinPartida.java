@@ -142,7 +142,13 @@ public class VentanaFinPartida extends JFrame implements Observer{
 			datTiempo.setHorizontalAlignment(JLabel.CENTER);
 		}
 		if(datos.has("puntuacionConseguida")) {
-			EtiquetaNormal puntConseguida=new EtiquetaNormal(datos.get("puntuacionConseguida").toString());
+			EtiquetaNormal puntConseguida;
+			int punt=Integer.parseInt(datos.get("puntuacionConseguida").toString());
+			if(punt==0) {
+				puntConseguida=new EtiquetaNormal("-");
+			}else {
+				puntConseguida=new EtiquetaNormal(punt+"");
+			}
 			getPnlEstatico().add(new EtiquetaNormal("Puntos obtenidos"));
 			getPnlDinamico().add(puntConseguida);
 			puntConseguida.setHorizontalAlignment(JLabel.CENTER);
@@ -154,7 +160,14 @@ public class VentanaFinPartida extends JFrame implements Observer{
 			mejorTiempo.setHorizontalAlignment(JLabel.CENTER);
 		}
 		if(datos.has("mejorPuntuacion")) {
-			EtiquetaNormal mejorPuntuacion=new EtiquetaNormal(datos.get("mejorPuntuacion").toString());
+			EtiquetaNormal mejorPuntuacion;
+			int puntuacion=Integer.parseInt(datos.get("mejorPuntuacion").toString());
+			if(puntuacion==Integer.MAX_VALUE) {
+				mejorPuntuacion=new EtiquetaNormal("-");	
+			}else {
+				mejorPuntuacion=new EtiquetaNormal(puntuacion+"");
+			}
+			
 			getPnlEstatico().add(new EtiquetaNormal("Record puntos"));
 			getPnlDinamico().add(mejorPuntuacion);
 			mejorPuntuacion.setHorizontalAlignment(JLabel.CENTER);
