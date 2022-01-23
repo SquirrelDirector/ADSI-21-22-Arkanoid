@@ -86,7 +86,8 @@ public class Arkanoid extends Observable {
 					}
 		
 				}
-				Logro ganarMismoNivel = GestorLogros.getGestorLogros().buscarLogro("ganarMismoNivel1");//el logro de ganar x partidas seguidas en nivel 2 se llamara ganarMismoNivel2 y asi sucesivamente
+				int idNivelActual = usuario.getNivelDefault();
+				Logro ganarMismoNivel = GestorLogros.getGestorLogros().buscarLogro("ganarMismoNivel"+idNivelActual);
 				Logro ganarPartidasSeguidas = GestorLogros.getGestorLogros().buscarLogro("ganarPartidasSeguidas");  
 				
 				int tiempoActual = miPartida.getTiempo();
