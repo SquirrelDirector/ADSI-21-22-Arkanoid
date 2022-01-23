@@ -41,6 +41,8 @@ public class Arkanoid extends Observable {
 
 	public void jugar() {
 		Partida miPartida = Partida.getMiPartida();
+		
+		miPartida.getCrono().reset();
 		miPartida.iniciarCrono();
 
 		gameThread = new Thread() {
@@ -88,6 +90,7 @@ public class Arkanoid extends Observable {
 	
 	public void pararJuego() {
 		gameThread.stop();
+		
 	}
 	
 	private void update() {

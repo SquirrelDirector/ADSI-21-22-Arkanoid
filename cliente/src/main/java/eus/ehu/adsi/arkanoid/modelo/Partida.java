@@ -232,6 +232,7 @@ public class Partida extends Observable {
 		
 		ganar = false;
 		gameOver = false;
+		
 	}
 	
 	public int getNumBloques() {
