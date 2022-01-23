@@ -14,7 +14,7 @@ import eus.ehu.adsi.arkanoid.vista.ventanas.VentanaFinPartida;
 public class Partida extends Observable {
 
 	private int vidasRestantes;
-	private ArrayList<Logro> listaLogros;
+	private ArrayList<Logro> listaLogros = new ArrayList<Logro>();
 	private ArrayList<Bloque> bloques;
 	private int puntuacion;
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
