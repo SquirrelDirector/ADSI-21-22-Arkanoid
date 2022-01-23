@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 import org.json.JSONObject;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
-import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.vista.IU_Identificarse;
 import eus.ehu.adsi.arkanoid.vista.IU_Inicial;
 import eus.ehu.adsi.arkanoid.vista.InterfazBase;
@@ -45,20 +44,6 @@ public class VentanaFinPartida extends JFrame implements Observer{
 	private JSONObject datos;
 
 	/**
-	 * Launch the application.
-	 */
-	public void mostrarVentana() {
-		try {
-			VentanaFinPartida frame = new VentanaFinPartida(true);
-			frame.setVisible(true);
-			frame.getDatosPartida();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public VentanaFinPartida(boolean haGanado) {
@@ -67,7 +52,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 		setLocationRelativeTo(null);
 		if(haGanado) {
 			uiBase = new InterfazBase("¡Enhorabuena!");	
-		}else {
+		} else {
 			uiBase = new InterfazBase("Buen intento");
 		}
 		
@@ -78,6 +63,9 @@ public class VentanaFinPartida extends JFrame implements Observer{
 		uiBase.panelPrincipal.add(getPnlMain());
 		gestionarEventos();
 		Arkanoid.getArkanoid().addObserver(this);
+		
+		this.setVisible(true);
+		this.getDatosPartida();
 	}
 
 	private JPanel getPnlMain() {

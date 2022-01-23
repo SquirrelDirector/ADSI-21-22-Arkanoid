@@ -214,7 +214,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 			}
 			if (arg instanceof String) {
 				String val = (String)arg;
-				if (val.equals("hasPerdido")) new VentanaFinPartida(false).mostrarVentana();
+				if (val.equals("hasPerdido")) new VentanaFinPartida(false);
 				clip.stop();
 				dispose();
 			} else {
