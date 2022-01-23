@@ -26,5 +26,8 @@ public class Logro {
 	public int getObjetivo() {
 		return this.objetivo;
 	}
+	public int getId() {
+		return this.idLogro;
+	}
 
 }

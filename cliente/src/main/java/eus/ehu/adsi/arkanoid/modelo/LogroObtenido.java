@@ -6,9 +6,9 @@ public class LogroObtenido {
 
 	private Date fecha;
 	private Logro logro;
-	private float progreso;
+	private int progreso;
 
-	public LogroObtenido(Date pFecha, Logro pLogro, float pProgreso) {
+	public LogroObtenido(Date pFecha, Logro pLogro, int pProgreso) {
 		this.fecha = pFecha;
 		this.logro = pLogro;
 		this.progreso = pProgreso;
@@ -22,7 +22,7 @@ public class LogroObtenido {
 		return this.logro.getDescripcion();
 	}
 
-	public double getProgreso() {
+	public int getProgreso() {
 		return this.progreso;
 	}
 	
