@@ -53,7 +53,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 		if(haGanado) {
 			uiBase = new InterfazBase("¡Enhorabuena!");	
 		} else {
-			uiBase = new InterfazBase("Buen intento");
+			uiBase = new InterfazBase("Buen intento...");
 		}
 		
 		uiBase.ocultarPanelIdentidad();
