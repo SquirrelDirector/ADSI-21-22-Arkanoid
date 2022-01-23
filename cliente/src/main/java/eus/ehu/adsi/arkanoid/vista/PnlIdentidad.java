@@ -160,6 +160,7 @@ public class PnlIdentidad extends JPanel {
 		if (id){
 			JSONObject perfil=Arkanoid.getArkanoid().getPerfil();
 			imagen= new ImageIcon(getClass().getResource(perfil.getString("foto")));
+			picLabel.setIcon(imagen);
 			getLblIdentificado().setText(perfil.getString("nombre"));
 			if (!identificado){
 				pnlIdentidad.remove(pnlNoIdentificado);
@@ -172,6 +173,8 @@ public class PnlIdentidad extends JPanel {
 			pnlIdentidad.add(getPnlNoIdentificado());
 			pnlIdentidad.removeMouseListener(mouseModificarDatos);
 			pnlIdentidad.addMouseListener(mouseIniciarSesion);
+			imagen= new ImageIcon(getClass().getResource("/imagenesAvatar/Avatar1.png"));
+			picLabel.setIcon(imagen);
 		}
 		identificado=id;
 		repaint();

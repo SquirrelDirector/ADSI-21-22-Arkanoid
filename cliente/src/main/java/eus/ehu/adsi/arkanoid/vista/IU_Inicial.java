@@ -113,8 +113,15 @@ public class IU_Inicial extends JFrame implements Observer{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
-					new IU_Logros();
-					dispose();
+					Arkanoid ark = Arkanoid.getArkanoid();
+					if(!ark.isIdentificado()) {
+						IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
+					}else {
+						new IU_Logros();
+						dispose();
+					}
+					
+					
 					
 				}
 			});

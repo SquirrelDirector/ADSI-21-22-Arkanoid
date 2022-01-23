@@ -41,7 +41,7 @@ public class IU_Logros extends JFrame implements Observer {
 	private JLabel lblDescrp_content;
 	private JLabel lblFecha_content;
 	private JButton btn;
-	private JSONArray logros = new JSONArray();
+	private JSONArray logros = new JSONArray();	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	String fecha = dateFormat.format(new Date());
 

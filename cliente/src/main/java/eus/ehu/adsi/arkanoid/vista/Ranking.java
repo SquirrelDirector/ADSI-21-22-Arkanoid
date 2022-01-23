@@ -27,6 +27,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 public class Ranking implements Observer{
 
@@ -34,6 +35,8 @@ public class Ranking implements Observer{
 	private JSONArray ranking = new JSONArray();
 	private JPanel panel = new PanelNegro();
 	private boolean personal = false;
+	InterfazBase ib;
+	Boton botonPersonal;
 
 	/**
 	 * Launch the application.
@@ -72,8 +75,9 @@ public class Ranking implements Observer{
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 
-		InterfazBase ib = new InterfazBase("RANKING");
+		ib = new InterfazBase("RANKING");
 		frame.getContentPane().add(ib, BorderLayout.CENTER);
+		ib.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
 		
 		JPanel panelGeneral = new JPanel();
 		panelGeneral.setBackground(new Color(0,0,0,0));
@@ -82,6 +86,7 @@ public class Ranking implements Observer{
 
 		ib.panelPrincipal.add(panelGeneral);
 		ib.panelPrincipal.setLayout(new GridLayout(0, 1, 0, 0));
+		ib.setEventoRegreso(new IU_Inicial());
 		
 		JPanel textoRanking = new JPanel();
 		textoRanking.setBorder(new EmptyBorder(0, 10, 0, 10));
@@ -115,7 +120,8 @@ public class Ranking implements Observer{
 		textoRanking.setLayout(new GridLayout(0, 2, 10, 0));
 		textoRanking.add(botonGlobal);
 		
-		Boton botonPersonal = new Boton("Personal");
+		botonPersonal = new Boton("Personal");
+		botonPersonal.setEnabled(Arkanoid.getArkanoid().isIdentificado());
 		botonPersonal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
@@ -302,8 +308,29 @@ public class Ranking implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		//if (arg1 instanceof Boolean)
-			//contentPane.setIdentificado((boolean) arg1);
-			//TODO - Cuando se ponga un InterfazBase aplicar esta parte
+		if (arg1 instanceof Boolean){
+			ib.setIdentificado((boolean) arg1);
+			botonPersonal.setEnabled((boolean) arg1);
+			if(!(boolean) arg1){ //volver al ranking global
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
+				personal = false;
+				ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
+				for(int i = 0; i<ranking.length(); i++) {
+					JSONObject puntuacion = ranking.getJSONObject(i);
+					String nombreUsuario = puntuacion.getString("usuario");
+					int tiempo = puntuacion.getInt("tiempo");
+					int puntos = puntuacion.getInt("puntuacion");
+					
+					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
+					panel.add(labelNombre);
+					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
+					panel.add(labelTiempo);
+					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
+					panel.add(labelPuntos);
+				}
+			}
+		}
 	}
 }

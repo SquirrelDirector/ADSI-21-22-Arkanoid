@@ -81,7 +81,7 @@ public class IU_ModificarDatos extends JFrame {
 				
 		InterfazBase ib = new InterfazBase("MODIFICAR DATOS");
 		ib.ocultarPanelIdentidad();
-		//ib.setEventoRegreso(guardarPersonalizacion());
+		ib.setEventoRegreso(null);
 		getContentPane().add(ib, BorderLayout.CENTER);
 		
 		{

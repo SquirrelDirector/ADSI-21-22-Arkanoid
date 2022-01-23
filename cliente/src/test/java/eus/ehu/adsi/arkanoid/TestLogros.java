@@ -19,7 +19,7 @@ import eus.ehu.adsi.arkanoid.modelo.Logro;
 import eus.ehu.adsi.arkanoid.modelo.LogroObtenido;
 import eus.ehu.adsi.arkanoid.modelo.Usuario;
 
-public class UsuarioTest {
+public class TestLogros {
 
 	@Test
 	public void testCotejarLogros() throws ParseException {

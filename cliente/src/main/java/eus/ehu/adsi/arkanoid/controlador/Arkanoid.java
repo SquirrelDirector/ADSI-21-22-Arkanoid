@@ -85,27 +85,9 @@ public class Arkanoid extends Observable {
 						double fps = 1.0 / seconds;
 					}
 		
-				}
+				}				
 				int idNivelActual = usuario.getNivelDefault();
-				Logro ganarMismoNivel = GestorLogros.getGestorLogros().buscarLogro("ganarMismoNivel"+idNivelActual);
-				Logro ganarPartidasSeguidas = GestorLogros.getGestorLogros().buscarLogro("ganarPartidasSeguidas");  
-				
-				int tiempoActual = miPartida.getTiempo();
-				if(tiempoActual < 60) {
-					Logro speedrun = GestorLogros.getGestorLogros().buscarLogro("Speedrun");
-					miPartida.addLogro(speedrun);
-					
-				}
-				miPartida.addLogro(ganarPartidasSeguidas);
-				miPartida.addLogro(ganarMismoNivel);
-
-				JSONArray logrosObtenidos = miPartida.getLogrosPartida();
-				try {
-					usuario.cotejarLogros(logrosObtenidos);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				miPartida.cotejarLogros(idNivelActual, usuario);				
 			}
 	    };
 	    gameThread.start();  // Callback run()
@@ -219,6 +201,7 @@ public class Arkanoid extends Observable {
 	 */
 	public void actualizarDatosUsu(String pathAvatar, String nombreUsu) {
 		usuario.actualizarDatosUsu(pathAvatar, nombreUsu);
+		setChanged();
 		notifyObservers(true);
 	}
 
