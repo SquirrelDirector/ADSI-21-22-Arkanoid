@@ -6,8 +6,8 @@ public class EnvioRRSSFactory {
 	}
 
 	/**
-	 * 
-	 * @param redSocial
+	 * Obtiene un objeto de tipo EnvioRRSS orientado a la red social determinada por el usuario
+	 * @param redSocial Red social determinada por el usuario
 	 */
 	public EnvioRRSS getEnvioRRSS(String redSocial) {
 		if(redSocial.equals("twitter")) {
