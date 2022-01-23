@@ -168,7 +168,6 @@ public class Partida extends Observable {
 
 			setChanged();
 			notifyObservers("FinPartida");
-			new VentanaFinPartida(ganar).mostrarVentana();
 			
 			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
 

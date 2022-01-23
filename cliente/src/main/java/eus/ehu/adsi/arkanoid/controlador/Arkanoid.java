@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import eus.ehu.adsi.arkanoid.modelo.*;
 import eus.ehu.adsi.arkanoid.vista.Tablero;
+import eus.ehu.adsi.arkanoid.vista.ventanas.VentanaFinPartida;
 
 @SuppressWarnings("deprecation")
 public class Arkanoid extends Observable {
@@ -27,6 +28,7 @@ public class Arkanoid extends Observable {
 	private double currentSlice;
 	private Usuario usuario;
 	Thread gameThread;
+	private boolean yaTa=false;
 
 	private Arkanoid() {
 		usuario=new Usuario();
@@ -102,15 +104,17 @@ public class Arkanoid extends Observable {
 			miPartida.testBola();
 			
 			//comprobar si se han roto todos los bloques
-			if(Partida.getMiPartida().ganar() && usuario.isIdentificado()){
+			if(Partida.getMiPartida().ganar() && usuario.isIdentificado() && !yaTa){
 				Partida.getMiPartida().actualizarPuntuacion(usuario.getNivelDefault());
 				Puntuacion p = new Puntuacion(usuario, usuario.getNivelDefault(), Partida.getMiPartida().getPuntuacion(), LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss")), Partida.getMiPartida().getTiempo());
 				usuario.anadirPuntuacion(p);
+				new VentanaFinPartida(Partida.getMiPartida().ganar).mostrarVentana();
 				String s = "INSERT INTO Puntuacion (NombreUsuario, idNivel, Numero, ValorFechaHora, Tiempo,) VALUES ('"+usuario+"', "+usuario.getNivelDefault()+", "+Partida.getMiPartida().getPuntuacion()+", '"+LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd hh:mm:ss"))+"', "+Partida.getMiPartida().getTiempo()+");";
-				System.out.println(s);
 				GestorDB.getGestorDB().execSQL(s);
+				yaTa=true;
 			}
 		}
+		yaTa=false;
 	}
 
 	public boolean isIdentificado() {
@@ -425,7 +429,7 @@ public class Arkanoid extends Observable {
 		JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
 		GestorRedes.getGestorRedes().publicarResultados(redSocial, 
 														Integer.parseInt(datosPartida.get("puntuacionConseguida").toString()), 
-														Integer.parseInt(datosPartida.get("tiempoPartida").toString()), 
+														((Cronometro) datosPartida.get("tiempoPartida")).getSegundosTotales(), 
 														Integer.parseInt(datosHistoricos.get("mejorPuntuacion").toString()), 
 														Integer.parseInt(datosHistoricos.get("mejorTiempo").toString()), 
 														datosPartida.getJSONArray("logrosConseguidos"));
