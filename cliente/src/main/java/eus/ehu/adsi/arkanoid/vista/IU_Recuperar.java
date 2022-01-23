@@ -117,7 +117,7 @@ public class IU_Recuperar extends JFrame {
 	private JButton getBtnValidar() {
 		if (btnValidar == null) {
 			btnValidar = new Boton("VALIDAR");
-			//btnValidar.setVisible(false);
+			btnValidar.setVisible(false);
 			btnValidar.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -164,8 +164,8 @@ public class IU_Recuperar extends JFrame {
 					int cod=Arkanoid.getArkanoid().recuperarContrasena(txtEmail.getText());
 					switch (cod){
 					case 0: //todo bien
-						/*if(IU_Recuperar.getMiIU_Recuperar().isFirstTry())
-							IU_Recuperar.getMiIU_Recuperar().aceptarClave();*/
+						if(isFirstTry())
+							desplegar();
 						break;
 					case 1: //correo no válido
 						JOptionPane.showMessageDialog(null, "Introduzca un correo válido.");
@@ -186,7 +186,7 @@ public class IU_Recuperar extends JFrame {
 		return primera;
 	}
 
-	protected void aceptarClave() { //TODO - Revisar por que no se refleja en la IU
+	protected void desplegar() { //TODO - Revisar por que no se refleja en la IU
 		getBtnSend().setText("REENVIAR");
 		getLblSend().setVisible(true);
 		getBtnValidar().setVisible(true);
@@ -200,7 +200,7 @@ public class IU_Recuperar extends JFrame {
 	private JLabel getLblSend() {
 		if (lblReenviar == null) {
 			lblReenviar = new EtiquetaNormal("\u00BFA\u00FAn no ha llegado?");
-			//lblReenviar.setVisible(false);
+			lblReenviar.setVisible(false);
 		}
 		return lblReenviar;
 	}
@@ -214,7 +214,7 @@ public class IU_Recuperar extends JFrame {
 	private JLabel getTxtrSeHaEnviado() {
 		if (txtrSeHaEnviado == null) {
 			txtrSeHaEnviado = new EtiquetaNormal("<HTML>Se ha enviado un correo con<br>un c\u00F3digo de validaci\u00F3n.<br>Introd\u00FAzcalo a continuaci\u00F3n</HTML>");
-			//txtrSeHaEnviado.setVisible(false);
+			txtrSeHaEnviado.setVisible(false);
 		}
 		return txtrSeHaEnviado;
 	}
@@ -222,7 +222,7 @@ public class IU_Recuperar extends JFrame {
 		if (txtKey == null) {
 			txtKey = new InputTexto("C\u00D3DIGO");
 			txtKey.setColumns(10);
-			//txtKey.setVisible(false);
+			txtKey.setVisible(false);
 		}
 		return txtKey;
 	}

@@ -83,6 +83,7 @@ public class InterfazBase extends JPanel {
 				super.mouseClicked(e);
 				if (ventanaAnterior!=null){
 					ventanaAnterior.setVisible(true);
+					ventanaAnterior.setLocationRelativeTo(null);
 				}
 				JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
 				if (topFrame instanceof Observer)
