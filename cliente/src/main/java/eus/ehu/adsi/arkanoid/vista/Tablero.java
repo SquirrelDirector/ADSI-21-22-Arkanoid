@@ -18,6 +18,7 @@ import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.modelo.Partida;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
+import eus.ehu.adsi.arkanoid.vista.ventanas.VentanaFinPartida;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -134,6 +135,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				Arkanoid.getArkanoid().pararJuego();
+				Partida.getMiPartida().iniciarCrono();
 				dispose();
 				new Tablero();
 				clip.stop();
@@ -211,6 +213,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 				lives.setText("Lives:  "+(int)arg);
 			}
 			if (arg instanceof String) {
+				String val = (String)arg;
+				if (val.equals("hasPerdido")) new VentanaFinPartida(false);
 				clip.stop();
 				dispose();
 			} else {

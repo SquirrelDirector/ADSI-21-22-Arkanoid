@@ -24,8 +24,6 @@ public class Partida extends Observable {
 	public boolean ganar = false;
 	public boolean gameOver = false;
 	
-	
-
 	private Partida() {}
 	
 	public static Partida getMiPartida() {
@@ -49,14 +47,8 @@ public class Partida extends Observable {
 		if (vidasRestantes == 0) {
 			gameOver = true;
 			crono.parar();
-
-			System.out.println("has perdido");
 			setChanged();
-			notifyObservers("FinPartida");
-			new VentanaFinPartida(ganar).mostrarVentana();
-
-			//TODO: llamar a la funcionalidad de la vista de perder
-			
+			notifyObservers("hasPerdido");
 		}
 	}
 	public void addLogro(Logro pLogro) {
@@ -64,7 +56,7 @@ public class Partida extends Observable {
 	}
 	public JSONObject getDatosPartidaActual() {
 		JSONObject datos = new JSONObject();
-		datos.put("tiempoPartida", crono);
+		datos.put("tiempoPartida", crono.getSegundosTotales());
 		datos.put("puntuacionConseguida", puntuacion);
 		return datos;
 	}
@@ -101,7 +93,6 @@ public class Partida extends Observable {
 		if (bloques.get(n).destroyed) {
 			setChanged();
 			notifyObservers(bloques.get(n));
-			//bloques.remove(n);
 		}
 	}
 
@@ -146,7 +137,7 @@ public class Partida extends Observable {
 			Game.testCollision(bloque, bola, this);
 			if (bloque.destroyed) {
 				setChanged();
-				notifyObservers(it);
+				notifyObservers(bloque);
 				it.remove();
 			}
 		}
@@ -157,8 +148,6 @@ public class Partida extends Observable {
 	
 	public void testPaddle() {
 		Game.testCollision(paddle, bola);
-		//setChanged();
-		//notifyObservers(paddle);
 	}
 	
 	public boolean ganar() {
@@ -168,10 +157,6 @@ public class Partida extends Observable {
 
 			setChanged();
 			notifyObservers("FinPartida");
-			new VentanaFinPartida(ganar).mostrarVentana();
-			
-			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
-
 		}
 		
 		return ganar;
@@ -254,7 +239,7 @@ public class Partida extends Observable {
 	}
 
 	public void actualizarPuntuacion(int nivel){
-		this.puntuacion = ((puntuacion*(vidasRestantes+1)*nivel)/crono.getSegundosTotales())*1000;
+		this.puntuacion = (int) ((((float)puntuacion*((float)vidasRestantes+1)*(float)nivel)/(float)crono.getSegundosTotales())*1000.0);
 	}
 
 }

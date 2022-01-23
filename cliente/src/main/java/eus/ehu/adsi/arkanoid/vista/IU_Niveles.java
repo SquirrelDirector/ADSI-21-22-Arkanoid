@@ -51,7 +51,7 @@ public class IU_Niveles extends JFrame implements Observer {
 	 */
 	private void initialize() {
 		elLabel = new EtiquetaNormal("");
-		elLabel.setBackground(new Color(2,4,40)); //TODO - Este color hijuelarremaracamadrequeloremilperraspariï¿½ no se aplica, sospecho del repaint de seleccionar()
+		elLabel.setBackground(new Color(2,4,40));
 		elLabel.setForeground(new Color(255,255,255));
 		
 		setBounds(100, 100, 951, 645);
@@ -155,7 +155,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		pnlNvl2.setBackground(new Color(0,0,0,0));
 		pnlNvl2.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
-		botonNvl2 = new Boton("Est\u00E1ndar");
+		botonNvl2 = new Boton("Estandar");
 		botonNvl2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				seleccionar(2);
@@ -201,6 +201,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		pnlNvl5.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
 		botonNvl5 = new Boton("Personalizado");
+		botonNvl5.setEnabled(Arkanoid.getArkanoid().isIdentificado());
 		botonNvl5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				seleccionar(5);
@@ -225,23 +226,23 @@ public class IU_Niveles extends JFrame implements Observer {
 		botonNvl1.setBorder(null);
 		switch (nivel) {
 		case 1:
-			elLabel.setText("<HTML>Version fÃ¡cil del juego, ideal <br>para principiantes y gente adaptÃ¡ndose al juego. <br><br> - 2 lï¿½neas de bloques <br> - anchura de la barra aumentada <br> - velocidad estï¿½ndar</HTML>");
+			elLabel.setText("<HTML>Versión fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 2 líneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estandar</HTML>");
 			botonNvl1.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 2:
-			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo mÃ¡s de experiencia. <br><br> - 4 lï¿½neas de bloques <br> - anchura de barra y velï¿½cidad estï¿½ndar");
+			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 4 líneas de bloques <br> - anchura de barra y velocidad estandar");
 			botonNvl2.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 3:
-			elLabel.setText("<HTML>VersiÃ³n difÃ­cil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 lï¿½neas de bloques <br> - anchura de barra estï¿½ndar <br> - velï¿½cidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 líneas de bloques <br> - anchura de barra estandar <br> - velocidad aumentada</HTML>");
 			botonNvl3.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 4:
-			elLabel.setText("<HTML>VersiÃ³n sÃ³lo apta para quien busque <br>completar el logro. <br><br> - 8 lï¿½neas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 8 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
 			botonNvl4.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 5:
-			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botÃ³n de personalizar para cambiarlo <br>(La puntuaciÃ³n no se guardarÃ¡ en los rankings)</HTML>");
+			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botón de personalizar para cambiarlo <br>(La puntuación no se guardará en los rankings)</HTML>");
 			botonNvl5.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		}
@@ -253,6 +254,9 @@ public class IU_Niveles extends JFrame implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		if (arg1 instanceof Boolean){
 			base.setIdentificado((boolean) arg1);
+			botonNvl5.setEnabled((boolean) arg1);
+			if (!(boolean)arg1&&nivel==5)
+				seleccionar(1);
 		}
 	}
 

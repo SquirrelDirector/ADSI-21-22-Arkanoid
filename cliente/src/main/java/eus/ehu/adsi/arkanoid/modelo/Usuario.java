@@ -14,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import eus.ehu.adsi.arkanoid.controlador.GestorDB;
+
 public class Usuario {
 
 	private String email;
@@ -59,11 +61,14 @@ public class Usuario {
 
 		for (int i = 0; i < ranking.length(); i++) {
 			partida = ranking.getJSONObject(i);
-
-			lvl = (int) partida.get("idNivel");
-			fecha = (Date) partida.get("valorFechaHora");
-			tiempo = (int) partida.get("tiempo");
-			num = (int) partida.get("numero");
+			lvl = Integer.parseInt((String)partida.get("idNivel"));
+			fecha = new Date();
+			try {
+				fecha = new SimpleDateFormat("yyyy-MM-dd").parse((String) partida.get("valorFechaHora"));
+			} catch (JSONException | ParseException e) {
+			}
+			tiempo = Integer.parseInt((String)partida.get("tiempo"));
+			num = Integer.parseInt((String) partida.get("numero"));
 
 			susPuntuaciones.add(new Puntuacion(this, lvl, num, fecha.toString(), tiempo));
 		}
@@ -75,7 +80,7 @@ public class Usuario {
 		String nom;
 		int id;
 		String desc;
-		float prog;
+		int prog;
 		int obj;
 		Logro l;
 		LogroObtenido lo;
@@ -98,8 +103,7 @@ public class Usuario {
 				} catch (JSONException | ParseException e) {
 				}
 
-			prog = Float.parseFloat((String) logro.get("progreso"));
-
+			prog = Integer.parseInt((String) logro.get("progreso"));
 			lo = new LogroObtenido(fecha, l, prog);
 			susLogros.add(lo);
 
@@ -108,6 +112,10 @@ public class Usuario {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public String getNombreUsuario(){
+		return nombreUsuario;
 	}
 
 	public JSONObject getDatosUsuario() {
@@ -140,7 +148,7 @@ public class Usuario {
 			Puntuacion p = it.next();
 			if (dificultad == 0 || dificultad == p.getNivel()) {
 				JSONObject puntuacion = new JSONObject();
-				puntuacion.put("usuario", p.getUsuario());
+				puntuacion.put("usuario", p.getUsuario().getNombreUsuario());
 				puntuacion.put("tiempo", p.getTiempo());
 				puntuacion.put("puntuacion", p.getPuntuacion());
 				ranking.put(puntuacion);
@@ -219,9 +227,22 @@ public class Usuario {
 
 	public JSONObject getDatosHistoricosJugador() {
 		JSONObject datos = new JSONObject();
-		Puntuacion p = susPuntuaciones.get(0);
-		int mejorTiempo = p.getTiempo();
-		int mejorPuntuacion = p.getPuntuacion();
+		int mejorTiempo = Integer.MAX_VALUE;
+		int mejorPuntuacion = 0;
+		if (susPuntuaciones.size()>0){
+			Puntuacion p = susPuntuaciones.get(0);
+			mejorTiempo = p.getTiempo();
+			
+			Iterator<Puntuacion> it = susPuntuaciones.iterator();
+			p = it.next();
+			mejorPuntuacion = p.getTiempo();
+			while(it.hasNext()){
+				p = it.next();
+				if(p.getTiempo()>mejorPuntuacion){
+					mejorPuntuacion = p.getTiempo();
+				}
+			}
+		}
 		datos.put("mejorTiempo", mejorTiempo);
 		datos.put("mejorPuntuacion", mejorPuntuacion);
 		return datos;
@@ -266,17 +287,17 @@ public class Usuario {
 			JSONObject unLogro = logros.getJSONObject(i);
 			String nombreLogro = unLogro.getString("nombre");
 			JSONObject logroUsuario = this.getInfoLogro(nombreLogro);
-			int progresoUsuario = logroUsuario.getInt("progreso");			
+			int progresoUsuario = logroUsuario.getInt("progreso");
 			System.out.println(nombreLogro + " --> " + progresoUsuario);
-			
+
 			if (progresoUsuario < 100) {// esto quiere decir que el usuario no tiene este logro obtenido
-				Logro logro = this.getLogro(nombreLogro);				
-				int aumento = (100 / logro.getObjetivo()) ;
+				Logro logro = this.getLogro(nombreLogro);
+				int aumento = (100 / logro.getObjetivo());
 				this.actualizarProgreso(aumento, nombreLogro);
 				int progresoActual = this.getInfoLogro(nombreLogro).getInt("progreso");
 				System.out.println("Nuevo progreso: +" + aumento);
 				System.out.println(progresoActual);
-				/*Si al aumentar el progreso llega a 100 es que acaba de conseguirlo*/
+				/* Si al aumentar el progreso llega a 100 es que acaba de conseguirlo */
 				if (progresoActual == 100) {
 					nuevosLogros.put(unLogro);
 					this.addNuevoLogro(nombreLogro);
@@ -292,6 +313,10 @@ public class Usuario {
 		Date fechaActual = new SimpleDateFormat("yyyy-MM-dd")
 				.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-mm-dd")));
 		LogroObtenido nuevoLogroObtenido = new LogroObtenido(fechaActual, nuevoLogro, 100);
+		String user= this.email;
+		int idLogro = nuevoLogro.getId();
+		String sql ="INSERT INTO TieneLogro (Usuario, idLogro, Progreso) VALUES ('"+user+"', '"+idLogro+"', 100);";
+		GestorDB.getGestorDB().execSQL(sql);
 		this.susLogros.add(nuevoLogroObtenido);
 	}
 
@@ -326,9 +351,11 @@ public class Usuario {
 	public ArrayList<LogroObtenido> getListaLogros() {
 		return susLogros;
 	}
+
 	public Logro getLogro(String nombre) {
-		for (LogroObtenido i: susLogros) {
-			if(i.esLogro(nombre)) return i.getLogro();
+		for (LogroObtenido i : susLogros) {
+			if (i.esLogro(nombre))
+				return i.getLogro();
 		}
 		return null;
 	}

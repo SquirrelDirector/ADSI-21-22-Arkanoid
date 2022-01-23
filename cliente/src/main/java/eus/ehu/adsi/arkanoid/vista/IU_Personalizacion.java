@@ -7,14 +7,10 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout; 
  
 import javax.swing.JButton; 
-import javax.swing.JDialog; 
 import javax.swing.JFrame; 
 import javax.swing.JPanel; 
-import javax.swing.JRadioButton; 
 import javax.swing.border.EmptyBorder; 
 import javax.swing.border.LineBorder; 
-import javax.swing.event.AncestorEvent; 
-import javax.swing.event.AncestorListener; 
 import javax.swing.event.ChangeEvent; 
 import javax.swing.event.ChangeListener; 
  
@@ -40,8 +36,6 @@ import javax.swing.Box;
 import javax.swing.ButtonGroup; 
 import javax.swing.ImageIcon; 
 import javax.swing.JLabel; 
-import java.awt.Font; 
-import javax.swing.JTabbedPane; 
 import java.awt.GridLayout; 
 import java.awt.Insets; 
 import java.awt.event.ActionEvent; 
@@ -324,7 +318,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 						scrollPane.setViewportView(panel); 
 						panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); 
 						{ 
-							EtiquetaNormal lblNewLabel_4 = new EtiquetaNormal("Escoge la mÃºsica que quieras escuchar:"); 
+							EtiquetaNormal lblNewLabel_4 = new EtiquetaNormal("Escoge la música que quieras escuchar:"); 
 							lblNewLabel_4.setAlignmentX(Component.CENTER_ALIGNMENT); 
 							panel.add(lblNewLabel_4); 
 						} 
@@ -367,7 +361,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 									panel_2.add(panel_3); 
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0)); 
 									{ 
-										EtiquetaNormal lblNewLabel_6 = new EtiquetaNormal("NÃºmero bloques"); 
+										EtiquetaNormal lblNewLabel_6 = new EtiquetaNormal("Número bloques"); 
 										lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER); 
 										panel_3.add(lblNewLabel_6); 
 									} 
@@ -395,7 +389,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 									panel_2.add(panel_3); 
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0)); 
 									{ 
-										EtiquetaNormal lblNewLabel_7 = new EtiquetaNormal("TamaÃ±o paddle"); 
+										EtiquetaNormal lblNewLabel_7 = new EtiquetaNormal("Tamaño paddle"); 
 										lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER); 
 										panel_3.add(lblNewLabel_7); 
 									} 
@@ -407,8 +401,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 									{ 
 										jsPaddle = new Slider(); 
 										jsPaddle.setMinorTickSpacing(5); 
-										jsPaddle.setMinimum(40); 
-										jsPaddle.setMaximum(80); 
+										jsPaddle.setMinimum(40);
 										jsPaddle.setMajorTickSpacing(10); 
 										panel_3.add(jsPaddle); 
 									} 
@@ -436,7 +429,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 										jsBola = new Slider(); 
 										jsBola.setMinorTickSpacing(1); 
 										jsBola.setMinimum(1); 
-										jsBola.setMaximum(7); 
+										jsBola.setMaximum(8); 
 										jsBola.setMajorTickSpacing(1); 
 										panel_3.add(jsBola); 
 									} 
@@ -482,7 +475,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
         boolean identificado = Arkanoid.getArkanoid().isIdentificado(); 
         if (!identificado) { 
         	personalizarPestanas.setEnabledAt(2, false); 
-        	personalizarPestanas.setToolTipTextAt(2, "Tienes que iniciar sesiÃ³n!"); 
+        	personalizarPestanas.setToolTipTextAt(2, "Tienes que iniciar sesión!"); 
         }
          
      // call onCancel() when cross is clicked 
@@ -508,7 +501,6 @@ public class IU_Personalizacion extends JFrame implements Observer {
         	personalizablesJugador.put("CodigoPaddle", Config.PADDLE_COLOR);
         	personalizablesJugador.put("CodigoLadrillo", Config.BRICK_COLOR);
         }
-        
     } 
 	 
 	private void ponerColores() { 
@@ -649,9 +641,19 @@ public class IU_Personalizacion extends JFrame implements Observer {
     private void ponerNivelPersonalizado(){ 
         String atributos = personalizablesJugador.getString("atributosPersonalizado"); 
         String[] valores = atributos.split(","); 
+        int velocidad = 0;
+        double valor = Double.parseDouble(valores[2]);
+		if (valor == 0.1) velocidad = 1;
+		else if (valor == 0.11) velocidad = 2;
+		else if (valor == 0.12) velocidad = 3;
+		else if (valor == 0.13) velocidad = 4;
+		else if (valor == 0.14) velocidad = 5;
+		else if (valor == 0.15) velocidad = 6;
+		else if (valor == 0.16) velocidad = 7;
+		else if (valor == 0.17) velocidad = 8;
         jsBloques.setValue(Integer.parseInt(valores[0])); 
         jsPaddle.setValue(Integer.parseInt(valores[1])); 
-        jsBola.setValue(Integer.parseInt(valores[2])); 
+        jsBola.setValue(velocidad); 
     } 
  
     private void guardarPersonalizacion(){ 
@@ -709,8 +711,17 @@ public class IU_Personalizacion extends JFrame implements Observer {
  
             Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4, atributos); 
             Arkanoid.getArkanoid().actualizarPersonalizacionUsu(sonido, color1, color2, color3, color4, atributos); 
-            Double[] datos = new Double[3]; 
-            datos[0] = (double) bola; 
+            Double[] datos = new Double[3];
+            double velocidad = 0;
+            if (bola == 1) velocidad = 0.1;
+    		else if (bola == 2) velocidad = 0.11;
+    		else if (bola == 3) velocidad = 0.12;
+    		else if (bola == 4) velocidad = 0.13;
+    		else if (bola == 5) velocidad = 0.14;
+    		else if (bola == 6) velocidad = 0.15;
+    		else if (bola == 7) velocidad = 0.16;
+    		else if (bola == 8) velocidad = 0.17;
+            datos[0] = (double) velocidad; 
             datos[1] = (double) paddle; 
             datos[2] = (double)bloques; 
             Arkanoid.getArkanoid().updateConfig(datos); 
