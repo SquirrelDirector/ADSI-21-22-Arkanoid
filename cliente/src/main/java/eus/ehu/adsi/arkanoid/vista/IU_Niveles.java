@@ -201,6 +201,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		pnlNvl5.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
 		botonNvl5 = new Boton("Personalizado");
+		botonNvl5.setEnabled(Arkanoid.getArkanoid().isIdentificado());
 		botonNvl5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				seleccionar(5);
@@ -253,6 +254,9 @@ public class IU_Niveles extends JFrame implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		if (arg1 instanceof Boolean){
 			base.setIdentificado((boolean) arg1);
+			botonNvl5.setEnabled((boolean) arg1);
+			if (!(boolean)arg1&&nivel==5)
+				seleccionar(1);
 		}
 	}
 
