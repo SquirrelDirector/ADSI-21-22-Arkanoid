@@ -227,17 +227,22 @@ public class Usuario {
 
 	public JSONObject getDatosHistoricosJugador() {
 		JSONObject datos = new JSONObject();
-		int mejorTiempo;
-		int mejorPuntuacion;
+		int mejorTiempo = Integer.MAX_VALUE;
+		int mejorPuntuacion = 0;
 		if (susPuntuaciones.size()>0){
 			Puntuacion p = susPuntuaciones.get(0);
 			mejorTiempo = p.getTiempo();
-			mejorPuntuacion = p.getPuntuacion();
-		}else{
-			mejorTiempo=Integer.MAX_VALUE;
-			mejorPuntuacion=0;
+			
+			Iterator<Puntuacion> it = susPuntuaciones.iterator();
+			p = it.next();
+			mejorPuntuacion = p.getTiempo();
+			while(it.hasNext()){
+				p = it.next();
+				if(p.getTiempo()>mejorPuntuacion){
+					mejorPuntuacion = p.getTiempo();
+				}
+			}
 		}
-		
 		datos.put("mejorTiempo", mejorTiempo);
 		datos.put("mejorPuntuacion", mejorPuntuacion);
 		return datos;
