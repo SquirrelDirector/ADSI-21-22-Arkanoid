@@ -123,7 +123,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 	private void getDatosPartida() {
 		datos = Arkanoid.getArkanoid().getResultadosPartida();
 		if(datos.has("tiempoPartida")) {
-			EtiquetaNormal datTiempo=new EtiquetaNormal(datos.get("tiempoPartida").toString());
+			EtiquetaNormal datTiempo=new EtiquetaNormal("tiempoPartida:"+datos.get("tiempoPartida").toString());
 			getPnlEstatico().add(new EtiquetaNormal("Tiempo"));
 			getPnlDinamico().add(datTiempo);
 			datTiempo.setHorizontalAlignment(JLabel.CENTER);
@@ -131,7 +131,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 		if(datos.has("puntuacionConseguida")) {
 			EtiquetaNormal puntConseguida;
 			int punt=Integer.parseInt(datos.get("puntuacionConseguida").toString());
-			puntConseguida=new EtiquetaNormal(punt+"");
+			puntConseguida=new EtiquetaNormal("puntConseguida:"+punt+"");
 			getPnlEstatico().add(new EtiquetaNormal("Puntos obtenidos"));
 			getPnlDinamico().add(puntConseguida);
 			puntConseguida.setHorizontalAlignment(JLabel.CENTER);
@@ -142,7 +142,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 			if(mejorTiempoInt==Integer.MAX_VALUE) {
 				mejorTiempo=new EtiquetaNormal("-");
 			}else {
-				mejorTiempo=new EtiquetaNormal(mejorTiempoInt+"");
+				mejorTiempo=new EtiquetaNormal("mejorTiempo:"+mejorTiempoInt+"");
 			}
 			getPnlEstatico().add(new EtiquetaNormal("Record tiempo"));
 			getPnlDinamico().add(mejorTiempo);
@@ -154,7 +154,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 			if(puntuacion==0) {
 				mejorPuntuacion=new EtiquetaNormal("-");	
 			}else {
-				mejorPuntuacion=new EtiquetaNormal(puntuacion+"");
+				mejorPuntuacion=new EtiquetaNormal("mejorPuntuacion:"+puntuacion+"");
 			}
 			
 			getPnlEstatico().add(new EtiquetaNormal("Record puntos"));
