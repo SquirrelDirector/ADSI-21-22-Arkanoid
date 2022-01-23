@@ -66,7 +66,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 		setBounds(100, 100, 850, 525);
 		setLocationRelativeTo(null);
 		if(haGanado) {
-			uiBase = new InterfazBase("Â¡Enhorabuena!");	
+			uiBase = new InterfazBase("¡Enhorabuena!");	
 		}else {
 			uiBase = new InterfazBase("Buen intento");
 		}
@@ -225,6 +225,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		new IU_PublicarResultados();
+		if ((boolean)arg)
+			new IU_PublicarResultados();
 	}
 }

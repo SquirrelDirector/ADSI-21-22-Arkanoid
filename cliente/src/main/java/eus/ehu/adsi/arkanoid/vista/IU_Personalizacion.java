@@ -318,7 +318,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 						scrollPane.setViewportView(panel); 
 						panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); 
 						{ 
-							EtiquetaNormal lblNewLabel_4 = new EtiquetaNormal("Escoge la mÃºsica que quieras escuchar:"); 
+							EtiquetaNormal lblNewLabel_4 = new EtiquetaNormal("Escoge la música que quieras escuchar:"); 
 							lblNewLabel_4.setAlignmentX(Component.CENTER_ALIGNMENT); 
 							panel.add(lblNewLabel_4); 
 						} 
@@ -361,7 +361,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 									panel_2.add(panel_3); 
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0)); 
 									{ 
-										EtiquetaNormal lblNewLabel_6 = new EtiquetaNormal("NÃºmero bloques"); 
+										EtiquetaNormal lblNewLabel_6 = new EtiquetaNormal("Número bloques"); 
 										lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER); 
 										panel_3.add(lblNewLabel_6); 
 									} 
@@ -389,7 +389,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 									panel_2.add(panel_3); 
 									panel_3.setLayout(new GridLayout(0, 1, 0, 0)); 
 									{ 
-										EtiquetaNormal lblNewLabel_7 = new EtiquetaNormal("TamaÃ±o paddle"); 
+										EtiquetaNormal lblNewLabel_7 = new EtiquetaNormal("Tamaño paddle"); 
 										lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER); 
 										panel_3.add(lblNewLabel_7); 
 									} 
@@ -475,7 +475,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
         boolean identificado = Arkanoid.getArkanoid().isIdentificado(); 
         if (!identificado) { 
         	personalizarPestanas.setEnabledAt(2, false); 
-        	personalizarPestanas.setToolTipTextAt(2, "Tienes que iniciar sesiÃ³n!"); 
+        	personalizarPestanas.setToolTipTextAt(2, "Tienes que iniciar sesión!"); 
         }
          
      // call onCancel() when cross is clicked 

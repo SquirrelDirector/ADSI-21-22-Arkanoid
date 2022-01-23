@@ -226,23 +226,23 @@ public class IU_Niveles extends JFrame implements Observer {
 		botonNvl1.setBorder(null);
 		switch (nivel) {
 		case 1:
-			elLabel.setText("<HTML>Version f√°cil del juego, ideal <br>para principiantes y gente adapt√°ndose al juego. <br><br> - 2 l√≠neas de bloques <br> - anchura de la barra aumentada <br> - velocidad estandar</HTML>");
+			elLabel.setText("<HTML>VersiÛn f·cil del juego, ideal <br>para principiantes y gente adapt·ndose al juego. <br><br> - 2 lÌneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estandar</HTML>");
 			botonNvl1.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 2:
-			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo m√°s de experiencia. <br><br> - 4 l√≠neas de bloques <br> - anchura de barra y velocidad estandar");
+			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo m·s de experiencia. <br><br> - 4 lÌneas de bloques <br> - anchura de barra y velocidad estandar");
 			botonNvl2.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 3:
-			elLabel.setText("<HTML>Versi√≥n dif√≠cil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 l√≠neas de bloques <br> - anchura de barra estandar <br> - velocidad aumentada</HTML>");
+			elLabel.setText("<HTML>VersiÛn difÌcil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 lÌneas de bloques <br> - anchura de barra estandar <br> - velocidad aumentada</HTML>");
 			botonNvl3.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 4:
-			elLabel.setText("<HTML>Versi√≥n s√≥lo apta para quien busque <br>completar el logro. <br><br> - 8 l√≠neas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
+			elLabel.setText("<HTML>VersiÛn sÛlo apta para quien busque <br>completar el logro. <br><br> - 8 lÌneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
 			botonNvl4.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 5:
-			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al bot√≥n de personalizar para cambiarlo <br>(La puntuaci√≥n no se guardar√° en los rankings)</HTML>");
+			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botÛn de personalizar para cambiarlo <br>(La puntuaciÛn no se guardar· en los rankings)</HTML>");
 			botonNvl5.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		}
