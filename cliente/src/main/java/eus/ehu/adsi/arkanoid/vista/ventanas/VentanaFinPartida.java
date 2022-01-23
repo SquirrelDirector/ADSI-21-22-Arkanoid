@@ -135,8 +135,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 	private void getDatosPartida() {
 		datos = Arkanoid.getArkanoid().getResultadosPartida();
 		if(datos.has("tiempoPartida")) {
-			Cronometro tiempo = (Cronometro)datos.get("tiempoPartida");
-			EtiquetaNormal datTiempo=new EtiquetaNormal(tiempo.getMinutosFormat()+":"+tiempo.getSegundosFormat());
+			EtiquetaNormal datTiempo=new EtiquetaNormal(datos.get("tiempoPartida").toString());
 			getPnlEstatico().add(new EtiquetaNormal("Tiempo"));
 			getPnlDinamico().add(datTiempo);
 			datTiempo.setHorizontalAlignment(JLabel.CENTER);
