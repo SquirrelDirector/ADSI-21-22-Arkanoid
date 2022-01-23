@@ -108,9 +108,12 @@ public class Arkanoid extends Observable {
 				Partida.getMiPartida().actualizarPuntuacion(usuario.getNivelDefault());
 				Puntuacion p = new Puntuacion(usuario, usuario.getNivelDefault(), Partida.getMiPartida().getPuntuacion(), LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm:ss")), Partida.getMiPartida().getTiempo());
 				usuario.anadirPuntuacion(p);
-				new VentanaFinPartida(Partida.getMiPartida().ganar).mostrarVentana();
+				new VentanaFinPartida(true);
 				String s = "INSERT INTO Puntuacion (NombreUsuario, idNivel, Numero, ValorFechaHora, Tiempo) VALUES ('"+usuario.getEmail()+"', "+usuario.getNivelDefault()+", "+Partida.getMiPartida().getPuntuacion()+", '"+LocalDateTime.now().format(DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm:ss"))+"', "+Partida.getMiPartida().getTiempo()+");";
 				GestorDB.getGestorDB().execSQL(s);
+				yaTa=true;
+			} else if (Partida.getMiPartida().ganar() && !usuario.isIdentificado() && !yaTa) {
+				new VentanaFinPartida(true);
 				yaTa=true;
 			}
 		}
@@ -429,7 +432,7 @@ public class Arkanoid extends Observable {
 		JSONObject datosHistoricos = usuario.getDatosHistoricosJugador();
 		GestorRedes.getGestorRedes().publicarResultados(redSocial, 
 														Integer.parseInt(datosPartida.get("puntuacionConseguida").toString()), 
-														((Cronometro) datosPartida.get("tiempoPartida")).getSegundosTotales(), 
+														Integer.parseInt(datosPartida.get("tiempoPartida").toString()), 
 														Integer.parseInt(datosHistoricos.get("mejorPuntuacion").toString()), 
 														Integer.parseInt(datosHistoricos.get("mejorTiempo").toString()), 
 														datosPartida.getJSONArray("logrosConseguidos"));
