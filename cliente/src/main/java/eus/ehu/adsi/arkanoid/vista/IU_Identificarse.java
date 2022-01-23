@@ -149,14 +149,14 @@ public class IU_Identificarse extends JFrame {
 					case 0: //todo bien
 						dispose();
 						break;
-					case 1: //correo no válido
-						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
+					case 1: //correo no vï¿½lido
+						JOptionPane.showMessageDialog(null, "Introduzca un correo vÃ¡lido");
 						break;
-					case 2: //contraseña no válida
-						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida. Debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un caracter especial.");
+					case 2: //contraseï¿½a no vï¿½lida
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseÃ±a vÃ¡lida. Debe tener al menos 6 caracteres, una mayÃºscula, una minÃºscula, un nÃºmero y un caracter especial.");
 						break;
 					case 3: //credenciales no coincidentes
-						JOptionPane.showMessageDialog(null, "Correo y/o contraseña incorrectos");
+						JOptionPane.showMessageDialog(null, "Correo y/o contraÃ±a incorrectos");
 						break;
 					}
 				}
@@ -225,14 +225,14 @@ public class IU_Identificarse extends JFrame {
 					case 0: //todo bien
 						dispose();
 						break;
-					case 1: //correo no válido
-						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
+					case 1: //correo no vÃ¡lido
+						JOptionPane.showMessageDialog(null, "Introduzca un correo vÃ¡lido");
 						break;
-					case 2: //contraseña no válida
-						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida. Debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un caracter especial.");
+					case 2: //contraseÃ±a no vÃ¡lida
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseÃ±a vÃ¡lida. Debe tener al menos 6 caracteres, una mayÃºscula, una minÃºscula, un nÃºmero y un caracter especial.");
 						break;
 					case 3: //credenciales no coincidentes
-						JOptionPane.showMessageDialog(null, "Correo y/o contraseña incorrectos");
+						JOptionPane.showMessageDialog(null, "Correo y/o contraseÃ±a incorrectos");
 						break;
 					}
 			    }

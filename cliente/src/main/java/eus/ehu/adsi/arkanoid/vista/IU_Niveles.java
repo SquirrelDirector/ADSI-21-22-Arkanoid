@@ -51,7 +51,7 @@ public class IU_Niveles extends JFrame implements Observer {
 	 */
 	private void initialize() {
 		elLabel = new EtiquetaNormal("");
-		elLabel.setBackground(new Color(2,4,40)); //TODO - Este color hijuelarremaracamadrequeloremilperraspari� no se aplica, sospecho del repaint de seleccionar()
+		elLabel.setBackground(new Color(2,4,40));
 		elLabel.setForeground(new Color(255,255,255));
 		
 		setBounds(100, 100, 951, 645);
@@ -155,7 +155,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		pnlNvl2.setBackground(new Color(0,0,0,0));
 		pnlNvl2.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
-		botonNvl2 = new Boton("Est\u00E1ndar");
+		botonNvl2 = new Boton("Estandar");
 		botonNvl2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				seleccionar(2);
@@ -226,19 +226,19 @@ public class IU_Niveles extends JFrame implements Observer {
 		botonNvl1.setBorder(null);
 		switch (nivel) {
 		case 1:
-			elLabel.setText("<HTML>Version fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 2 l�neas de bloques <br> - anchura de la barra aumentada <br> - velocidad est�ndar</HTML>");
+			elLabel.setText("<HTML>Version fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 2 líneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estandar</HTML>");
 			botonNvl1.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 2:
-			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 4 l�neas de bloques <br> - anchura de barra y vel�cidad est�ndar");
+			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 4 líneas de bloques <br> - anchura de barra y velocidad estandar");
 			botonNvl2.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 3:
-			elLabel.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 l�neas de bloques <br> - anchura de barra est�ndar <br> - vel�cidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 líneas de bloques <br> - anchura de barra estandar <br> - velocidad aumentada</HTML>");
 			botonNvl3.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 4:
-			elLabel.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 8 l�neas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 8 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
 			botonNvl4.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 5:

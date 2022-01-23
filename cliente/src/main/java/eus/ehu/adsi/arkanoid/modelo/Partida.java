@@ -49,7 +49,7 @@ public class Partida extends Observable {
 		if (vidasRestantes == 0) {
 			gameOver = true;
 			crono.parar();
-
+			ganar = false;
 			System.out.println("has perdido");
 			setChanged();
 			notifyObservers("FinPartida");

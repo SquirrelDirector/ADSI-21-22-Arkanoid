@@ -51,12 +51,12 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public JSONObject importarUsuario(String mail, String pass) {
-		String preg="SELECT Contraseña FROM Usuario WHERE Email = '"+mail+"';";
+		String preg="SELECT ContraseÃ±a FROM Usuario WHERE Email = '"+mail+"';";
 		ResultadoSQL res=GestorDB.getGestorDB().execSQL(preg);
 		if (res.longitud==0) //no existe tal usuario
 			return null;
-		String usrPass=(String) res.get("Contraseña");
-		if (!pass.equals(usrPass)) //el usuario no tiene tal contraseña
+		String usrPass=(String) res.get("ContraseÃ±a");
+		if (!pass.equals(usrPass)) //el usuario no tiene tal contraseï¿½a
 			return null;
 		
 		preg="SELECT NombreUsuario, NivelDefault, PathMusica, PathPerfil, CodigoColorFondo, CodigoColorBola, CodigoColorPaddle, CodigoColorLadrillo, Atributos_Personalizado FROM Usuario WHERE Email = '"+mail+"';";
@@ -135,7 +135,7 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void crearUsuario(String usr, String mail, String pass) {
-		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contraseña) VALUES ('"+mail+"', '"+usr+"', '"+pass+"');";
+		String preg="INSERT INTO Usuario (Email, NombreUsuario, Contraseï¿½a) VALUES ('"+mail+"', '"+usr+"', '"+pass+"');";
 		GestorDB.getGestorDB().execSQL(preg);
 		
 		preg="SELECT idLogro FROM Logro;";
@@ -163,7 +163,7 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void cambiarContrasena(String mail, String pass) {
-		String preg="UPDATE Usuario SET Contraseña="+pass+" WHERE Email='"+mail+"';";
+		String preg="UPDATE Usuario SET Contraseï¿½a="+pass+" WHERE Email='"+mail+"';";
 		GestorDB.getGestorDB().execSQL(preg);
 	}
 
