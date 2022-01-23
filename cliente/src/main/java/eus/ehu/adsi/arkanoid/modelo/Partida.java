@@ -64,7 +64,7 @@ public class Partida extends Observable {
 	}
 	public JSONObject getDatosPartidaActual() {
 		JSONObject datos = new JSONObject();
-		datos.put("tiempoPartida", crono);
+		datos.put("tiempoPartida", crono.getSegundosTotales());
 		datos.put("puntuacionConseguida", puntuacion);
 		return datos;
 	}
