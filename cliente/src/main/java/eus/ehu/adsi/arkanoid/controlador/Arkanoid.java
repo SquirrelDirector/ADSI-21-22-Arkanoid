@@ -418,7 +418,7 @@ public class Arkanoid extends Observable {
 	private JSONObject agregarJSON(JSONObject datosPartida, JSONObject datosHistoricos, JSONArray logros) {
 		datosPartida.put("mejorTiempo", datosHistoricos.get("mejorTiempo"));
 		datosPartida.put("mejorPuntuacion", datosHistoricos.get("mejorPuntuacion"));
-		datosPartida.put("logros", logros.getJSONObject(0));
+		datosPartida.put("logrosConseguidos", logros);
 		return datosPartida;
 	}
 
