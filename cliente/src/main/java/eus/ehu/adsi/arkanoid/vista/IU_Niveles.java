@@ -25,28 +25,13 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("deprecation")
 public class IU_Niveles extends JFrame implements Observer {
 
-	private JFrame frame;
+	//private JFrame frame;
 	private int nivel;
 	private JLabel elLabel;
 	private InterfazBase base;
 	private JButton botonPersonalizar;
 	private JButton botonNvl5;
-	/**
-	 * Launch the application.
-	 */
-	public void mostrarVentana() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					IU_Niveles window = new IU_Niveles();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the application.
 	 */
@@ -62,10 +47,9 @@ public class IU_Niveles extends JFrame implements Observer {
 		elLabel.setBackground(new Color(2,4,40)); //TODO - Este color hijuelarremaracamadrequeloremilperrasparió no se aplica, sospecho del repaint de seleccionar()
 		elLabel.setForeground(new Color(255,255,255));
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 951, 645);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
+		setBounds(100, 100, 951, 645);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		if (Arkanoid.getArkanoid().isIdentificado())
 			seleccionar(Arkanoid.getArkanoid().getUltimaPartida());
 		else
@@ -74,7 +58,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		base=new InterfazBase("SELECCIONAR NIVEL");
 		base.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
 		((InterfazBase) base).setEventoRegreso(new IU_Inicial());
-		frame.add(base);
+		add(base);
 		
 		JPanel principal=new JPanel();
 		principal.setBackground(new Color(0,0,0,0));
@@ -115,7 +99,7 @@ public class IU_Niveles extends JFrame implements Observer {
 			public void actionPerformed(ActionEvent arg0) {
 				new IU_Personalizacion().mostrarVentana();
 				Arkanoid.getArkanoid().deleteObserver(IU_Niveles.this);
-				//frame.dispose();
+				dispose();
 			}
 		});
 		botones.add(pnlPersonalizar);
@@ -133,8 +117,8 @@ public class IU_Niveles extends JFrame implements Observer {
 					Arkanoid.getArkanoid().actualizarUltimaPartida(nivel);
 				}
 				Arkanoid.getArkanoid().updateConfig(Arkanoid.getArkanoid().obtenerDatosNivel(nivel));
-				new Tablero().setVisible(true);
-				frame.dispose();
+				new Tablero();
+				dispose();
 			}
 		});
 		botones.add(pnlJugar);
@@ -242,7 +226,7 @@ public class IU_Niveles extends JFrame implements Observer {
 			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botón de personalizar para cambiarlo <br>(La puntuación no se guardará en los ránkings)</HTML>");
 			break;
 		}
-		frame.repaint();
+		repaint();
 	}
 	
 	@Override
