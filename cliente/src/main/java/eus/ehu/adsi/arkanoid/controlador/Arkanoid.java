@@ -442,7 +442,7 @@ public class Arkanoid extends Observable {
 	}
 	
 	public void updateConfig(Double[] Datos) { 
-		Config.BALL_VELOCITY=Datos[0]/10; 
+		Config.BALL_VELOCITY=Datos[0]; 
 		Config.PADDLE_WIDTH=Datos[1]; 
 		Config.COUNT_BLOCKS_Y= Datos[2].intValue()/Config.COUNT_BLOCKS_X; 
 	} 

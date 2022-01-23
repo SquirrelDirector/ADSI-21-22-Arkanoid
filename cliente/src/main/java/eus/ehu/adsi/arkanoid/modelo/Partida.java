@@ -50,7 +50,9 @@ public class Partida extends Observable {
 			gameOver = true;
 			crono.parar();
 			System.out.println("has perdido");
-			new VentanaFinPartida(false).mostrarVentana();
+			setChanged();
+			notifyObservers("FinPartida");
+			new VentanaFinPartida(ganar).mostrarVentana();
 			//TODO: llamar a la funcionalidad de la vista de perder
 			
 		}
@@ -162,7 +164,9 @@ public class Partida extends Observable {
 			ganar = true;
 			crono.parar();
 
-			new VentanaFinPartida(true).mostrarVentana();
+			setChanged();
+			notifyObservers("FinPartida");
+			new VentanaFinPartida(ganar).mostrarVentana();
 			
 			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
 
