@@ -1,5 +1,6 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
@@ -168,7 +169,25 @@ public class Partida extends Observable {
 		return ganar;
 		
 	}
-	
+	public void cotejarLogros(int idNivel, Usuario user) {
+		Logro ganarMismoNivel = CatalogoLogros.getMiCatalogoLogros().getLogro("ganarMismoNivel"+idNivel);
+		Logro ganarPartidasSeguidas = CatalogoLogros.getMiCatalogoLogros().getLogro("ganarPartidasSeguidas");
+		
+		int tiempoActual = this.getTiempo();
+		if(tiempoActual<60) {
+			Logro speedrun = CatalogoLogros.getMiCatalogoLogros().getLogro("speedrun");
+			this.addLogro(speedrun);
+		}
+		this.addLogro(ganarPartidasSeguidas);
+		this.addLogro(ganarMismoNivel);
+		
+		JSONArray logrosObtenidos = this.getLogrosPartida();
+		try {
+			this.setLogrosPartida(user.cotejarLogros(logrosObtenidos));
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	public void generarPartida() {
 		
 		//Generar bloques
