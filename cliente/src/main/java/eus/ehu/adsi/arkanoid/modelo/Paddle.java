@@ -47,5 +47,9 @@ public class Paddle extends Rectangle {
 			velocity = 0.0;
 		}
 	}
+	
+	public double getSize() {
+		return this.sizeX;
+	}
 
 }

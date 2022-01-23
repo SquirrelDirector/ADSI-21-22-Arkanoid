@@ -205,12 +205,18 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 				score.setText("Score:  "+puntuacion);
 			} else if (arg instanceof Integer) {
 				lives.setText("Lives:  "+(int)arg);
-			}
+			}else if (arg instanceof Boolean) {
+	        	if ((Boolean) arg) {
+	        		//TODO:Llamadas cuando ganas
+	        	}else {
+	        		//TODO:Llamadas cuando pierdes
+	        	}
+	        }
 			Graphics g = this.tableroPanel.getGraphics();
 			tableroPanel.updateTablero(arg, g);
 		} else if (o instanceof Cronometro) {
             cronometro.setText(" "+(String)arg+" ");
-        }	
+        }
 	}
 	
 	private void reproducirSonido(){

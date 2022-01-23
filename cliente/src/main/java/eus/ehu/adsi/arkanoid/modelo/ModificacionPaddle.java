@@ -5,11 +5,9 @@ public class ModificacionPaddle implements ComportamientoBloque {
 	public ModificacionPaddle() {}
 
 	@Override
-	public void romper() {
-		// TODO Auto-generated method stub
-		
+	public void romper() {		
 		Partida miPartida = Partida.getMiPartida();
-		miPartida.modificarPaddle(0);
+		miPartida.modificarPaddle(100);
 	}
 
 }

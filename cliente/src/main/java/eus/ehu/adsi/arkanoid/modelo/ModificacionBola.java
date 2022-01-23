@@ -9,7 +9,7 @@ public class ModificacionBola implements ComportamientoBloque {
 		// TODO Auto-generated method stub
 		
 		Partida miPartida = Partida.getMiPartida();
-		miPartida.modificarBola(2);
+		miPartida.modificarBola(20);
 	}
 
 }

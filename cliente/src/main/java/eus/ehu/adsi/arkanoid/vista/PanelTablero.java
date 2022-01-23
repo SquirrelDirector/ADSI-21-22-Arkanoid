@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 import eus.ehu.adsi.arkanoid.modelo.Bloque;
+import eus.ehu.adsi.arkanoid.modelo.BloqueSuerte;
 import eus.ehu.adsi.arkanoid.modelo.Bola;
 import eus.ehu.adsi.arkanoid.modelo.Config;
 import eus.ehu.adsi.arkanoid.modelo.Paddle;
@@ -28,13 +29,14 @@ public class PanelTablero extends JPanel {
    private ArrayList<Bloque> bricks;
    private static final double sizeX = Config.BLOCK_WIDTH;
    private static final double sizeY = Config.BLOCK_HEIGHT;
-   private int ladrilloSuerte;
   
    // Ball's properties
    private Bola bola = new Bola(Config.SCREEN_WIDTH / 2 - 10, Config.SCREEN_HEIGHT / 2 - 115);
    
    //Paddle
-   private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 150); 
+   //private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 150); 
+   private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
+   
    private static double sizeXPaddle = Config.PADDLE_WIDTH;
    private static final double sizeYPaddle = Config.PADDLE_HEIGHT;
   
@@ -57,7 +59,7 @@ public class PanelTablero extends JPanel {
       // Draw bricks
       int i = 0;
       for (Bloque brick : bricks) {
-    	  if (i == ladrilloSuerte) g.setColor(Config.LUCK_BRICK_COLOR);
+    	  if (brick instanceof BloqueSuerte) g.setColor(Config.LUCK_BRICK_COLOR);
     	  else g.setColor(Config.BRICK_COLOR);
     	  g.fillRect((int) brick.left()-30+(int)sizeX/2, (int) brick.top()-5+(int)sizeY/2, (int) sizeX, (int) sizeY);
   		  i++;
@@ -88,27 +90,33 @@ public class PanelTablero extends JPanel {
    }
    
    private void drawBola(Graphics g, Bola b) { 
+	   //Borrar bola
 	   g.setColor(Config.BACKGROUND_COLOR);
 	   g.fillOval((int) bola.left(), (int) bola.top(), (int) bola.radius * 2,(int) bola.radius * 2);
 	   
+	   //Redibujar bola
 	   g.setColor(Config.BALL_COLOR);
 	   g.fillOval((int) b.left(), (int) b.top(), (int) b.radius * 2,(int) b.radius * 2);
 
-	   bola.x = b.x;
-	   bola.y = b.y;
+	   //Actualizar posicion y radio de la bola
+	   //bola.x = b.x;
+	   //bola.y = b.y;
+	   //bola.radius = b.radius;
+	   bola = b;
 	   
    }
    
    private void drawPaddle(Graphics g, Paddle pl) {
 	   g.setColor(Config.BACKGROUND_COLOR);
-	   g.fillRect((int) (paddle.left()), (int) (paddle.top()), (int) sizeXPaddle, (int) sizeYPaddle);
+	   g.fillRect((int) (paddle.left()), (int) (paddle.top()), (int) paddle.getSize(), (int) sizeYPaddle);
 	   
 	   g.setColor(Config.PADDLE_COLOR);
-	   g.fillRect((int) (pl.left()), (int) (pl.top()), (int) sizeXPaddle, (int) sizeYPaddle);
-	   System.out.println(pl.x);
-	   System.out.println(pl.y);
-	   paddle.x = pl.x;
-	   paddle.y = pl.y;
+	   g.fillRect((int) (pl.left()), (int) (pl.top()), (int) pl.getSize(), (int) sizeYPaddle);
+
+	   //paddle.x = pl.x;
+	   //paddle.y = pl.y;
+	   //pl.getSize();
+	   paddle = pl;
    }
    
    private void drawBloqueRoto(Graphics g, Bloque bl) {

@@ -46,7 +46,8 @@ public class Partida extends Observable {
 		if (vidasRestantes == 0) {
 			gameOver = true;
 			crono.parar();
-			System.out.println("has perdido");
+			setChanged();
+			notifyObservers(ganar);
 			//TODO: llamar a la funcionalidad de la vista de perder
 		}
 	}
@@ -85,7 +86,7 @@ public class Partida extends Observable {
 		if (bloques.get(n).destroyed) {
 			setChanged();
 			notifyObservers(bloques.get(n));
-			bloques.remove(n);
+			//bloques.remove(n);
 		}
 	}
 
@@ -146,10 +147,11 @@ public class Partida extends Observable {
 	}
 	
 	public boolean ganar() {
-		if (puntuacion == (Config.COUNT_BLOCKS_X * Config.COUNT_BLOCKS_Y)) {
+		if (this.bloques.size() == 0) {
 			ganar = true;
 			crono.parar();
-
+			setChanged();
+			notifyObservers(ganar);
 			
 			
 			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
@@ -163,15 +165,25 @@ public class Partida extends Observable {
 	}
 	
 	public void generarPartida() {
+		//Generar posicion del bloque de la suerte
+		int posX = (int) Math.floor((Math.random()*Config.COUNT_BLOCKS_X)+1);
+		int posY = (int) Math.floor((Math.random()*Config.COUNT_BLOCKS_Y)+1);
 		
 		//Generar bloques
 		bloques = new ArrayList<Bloque>();
 		for (int iX = 0; iX < Config.COUNT_BLOCKS_X; ++iX) {
 			for (int iY = 0; iY < Config.COUNT_BLOCKS_Y; ++iY) {
-				bloques.add(new Bloque(
-						(iX + 1) * (Config.BLOCK_WIDTH + 3) + 22,
-						(iY + 2) * (Config.BLOCK_HEIGHT + 3) + 50)
-						);
+				if (posX==iX && posY==iY) {
+					bloques.add(new BloqueSuerte(
+							(iX + 1) * (Config.BLOCK_WIDTH + 3) + 22,
+							(iY + 2) * (Config.BLOCK_HEIGHT + 3) + 50)
+							);
+				}else {
+					bloques.add(new Bloque(
+							(iX + 1) * (Config.BLOCK_WIDTH + 3) + 22,
+							(iY + 2) * (Config.BLOCK_HEIGHT + 3) + 50)
+							);
+				}
 			}
 		}
 		
