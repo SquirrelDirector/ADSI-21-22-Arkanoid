@@ -71,7 +71,14 @@ public class Partida extends Observable {
 		}
 		return logros;
 	}
-
+	public void setLogrosPartida(JSONArray logrosDesbloqueados) {
+		this.listaLogros = new ArrayList<>();
+		CatalogoLogros catL = CatalogoLogros.getMiCatalogoLogros();
+		for(int i = 0; i < logrosDesbloqueados.length(); i++) {
+			Logro log = catL.getLogro(logrosDesbloqueados.getJSONObject(i).getString("nombre"));
+			listaLogros.add(log);
+		}
+	}
 	public void incrementarPuntuacion() {
 		this.puntuacion++;
 	}

@@ -101,7 +101,7 @@ public class Arkanoid extends Observable {
 
 				JSONArray logrosObtenidos = miPartida.getLogrosPartida();
 				try {
-					usuario.cotejarLogros(logrosObtenidos);
+					miPartida.setLogrosPartida(usuario.cotejarLogros(logrosObtenidos));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
