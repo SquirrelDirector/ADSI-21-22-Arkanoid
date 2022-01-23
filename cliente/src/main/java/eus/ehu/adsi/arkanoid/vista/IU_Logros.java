@@ -41,7 +41,7 @@ public class IU_Logros extends JFrame implements Observer {
 	private JLabel lblDescrp_content;
 	private JLabel lblFecha_content;
 	private JButton btn;
-	private JSONArray logros = new JSONArray();	
+	private JSONArray logros = new JSONArray();
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	String fecha = dateFormat.format(new Date());
 
@@ -177,8 +177,13 @@ public class IU_Logros extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		if (arg1 instanceof Boolean)
+		if (arg1 instanceof Boolean) {
 			contentPane.setIdentificado((boolean) arg1);
+			if (!(boolean) arg1) {
+				new IU_Inicial().setVisible(true);
+				dispose();
+			}
+		}
 	}
 
 }

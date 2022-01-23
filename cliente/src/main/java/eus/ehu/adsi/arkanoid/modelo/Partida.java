@@ -71,7 +71,7 @@ public class Partida extends Observable {
 		while(itr.hasNext()) {
 			Logro l = itr.next();
 			JSONObject logro = new JSONObject();
-			logro.put("nombreLogro", l.getNombre());
+			logro.put("nombre", l.getNombre());
 			logros.put(logro);
 		}
 		return logros;
