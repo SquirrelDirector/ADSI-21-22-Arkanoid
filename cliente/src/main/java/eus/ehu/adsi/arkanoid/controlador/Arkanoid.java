@@ -399,6 +399,10 @@ public class Arkanoid extends Observable {
 		return 0;
 	}
 
+	/**
+	 * Obtiene los resultados de la partida
+	 * @return JSON con datos de la partida
+	 */
 	public JSONObject getResultadosPartida() {
 		Partida miPartida = Partida.getMiPartida();
 		
@@ -412,9 +416,9 @@ public class Arkanoid extends Observable {
 	}
 
 	/**
-	 * 
-	 * @param datosPartida
-	 * @param datosHistoricos
+	 * Ensambla dos objetos JSON en uno
+	 * @param datosPartida JSON de datosPartida
+	 * @param datosHistoricos JSON de datosHistoricos
 	 */
 	private JSONObject agregarJSON(JSONObject datosPartida, JSONObject datosHistoricos, JSONArray logros) {
 		datosPartida.put("mejorTiempo", datosHistoricos.get("mejorTiempo"));

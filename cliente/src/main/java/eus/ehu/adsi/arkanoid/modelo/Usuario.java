@@ -220,11 +220,19 @@ public class Usuario {
 		this.pathPerfil = pathAvatar;
 		this.nombreUsuario = nombreUsu;
 	}
-
+	
+	/**
+	 * Comprueba si el usuario está identificado
+	 * @return true si está identificado, false en caso contrario
+	 */
 	public boolean isIdentificado() {
 		return email != null;
 	}
 
+	/**
+	 * Se obtienen los datos históricos del jugador. Esto es, mejor tiempo y mejor puntuación
+	 * @return JSON con los datos
+	 */
 	public JSONObject getDatosHistoricosJugador() {
 		JSONObject datos = new JSONObject();
 		int mejorTiempo = Integer.MAX_VALUE;
