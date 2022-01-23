@@ -21,7 +21,8 @@ import javax.swing.event.ChangeListener;
 import org.json.JSONArray; 
 import org.json.JSONObject; 
  
-import eus.ehu.adsi.arkanoid.controlador.Arkanoid; 
+import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
+import eus.ehu.adsi.arkanoid.modelo.Config;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton; 
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal; 
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.PanelNegro; 
@@ -473,7 +474,10 @@ public class IU_Personalizacion extends JFrame implements Observer {
 		getPersonalizables(); 
 		ponerColores(); 
 		ponerSonidos(); 
-        ponerNivelPersonalizado(); 
+		if (Arkanoid.getArkanoid().isIdentificado()) {
+			ponerNivelPersonalizado(); 
+		}
+        
         
         boolean identificado = Arkanoid.getArkanoid().isIdentificado(); 
         if (!identificado) { 
@@ -494,7 +498,17 @@ public class IU_Personalizacion extends JFrame implements Observer {
         JSONObject personalizables = Arkanoid.getArkanoid().obtenerPersonalizables(); 
         colores = personalizables.getJSONArray("colores"); 
         sonidos = personalizables.getJSONArray("sonidos"); 
-        personalizablesJugador = Arkanoid.getArkanoid().obtenerPersonalizacionUsuario(); 
+        if (Arkanoid.getArkanoid().isIdentificado()) {
+        	personalizablesJugador = Arkanoid.getArkanoid().obtenerPersonalizacionUsuario(); 
+        } else {
+        	personalizablesJugador = new JSONObject();
+        	personalizablesJugador.put("PathMusica", Config.PATH_MUSICA);
+        	personalizablesJugador.put("CodigoFondo", Config.BACKGROUND_COLOR);
+        	personalizablesJugador.put("CodigoBola", Config.BALL_COLOR);
+        	personalizablesJugador.put("CodigoPaddle", Config.PADDLE_COLOR);
+        	personalizablesJugador.put("CodigoLadrillo", Config.BRICK_COLOR);
+        }
+        
     } 
 	 
 	private void ponerColores() { 
@@ -716,9 +730,13 @@ public class IU_Personalizacion extends JFrame implements Observer {
 		if (arg1 instanceof Boolean){ 
 			ib.setIdentificado((boolean) arg1); 
 			personalizarPestanas.setEnabledAt(2, (boolean)arg1); 
+			}
 			if (!(boolean)arg1) {
 				personalizarPestanas.setSelectedComponent(personalizarPestanas.getComponentAt(0));
 			}
-		} 
+			else {
+				new IU_Personalizacion().mostrarVentana();
+				dispose();
+		}
 	} 
 } 
