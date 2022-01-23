@@ -163,7 +163,7 @@ public class GestorUsuarios {
 	 * @param pass
 	 */
 	public void cambiarContrasena(String mail, String pass) {
-		String preg="UPDATE Usuario SET Contraseña="+pass+" WHERE Mail='"+mail+"';";
+		String preg="UPDATE Usuario SET Contraseña="+pass+" WHERE Email='"+mail+"';";
 		GestorDB.getGestorDB().execSQL(preg);
 	}
 

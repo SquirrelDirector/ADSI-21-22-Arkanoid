@@ -67,11 +67,11 @@ public class InterfazBase extends JPanel {
 
 
 	public void ocultarBotonRegreso() {
-		volverButton.setVisible(false);
+		panelCabecera.remove(volverButton);
 	}
 	
 	public void ocultarPanelIdentidad() {
-		panelIdentidades.setVisible(false);
+		panelInicial.remove(panelIdentidades);
 	}
 	
 	public void setEventoRegreso(final JFrame ventanaAnterior) {

@@ -91,13 +91,14 @@ public class IU_Identificarse extends JFrame {
 	private void initialize() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 520, 540);
+		setBounds(100, 100, 480, 500);
 		contentPane = new InterfazBase("INICIA SESI\u00D3N");
 		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		//contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.ocultarPanelIdentidad();
 		contentPane.ocultarBotonRegreso();
+		contentPane.centrarCabecera();
 		//contentPane.add(getLblLogin(), BorderLayout.NORTH);
 		contentPane.panelPrincipal.add(getPanel(), BorderLayout.CENTER);
 		contentPane.panelPrincipal.add(getPanel_1(), BorderLayout.SOUTH);
@@ -114,7 +115,6 @@ public class IU_Identificarse extends JFrame {
 	private JTextField getEmail() {
 		if (email == null) {
 			email = new InputTexto("CORREO ELECTR\u00D3NICO");
-			email.setToolTipText("CORREO ELECTR\u00D3NICO");
 			email.setColumns(20);
 		}
 		return email;
@@ -208,7 +208,6 @@ public class IU_Identificarse extends JFrame {
 	private JPasswordField getPassword() {
 		if (password == null) {
 			password = new InputContrasena("CONTRASE\u00D1A");
-			password.setToolTipText("CONTRASE\u00D1A");
 		}
 		return password;
 	}

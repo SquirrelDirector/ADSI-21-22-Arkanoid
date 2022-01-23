@@ -1,6 +1,7 @@
 package eus.ehu.adsi.arkanoid.vista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -33,7 +34,7 @@ import javax.swing.JPasswordField;
 public class IU_Registrarse extends JFrame {
 
 	private static IU_Registrarse miIU_Registrarse;
-	private JPanel contentPane;
+	private InterfazBase contentPane;
 	private JLabel lblSignUp;
 	private JPanel panel;
 	private JPanel panel_1;
@@ -77,14 +78,17 @@ public class IU_Registrarse extends JFrame {
 	}
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 320, 420);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
+		setBounds(100, 100, 480, 500);
+		contentPane = new InterfazBase("REG\u00CDSTRATE");
+		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.add(getLblSignUp(), BorderLayout.NORTH);
-		contentPane.add(getPanel(), BorderLayout.CENTER);
-		contentPane.add(getPanel_1(), BorderLayout.SOUTH);
+		contentPane.ocultarBotonRegreso();
+		contentPane.ocultarPanelIdentidad();
+		contentPane.centrarCabecera();
+		//contentPane.add(getLblSignUp(), BorderLayout.NORTH);
+		contentPane.panelPrincipal.add(getPanel(), BorderLayout.CENTER);
+		contentPane.panelPrincipal.add(getPanel_1(), BorderLayout.SOUTH);
 	}
 
 	private JLabel getLblSignUp() {
@@ -98,6 +102,7 @@ public class IU_Registrarse extends JFrame {
 		if (panel == null) {
 			panel = new JPanel();
 			panel.setLayout(new GridLayout(0, 1, 0, 7));
+			panel.setBackground(new Color(0,0,0,0));
 			panel.add(getTxtUsername());
 			panel.add(getTxtEmail());
 			panel.add(getTxtPassword());
@@ -110,6 +115,7 @@ public class IU_Registrarse extends JFrame {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
 			panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+			panel_1.setBackground(new Color(0,0,0,0));
 			panel_1.add(getLbSignIn());
 			panel_1.add(getBtnSignIn());
 		}
@@ -137,7 +143,6 @@ public class IU_Registrarse extends JFrame {
 	private JTextField getTxtUsername() {
 		if (txtUsername == null) {
 			txtUsername = new InputTexto("NOMBRE DE USUARIO");
-			txtUsername.setToolTipText("NOMBRE DE USUARIO");
 			txtUsername.setColumns(10);
 		}
 		return txtUsername;
@@ -145,7 +150,6 @@ public class IU_Registrarse extends JFrame {
 	private JTextField getTxtEmail() {
 		if (txtEmail == null) {
 			txtEmail = new InputTexto("CORREO ELECTR\u00D3NICO");
-			txtEmail.setToolTipText("CORREO ELECTR\u00D3NICO");
 			txtEmail.setColumns(10);
 		}
 		return txtEmail;
@@ -185,14 +189,12 @@ public class IU_Registrarse extends JFrame {
 	private JPasswordField getTxtPassword() {
 		if (txtPassword == null) {
 			txtPassword = new InputContrasena("CONTRASE\u00D1A");
-			txtPassword.setToolTipText("CONTRASE\u00D1A");
 		}
 		return txtPassword;
 	}
 	private JPasswordField getTxtRepeat() {
 		if (txtRepeat == null) {
 			txtRepeat = new InputContrasena("REPETIR CONTRASE\u00D1A");
-			txtRepeat.setToolTipText("REPETIR CONTRASE\u00D1A");
 		}
 		return txtRepeat;
 	}
