@@ -169,8 +169,9 @@ public class Partida extends Observable {
 		return ganar;
 		
 	}
-	public void cotejarLogros(int idNivel, Usuario user) {
-		Logro ganarMismoNivel = CatalogoLogros.getMiCatalogoLogros().getLogro("ganarMismoNivel"+idNivel);
+	public void cotejarLogros(Usuario user) {
+		int idNivelActual = user.getNivelDefault();
+		Logro ganarMismoNivel = CatalogoLogros.getMiCatalogoLogros().getLogro("ganarMismoNivel"+idNivelActual);
 		Logro ganarPartidasSeguidas = CatalogoLogros.getMiCatalogoLogros().getLogro("ganarPartidasSeguidas");
 		
 		int tiempoActual = this.getTiempo();

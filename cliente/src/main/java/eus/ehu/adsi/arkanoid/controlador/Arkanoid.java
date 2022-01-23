@@ -85,9 +85,9 @@ public class Arkanoid extends Observable {
 						double fps = 1.0 / seconds;
 					}
 		
-				}				
-				int idNivelActual = usuario.getNivelDefault();
-				miPartida.cotejarLogros(idNivelActual, usuario);				
+				}							
+				if(miPartida.getBloques().size()==0)miPartida.cotejarLogros(usuario);	
+							
 			}
 	    };
 	    gameThread.start();  // Callback run()
