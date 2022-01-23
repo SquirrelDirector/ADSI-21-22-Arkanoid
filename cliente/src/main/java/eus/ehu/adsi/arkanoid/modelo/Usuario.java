@@ -89,6 +89,8 @@ public class Usuario {
 			obj = Integer.parseInt((String) logro.get("objetivo"));
 
 			l = new Logro(id, nom, desc, obj);
+			CatalogoLogros catL = CatalogoLogros.getMiCatalogoLogros();
+			catL.addLogro(l);
 			fecha = null;
 			if (!logro.isNull("fechaObtencion"))
 				try {
