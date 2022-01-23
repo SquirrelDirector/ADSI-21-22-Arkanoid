@@ -33,7 +33,7 @@ public class IU_Niveles extends JFrame implements Observer {
 	private JLabel elLabel;
 	private InterfazBase base;
 	private JButton botonPersonalizar;
-	private JButton botonNvl5;
+	/*private JButton botonNvl5;*/
 	private JButton botonNvl4;
 	private JButton botonNvl3;
 	private JButton botonNvl2;
@@ -195,7 +195,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		izquierda.add(pnlNvl4);
 		
 		
-		JPanel pnlNvl5=new JPanel();
+		/*JPanel pnlNvl5=new JPanel();
 		pnlNvl5.setLayout(new CardLayout());
 		pnlNvl5.setBackground(new Color(0,0,0,0));
 		pnlNvl5.setBorder(new EmptyBorder(10, 30, 10, 100));
@@ -213,13 +213,13 @@ public class IU_Niveles extends JFrame implements Observer {
 			seleccionar(Arkanoid.getArkanoid().getUltimaPartida());
 		else
 			seleccionar(1);
-		
+		*/
 		Arkanoid.getArkanoid().addObserver(this); 
 	}
 	
 	private void seleccionar(int lvl){
 		nivel=lvl;
-		botonNvl5.setBorder(null);
+		/*botonNvl5.setBorder(null);*/
 		botonNvl4.setBorder(null);
 		botonNvl3.setBorder(null);
 		botonNvl2.setBorder(null);
@@ -241,10 +241,10 @@ public class IU_Niveles extends JFrame implements Observer {
 			elLabel.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 8 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
 			botonNvl4.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
-		case 5:
+	/*	case 5:
 			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botón de personalizar para cambiarlo <br>(La puntuación no se guardará en los rankings)</HTML>");
 			botonNvl5.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
-			break;
+			break;*/
 		}
 		repaint();
 		revalidate();
@@ -254,7 +254,7 @@ public class IU_Niveles extends JFrame implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		if (arg1 instanceof Boolean){
 			base.setIdentificado((boolean) arg1);
-			botonNvl5.setEnabled((boolean) arg1);
+			/*botonNvl5.setEnabled((boolean) arg1);*/
 			if (!(boolean)arg1&&nivel==5)
 				seleccionar(1);
 		}

@@ -331,7 +331,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 					} 
 				} 
 			} 
-			{ 
+			/*{ 
 				PanelNegro dimensionesPersonalizar = new PanelNegro(); 
 				personalizarPestanas.addTab("DIMENSIONES", null, dimensionesPersonalizar, null); 
 				dimensionesPersonalizar.setLayout(new GridLayout(0, 1, 0, 0)); 
@@ -438,7 +438,7 @@ public class IU_Personalizacion extends JFrame implements Observer {
 						} 
 					} 
 				} 
-			} 
+			}*/ 
 		} 
 		ib.panelPrincipal.setLayout(new GridLayout(0, 1, 0, 0)); 
 		 
@@ -467,9 +467,9 @@ public class IU_Personalizacion extends JFrame implements Observer {
 		getPersonalizables(); 
 		ponerColores(); 
 		ponerSonidos(); 
-		if (Arkanoid.getArkanoid().isIdentificado()) {
+		/*if (Arkanoid.getArkanoid().isIdentificado()) {
 			ponerNivelPersonalizado(); 
-		}
+		}*/
         
         
         boolean identificado = Arkanoid.getArkanoid().isIdentificado(); 
@@ -638,24 +638,8 @@ public class IU_Personalizacion extends JFrame implements Observer {
         sonidosButtons.add(ver); 
     } 
  
-    private void ponerNivelPersonalizado(){ 
-        String atributos = personalizablesJugador.getString("atributosPersonalizado"); 
-        String[] valores = atributos.split(","); 
-        int velocidad = 0;
-        double valor = Double.parseDouble(valores[2]);
-		if (valor == 0.1) velocidad = 1;
-		else if (valor == 0.11) velocidad = 2;
-		else if (valor == 0.12) velocidad = 3;
-		else if (valor == 0.13) velocidad = 4;
-		else if (valor == 0.14) velocidad = 5;
-		else if (valor == 0.15) velocidad = 6;
-		else if (valor == 0.16) velocidad = 7;
-		else if (valor == 0.17) velocidad = 8;
-        jsBloques.setValue(Integer.parseInt(valores[0])); 
-        jsPaddle.setValue(Integer.parseInt(valores[1])); 
-        jsBola.setValue(velocidad); 
-    } 
- 
+    private void ponerNivelPersonalizado(){          String atributos = personalizablesJugador.getString("atributosPersonalizado");          String[] valores = atributos.split(",");          jsBloques.setValue(Integer.parseInt(valores[0]));         jsPaddle.setValue(Integer.parseInt(valores[1]));          jsBola.setValue(Integer.parseInt(valores[2]));      }
+    
     private void guardarPersonalizacion(){ 
         //Colores 
         String color1 = ""; 
@@ -704,15 +688,15 @@ public class IU_Personalizacion extends JFrame implements Observer {
       boolean identificado = Arkanoid.getArkanoid().isIdentificado(); 
         if (identificado) { 
         	//Atributos nivel personalizado 
-            int bloques = jsBloques.getValue(); 
+            /*int bloques = jsBloques.getValue(); 
             int paddle = jsPaddle.getValue(); 
-            int bola = jsBola.getValue(); 
-            String atributos = ""+bloques+","+paddle+","+bola+""; 
+            int bola = jsBola.getValue(); */
+            String atributos = ""+0+","+0+","+0+""; 
  
             Arkanoid.getArkanoid().actualizarPersonalizacionDB(sonido, color1, color2, color3, color4, atributos); 
             Arkanoid.getArkanoid().actualizarPersonalizacionUsu(sonido, color1, color2, color3, color4, atributos); 
-            Double[] datos = new Double[3];
-            double velocidad = 0;
+          /*  Double[] datos = new Double[3];*/
+           /* double velocidad = 0;
             if (bola == 1) velocidad = 0.1;
     		else if (bola == 2) velocidad = 0.11;
     		else if (bola == 3) velocidad = 0.12;
@@ -723,8 +707,8 @@ public class IU_Personalizacion extends JFrame implements Observer {
     		else if (bola == 8) velocidad = 0.17;
             datos[0] = (double) velocidad; 
             datos[1] = (double) paddle; 
-            datos[2] = (double)bloques; 
-            Arkanoid.getArkanoid().updateConfig(datos); 
+            datos[2] = (double)bloques; */
+          /*  Arkanoid.getArkanoid().updateConfig(datos); */
         }  
          
         Arkanoid.getArkanoid().updateColores(color1, color2, color3, color4); 
@@ -740,10 +724,10 @@ public class IU_Personalizacion extends JFrame implements Observer {
 	public void update(Observable arg0, Object arg1) { 
 		if (arg1 instanceof Boolean){ 
 			ib.setIdentificado((boolean) arg1); 
-			personalizarPestanas.setEnabledAt(2, (boolean)arg1); 
+		//	personalizarPestanas.setEnabledAt(2, (boolean)arg1); 
 			}
 			if (!(boolean)arg1) {
-				personalizarPestanas.setSelectedComponent(personalizarPestanas.getComponentAt(0));
+			//	personalizarPestanas.setSelectedComponent(personalizarPestanas.getComponentAt(0));
 			}
 			else {
 				new IU_Personalizacion().mostrarVentana();
