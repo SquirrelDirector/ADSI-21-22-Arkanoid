@@ -15,6 +15,7 @@ import eus.ehu.adsi.arkanoid.vista.claseObjetos.InputContrasena;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -23,8 +24,12 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JPasswordField;
 
 public class IU_Renovar extends JFrame {
@@ -84,6 +89,12 @@ public class IU_Renovar extends JFrame {
 		setContentPane(contentPane);
 		contentPane.ocultarPanelIdentidad();
 		contentPane.panelPrincipal.add(getPanelRenovar(), BorderLayout.CENTER);
+		addWindowListener(new WindowAdapter() {
+
+            public void windowClosing(WindowEvent evt) {
+                Arkanoid.getArkanoid().cerrarSesion();
+            }
+        });
 	}
 
 	private JPanel getPanelRenovar() {
@@ -133,6 +144,26 @@ public class IU_Renovar extends JFrame {
 		if (txtRepeat == null) {
 			txtRepeat = new InputContrasena("REPETIR CONTRASE\u00D1A");
 			txtRepeat.setToolTipText("REPETIR CONTRASE\u00D1A");
+			txtRepeat.addActionListener(new AbstractAction()
+			{
+			    @Override
+			    public void actionPerformed(ActionEvent e)
+			    {
+			    	int cod=Arkanoid.getArkanoid().cambiarContrasena(email, txtPassword.getText(), txtRepeat.getText()); //FIXME - email se inicializa pero el valor se pierde al llegar aquí
+					switch (cod) {
+					case 0: //todo bien
+						IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
+						dispose();
+						break;
+					case 1: //las contraseñas no coinciden
+						JOptionPane.showMessageDialog(null, "Las contraseñas introducidas no coinciden.");
+						break;
+					case 2: //contraseña con formato incorrecto
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida. Debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un caracter especial.");
+						break;
+					}
+			    }
+			});
 		}
 		return txtRepeat;
 	}

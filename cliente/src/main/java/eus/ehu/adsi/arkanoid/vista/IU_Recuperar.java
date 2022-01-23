@@ -22,12 +22,16 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.FlowLayout;
+
+import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -93,6 +97,12 @@ public class IU_Recuperar extends JFrame {
 		contentPane.setEventoRegreso(IU_Identificarse.getMiIU_Identificarse());
 		contentPane.panelPrincipal.setLayout(new BorderLayout(0, 0));
 		contentPane.panelPrincipal.add(getPanelForm(), BorderLayout.CENTER);
+		addWindowListener(new WindowAdapter() {
+
+            public void windowClosing(WindowEvent evt) {
+                Arkanoid.getArkanoid().cerrarSesion();
+            }
+        });
 	}
 
 	private JPanel getPanel() {
@@ -186,7 +196,7 @@ public class IU_Recuperar extends JFrame {
 		return primera;
 	}
 
-	protected void desplegar() { //TODO - Revisar por que no se refleja en la IU
+	protected void desplegar() {
 		getBtnSend().setText("REENVIAR");
 		getLblSend().setVisible(true);
 		getBtnValidar().setVisible(true);
@@ -208,6 +218,29 @@ public class IU_Recuperar extends JFrame {
 		if (txtEmail == null) {
 			txtEmail = new InputTexto("CORREO ELECTR\u00D3NICO");
 			txtEmail.setColumns(10);
+			txtEmail.addActionListener(new AbstractAction()
+			{
+			    @Override
+			    public void actionPerformed(ActionEvent e)
+			    {
+			    	int cod=Arkanoid.getArkanoid().recuperarContrasena(txtEmail.getText());
+					switch (cod){
+					case 0: //todo bien
+						if(isFirstTry())
+							desplegar();
+						break;
+					case 1: //correo no válido
+						JOptionPane.showMessageDialog(null, "Introduzca un correo válido.");
+						break;
+					case 2:
+						JOptionPane.showMessageDialog(null, "La dirección de correo no corresponde a ningún usuario.");
+						break;
+					case 3: //correo inexistente
+						JOptionPane.showMessageDialog(null, "La dirección de correo introducida no existe.");
+						break;
+					}
+			    }
+			});
 		}
 		return txtEmail;
 	}
@@ -223,6 +256,26 @@ public class IU_Recuperar extends JFrame {
 			txtKey = new InputTexto("C\u00D3DIGO");
 			txtKey.setColumns(10);
 			txtKey.setVisible(false);
+			txtKey.addActionListener(new AbstractAction()
+			{
+			    @Override
+			    public void actionPerformed(ActionEvent e)
+			    {
+			    	int cod=Arkanoid.getArkanoid().comprobarCodigo(getTxtKey().getText());
+					switch (cod) {
+					case 0: //todo bien
+						IU_Renovar.getMiIU_Renovar().mostrarVentana(txtEmail.getText());
+						dispose();
+						break;
+					case 1: //formato de clave incorrecto
+						JOptionPane.showMessageDialog(null, "El código de validación tiene un formato incorrecto.");
+						break;
+					case 2: //codigo incorrecto
+						JOptionPane.showMessageDialog(null, "El código de validación es incorrecto.");
+						break;
+					}
+			    }
+			});
 		}
 		return txtKey;
 	}

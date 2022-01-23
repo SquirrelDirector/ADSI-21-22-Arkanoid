@@ -286,10 +286,8 @@ public class Arkanoid extends Observable {
 	}
 
 	public void cerrarSesion(){
-		if (!usuario.isIdentificado()){ //caso a priori imposible de suceder
-			setChanged();
-			notifyObservers(false);
-		}
+		setChanged();
+		notifyObservers(false);
 		usuario=new Usuario();
 		
 		Config.BALL_VELOCITY = 2;  

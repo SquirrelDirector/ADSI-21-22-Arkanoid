@@ -21,12 +21,17 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+
+import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -89,6 +94,12 @@ public class IU_Registrarse extends JFrame {
 		//contentPane.add(getLblSignUp(), BorderLayout.NORTH);
 		contentPane.panelPrincipal.add(getPanel(), BorderLayout.CENTER);
 		contentPane.panelPrincipal.add(getPanel_1(), BorderLayout.SOUTH);
+		addWindowListener(new WindowAdapter() {
+
+            public void windowClosing(WindowEvent evt) {
+                Arkanoid.getArkanoid().cerrarSesion();
+            }
+        });
 	}
 
 	private JLabel getLblSignUp() {
@@ -195,6 +206,34 @@ public class IU_Registrarse extends JFrame {
 	private JPasswordField getTxtRepeat() {
 		if (txtRepeat == null) {
 			txtRepeat = new InputContrasena("REPETIR CONTRASE\u00D1A");
+			txtRepeat.addActionListener(new AbstractAction()
+			{
+			    @Override
+			    public void actionPerformed(ActionEvent e)
+			    {
+			    	int cod=Arkanoid.getArkanoid().registrarse(txtUsername.getText(), txtEmail.getText(), txtPassword.getText(), txtRepeat.getText());
+					switch (cod){
+					case 0: //todo bien
+						dispose();
+						break;
+					case 1: //usuario repetido
+						JOptionPane.showMessageDialog(null, "El nombre de usuario introducido ya existe");
+						break;
+					case 2: //correo no válido
+						JOptionPane.showMessageDialog(null, "Introduzca un correo válido");
+						break;
+					case 3: //contrasena no válida
+						JOptionPane.showMessageDialog(null, "Introduzca una contraseña válida. Debe tener al menos 6 caracteres, una mayúscula, una minúscula, un número y un caracter especial.");
+						break;
+					case 4: //cuenta ya existente
+						JOptionPane.showMessageDialog(null, "La dirección de correo introducida ya existe");
+						break;
+					case 5: //contrasenas no coincidentes
+						JOptionPane.showMessageDialog(null, "Las contraseñas introducidas no coinciden");
+						break;
+					}
+			    }
+			});
 		}
 		return txtRepeat;
 	}

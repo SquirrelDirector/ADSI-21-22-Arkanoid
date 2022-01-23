@@ -26,11 +26,11 @@ public class GestorPuntuaciones {
 		ResultadoSQL resultado = null;
 		String preg;
 		if(dificultad==0){
-			preg="SELECT NombreUsuario, Tiempo, Numero FROM Puntuacion ORDER BY Numero DESC,ValorFechaHora, NombreUsuario ASC";
+			preg="SELECT a.NombreUsuario, Tiempo, Numero FROM Puntuacion p JOIN Usuario a ON p.NombreUsuario=a.Email ORDER BY Numero DESC, ValorFechaHora, NombreUsuario ASC";
 			
 		}
 		else{
-			preg="SELECT NombreUsuario, Tiempo, Numero FROM Puntuacion WHERE idNivel ="+dificultad+" ORDER BY Numero DESC, ValorFechaHora, NombreUsuario ASC";
+			preg="SELECT a.NombreUsuario, Tiempo, Numero FROM Puntuacion p JOIN Usuario a ON p.NombreUsuario=a.Email WHERE idNivel ="+dificultad+" ORDER BY Numero DESC, ValorFechaHora, NombreUsuario ASC";
 		}
 		resultado = GestorDB.getGestorDB().execSQL(preg);
 		if (resultado != null){
