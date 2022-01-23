@@ -68,51 +68,37 @@ public class IU_Logros extends JFrame implements Observer {
 		setContentPane(contentPane);
 		((InterfazBase) contentPane).setEventoRegreso(new IU_Inicial());
 		setVisible(true);
-		/* creamos los logros a mano para simular el array de json */
-		JSONObject logro1 = new JSONObject();
-		logro1.put("nombre", "Rey de los Principiantes");
-		logro1.put("descripcion", "este es el logro del rey de los principiantes");
-		logro1.put("fechaObtencion", fecha);
-		logro1.put("progreso", 1);
-
-		JSONObject logro2 = new JSONObject();
-		logro2.put("nombre", "Ranking Master");
-		logro2.put("descripcion", "este es el logro del ranking master");
-		logro2.put("fechaObtencion", fecha);
-		logro2.put("progreso", 1);
-
-		JSONObject logro3 = new JSONObject();
-		logro3.put("nombre", "Novato Total");
-		logro3.put("descripcion", "este es el logro del novato total");
-		logro3.put("fechaObtencion", fecha);
-		logro3.put("progreso", 1);
-
-		JSONObject logro4 = new JSONObject();
-		logro4.put("nombre", "Vigilante del abismo");
-		logro4.put("descripcion", "este es el logro del vigilante del abismo");
-		logro4.put("fechaObtencion", fecha);
-		logro4.put("progreso", 1);
-
-		JSONObject logro5 = new JSONObject();
-		logro5.put("nombre", "Sol de Mexico");
-		logro5.put("descripcion", "este es el logro del sol de mexico");
-		logro5.put("fechaObtencion", fecha);
-		logro5.put("progreso", 0);
-
-		JSONObject logro6 = new JSONObject();
-		logro6.put("nombre", "Flor palida");
-		logro6.put("descripcion", "este es el logro de la flor palida");
-		logro6.put("fechaObtencion", fecha);
-		logro6.put("progreso", 0);
-
-		logros = new JSONArray();
-		logros.put(logro1);
-		logros.put(logro2);
-		logros.put(logro3);
-		logros.put(logro4);
-		logros.put(logro5);
-		logros.put(logro6);
-
+		/*
+		 * creamos los logros a mano para simular el array de json JSONObject logro1 =
+		 * new JSONObject(); logro1.put("nombre", "Rey de los Principiantes");
+		 * logro1.put("descripcion", "este es el logro del rey de los principiantes");
+		 * logro1.put("fechaObtencion", fecha); logro1.put("progreso", 1);
+		 * 
+		 * JSONObject logro2 = new JSONObject(); logro2.put("nombre", "Ranking Master");
+		 * logro2.put("descripcion", "este es el logro del ranking master");
+		 * logro2.put("fechaObtencion", fecha); logro2.put("progreso", 1);
+		 * 
+		 * JSONObject logro3 = new JSONObject(); logro3.put("nombre", "Novato Total");
+		 * logro3.put("descripcion", "este es el logro del novato total");
+		 * logro3.put("fechaObtencion", fecha); logro3.put("progreso", 1);
+		 * 
+		 * JSONObject logro4 = new JSONObject(); logro4.put("nombre",
+		 * "Vigilante del abismo"); logro4.put("descripcion",
+		 * "este es el logro del vigilante del abismo"); logro4.put("fechaObtencion",
+		 * fecha); logro4.put("progreso", 1);
+		 * 
+		 * JSONObject logro5 = new JSONObject(); logro5.put("nombre", "Sol de Mexico");
+		 * logro5.put("descripcion", "este es el logro del sol de mexico");
+		 * logro5.put("fechaObtencion", fecha); logro5.put("progreso", 0);
+		 * 
+		 * JSONObject logro6 = new JSONObject(); logro6.put("nombre", "Flor palida");
+		 * logro6.put("descripcion", "este es el logro de la flor palida");
+		 * logro6.put("fechaObtencion", fecha); logro6.put("progreso", 0);
+		 * 
+		 * logros = new JSONArray(); logros.put(logro1); logros.put(logro2);
+		 * logros.put(logro3); logros.put(logro4); logros.put(logro5);
+		 * logros.put(logro6);
+		 */
 		setBounds(100, 100, 750, 574);
 		contentPane.panelPrincipal.setLayout(new CardLayout(0, 0));
 
@@ -169,9 +155,9 @@ public class IU_Logros extends JFrame implements Observer {
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
 					JSONObject evt = ((BotonLogro) e.getComponent()).getInfoLogroAsociado();
-					lblDescrp_content.setText(evt.getString("descripcion"));					
+					lblDescrp_content.setText(evt.getString("descripcion"));
 					if (evt.getInt("progreso") == 100) {
-						lblFecha_content.setText(""+evt.get("fechaObtencion"));
+						lblFecha_content.setText("" + evt.get("fechaObtencion"));
 					} else {
 						lblFecha_content.setText("");
 					}

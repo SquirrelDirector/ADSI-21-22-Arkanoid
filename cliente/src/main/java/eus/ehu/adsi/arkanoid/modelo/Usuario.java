@@ -260,7 +260,6 @@ public class Usuario {
 
 	public JSONArray cotejarLogros(JSONArray logros) throws ParseException {
 		JSONArray nuevosLogros = new JSONArray();
-		// TODO comparar los logros y actualizar progresos de logros
 		for (int i = 0; i < logros.length(); i++) {
 			JSONObject unLogro = logros.getJSONObject(i);
 			String nombreLogro = unLogro.getString("nombre");

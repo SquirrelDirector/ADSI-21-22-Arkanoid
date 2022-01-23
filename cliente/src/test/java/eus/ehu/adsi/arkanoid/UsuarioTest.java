@@ -42,7 +42,6 @@ public class UsuarioTest {
 		userLogros.add(lo2);
 		userLogros.add(lo3);
 
-		
 		JSONObject logN1 = new JSONObject();
 		logN1.put("nombre", "ganarMismoNivel1");
 
@@ -51,8 +50,7 @@ public class UsuarioTest {
 
 		JSONObject logN3 = new JSONObject();
 		logN3.put("nombre", "ganarMismoNivel3");
-		
-		
+
 		/*
 		 * Simulacion de datos obtenidos en una partida terminada, ahora cotejarLogros
 		 * deberia de devovler un JSONArray formado solo con los logros obtenidos en esa
@@ -69,35 +67,33 @@ public class UsuarioTest {
 		 * si gana 4 veces mas desbloqueara el logro
 		 */
 		JSONArray logrosObtenidosEnPartida = new JSONArray();
-		logrosObtenidosEnPartida.put(logN1); //Ha ganado en el nivel 1 y con esto ya suma 5 victorias en este nivel; luego desbloquea logro
-		
+		logrosObtenidosEnPartida.put(logN1); // Ha ganado en el nivel 1 y con esto ya suma 5 victorias en este nivel;
+												// luego desbloquea logro
+
 		assertEquals(1, logrosObtenidosEnPartida.length());
 		JSONArray nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);
 		assertEquals(1, nuevosLogros.length());
-		
-	
+
 		assertEquals("ganarMismoNivel1", nuevosLogros.getJSONObject(0).get("nombre"));
 		assertNotEquals("ganarMismoNivel2", nuevosLogros.getJSONObject(0).get("nombre"));
 		assertNotEquals("ganarMismoNivel3", nuevosLogros.getJSONObject(0).get("nombre"));
 
 		logrosObtenidosEnPartida = new JSONArray();
-		logrosObtenidosEnPartida.put(logN2); //Ha ganado en el nivel 2. No desbloquea logro pero aumenta en 1/5 victorias para desbloquearlo
-		
-		assertEquals(1, logrosObtenidosEnPartida.length());
-		nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);
-		assertEquals(0, nuevosLogros.length());
-		
-	
-		logrosObtenidosEnPartida = new JSONArray();
-		logrosObtenidosEnPartida.put(logN3); //Ha ganado en el nivel 3. No desbloquea logro porque ya lo tenia desbloqueado previamente
-		
-		assertEquals(1, logrosObtenidosEnPartida.length());
-		nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);
-		assertEquals(0, nuevosLogros.length());
-		
+		logrosObtenidosEnPartida.put(logN2); // Ha ganado en el nivel 2. No desbloquea logro pero aumenta en 1/5
+												// victorias para desbloquearlo
 
-		
-		
+		assertEquals(1, logrosObtenidosEnPartida.length());
+		nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);
+		assertEquals(0, nuevosLogros.length());
+
+		logrosObtenidosEnPartida = new JSONArray();
+		logrosObtenidosEnPartida.put(logN3); // Ha ganado en el nivel 3. No desbloquea logro porque ya lo tenia
+												// desbloqueado previamente
+
+		assertEquals(1, logrosObtenidosEnPartida.length());
+		nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);
+		assertEquals(0, nuevosLogros.length());
+
 		/*
 		 * 3 doritos despues, el usuario ha ganado 4 veces el nivel 3 y ya ha
 		 * desbloqueado el logro, vuamosss a comprobarlo
@@ -107,28 +103,28 @@ public class UsuarioTest {
 		System.out.println("2da victoria en nivel 2");
 		logrosObtenidosEnPartida.put(logN2); // juega una vez
 		nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);
-		assertEquals(0, nuevosLogros.length()); //Comprobamos que todavia no ha desbloqueado el logro
-		
+		assertEquals(0, nuevosLogros.length()); // Comprobamos que todavia no ha desbloqueado el logro
+
 		logrosObtenidosEnPartida = new JSONArray();
 		logrosObtenidosEnPartida.put(logN2); // vuelve a jugar
 		System.out.println();
 		System.out.println("3ra victoria en nivel 2");
 		nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);
-		assertEquals(0, nuevosLogros.length()); //Comprobamos que todavia no ha desbloqueado el logro
-				
+		assertEquals(0, nuevosLogros.length()); // Comprobamos que todavia no ha desbloqueado el logro
+
 		logrosObtenidosEnPartida = new JSONArray();
 		logrosObtenidosEnPartida.put(logN2); // vuelve a jugar
 		System.out.println();
 		System.out.println("4ta victoria en nivel 2");
 		nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);
-		assertEquals(0, nuevosLogros.length()); //Comprobamos que todavia no ha desbloqueado el logro
-		
+		assertEquals(0, nuevosLogros.length()); // Comprobamos que todavia no ha desbloqueado el logro
+
 		logrosObtenidosEnPartida = new JSONArray();
 		logrosObtenidosEnPartida.put(logN2); // vuelve a jugar
 		System.out.println();
 		System.out.println("5ta victoria en nivel 2");
-		nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);		
-		assertEquals(1, nuevosLogros.length()); //Comprobamos que todavia no ha desbloqueado el logro
+		nuevosLogros = user.cotejarLogros(logrosObtenidosEnPartida);
+		assertEquals(1, nuevosLogros.length()); // Comprobamos que todavia no ha desbloqueado el logro
 		assertEquals("ganarMismoNivel2", nuevosLogros.getJSONObject(0).get("nombre"));
 
 	}
@@ -152,21 +148,23 @@ public class UsuarioTest {
 		userLogros.add(lo1);
 		userLogros.add(lo2);
 		userLogros.add(lo3);
-				
-		/*Cada vez que se gane una partida se le sumara al progreso (1/Objetivo)*100 */
-		int aumento = (100 / l1.getObjetivo()) ;
-		
-		user.actualizarProgreso(aumento, l1.getNombre());		
-		assertEquals(100,lo1.getProgreso(),1);
-		
+
+		/* Cada vez que se gane una partida se le sumara al progreso (1/Objetivo)*100 */
+		int aumento = (100 / l1.getObjetivo());
+
+		user.actualizarProgreso(aumento, l1.getNombre());
+		assertEquals(100, lo1.getProgreso(), 1);
+
+		aumento = (100 / l2.getObjetivo());
 		user.actualizarProgreso(aumento, l2.getNombre());
-		assertEquals(20,lo2.getProgreso(),1);
-		 
-		user.actualizarProgreso(aumento, l3.getNombre());//Como este logro ya lo tiene desbloqueado, su progreso no aumentara
-		assertEquals(100,lo3.getProgreso(),1);
-		assertNotEquals(120,lo3.getProgreso(),1);
-		
-		
+		assertEquals(20, lo2.getProgreso(), 1);
+
+		aumento = (100 / l3.getObjetivo());
+		user.actualizarProgreso(aumento, l3.getNombre());// Como este logro ya lo tiene desbloqueado, su progreso no
+															// aumentara
+		assertEquals(100, lo3.getProgreso(), 1);
+		assertNotEquals(120, lo3.getProgreso(), 1);
+
 	}
 
 }
