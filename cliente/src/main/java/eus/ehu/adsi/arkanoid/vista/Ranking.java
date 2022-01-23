@@ -156,24 +156,9 @@ public class Ranking implements Observer{
 			public void actionPerformed(ActionEvent e) {
 				
 				ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
-				for(int i = 0; i<ranking.length(); i++) {
-					JSONObject puntuacion = ranking.getJSONObject(i);
-					String nombreUsuario = puntuacion.getString("usuario");
-					int tiempo = puntuacion.getInt("tiempo");
-					int puntos = puntuacion.getInt("puntuacion");
-					
-					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
-					panel.add(labelNombre);
-					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
-					panel.add(labelTiempo);
-					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
-					panel.add(labelPuntos);
-				}
-				panel.removeAll();
-				panel.revalidate();
-				panel.repaint();
-				
+				desplegarRanking(ranking);
 			}
+
 		});
 		panelBotonesNiveles.add(botonAbsolute);
 		
@@ -184,19 +169,7 @@ public class Ranking implements Observer{
 				panel.revalidate();
 				panel.repaint();
 				ranking = Arkanoid.getArkanoid().mostrarRanking(1, personal);
-				for(int i = 0; i<ranking.length(); i++) {
-					JSONObject puntuacion = ranking.getJSONObject(i);
-					String nombreUsuario = puntuacion.getString("usuario");
-					int tiempo = puntuacion.getInt("tiempo");
-					int puntos = puntuacion.getInt("puntuacion");
-					
-					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
-					panel.add(labelNombre);
-					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
-					panel.add(labelTiempo);
-					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
-					panel.add(labelPuntos);
-				}
+				desplegarRanking(ranking);
 			}
 		});
 		panelBotonesNiveles.add(botonRookie);
@@ -208,19 +181,7 @@ public class Ranking implements Observer{
 				panel.revalidate();
 				panel.repaint();
 				ranking = Arkanoid.getArkanoid().mostrarRanking(2, personal);
-				for(int i = 0; i<ranking.length(); i++) {
-					JSONObject puntuacion = ranking.getJSONObject(i);
-					String nombreUsuario = puntuacion.getString("usuario");
-					int tiempo = puntuacion.getInt("tiempo");
-					int puntos = puntuacion.getInt("puntuacion");
-					
-					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
-					panel.add(labelNombre);
-					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
-					panel.add(labelTiempo);
-					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
-					panel.add(labelPuntos);
-				}
+				desplegarRanking(ranking);
 			}
 		});
 		panelBotonesNiveles.add(botonStandard);
@@ -232,19 +193,7 @@ public class Ranking implements Observer{
 				panel.revalidate();
 				panel.repaint();
 				ranking = Arkanoid.getArkanoid().mostrarRanking(3, personal);
-				for(int i = 0; i<ranking.length(); i++) {
-					JSONObject puntuacion = ranking.getJSONObject(i);
-					String nombreUsuario = puntuacion.getString("usuario");
-					int tiempo = puntuacion.getInt("tiempo");
-					int puntos = puntuacion.getInt("puntuacion");
-					
-					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
-					panel.add(labelNombre);
-					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
-					panel.add(labelTiempo);
-					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
-					panel.add(labelPuntos);
-				}
+				desplegarRanking(ranking);
 			}
 		});
 		panelBotonesNiveles.add(botonExpert);
@@ -256,19 +205,7 @@ public class Ranking implements Observer{
 				panel.revalidate();
 				panel.repaint();
 				ranking = Arkanoid.getArkanoid().mostrarRanking(4, personal);
-				for(int i = 0; i<ranking.length(); i++) {
-					JSONObject puntuacion = ranking.getJSONObject(i);
-					String nombreUsuario = puntuacion.getString("usuario");
-					int tiempo = puntuacion.getInt("tiempo");
-					int puntos = puntuacion.getInt("puntuacion");
-					
-					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
-					panel.add(labelNombre);
-					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
-					panel.add(labelTiempo);
-					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
-					panel.add(labelPuntos);
-				}
+				desplegarRanking(ranking);
 			}
 		});
 		panelBotonesNiveles.add(botonImposible);
@@ -287,9 +224,10 @@ public class Ranking implements Observer{
 		
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		
-		ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
+	}
+	
+	private void desplegarRanking(JSONArray ranking) {
+		panel.removeAll();
 		for(int i = 0; i<ranking.length(); i++) {
 			JSONObject puntuacion = ranking.getJSONObject(i);
 			String nombreUsuario = puntuacion.getString("usuario");
@@ -302,8 +240,9 @@ public class Ranking implements Observer{
 			panel.add(labelTiempo);
 			EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
 			panel.add(labelPuntos);
-			
 		}
+		panel.revalidate();
+		panel.repaint();
 	}
 
 	@Override
@@ -312,24 +251,9 @@ public class Ranking implements Observer{
 			ib.setIdentificado((boolean) arg1);
 			botonPersonal.setEnabled((boolean) arg1);
 			if(!(boolean) arg1){ //volver al ranking global
-				panel.removeAll();
-				panel.revalidate();
-				panel.repaint();
-				personal = false;
+				personal=false;
 				ranking = Arkanoid.getArkanoid().mostrarRanking(0, personal);
-				for(int i = 0; i<ranking.length(); i++) {
-					JSONObject puntuacion = ranking.getJSONObject(i);
-					String nombreUsuario = puntuacion.getString("usuario");
-					int tiempo = puntuacion.getInt("tiempo");
-					int puntos = puntuacion.getInt("puntuacion");
-					
-					EtiquetaNormal labelNombre = new EtiquetaNormal(nombreUsuario);
-					panel.add(labelNombre);
-					EtiquetaNormal labelTiempo = new EtiquetaNormal(tiempo+"");
-					panel.add(labelTiempo);
-					EtiquetaNormal labelPuntos = new EtiquetaNormal(""+puntos);
-					panel.add(labelPuntos);
-				}
+				desplegarRanking(ranking);
 			}
 		}
 	}
