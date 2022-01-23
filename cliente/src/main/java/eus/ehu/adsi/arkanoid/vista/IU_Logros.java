@@ -68,7 +68,7 @@ public class IU_Logros extends JFrame implements Observer {
 		setContentPane(contentPane);
 		((InterfazBase) contentPane).setEventoRegreso(new IU_Inicial());
 		setVisible(true);
-		/* creamos los logros a mano para simular el array de json */
+		/* creamos los logros a mano para simular el array de json 
 		JSONObject logro1 = new JSONObject();
 		logro1.put("nombre", "Rey de los Principiantes");
 		logro1.put("descripcion", "este es el logro del rey de los principiantes");
@@ -112,7 +112,7 @@ public class IU_Logros extends JFrame implements Observer {
 		logros.put(logro4);
 		logros.put(logro5);
 		logros.put(logro6);
-
+*/
 		setBounds(100, 100, 750, 574);
 		contentPane.panelPrincipal.setLayout(new CardLayout(0, 0));
 
