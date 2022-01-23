@@ -98,7 +98,7 @@ public class GestorUsuarios {
 		}
 		datos.put("logros", logros);
 		
-		preg="SELECT IdNivel, ValorFechaHora, Tiempo, Numero FROM Puntuacion WHERE Usuario = '"+nombre+"';";
+		preg="SELECT idNivel, ValorFechaHora, Tiempo, Numero FROM Puntuacion WHERE NombreUsuario = '"+mail+"';";
 		res=GestorDB.getGestorDB().execSQL(preg);
 		JSONArray ranking=new JSONArray();
 		JSONObject partida;
@@ -106,7 +106,7 @@ public class GestorUsuarios {
 		for (int i=0;i<res.longitud;i++){
 			partida=new JSONObject();
 			
-			partida.put("idNivel", res.get("IdNivel"));
+			partida.put("idNivel", res.get("idNivel"));
 			partida.put("valorFechaHora", res.get("ValorFechaHora"));
 			partida.put("tiempo", res.get("Tiempo"));
 			partida.put("numero", res.get("Numero"));

@@ -61,11 +61,14 @@ public class Usuario {
 
 		for (int i = 0; i < ranking.length(); i++) {
 			partida = ranking.getJSONObject(i);
-
-			lvl = (int) partida.get("idNivel");
-			fecha = (Date) partida.get("valorFechaHora");
-			tiempo = (int) partida.get("tiempo");
-			num = (int) partida.get("numero");
+			lvl = Integer.parseInt((String)partida.get("idNivel"));
+			fecha = new Date();
+			try {
+				fecha = new SimpleDateFormat("yyyy-MM-dd").parse((String) partida.get("valorFechaHora"));
+			} catch (JSONException | ParseException e) {
+			}
+			tiempo = Integer.parseInt((String)partida.get("tiempo"));
+			num = Integer.parseInt((String) partida.get("numero"));
 
 			susPuntuaciones.add(new Puntuacion(this, lvl, num, fecha.toString(), tiempo));
 		}
@@ -111,6 +114,10 @@ public class Usuario {
 		return email;
 	}
 
+	public String getNombreUsuario(){
+		return nombreUsuario;
+	}
+
 	public JSONObject getDatosUsuario() {
 		JSONObject datos = new JSONObject();
 		datos.put("PathPerfil", pathPerfil);
@@ -141,7 +148,7 @@ public class Usuario {
 			Puntuacion p = it.next();
 			if (dificultad == 0 || dificultad == p.getNivel()) {
 				JSONObject puntuacion = new JSONObject();
-				puntuacion.put("usuario", p.getUsuario());
+				puntuacion.put("usuario", p.getUsuario().getNombreUsuario());
 				puntuacion.put("tiempo", p.getTiempo());
 				puntuacion.put("puntuacion", p.getPuntuacion());
 				ranking.put(puntuacion);
