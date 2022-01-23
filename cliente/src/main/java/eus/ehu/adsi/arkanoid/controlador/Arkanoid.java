@@ -219,6 +219,7 @@ public class Arkanoid extends Observable {
 	 */
 	public void actualizarDatosUsu(String pathAvatar, String nombreUsu) {
 		usuario.actualizarDatosUsu(pathAvatar, nombreUsu);
+		setChanged();
 		notifyObservers(true);
 	}
 
