@@ -1,5 +1,6 @@
 package eus.ehu.adsi.arkanoid.modelo;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
@@ -7,11 +8,13 @@ import java.util.Observable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import eus.ehu.adsi.arkanoid.vista.ventanas.VentanaFinPartida;
+
 @SuppressWarnings("deprecation")
 public class Partida extends Observable {
 
 	private int vidasRestantes;
-	private ArrayList<Logro> listaLogros;
+	private ArrayList<Logro> listaLogros = new ArrayList<Logro>();
 	private ArrayList<Bloque> bloques;
 	private int puntuacion;
 	private Paddle paddle = new Paddle(Config.SCREEN_WIDTH / 2, Config.SCREEN_HEIGHT - 50);
@@ -46,9 +49,14 @@ public class Partida extends Observable {
 		if (vidasRestantes == 0) {
 			gameOver = true;
 			crono.parar();
+
+			System.out.println("has perdido");
 			setChanged();
-			notifyObservers(ganar);
+			notifyObservers("FinPartida");
+			new VentanaFinPartida(ganar).mostrarVentana();
+
 			//TODO: llamar a la funcionalidad de la vista de perder
+			
 		}
 	}
 	public void addLogro(Logro pLogro) {
@@ -67,12 +75,19 @@ public class Partida extends Observable {
 		while(itr.hasNext()) {
 			Logro l = itr.next();
 			JSONObject logro = new JSONObject();
-			logro.put("nombreLogro", l.getNombre());
+			logro.put("nombre", l.getNombre());
 			logros.put(logro);
 		}
 		return logros;
 	}
-
+	public void setLogrosPartida(JSONArray logrosDesbloqueados) {
+		this.listaLogros = new ArrayList<>();
+		CatalogoLogros catL = CatalogoLogros.getMiCatalogoLogros();
+		for(int i = 0; i < logrosDesbloqueados.length(); i++) {
+			Logro log = catL.getLogro(logrosDesbloqueados.getJSONObject(i).getString("nombre"));
+			listaLogros.add(log);
+		}
+	}
 	public void incrementarPuntuacion() {
 		this.puntuacion++;
 	}
@@ -150,20 +165,38 @@ public class Partida extends Observable {
 		if (this.bloques.size() == 0) {
 			ganar = true;
 			crono.parar();
+
 			setChanged();
-			notifyObservers(ganar);
-			
+			notifyObservers("FinPartida");
+			new VentanaFinPartida(ganar).mostrarVentana();
 			
 			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
-			
-			
-			
+
 		}
 		
 		return ganar;
 		
 	}
-	
+	public void cotejarLogros(Usuario user) {
+		int idNivelActual = user.getNivelDefault();
+		Logro ganarMismoNivel = CatalogoLogros.getMiCatalogoLogros().getLogro("ganarMismoNivel"+idNivelActual);
+		Logro ganarPartidasSeguidas = CatalogoLogros.getMiCatalogoLogros().getLogro("ganarPartidasSeguidas");
+		
+		int tiempoActual = this.getTiempo();
+		if(tiempoActual<60) {
+			Logro speedrun = CatalogoLogros.getMiCatalogoLogros().getLogro("speedrun");
+			this.addLogro(speedrun);
+		}
+		this.addLogro(ganarPartidasSeguidas);
+		this.addLogro(ganarMismoNivel);
+		
+		JSONArray logrosObtenidos = this.getLogrosPartida();
+		try {
+			this.setLogrosPartida(user.cotejarLogros(logrosObtenidos));
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	public void generarPartida() {
 		//Generar posicion del bloque de la suerte
 		int posX = (int) Math.floor((Math.random()*Config.COUNT_BLOCKS_X)+1);

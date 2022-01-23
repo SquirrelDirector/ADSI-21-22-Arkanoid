@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaTitulo;
 
@@ -67,11 +69,11 @@ public class InterfazBase extends JPanel {
 
 
 	public void ocultarBotonRegreso() {
-		volverButton.setVisible(false);
+		panelCabecera.remove(volverButton);
 	}
 	
 	public void ocultarPanelIdentidad() {
-		panelIdentidades.setVisible(false);
+		panelInicial.remove(panelIdentidades);
 	}
 	
 	public void setEventoRegreso(final JFrame ventanaAnterior) {
@@ -79,8 +81,13 @@ public class InterfazBase extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				ventanaAnterior.setVisible(true);
+				if (ventanaAnterior!=null){
+					ventanaAnterior.setVisible(true);
+					ventanaAnterior.setLocationRelativeTo(null);
+				}
 				JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+				if (topFrame instanceof Observer)
+					Arkanoid.getArkanoid().deleteObserver((Observer) topFrame);
 				topFrame.dispose();
 			}
 		});

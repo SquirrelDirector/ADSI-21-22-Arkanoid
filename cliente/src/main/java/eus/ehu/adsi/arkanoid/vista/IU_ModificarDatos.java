@@ -58,7 +58,7 @@ public class IU_ModificarDatos extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void mostrarVentana() {
 		try {
 			IU_ModificarDatos frame = new IU_ModificarDatos();
 			frame.setVisible(true);
@@ -73,13 +73,16 @@ public class IU_ModificarDatos extends JFrame {
 	 * Create the dialog.
 	 */
 	public IU_ModificarDatos() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 700, 550);
 		getContentPane().setLayout(new BorderLayout());
 		datosPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		datosPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		datosPanel.setBackground(new Color(0,0,0,0));
 				
 		InterfazBase ib = new InterfazBase("MODIFICAR DATOS");
+		ib.ocultarPanelIdentidad();
+		ib.setEventoRegreso(null);
 		getContentPane().add(ib, BorderLayout.CENTER);
 		
 		{
@@ -176,12 +179,14 @@ public class IU_ModificarDatos extends JFrame {
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setBackground(new Color(0,0,0,0));
 			ib.add(buttonPane, BorderLayout.SOUTH);
 			{
 				Boton guardarButton = new Boton("GUARDAR");
 				guardarButton.addActionListener(new ActionListener() {
 			        public void actionPerformed(ActionEvent e) {
 			            guardarPersonalizacion();
+			            dispose();
 			        }
 			    });
 				buttonPane.add(guardarButton);

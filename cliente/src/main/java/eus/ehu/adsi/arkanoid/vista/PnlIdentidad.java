@@ -37,6 +37,8 @@ public class PnlIdentidad extends JPanel {
 	private JPanel pnlCerrarSesionGeneral;
 	private JButton btnCerrarSesion;
 	
+	private MouseAdapter mouseIniciarSesion;
+	private MouseAdapter mouseModificarDatos;
 	private boolean identificado;
 	/**
 	 * Create the panel.
@@ -58,14 +60,25 @@ public class PnlIdentidad extends JPanel {
 			pnlIdentidad.add(getPnlFoto(), BorderLayout.WEST);
 			pnlIdentidad.add(getPnlNoIdentificado(), BorderLayout.CENTER);
 			//pnlIdentidad.add(getPnlIdentificado(), BorderLayout.CENTER);
-			pnlIdentidad.addMouseListener(new MouseAdapter() {
+			
+			mouseIniciarSesion=new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
 					IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
 				}
-			});
-		}
+			};
+			
+			mouseModificarDatos=new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					new IU_ModificarDatos().mostrarVentana();
+				}
+			};
+			
+			pnlIdentidad.addMouseListener(mouseIniciarSesion);
+			}
 		return pnlIdentidad;
 	}
 	private JPanel getPnlFoto() {
@@ -144,15 +157,24 @@ public class PnlIdentidad extends JPanel {
 	}
 	
 	public void setIdentificado(boolean id){
-		if (!identificado&&id){
+		if (id){
 			JSONObject perfil=Arkanoid.getArkanoid().getPerfil();
 			imagen= new ImageIcon(getClass().getResource(perfil.getString("foto")));
+			picLabel.setIcon(imagen);
 			getLblIdentificado().setText(perfil.getString("nombre"));
-			pnlIdentidad.remove(pnlNoIdentificado);
-			pnlIdentidad.add(getPnlIdentificado());
+			if (!identificado){
+				pnlIdentidad.remove(pnlNoIdentificado);
+				pnlIdentidad.add(getPnlIdentificado());
+				pnlIdentidad.removeMouseListener(mouseIniciarSesion);
+				pnlIdentidad.addMouseListener(mouseModificarDatos);
+			}
 		}else if (identificado&&!id){
 			pnlIdentidad.remove(pnlIdentificado);
 			pnlIdentidad.add(getPnlNoIdentificado());
+			pnlIdentidad.removeMouseListener(mouseModificarDatos);
+			pnlIdentidad.addMouseListener(mouseIniciarSesion);
+			imagen= new ImageIcon(getClass().getResource("/imagenesAvatar/Avatar1.png"));
+			picLabel.setIcon(imagen);
 		}
 		identificado=id;
 		repaint();

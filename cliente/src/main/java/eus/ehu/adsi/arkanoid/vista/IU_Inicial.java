@@ -23,7 +23,7 @@ import java.util.Observer;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class IU_Inicial extends JFrame implements Observer{
+public class IU_Inicial extends JFrame implements Observer {
 
 	private InterfazBase contentPane;
 	private JPanel pnlNiveles;
@@ -41,8 +41,7 @@ public class IU_Inicial extends JFrame implements Observer{
 	private ImageIcon imagenJugar;
 	private ImageIcon imagenLogros;
 	private ImageIcon imagenRanking;
-	
-	
+	private boolean desdeLogros = false;
 
 	/**
 	 * Launch the application.
@@ -81,51 +80,59 @@ public class IU_Inicial extends JFrame implements Observer{
 		contentPane.panelPrincipal.add(getPnlRanking());
 		contentPane.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
 		Arkanoid.getArkanoid().addObserver(this);
-		
+
 	}
 
 	private JPanel getPnlNiveles() {
 		if (pnlNiveles == null) {
 			pnlNiveles = new JPanel();
 			pnlNiveles.setLayout(new BorderLayout(0, 0));
-			pnlNiveles.setBackground(new Color(0,0,0));
+			pnlNiveles.setBackground(new Color(0, 0, 0));
 			pnlNiveles.add(getLblImagenNiveles(), BorderLayout.CENTER);
 			pnlNiveles.add(getPnlTextoNiveles(), BorderLayout.SOUTH);
 			pnlNiveles.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
-					new IU_Niveles().mostrarVentana();
-					//dispose();
+					new IU_Niveles().setVisible(true);
+					dispose();
 				}
 			});
 		}
 		return pnlNiveles;
 	}
+
 	private JPanel getPnlLogros() {
 		if (pnlLogros == null) {
 			pnlLogros = new JPanel();
 			pnlLogros.setLayout(new BorderLayout(0, 0));
-			pnlLogros.setBackground(new Color(0,0,0));
+			pnlLogros.setBackground(new Color(0, 0, 0));
 			pnlLogros.add(getLblImagenLogros(), BorderLayout.CENTER);
 			pnlLogros.add(getPnlTextoLogros(), BorderLayout.SOUTH);
 			pnlLogros.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					super.mouseClicked(e);
-					new IU_Logros();
-					dispose();
-					
+					Arkanoid ark = Arkanoid.getArkanoid();
+					if (!ark.isIdentificado()) {
+						IU_Identificarse.getMiIU_Identificarse().mostrarVentana();
+						desdeLogros = true;
+					} else {
+						new IU_Logros();
+						dispose();
+					}
+
 				}
 			});
 		}
 		return pnlLogros;
 	}
+
 	private JPanel getPnlRanking() {
 		if (pnlRanking == null) {
 			pnlRanking = new JPanel();
 			pnlRanking.setLayout(new BorderLayout(0, 0));
-			pnlRanking.setBackground(new Color(0,0,0));
+			pnlRanking.setBackground(new Color(0, 0, 0));
 			pnlRanking.add(getLblImagenRanking(), BorderLayout.CENTER);
 			pnlRanking.add(getPnlTextoRanking(), BorderLayout.SOUTH);
 			pnlRanking.addMouseListener(new MouseAdapter() {
@@ -135,12 +142,13 @@ public class IU_Inicial extends JFrame implements Observer{
 					new Ranking();
 					Arkanoid.getArkanoid().deleteObserver(IU_Inicial.this);
 					dispose();
-					
+
 				}
 			});
 		}
 		return pnlRanking;
 	}
+
 	private JLabel getLblImagenNiveles() {
 		if (lblImagenNiveles == null) {
 			lblImagenNiveles = new JLabel(imagenJugar);
@@ -148,20 +156,23 @@ public class IU_Inicial extends JFrame implements Observer{
 		}
 		return lblImagenNiveles;
 	}
+
 	private JPanel getPnlTextoNiveles() {
 		if (pnlTextoNiveles == null) {
 			pnlTextoNiveles = new JPanel();
-			pnlTextoNiveles.setBackground(new Color(0,0,0));
+			pnlTextoNiveles.setBackground(new Color(0, 0, 0));
 			pnlTextoNiveles.add(getLblJugar());
 		}
 		return pnlTextoNiveles;
 	}
+
 	private JLabel getLblJugar() {
 		if (lblJugar == null) {
 			lblJugar = new EtiquetaTitulo("Jugar");
 		}
 		return lblJugar;
 	}
+
 	private JLabel getLblImagenLogros() {
 		if (lblImagenLogros == null) {
 			lblImagenLogros = new JLabel(imagenLogros);
@@ -169,20 +180,23 @@ public class IU_Inicial extends JFrame implements Observer{
 		}
 		return lblImagenLogros;
 	}
+
 	private JPanel getPnlTextoLogros() {
 		if (pnlTextoLogros == null) {
 			pnlTextoLogros = new JPanel();
 			pnlTextoLogros.add(getLblLogro());
-			pnlTextoLogros.setBackground(new Color(0,0,0));
+			pnlTextoLogros.setBackground(new Color(0, 0, 0));
 		}
 		return pnlTextoLogros;
 	}
+
 	private JLabel getLblLogro() {
 		if (lblLogro == null) {
 			lblLogro = new EtiquetaTitulo("Logros");
 		}
 		return lblLogro;
 	}
+
 	private JLabel getLblImagenRanking() {
 		if (lblImagenRanking == null) {
 			lblImagenRanking = new JLabel(imagenRanking);
@@ -190,14 +204,16 @@ public class IU_Inicial extends JFrame implements Observer{
 		}
 		return lblImagenRanking;
 	}
+
 	private JPanel getPnlTextoRanking() {
 		if (pnlTextoRanking == null) {
 			pnlTextoRanking = new JPanel();
-			pnlTextoRanking.setBackground(new Color(0,0,0));
+			pnlTextoRanking.setBackground(new Color(0, 0, 0));
 			pnlTextoRanking.add(getLblRanking());
 		}
 		return pnlTextoRanking;
 	}
+
 	private JLabel getLblRanking() {
 		if (lblRanking == null) {
 			lblRanking = new EtiquetaTitulo("Rankings");
@@ -207,7 +223,13 @@ public class IU_Inicial extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		if (arg1 instanceof Boolean)
+		if (arg1 instanceof Boolean) {
 			contentPane.setIdentificado((boolean) arg1);
+			if ((boolean)arg1 && this.desdeLogros) {
+				new IU_Logros();
+				this.desdeLogros = false;
+				dispose();
+			}
+		}
 	}
 }

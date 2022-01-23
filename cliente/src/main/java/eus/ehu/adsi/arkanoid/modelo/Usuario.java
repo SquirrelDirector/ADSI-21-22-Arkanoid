@@ -89,6 +89,8 @@ public class Usuario {
 			obj = Integer.parseInt((String) logro.get("objetivo"));
 
 			l = new Logro(id, nom, desc, obj);
+			CatalogoLogros catL = CatalogoLogros.getMiCatalogoLogros();
+			catL.addLogro(l);
 			fecha = null;
 			if (!logro.isNull("fechaObtencion"))
 				try {
@@ -260,7 +262,6 @@ public class Usuario {
 
 	public JSONArray cotejarLogros(JSONArray logros) throws ParseException {
 		JSONArray nuevosLogros = new JSONArray();
-		// TODO comparar los logros y actualizar progresos de logros
 		for (int i = 0; i < logros.length(); i++) {
 			JSONObject unLogro = logros.getJSONObject(i);
 			String nombreLogro = unLogro.getString("nombre");

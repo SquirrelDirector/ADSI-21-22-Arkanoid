@@ -9,12 +9,15 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
 
 import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
@@ -25,28 +28,17 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("deprecation")
 public class IU_Niveles extends JFrame implements Observer {
 
-	private JFrame frame;
+	//private JFrame frame;
 	private int nivel;
 	private JLabel elLabel;
 	private InterfazBase base;
 	private JButton botonPersonalizar;
 	private JButton botonNvl5;
-	/**
-	 * Launch the application.
-	 */
-	public void mostrarVentana() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					IU_Niveles window = new IU_Niveles();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private JButton botonNvl4;
+	private JButton botonNvl3;
+	private JButton botonNvl2;
+	private JButton botonNvl1;
+	
 	/**
 	 * Create the application.
 	 */
@@ -59,22 +51,18 @@ public class IU_Niveles extends JFrame implements Observer {
 	 */
 	private void initialize() {
 		elLabel = new EtiquetaNormal("");
-		elLabel.setBackground(new Color(2,4,40)); //TODO - Este color hijuelarremaracamadrequeloremilperrasparió no se aplica, sospecho del repaint de seleccionar()
+		elLabel.setBackground(new Color(2,4,40)); //TODO - Este color hijuelarremaracamadrequeloremilperraspariï¿½ no se aplica, sospecho del repaint de seleccionar()
 		elLabel.setForeground(new Color(255,255,255));
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 951, 645);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		if (Arkanoid.getArkanoid().isIdentificado())
-			seleccionar(Arkanoid.getArkanoid().getUltimaPartida());
-		else
-			seleccionar(1);
+		setBounds(100, 100, 951, 645);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		
 		
 		base=new InterfazBase("SELECCIONAR NIVEL");
 		base.setIdentificado(Arkanoid.getArkanoid().isIdentificado());
 		((InterfazBase) base).setEventoRegreso(new IU_Inicial());
-		frame.add(base);
+		add(base);
 		
 		JPanel principal=new JPanel();
 		principal.setBackground(new Color(0,0,0,0));
@@ -115,7 +103,7 @@ public class IU_Niveles extends JFrame implements Observer {
 			public void actionPerformed(ActionEvent arg0) {
 				new IU_Personalizacion().mostrarVentana();
 				Arkanoid.getArkanoid().deleteObserver(IU_Niveles.this);
-				frame.dispose();
+				dispose();
 			}
 		});
 		botones.add(pnlPersonalizar);
@@ -133,8 +121,8 @@ public class IU_Niveles extends JFrame implements Observer {
 					Arkanoid.getArkanoid().actualizarUltimaPartida(nivel);
 				}
 				Arkanoid.getArkanoid().updateConfig(Arkanoid.getArkanoid().obtenerDatosNivel(nivel));
-				new Tablero().setVisible(true);
-				frame.dispose();
+				new Tablero();
+				dispose();
 			}
 		});
 		botones.add(pnlJugar);
@@ -152,7 +140,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		pnlNvl1.setBackground(new Color(0,0,0,0));
 		pnlNvl1.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
-		JButton botonNvl1 = new Boton("Novato");
+		botonNvl1 = new Boton("Novato");
 		botonNvl1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				seleccionar(1);
@@ -167,7 +155,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		pnlNvl2.setBackground(new Color(0,0,0,0));
 		pnlNvl2.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
-		JButton botonNvl2 = new Boton("Est\u00E1ndar");
+		botonNvl2 = new Boton("Est\u00E1ndar");
 		botonNvl2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				seleccionar(2);
@@ -182,7 +170,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		pnlNvl3.setBackground(new Color(0,0,0,0));
 		pnlNvl3.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
-		JButton botonNvl3 = new Boton("Experto");
+		botonNvl3 = new Boton("Experto");
 		botonNvl3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				seleccionar(3);
@@ -197,7 +185,7 @@ public class IU_Niveles extends JFrame implements Observer {
 		pnlNvl4.setBackground(new Color(0,0,0,0));
 		pnlNvl4.setBorder(new EmptyBorder(10, 30, 10, 100));
 		
-		JButton botonNvl4 = new Boton("Imposible");
+		botonNvl4 = new Boton("Imposible");
 		botonNvl4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				seleccionar(4);
@@ -220,29 +208,45 @@ public class IU_Niveles extends JFrame implements Observer {
 		});
 		pnlNvl5.add(botonNvl5);
 		izquierda.add(pnlNvl5);
+		if (Arkanoid.getArkanoid().isIdentificado())
+			seleccionar(Arkanoid.getArkanoid().getUltimaPartida());
+		else
+			seleccionar(1);
+		
+		Arkanoid.getArkanoid().addObserver(this); 
 	}
 	
 	private void seleccionar(int lvl){
 		nivel=lvl;
-		
+		botonNvl5.setBorder(null);
+		botonNvl4.setBorder(null);
+		botonNvl3.setBorder(null);
+		botonNvl2.setBorder(null);
+		botonNvl1.setBorder(null);
 		switch (nivel) {
 		case 1:
-			elLabel.setText("<HTML>Version fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 2 líneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estándar</HTML>");
+			elLabel.setText("<HTML>Version fÃ¡cil del juego, ideal <br>para principiantes y gente adaptÃ¡ndose al juego. <br><br> - 2 lï¿½neas de bloques <br> - anchura de la barra aumentada <br> - velocidad estï¿½ndar</HTML>");
+			botonNvl1.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 2:
-			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 4 líneas de bloques <br> - anchura de barra y velócidad estándar");
+			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo mÃ¡s de experiencia. <br><br> - 4 lï¿½neas de bloques <br> - anchura de barra y velï¿½cidad estï¿½ndar");
+			botonNvl2.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 3:
-			elLabel.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 líneas de bloques <br> - anchura de barra estándar <br> - velócidad aumentada</HTML>");
+			elLabel.setText("<HTML>VersiÃ³n difÃ­cil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 lï¿½neas de bloques <br> - anchura de barra estï¿½ndar <br> - velï¿½cidad aumentada</HTML>");
+			botonNvl3.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 4:
-			elLabel.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 8 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
+			elLabel.setText("<HTML>VersiÃ³n sÃ³lo apta para quien busque <br>completar el logro. <br><br> - 8 lï¿½neas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
+			botonNvl4.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		case 5:
-			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botón de personalizar para cambiarlo <br>(La puntuación no se guardará en los ránkings)</HTML>");
+			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botÃ³n de personalizar para cambiarlo <br>(La puntuaciÃ³n no se guardarÃ¡ en los rankings)</HTML>");
+			botonNvl5.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(5, 10, 5, 5),  new LineBorder(new Color(255, 255, 255), 2, true)));
 			break;
 		}
-		frame.repaint();
+		repaint();
+		revalidate();
 	}
 	
 	@Override

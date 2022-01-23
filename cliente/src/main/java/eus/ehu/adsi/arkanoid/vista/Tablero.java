@@ -46,6 +46,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	private Clip clip; 
 	private EtiquetaNormal cronometro, score, lives;
 	private int puntuacion;
+	private Graphics g;
 
 	/**
 	 * Launch the application.
@@ -133,8 +134,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				dispose();
-				Tablero newframe = new Tablero();
-				newframe.setVisible(true);
+				new Tablero();
 				clip.stop();
 			}
 		});
@@ -189,6 +189,8 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 		
 		Arkanoid.getArkanoid().addObserverPartida(this);
 		Arkanoid.getArkanoid().addObserverCrono(this);
+		
+		g = this.tableroPanel.getGraphics();
 	}
 	
 	
@@ -200,20 +202,19 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Partida) {
+			System.out.println(arg);
 			if (arg instanceof Bloque) {
 				puntuacion++;
 				score.setText("Score:  "+puntuacion);
 			} else if (arg instanceof Integer) {
 				lives.setText("Lives:  "+(int)arg);
-			}else if (arg instanceof Boolean) {
-	        	if ((Boolean) arg) {
-	        		//TODO:Llamadas cuando ganas
-	        	}else {
-	        		//TODO:Llamadas cuando pierdes
-	        	}
-	        }
-			Graphics g = this.tableroPanel.getGraphics();
-			tableroPanel.updateTablero(arg, g);
+			}
+			if (arg instanceof String) {
+				clip.stop();
+				dispose();
+			} else {
+				tableroPanel.updateTablero(arg, g);
+			}		
 		} else if (o instanceof Cronometro) {
             cronometro.setText(" "+(String)arg+" ");
         }

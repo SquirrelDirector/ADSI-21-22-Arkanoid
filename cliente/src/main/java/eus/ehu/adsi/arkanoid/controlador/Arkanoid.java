@@ -1,28 +1,20 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
 import javax.mail.MessagingException;
-import javax.swing.*;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.awt.event.*;
-import java.awt.image.BufferStrategy;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Observable;
 import java.util.Random;
 import java.util.regex.Pattern;
 
 import eus.ehu.adsi.arkanoid.modelo.*;
-import java.awt.Color;
 import eus.ehu.adsi.arkanoid.vista.Tablero;
 
+@SuppressWarnings("deprecation")
 public class Arkanoid extends Observable {
 
 	private String usrCod;
@@ -85,26 +77,9 @@ public class Arkanoid extends Observable {
 						double fps = 1.0 / seconds;
 					}
 		
-				}
-				Logro ganarMismoNivel = GestorLogros.getGestorLogros().buscarLogro("ganarMismoNivel1");//el logro de ganar x partidas seguidas en nivel 2 se llamara ganarMismoNivel2 y asi sucesivamente
-				Logro ganarPartidasSeguidas = GestorLogros.getGestorLogros().buscarLogro("ganarPartidasSeguidas");  
-				
-				int tiempoActual = miPartida.getTiempo();
-				if(tiempoActual < 60) {
-					Logro speedrun = GestorLogros.getGestorLogros().buscarLogro("Speedrun");
-					miPartida.addLogro(speedrun);
-					
-				}
-				miPartida.addLogro(ganarPartidasSeguidas);
-				miPartida.addLogro(ganarMismoNivel);
-
-				JSONArray logrosObtenidos = miPartida.getLogrosPartida();
-				try {
-					usuario.cotejarLogros(logrosObtenidos);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				}							
+				if(miPartida.getBloques().size()==0)miPartida.cotejarLogros(usuario);	
+							
 			}
 	    };
 	    gameThread.start();  // Callback run()
@@ -218,6 +193,8 @@ public class Arkanoid extends Observable {
 	 */
 	public void actualizarDatosUsu(String pathAvatar, String nombreUsu) {
 		usuario.actualizarDatosUsu(pathAvatar, nombreUsu);
+		setChanged();
+		notifyObservers(true);
 	}
 
 	/**
@@ -314,6 +291,17 @@ public class Arkanoid extends Observable {
 			notifyObservers(false);
 		}
 		usuario=new Usuario();
+		
+		Config.BALL_VELOCITY = 2;  
+		Config.PADDLE_WIDTH = 60.0;  
+		Config.COUNT_BLOCKS_Y = 4;
+		Config.BACKGROUND_COLOR = "255,0,0";
+		Config.BALL_COLOR = "255,181,0";
+		Config.PADDLE_COLOR = "78,255,0";
+		Config.BRICK_COLOR = "0,153,255" ;
+		Config.PATH_MUSICA = "/sonidoPersonalizar/Sonido1.wav";
+		Config.PATH_PERFIL = "/imagenesAvatar/Avatar1.png";
+		Config.atributosPersonalizado = "44,60,4";
 	}
 
 	/**
@@ -418,7 +406,7 @@ public class Arkanoid extends Observable {
 	private JSONObject agregarJSON(JSONObject datosPartida, JSONObject datosHistoricos, JSONArray logros) {
 		datosPartida.put("mejorTiempo", datosHistoricos.get("mejorTiempo"));
 		datosPartida.put("mejorPuntuacion", datosHistoricos.get("mejorPuntuacion"));
-		datosPartida.put("logros", logros.getJSONObject(0));
+		datosPartida.put("logrosConseguidos", logros);
 		return datosPartida;
 	}
 
@@ -454,13 +442,12 @@ public class Arkanoid extends Observable {
 	}
 	
 	public void updateConfig(Double[] Datos) { 
-		Config.BALL_VELOCITY=Datos[0]/2; 
+		Config.BALL_VELOCITY=Datos[0]; 
 		Config.PADDLE_WIDTH=Datos[1]; 
 		Config.COUNT_BLOCKS_Y= Datos[2].intValue()/Config.COUNT_BLOCKS_X; 
 	} 
 	 
 	public void updateColores(String Fondo, String Bola, String Ladrillo, String Paddle) {
-		
 		Config.BACKGROUND_COLOR = Fondo;
 		Config.BALL_COLOR = Bola;
 		Config.BRICK_COLOR = Ladrillo;
