@@ -1,18 +1,14 @@
 package eus.ehu.adsi.arkanoid.vista.ventanas;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import org.json.JSONObject;
 
 import eus.ehu.adsi.arkanoid.controlador.Arkanoid;
-import eus.ehu.adsi.arkanoid.controlador.GestorPartida;
 import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.vista.IU_Identificarse;
 import eus.ehu.adsi.arkanoid.vista.IU_Inicial;
@@ -34,8 +30,9 @@ import java.util.Observer;
 
 import javax.swing.JButton;
 
+@SuppressWarnings("deprecation")
 public class VentanaFinPartida extends JFrame implements Observer{
-	//TODO Observer de Inicio de sesión
+	//TODO Observer de Inicio de sesiï¿½n
 	private InterfazBase uiBase;
 	private JPanel pnlMain;
 	private JPanel pnlDatos;
@@ -69,7 +66,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 		setBounds(100, 100, 850, 525);
 		setLocationRelativeTo(null);
 		if(haGanado) {
-			uiBase = new InterfazBase("¡Enhorabuena!");	
+			uiBase = new InterfazBase("ï¿½Enhorabuena!");	
 		}else {
 			uiBase = new InterfazBase("Buen intento");
 		}
@@ -194,6 +191,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
+				Arkanoid.getArkanoid().pararJuego();
 				new Tablero();
 				dispose();
 			}

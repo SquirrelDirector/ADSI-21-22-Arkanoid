@@ -134,6 +134,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				Arkanoid.getArkanoid().pararJuego();
+				Partida.getMiPartida().iniciarCrono();
 				dispose();
 				new Tablero();
 				clip.stop();
