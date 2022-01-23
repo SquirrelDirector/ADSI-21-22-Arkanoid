@@ -184,10 +184,9 @@ public class VentanaFinPartida extends JFrame implements Observer{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
+				Arkanoid.getArkanoid().deleteObservers();
 				new IU_Inicial().setVisible(true);
 				dispose();
-				
-				Arkanoid.getArkanoid().deleteObserver((VentanaFinPartida)SwingUtilities.getWindowAncestor(e.getComponent()));
 			}
 		});
 		
