@@ -1,28 +1,20 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
 import javax.mail.MessagingException;
-import javax.swing.*;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.awt.event.*;
-import java.awt.image.BufferStrategy;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Observable;
 import java.util.Random;
 import java.util.regex.Pattern;
 
 import eus.ehu.adsi.arkanoid.modelo.*;
-import java.awt.Color;
 import eus.ehu.adsi.arkanoid.vista.Tablero;
 
+@SuppressWarnings("deprecation")
 public class Arkanoid extends Observable {
 
 	private String usrCod;
@@ -299,6 +291,17 @@ public class Arkanoid extends Observable {
 			notifyObservers(false);
 		}
 		usuario=new Usuario();
+		
+		Config.BALL_VELOCITY = 2;  
+		Config.PADDLE_WIDTH = 60.0;  
+		Config.COUNT_BLOCKS_Y = 4;
+		Config.BACKGROUND_COLOR = "255,0,0";
+		Config.BALL_COLOR = "255,181,0";
+		Config.PADDLE_COLOR = "78,255,0";
+		Config.BRICK_COLOR = "0,153,255" ;
+		Config.PATH_MUSICA = "/sonidoPersonalizar/Sonido1.wav";
+		Config.PATH_PERFIL = "/imagenesAvatar/Avatar1.png";
+		Config.atributosPersonalizado = "44,60,4";
 	}
 
 	/**
