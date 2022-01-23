@@ -144,17 +144,19 @@ public class VentanaFinPartida extends JFrame implements Observer{
 		if(datos.has("puntuacionConseguida")) {
 			EtiquetaNormal puntConseguida;
 			int punt=Integer.parseInt(datos.get("puntuacionConseguida").toString());
-			if(punt==0) {
-				puntConseguida=new EtiquetaNormal("-");
-			}else {
-				puntConseguida=new EtiquetaNormal(punt+"");
-			}
+			puntConseguida=new EtiquetaNormal(punt+"");
 			getPnlEstatico().add(new EtiquetaNormal("Puntos obtenidos"));
 			getPnlDinamico().add(puntConseguida);
 			puntConseguida.setHorizontalAlignment(JLabel.CENTER);
 		}
 		if(datos.has("mejorTiempo")) {
-			EtiquetaNormal mejorTiempo=new EtiquetaNormal(datos.get("mejorTiempo").toString());
+			int mejorTiempoInt = Integer.parseInt(datos.get("mejorTiempo").toString());
+			EtiquetaNormal mejorTiempo;
+			if(mejorTiempoInt==Integer.MAX_VALUE) {
+				mejorTiempo=new EtiquetaNormal("-");
+			}else {
+				mejorTiempo=new EtiquetaNormal(mejorTiempoInt+"");
+			}
 			getPnlEstatico().add(new EtiquetaNormal("Record tiempo"));
 			getPnlDinamico().add(mejorTiempo);
 			mejorTiempo.setHorizontalAlignment(JLabel.CENTER);
@@ -162,7 +164,7 @@ public class VentanaFinPartida extends JFrame implements Observer{
 		if(datos.has("mejorPuntuacion")) {
 			EtiquetaNormal mejorPuntuacion;
 			int puntuacion=Integer.parseInt(datos.get("mejorPuntuacion").toString());
-			if(puntuacion==Integer.MAX_VALUE) {
+			if(puntuacion==0) {
 				mejorPuntuacion=new EtiquetaNormal("-");	
 			}else {
 				mejorPuntuacion=new EtiquetaNormal(puntuacion+"");
