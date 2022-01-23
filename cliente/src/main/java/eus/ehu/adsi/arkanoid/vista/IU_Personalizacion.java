@@ -730,9 +730,13 @@ public class IU_Personalizacion extends JFrame implements Observer {
 		if (arg1 instanceof Boolean){ 
 			ib.setIdentificado((boolean) arg1); 
 			personalizarPestanas.setEnabledAt(2, (boolean)arg1); 
+			}
 			if (!(boolean)arg1) {
 				personalizarPestanas.setSelectedComponent(personalizarPestanas.getComponentAt(0));
 			}
-		} 
+			else {
+				new IU_Personalizacion().mostrarVentana();
+				dispose();
+		}
 	} 
 } 
