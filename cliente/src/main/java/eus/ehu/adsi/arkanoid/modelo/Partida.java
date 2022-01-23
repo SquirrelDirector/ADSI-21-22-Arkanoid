@@ -8,6 +8,8 @@ import java.util.Observable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import eus.ehu.adsi.arkanoid.vista.ventanas.VentanaFinPartida;
+
 @SuppressWarnings("deprecation")
 public class Partida extends Observable {
 
@@ -48,7 +50,9 @@ public class Partida extends Observable {
 			gameOver = true;
 			crono.parar();
 			System.out.println("has perdido");
+			new VentanaFinPartida(false).mostrarVentana();
 			//TODO: llamar a la funcionalidad de la vista de perder
+			
 		}
 	}
 	public void addLogro(Logro pLogro) {
@@ -158,12 +162,10 @@ public class Partida extends Observable {
 			ganar = true;
 			crono.parar();
 
-			
+			new VentanaFinPartida(true).mostrarVentana();
 			
 			//TODO: llamada a la vista de has ganado, guardar puntuacion, publicar resultados
-			
-			
-			
+
 		}
 		
 		return ganar;

@@ -133,9 +133,10 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				dispose();
-				Tablero newframe = new Tablero();
-				newframe.setVisible(true);
+				new Tablero();
 				clip.stop();
+				//Partida miPartida = Partida.getMiPartida();
+				//miPartida.generarPartida();
 			}
 		});
 		
@@ -200,6 +201,7 @@ public class Tablero extends JFrame implements Observer, KeyListener {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Partida) {
+			System.out.println(arg);
 			if (arg instanceof Bloque) {
 				puntuacion++;
 				score.setText("Score:  "+puntuacion);

@@ -462,6 +462,8 @@ public class IU_Personalizacion extends JFrame implements Observer {
 		            public void actionPerformed(ActionEvent e) { 
 		                guardarPersonalizacion(); 
 		                Arkanoid.getArkanoid().deleteObserver(IU_Personalizacion.this); 
+		                new IU_Niveles().setVisible(true);
+		                dispose();
 		            } 
 		        }); 
 				buttonPane.add(guardarButton); 

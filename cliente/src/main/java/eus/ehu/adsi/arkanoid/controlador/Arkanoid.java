@@ -439,13 +439,12 @@ public class Arkanoid extends Observable {
 	}
 	
 	public void updateConfig(Double[] Datos) { 
-		Config.BALL_VELOCITY=Datos[0]/2; 
+		Config.BALL_VELOCITY=Datos[0]/10; 
 		Config.PADDLE_WIDTH=Datos[1]; 
 		Config.COUNT_BLOCKS_Y= Datos[2].intValue()/Config.COUNT_BLOCKS_X; 
 	} 
 	 
 	public void updateColores(String Fondo, String Bola, String Ladrillo, String Paddle) {
-		
 		Config.BACKGROUND_COLOR = Fondo;
 		Config.BALL_COLOR = Bola;
 		Config.BRICK_COLOR = Ladrillo;

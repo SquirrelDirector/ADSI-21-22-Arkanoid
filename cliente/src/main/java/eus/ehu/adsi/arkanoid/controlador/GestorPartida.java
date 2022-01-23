@@ -1,7 +1,5 @@
 package eus.ehu.adsi.arkanoid.controlador;
 
-import org.json.JSONObject;
-
 import eus.ehu.adsi.arkanoid.modelo.Partida;
 
 import eus.ehu.adsi.arkanoid.vista.Tablero;
@@ -24,7 +22,6 @@ public class GestorPartida {
 	
 	@SuppressWarnings("deprecation")
 	public void addObserverCrono(Tablero tablero){
-		//Partida.getMiPartida().deleteObservers();
         Partida.getMiPartida().getCrono().addObserver(tablero);
     }
 	

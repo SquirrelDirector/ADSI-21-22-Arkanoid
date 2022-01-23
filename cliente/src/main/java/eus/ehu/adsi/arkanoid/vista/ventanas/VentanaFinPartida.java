@@ -17,6 +17,7 @@ import eus.ehu.adsi.arkanoid.modelo.Cronometro;
 import eus.ehu.adsi.arkanoid.vista.IU_Identificarse;
 import eus.ehu.adsi.arkanoid.vista.IU_Inicial;
 import eus.ehu.adsi.arkanoid.vista.InterfazBase;
+import eus.ehu.adsi.arkanoid.vista.Tablero;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.Boton;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.EtiquetaNormal;
 import eus.ehu.adsi.arkanoid.vista.claseObjetos.PanelNegro;
@@ -49,19 +50,15 @@ public class VentanaFinPartida extends JFrame implements Observer{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaFinPartida frame = new VentanaFinPartida(true);
-					frame.setVisible(true);
-					frame.getDatosPartida();
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void mostrarVentana() {
+		try {
+			VentanaFinPartida frame = new VentanaFinPartida(true);
+			frame.setVisible(true);
+			frame.getDatosPartida();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -140,26 +137,26 @@ public class VentanaFinPartida extends JFrame implements Observer{
 	
 	private void getDatosPartida() {
 		datos = Arkanoid.getArkanoid().getResultadosPartida();
-		if(datos.get("tiempoPartida")!=null) {
+		if(datos.has("tiempoPartida")) {
 			Cronometro tiempo = (Cronometro)datos.get("tiempoPartida");
 			EtiquetaNormal datTiempo=new EtiquetaNormal(tiempo.getMinutosFormat()+":"+tiempo.getSegundosFormat());
 			getPnlEstatico().add(new EtiquetaNormal("Tiempo"));
 			getPnlDinamico().add(datTiempo);
 			datTiempo.setHorizontalAlignment(JLabel.CENTER);
 		}
-		if(datos.get("puntuacionConseguida")!=null) {
+		if(datos.has("puntuacionConseguida")) {
 			EtiquetaNormal puntConseguida=new EtiquetaNormal(datos.get("puntuacionConseguida").toString());
 			getPnlEstatico().add(new EtiquetaNormal("Puntos obtenidos"));
 			getPnlDinamico().add(puntConseguida);
 			puntConseguida.setHorizontalAlignment(JLabel.CENTER);
 		}
-		if(datos.get("mejorTiempo")!=null) {
+		if(datos.has("mejorTiempo")) {
 			EtiquetaNormal mejorTiempo=new EtiquetaNormal(datos.get("mejorTiempo").toString());
 			getPnlEstatico().add(new EtiquetaNormal("Record tiempo"));
 			getPnlDinamico().add(mejorTiempo);
 			mejorTiempo.setHorizontalAlignment(JLabel.CENTER);
 		}
-		if(datos.get("mejorPuntuacion")!=null) {
+		if(datos.has("mejorPuntuacion")) {
 			EtiquetaNormal mejorPuntuacion=new EtiquetaNormal(datos.get("mejorPuntuacion").toString());
 			getPnlEstatico().add(new EtiquetaNormal("Record puntos"));
 			getPnlDinamico().add(mejorPuntuacion);
@@ -198,7 +195,8 @@ public class VentanaFinPartida extends JFrame implements Observer{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				throw new UnsupportedOperationException("¡Implementar evento de clic en botón de volver a jugar!");
+				new Tablero();
+				dispose();
 			}
 		});
 		

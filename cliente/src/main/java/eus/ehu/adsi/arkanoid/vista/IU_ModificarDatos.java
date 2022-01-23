@@ -78,6 +78,7 @@ public class IU_ModificarDatos extends JFrame {
 		getContentPane().setLayout(new BorderLayout());
 		datosPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		datosPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		datosPanel.setBackground(new Color(0,0,0,0));
 				
 		InterfazBase ib = new InterfazBase("MODIFICAR DATOS");
 		ib.ocultarPanelIdentidad();
@@ -185,6 +186,7 @@ public class IU_ModificarDatos extends JFrame {
 				guardarButton.addActionListener(new ActionListener() {
 			        public void actionPerformed(ActionEvent e) {
 			            guardarPersonalizacion();
+			            dispose();
 			        }
 			    });
 				buttonPane.add(guardarButton);
