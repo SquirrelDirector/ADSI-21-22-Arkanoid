@@ -8,10 +8,10 @@ public abstract class Config {
 	public static final int SCREEN_WIDTH = 800;  
 	public static final int SCREEN_HEIGHT = 600;  
 	public static final double BALL_RADIUS = 10.0;  
-	public static double BALL_VELOCITY = 0.2;  
+	public static double BALL_VELOCITY = 0.1;  
 	public static double PADDLE_WIDTH = 60.0;  
 	public static final double PADDLE_HEIGHT = 20.0;  
-	public static final double PADDLE_VELOCITY = 10;  
+	public static final double PADDLE_VELOCITY = 14;  
 	public static final double BLOCK_WIDTH = 60.0;  
 	public static final double BLOCK_HEIGHT = 20.0;  
 	public static final int COUNT_BLOCKS_X = 11;  

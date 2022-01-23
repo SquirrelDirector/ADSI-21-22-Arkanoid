@@ -26,6 +26,7 @@ public class Arkanoid extends Observable {
 	private double lastFt;
 	private double currentSlice;
 	private Usuario usuario;
+	Thread gameThread;
 
 	private Arkanoid() {
 		usuario=new Usuario();
@@ -42,7 +43,7 @@ public class Arkanoid extends Observable {
 		Partida miPartida = Partida.getMiPartida();
 		miPartida.iniciarCrono();
 
-		Thread gameThread = new Thread() {
+		gameThread = new Thread() {
 	         public void run() {
 				Partida miPartida = Partida.getMiPartida();
 				miPartida.generarPartida();
@@ -83,6 +84,10 @@ public class Arkanoid extends Observable {
 			}
 	    };
 	    gameThread.start();  // Callback run()
+	}
+	
+	public void pararJuego() {
+		gameThread.stop();
 	}
 	
 	private void update() {
