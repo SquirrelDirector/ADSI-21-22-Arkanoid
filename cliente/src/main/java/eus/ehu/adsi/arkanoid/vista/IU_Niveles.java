@@ -211,19 +211,19 @@ public class IU_Niveles extends JFrame implements Observer {
 		
 		switch (nivel) {
 		case 1:
-			elLabel.setText("<HTML>Version fï¿½cil del juego, ideal <br>para principiantes y gente adaptï¿½ndose al juego. <br><br> - 2 lï¿½neas de bloques <br> - anchura de la barra aumentada <br> - velocidad estï¿½ndar</HTML>");
+			elLabel.setText("<HTML>Version fácil del juego, ideal <br>para principiantes y gente adaptándose al juego. <br><br> - 2 líneas de bloques <br> - anchura de la barra aumentada <br> - velocidad estándar</HTML>");
 			break;
 		case 2:
-			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo mï¿½s de experiencia. <br><br> - 4 lï¿½neas de bloques <br> - anchura de barra y velï¿½cidad estï¿½ndar");
+			elLabel.setText("<HTML>Dificultad original del juego, <br>para gente con algo más de experiencia. <br><br> - 4 líneas de bloques <br> - anchura de barra y velócidad estándar");
 			break;
 		case 3:
-			elLabel.setText("<HTML>Versiï¿½n difï¿½cil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 lï¿½neas de bloques <br> - anchura de barra estï¿½ndar <br> - velï¿½cidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión difícil del juego, <br>para gente buscando una experiencia desafiante. <br><br> - 6 líneas de bloques <br> - anchura de barra estándar <br> - velócidad aumentada</HTML>");
 			break;
 		case 4:
-			elLabel.setText("<HTML>Versiï¿½n sï¿½lo apta para quien busque <br>completar el logro. <br><br> - 8 lï¿½neas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
+			elLabel.setText("<HTML>Versión sólo apta para quien busque <br>completar el logro. <br><br> - 8 líneas de bloques <br> - anchura de barra reducida <br> - velocidad aumentada</HTML>");
 			break;
 		case 5:
-			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botï¿½n de personalizar para cambiarlo <br>(La puntuaciï¿½n no se guardarï¿½ en los rï¿½nkings)</HTML>");
+			elLabel.setText("<HTML>Crea tu propio nivel y prueba <br>tantas combinaciones de dificultad como quieras. <br><br>Accede al botón de personalizar para cambiarlo <br>(La puntuación no se guardará en los ránkings)</HTML>");
 			break;
 		}
 		repaint();
